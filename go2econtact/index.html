@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go2Econtact - Accusés de réception automatiques</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .header a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #ffc107;
+            color: white;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        
+        .section {
+            margin: 2rem 0;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-box {
+            background: #f0f4ff;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-box h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .button-secondary {
+            background: #6c757d;
+        }
+        
+        .button-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+    
+    <div class="container">
+        <h1>📧 Go2Econtact</h1>
+        <p class="subtitle">Automatisation des accusés de réception différés pour Thunderbird</p>
+        
+        <span class="status-badge">🔬 En phase de test</span>
+        
+        <div class="section">
+            <h2>Qu'est-ce que Go2Econtact ?</h2>
+            <p>Go2Econtact est une extension Thunderbird qui automatise l'envoi d'accusés de réception différés pour les emails externes. Conçue pour les environnements professionnels avec boîtes IMAP partagées, elle vous permet de gérer intelligemment vos AR sans intervention manuelle.</p>
+        </div>
+        
+        <div class="section">
+            <h2>✨ Fonctionnalités principales</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>🎯 Filtrage intelligent</h3>
+                    <p>Envoi automatique uniquement aux emails externes, avec système d'inclusions et exclusions personnalisables.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>📝 Templates multi-comptes</h3>
+                    <p>Gérez des templates d'AR différents pour chaque compte de messagerie surveillé.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>⏱️ Envoi différé</h3>
+                    <p>Les AR sont envoyés après un délai configurable (1 à 24 heures) via l'extension Send Later.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🧪 Mode test</h3>
+                    <p>Testez votre configuration en toute sécurité avant la mise en production.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>📊 Statistiques</h3>
+                    <p>Suivez le nombre d'AR envoyés et optimisez vos règles de filtrage.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🔒 Anti-doublons</h3>
+                    <p>Système intelligent pour éviter l'envoi de plusieurs AR au même expéditeur.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Prérequis</h2>
+            <ul style="margin-left: 2rem; line-height: 2;">
+                <li>Thunderbird 128.0 ou supérieur</li>
+                <li>Extension <strong>Send Later</strong> (v9.0+) installée et configurée</li>
+            </ul>
+        </div>
+        
+        <div class="cta-box">
+            <h3>📥 Téléchargement</h3>
+            <p style="margin-bottom: 1.5rem;">L'extension est actuellement en phase de test interne.<br>Le téléchargement public sera bientôt disponible.</p>
+            <a href="#" class="button button-secondary" style="pointer-events: none; opacity: 0.6;">Téléchargement prochainement</a>
+        </div>
+        
+        <div class="section">
+            <h2>📖 Documentation</h2>
+            <p style="margin-bottom: 1rem;">La documentation complète sera bientôt disponible et comprendra :</p>
+            <ul style="margin-left: 2rem; line-height: 2;">
+                <li>Guide d'installation</li>
+                <li>Tutoriel de configuration (UUID Send Later + Templates)</li>
+                <li>FAQ complète</li>
+                <li>Guide des bonnes pratiques</li>
+            </ul>
+        </div>
+        
+        <div class="cta-box">
+            <h3>📞 Besoin d'aide ?</h3>
+            <p style="margin-bottom: 1.5rem;">Une question ? Un problème ? Contactez le support.</p>
+            <p style="color: #666;">Support disponible prochainement</p>
+        </div>
+    </div>
+</body>
+</html>
