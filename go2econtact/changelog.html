@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - Go2Econtact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .header a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .version-block {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .version-block.current {
+            background: #e8f4f8;
+            border-left-color: #28a745;
+        }
+        
+        .version-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .version-header h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .version-date {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section {
+            margin: 1.5rem 0;
+        }
+        
+        .section h3 {
+            color: #495057;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0 0.5rem 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0.5rem;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .requirement-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .requirement-box strong {
+            color: #856404;
+        }
+        
+        .note-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .links {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .links a {
+            display: inline-block;
+            margin-right: 1.5rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        .icon {
+            font-size: 1.2rem;
+            margin-right: 0.3rem;
+        }
+        
+        /* Style pour les futures versions (masqué par défaut) */
+        .version-block.future {
+            display: none;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">← Retour à Go2Econtact</a>
+    </div>
+    
+    <div class="container">
+        <h1>📋 Changelog</h1>
+        <p class="subtitle">Historique des versions de Go2Econtact</p>
+        
+        <!-- ============================================
+             VERSION 1.0 - VERSION ACTUELLE
+             ============================================ -->
+        <div class="version-block current">
+            <div class="version-header">
+                <h2>Version 1.0</h2>
+                <span class="badge">Actuelle</span>
+            </div>
+            
+            <p class="version-date">📅 31 octobre 2025</p>
+            
+            <p style="margin-bottom: 1.5rem; color: #495057; font-weight: 500;">
+                Première version publique de Go2Econtact - Extension Thunderbird pour l'automatisation des accusés de réception différés.
+            </p>
+            
+            <!-- Fonctionnalités principales -->
+            <div class="section">
+                <h3><span class="icon">✨</span>Fonctionnalités principales</h3>
+                <ul class="feature-list">
+                    <li><strong>Envoi automatique d'AR différés</strong> : Les accusés de réception sont envoyés après un délai configurable (1 à 24 heures) via l'extension Send Later</li>
+                    <li><strong>Templates multi-comptes</strong> : Gestion de templates d'AR personnalisés pour chaque compte de messagerie surveillé</li>
+                    <li><strong>Système de filtrage intelligent</strong> : Règles d'inclusion et d'exclusion par domaines, adresses email et patterns (avec support wildcards)</li>
+                    <li><strong>Mode test sécurisé</strong> : Testez votre configuration avec des délais réduits (2-10 minutes) avant la mise en production</li>
+                    <li><strong>Anti-doublons</strong> : Système intelligent pour éviter l'envoi de plusieurs AR au même expéditeur (fenêtre de 4 heures)</li>
+                    <li><strong>Statistiques d'utilisation</strong> : Suivez le nombre d'AR envoyés, les doublons évités et optimisez vos règles de filtrage</li>
+                    <li><strong>Analyse détaillée</strong> : Collecte de métriques pour optimiser les règles de filtrage</li>
+                    <li><strong>Système de mise à jour</strong> : Vérification automatique ou manuelle des nouvelles versions disponibles</li>
+                    <li><strong>Logs de débogage</strong> : Système de logging configurable (warnings/errors ou mode complet) pour faciliter le diagnostic</li>
+                    <li><strong>Interface intuitive</strong> : Système d'onglets avec validation visuelle (bordures colorées) pour guider la configuration</li>
+                </ul>
+            </div>
+            
+            <!-- Configuration requise -->
+            <div class="section">
+                <h3><span class="icon">🔧</span>Configuration requise</h3>
+                <div class="requirement-box">
+                    <strong>Prérequis obligatoires :</strong>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li><strong>Thunderbird 128.0</strong> ou version supérieure</li>
+                        <li><strong>Extension Send Later</strong> (v9.0+) installée et configurée</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 1rem;">
+                    <strong>Note importante :</strong> Sans Send Later, Go2Econtact ne peut pas fonctionner. 
+                    Send Later gère l'envoi effectif des messages différés tandis que Go2Econtact automatise la création des accusés de réception.
+                </p>
+            </div>
+            
+            <!-- Notes importantes -->
+            <div class="section">
+                <h3><span class="icon">📝</span>Notes importantes</h3>
+                <div class="note-box">
+                    <ul style="margin: 0; padding-left: 1.5rem;">
+                        <li><strong>Environnement cible :</strong> Conçu pour des environnements professionnels avec boîtes IMAP partagées</li>
+                        <li><strong>Configuration UUID Send Later :</strong> L'UUID d'instance de Send Later doit être configuré manuellement dans l'onglet "Send Later"</li>
+                        <li><strong>Domaine interne :</strong> Les emails internes (même domaine) sont exclus automatiquement des AR</li>
+                        <li><strong>Suppression des AR envoyés :</strong> Par défaut, les AR envoyés sont automatiquement supprimés du dossier "Éléments envoyés"</li>
+                        <li><strong>Intervalle de vérification :</strong> Les nouveaux emails sont vérifiés toutes les 5 minutes par défaut</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Architecture technique -->
+            <div class="section">
+                <h3><span class="icon">🏗️</span>Architecture technique</h3>
+                <p style="margin-bottom: 0.8rem;">Go2Econtact est structuré en modules fonctionnels :</p>
+                <ul style="margin-left: 2rem; line-height: 1.8;">
+                    <li><strong>background.js</strong> : Cœur algorithmique et logique métier principale</li>
+                    <li><strong>config.js</strong> : Configuration centralisée et constantes</li>
+                    <li><strong>popup</strong> : Interface rapide de vérification Send Later</li>
+                    <li><strong>options</strong> : Interface de configuration complète avec modules spécialisés</li>
+                </ul>
+            </div>
+            
+            <!-- Modules fonctionnels -->
+            <div class="section">
+                <h3><span class="icon">🧩</span>Modules fonctionnels</h3>
+                <ul style="margin-left: 2rem; line-height: 1.8;">
+                    <li><strong>template-editor.js</strong> : Gestion multi-comptes avec templates personnalisés</li>
+                    <li><strong>statistics.js</strong> : Métriques d'utilisation et export CSV</li>
+                    <li><strong>analysis.js</strong> : Collecte détaillée pour optimiser règles filtrage</li>
+                    <li><strong>update-manager.js</strong> : Vérification des mises à jour (format Mozilla standard)</li>
+                    <li><strong>logs-viewer.js</strong> : Affichage et gestion des logs de débogage</li>
+                </ul>
+            </div>
+            
+            <!-- Liens utiles -->
+            <div class="links">
+                <h3 style="margin-bottom: 1rem; color: #495057;">🔗 Liens utiles</h3>
+                <a href="index.html">📄 Page principale</a>
+                <a href="documentation.html">📖 Documentation</a>
+                <a href="tutoriel.html">🎓 Tutoriel</a>
+                <a href="faq.html">❓ FAQ</a>
+            </div>
+        </div>
+        
+        <!-- ============================================
+             TEMPLATE POUR VERSIONS FUTURES
+             Décommenter et remplir lors des prochaines releases
+             ============================================ -->
+        
+        <!-- EXEMPLE VERSION 1.1 (masqué par défaut)
+        <div class="version-block future">
+            <div class="version-header">
+                <h2>Version 1.1</h2>
+            </div>
+            
+            <p class="version-date">📅 [Date à définir]</p>
+            
+            <p style="margin-bottom: 1.5rem; color: #495057; font-weight: 500;">
+                [Description courte de la version]
+            </p>
+            
+            <div class="section">
+                <h3><span class="icon">✨</span>Nouveautés</h3>
+                <ul class="feature-list">
+                    <li>[Nouvelle fonctionnalité 1]</li>
+                    <li>[Nouvelle fonctionnalité 2]</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3><span class="icon">⚡</span>Améliorations</h3>
+                <ul class="feature-list">
+                    <li>[Amélioration 1]</li>
+                    <li>[Amélioration 2]</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h3><span class="icon">🐛</span>Corrections</h3>
+                <ul class="feature-list">
+                    <li>[Correction bug 1]</li>
+                    <li>[Correction bug 2]</li>
+                </ul>
+            </div>
+        </div>
+        -->
+        
+        <!-- ============================================
+             INSTRUCTIONS POUR FUTURES MISES À JOUR
+             ============================================
+             
+             Pour ajouter une nouvelle version :
+             
+             1. Copier le bloc "EXEMPLE VERSION 1.1" ci-dessus
+             2. Retirer le commentaire HTML (enlever les balises commentaire)
+             3. Retirer la classe "future" du div.version-block
+             4. Remplir la date, description et listes de changements
+             5. Ajouter le nouveau bloc EN HAUT (après Version 1.0)
+             6. Retirer le badge "Actuelle" de l'ancienne version
+             
+             Types de changements recommandés :
+             ✨ Nouveautés - Nouvelles fonctionnalités
+             ⚡ Améliorations - Optimisations et améliorations
+             🐛 Corrections - Corrections de bugs
+             🔒 Sécurité - Correctifs de sécurité
+             📝 Documentation - Améliorations de la documentation
+             
+             ============================================ -->
+        
+    </div>
+</body>
+</html>
