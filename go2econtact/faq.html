@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Go2Econtact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* Intro */
+        .intro {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .intro p {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Catégories */
+        .category {
+            margin-bottom: 50px;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-icon {
+            font-size: 28px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Accordéon */
+        .faq-item {
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: #667eea;
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            padding: 18px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-question::after {
+            content: "▼";
+            font-size: 14px;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            background: white;
+            padding: 0 20px;
+        }
+
+        .faq-answer.active {
+            max-height: 2000px;
+            padding: 20px;
+        }
+
+        .faq-answer p {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+
+        .faq-answer li {
+            padding-left: 25px;
+            margin-bottom: 8px;
+            position: relative;
+            color: #555;
+        }
+
+        .faq-answer li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .faq-answer code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            color: #d63031;
+        }
+
+        .faq-answer strong {
+            color: #333;
+        }
+
+        /* Boxes dans les réponses */
+        .answer-info {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .answer-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .answer-warning p {
+            color: #856404;
+        }
+
+        .answer-danger {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .answer-danger p {
+            color: #721c24;
+        }
+
+        .answer-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
+        .answer-success p {
+            color: #155724;
+        }
+
+        /* Navigation */
+        .footer-nav {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .footer-nav h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Support contact */
+        .support-box {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .support-box h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .support-box p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .category-title {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .faq-question {
+                font-size: 15px;
+                padding: 15px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❓ Foire Aux Questions</h1>
+            <p>Go2Econtact - Réponses aux questions fréquentes</p>
+        </div>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="intro">
+                <p><strong>Bienvenue dans la FAQ de Go2Econtact !</strong></p>
+                <p>Vous trouverez ici les réponses aux questions les plus fréquemment posées sur l'installation, la configuration et l'utilisation de l'extension.</p>
+                <p><strong>💡 Conseil :</strong> Utilisez la recherche de votre navigateur (Ctrl+F) pour trouver rapidement un mot-clé.</p>
+            </div>
+
+            <!-- CATÉGORIE 1 : INSTALLATION & CONFIGURATION -->
+            <div class="category">
+                <div class="category-header">
+                    <span class="category-icon">🔧</span>
+                    <h2 class="category-title">Installation & Configuration</h2>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment installer Go2Econtact ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Go2Econtact s'installe comme n'importe quelle extension Thunderbird :</p>
+                        <ul>
+                            <li>Téléchargez le fichier .xpi depuis votre source interne</li>
+                            <li>Dans Thunderbird, allez dans <strong>Modules complémentaires et thèmes</strong></li>
+                            <li>Cliquez sur l'icône ⚙️ puis <strong>Installer un module depuis un fichier</strong></li>
+                            <li>Sélectionnez le fichier .xpi téléchargé</li>
+                            <li>Confirmez l'installation</li>
+                            <li>Redémarrez Thunderbird</li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Prérequis :</strong> L'extension Send Later 9.0 ou supérieure doit être installée AVANT Go2Econtact.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Où trouver l'UUID de Send Later ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'UUID se trouve dans les préférences avancées de Send Later :</p>
+                        <ul>
+                            <li>Cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils Thunderbird</li>
+                            <li>Sélectionnez <strong>Send Later preferences</strong></li>
+                            <li>Allez dans l'onglet <strong>Advanced</strong></li>
+                            <li>Cherchez la ligne <code>instanceUUID</code></li>
+                            <li>Copiez toute la valeur entre guillemets (avec les accolades { })</li>
+                        </ul>
+                        <p><strong>Format attendu :</strong> <code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></p>
+                        <div class="answer-info">
+                            <p><strong>💡 Astuce :</strong> Faites un clic droit sur la valeur et choisissez "Copier" pour éviter les erreurs de saisie.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Message "UUID invalide", que faire ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ce message apparaît si le format de l'UUID n'est pas correct. Vérifiez les points suivants :</p>
+                        <ul>
+                            <li>Vous avez bien copié <strong>toute la valeur</strong>, y compris les accolades { }</li>
+                            <li>Vous n'avez pas copié le nom du champ (<code>instanceUUID</code>), uniquement la valeur</li>
+                            <li>Il n'y a pas d'espaces avant ou après l'UUID</li>
+                            <li>Le format est bien : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code></li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Important :</strong> Si vous avez récemment réinstallé Send Later, un nouvel UUID a été généré. Vous devez récupérer ce nouveau UUID.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Dois-je configurer un template pour chaque compte ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Non, ce n'est pas obligatoire. Seuls les comptes avec un template configuré (non vide) enverront des accusés de réception.</p>
+                        <ul>
+                            <li><strong>Compte avec template</strong> : Les AR seront envoyés pour les emails reçus sur ce compte</li>
+                            <li><strong>Compte sans template</strong> : Aucun AR ne sera envoyé pour ce compte</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>✓ Conseil :</strong> Configurez uniquement les comptes professionnels qui doivent envoyer des AR automatiques.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment savoir si ma configuration est complète ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'interface utilise des codes couleur sur les onglets pour indiquer le statut de configuration :</p>
+                        <ul>
+                            <li><strong style="color: #dc3545;">Bordure rouge (🔴)</strong> : Configuration manquante ou invalide</li>
+                            <li><strong style="color: #ffc107;">Bordure orange (🟠)</strong> : Configuration partielle</li>
+                            <li><strong style="color: #28a745;">Bordure verte (🟢)</strong> : Configuration complète</li>
+                        </ul>
+                        <p>Les onglets avec bordure rouge ou orange clignotent pour attirer votre attention.</p>
+                        <div class="answer-info">
+                            <p><strong>Configuration minimale requise :</strong></p>
+                            <ul>
+                                <li>UUID Send Later valide</li>
+                                <li>Au moins 1 compte avec template actif</li>
+                                <li>Domaine interne défini</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Puis-je importer/exporter ma configuration ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui ! L'extension permet d'exporter et d'importer la configuration complète au format JSON.</p>
+                        <p><strong>Exporter :</strong></p>
+                        <ul>
+                            <li>Ouvrez l'interface de configuration</li>
+                            <li>Cliquez sur <strong>📤 Exporter configuration</strong></li>
+                            <li>Un fichier JSON est téléchargé avec tous vos paramètres</li>
+                        </ul>
+                        <p><strong>Importer :</strong></p>
+                        <ul>
+                            <li>Cliquez sur <strong>📥 Importer configuration</strong></li>
+                            <li>Sélectionnez un fichier JSON de configuration</li>
+                            <li>Confirmez le remplacement des paramètres actuels</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>💡 Utilité :</strong> Pratique pour dupliquer votre configuration sur plusieurs postes ou faire une sauvegarde.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE 2 : UTILISATION -->
+            <div class="category">
+                <div class="category-header">
+                    <span class="category-icon">📧</span>
+                    <h2 class="category-title">Utilisation</h2>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Les AR ne sont pas envoyés, que faire ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez les points suivants dans l'ordre :</p>
+                        <ul>
+                            <li><strong>UUID Send Later :</strong> Est-il configuré et valide ? (bordure verte sur l'onglet Send Later)</li>
+                            <li><strong>Template :</strong> Le compte concerné a-t-il un template non-vide ?</li>
+                            <li><strong>Domaine interne :</strong> L'expéditeur n'est-il pas du domaine interne ?</li>
+                            <li><strong>Exclusions :</strong> L'expéditeur n'est-il pas dans vos règles d'exclusion ?</li>
+                            <li><strong>Mode test :</strong> Si activé, seule l'adresse de test reçoit des AR</li>
+                            <li><strong>Send Later :</strong> L'extension Send Later est-elle bien installée et activée ?</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>🔍 Diagnostic :</strong> Consultez l'onglet <strong>Logs</strong> pour voir les détails du traitement de chaque email.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Je reçois des AR pour mes emails internes, pourquoi ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Plusieurs raisons possibles :</p>
+                        <ul>
+                            <li><strong>Domaine interne mal configuré :</strong> Vérifiez que le domaine interne est correctement saisi (ex: <code>societe.fr</code>)</li>
+                            <li><strong>Adresse en inclusion :</strong> L'adresse interne est peut-être dans vos règles d'inclusion (priorité absolue)</li>
+                            <li><strong>Wildcard en inclusion :</strong> Un pattern trop large (ex: <code>*.*</code>) force l'AR pour tous les domaines</li>
+                        </ul>
+                        <div class="answer-danger">
+                            <p><strong>🚨 Rappel :</strong> Les INCLUSIONS ont la priorité absolue sur toutes les autres règles, y compris le domaine interne.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment tester l'extension sans envoyer de vrais AR ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Utilisez le <strong>mode test</strong> :</p>
+                        <ul>
+                            <li>Allez dans l'onglet <strong>Général</strong></li>
+                            <li>Cochez <strong>Activer le mode test</strong></li>
+                            <li>Saisissez votre adresse email personnelle comme adresse de test</li>
+                            <li>Enregistrez la configuration</li>
+                            <li>Envoyez-vous un email de test</li>
+                            <li>Vous recevrez un AR au bout de 2-10 minutes (délai réduit en mode test)</li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Important :</strong> En mode test, seule l'adresse de test configurée reçoit des AR. Tous les autres emails sont ignorés.</p>
+                        </div>
+                        <div class="answer-danger">
+                            <p><strong>🚨 N'oubliez pas :</strong> Désactivez le mode test une fois vos tests terminés pour passer en production !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quel délai choisir pour l'envoi des AR ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le délai recommandé est <strong>2 heures</strong>. Ce délai est un bon compromis car :</p>
+                        <ul>
+                            <li>Vous avez le temps de traiter manuellement les emails urgents</li>
+                            <li>L'expéditeur reçoit une confirmation dans un délai raisonnable</li>
+                            <li>Cela évite de donner l'impression d'un robot instantané</li>
+                        </ul>
+                        <p><strong>Autres délais disponibles :</strong></p>
+                        <ul>
+                            <li><strong>1 heure :</strong> Pour une réactivité maximale</li>
+                            <li><strong>4-6 heures :</strong> Pour les services moins urgents</li>
+                            <li><strong>12-24 heures :</strong> Pour les emails traités en fin de journée</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>💡 Bon à savoir :</strong> En mode test, le délai est automatiquement réduit à 2-10 minutes pour faciliter les tests.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Les variables du template ne sont pas remplacées, pourquoi ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez la syntaxe des variables. Le format correct est :</p>
+                        <ul>
+                            <li><code>{{sender}}</code> pour le nom de l'expéditeur</li>
+                            <li><code>{{subject}}</code> pour le sujet du message</li>
+                            <li><code>{{date}}</code> pour la date de réception</li>
+                            <li><code>{{time}}</code> pour l'heure de réception</li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Attention :</strong> Respectez bien la casse et les doubles accolades. <code>{sender}</code> ou <code>{{Sender}}</code> ne fonctionneront pas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment éviter les doublons d'AR ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'extension gère automatiquement les doublons ! Aucune action de votre part n'est nécessaire.</p>
+                        <p><strong>Fonctionnement :</strong></p>
+                        <ul>
+                            <li>L'extension conserve en mémoire les AR déjà envoyés</li>
+                            <li>Si un même expéditeur renvoie un email similaire, l'AR n'est pas renvoyé</li>
+                            <li>Le nombre de doublons évités est visible dans l'onglet Statistiques</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>✓ Rassurant :</strong> Même si vous recevez plusieurs emails du même expéditeur, il ne recevra qu'un seul AR.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE 3 : PARAMÈTRES AVANCÉS -->
+            <div class="category">
+                <div class="category-header">
+                    <span class="category-icon">⚙️</span>
+                    <h2 class="category-title">Paramètres avancés</h2>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment exclure tous les domaines en .fr ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Dans l'onglet <strong>Général</strong>, section <strong>Exclusions</strong> :</p>
+                        <ul>
+                            <li>Allez dans le champ <strong>Domaines exclus</strong></li>
+                            <li>Ajoutez une ligne avec : <code>*.fr</code></li>
+                            <li>Enregistrez la configuration</li>
+                        </ul>
+                        <p><strong>Autres exemples de wildcards :</strong></p>
+                        <ul>
+                            <li><code>*.com</code> : Tous les domaines en .com</li>
+                            <li><code>*.societe.fr</code> : Tous les sous-domaines de societe.fr</li>
+                            <li><code>*.*</code> : Tous les domaines avec un point (99% des cas)</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>💡 Note :</strong> Les inclusions ont priorité sur les exclusions. Un domaine .fr en inclusion recevra toujours un AR.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment exclure toutes les adresses "noreply" ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Utilisez les <strong>Patterns exclus</strong> dans l'onglet Général :</p>
+                        <ul>
+                            <li>Allez dans le champ <strong>Patterns exclus</strong></li>
+                            <li>Ajoutez : <code>noreply@*</code></li>
+                            <li>Ou plus large : <code>*noreply*</code> (exclut toutes les adresses contenant "noreply")</li>
+                        </ul>
+                        <p><strong>Autres patterns utiles :</strong></p>
+                        <ul>
+                            <li><code>no-reply@*</code> : Toutes les adresses no-reply</li>
+                            <li><code>*newsletter*</code> : Toutes les newsletters</li>
+                            <li><code>robot@*</code> : Tous les robots</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Que signifie "Mode test" exactement ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le mode test est un mode de sécurité pour valider votre configuration sans risque.</p>
+                        <p><strong>Comportement en mode test :</strong></p>
+                        <ul>
+                            <li>Seule l'adresse email de test configurée reçoit des AR</li>
+                            <li>Tous les autres expéditeurs sont ignorés (même s'ils respectent les règles)</li>
+                            <li>Le délai d'envoi est réduit à 2-10 minutes au lieu de 1-24 heures</li>
+                            <li>Un bandeau rouge permanent est affiché dans l'interface de configuration</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>💡 Utilité :</strong> Idéal pour tester votre template et vos règles de filtrage en toute sécurité avant de passer en production.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quelle est la différence entre exclusions et inclusions ?
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>EXCLUSIONS :</strong> Empêchent l'envoi d'AR à certains destinataires</p>
+                        <p><strong>INCLUSIONS :</strong> Forcent l'envoi d'AR, même si le destinataire est exclu ailleurs</p>
+                        <div class="answer-danger">
+                            <p><strong>⚡ PRIORITÉ ABSOLUE :</strong> Les inclusions ont la priorité sur TOUTES les autres règles, y compris :</p>
+                            <ul>
+                                <li>Le domaine interne</li>
+                                <li>Les exclusions</li>
+                                <li>Le mode test (non, le mode test reste prioritaire)</li>
+                            </ul>
+                        </div>
+                        <p><strong>Exemple pratique :</strong></p>
+                        <ul>
+                            <li>Domaine interne : <code>societe.fr</code> → Pas d'AR pour @societe.fr</li>
+                            <li>Inclusion : <code>partenaire@societe.fr</code> → AR envoyé malgré le domaine interne</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment activer le logging détaillé ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Dans l'onglet <strong>Général</strong>, section <strong>Logging</strong> :</p>
+                        <ul>
+                            <li>Cochez la case <strong>Activer l'enregistrement de tous les logs</strong></li>
+                            <li>Enregistrez la configuration</li>
+                            <li>L'extension enregistrera désormais tous les événements, y compris les logs informatifs</li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Recommandation :</strong> Activez le logging détaillé uniquement pour le debugging. Désactivez-le ensuite pour économiser les ressources.</p>
+                        </div>
+                        <p>Consultez les logs dans l'onglet <strong>Logs</strong>.</p>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Puis-je personnaliser le format HTML du template ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, le template supporte le HTML complet ! Vous pouvez y inclure :</p>
+                        <ul>
+                            <li>Des styles CSS inline (<code>&lt;p style="color: blue;"&gt;</code>)</li>
+                            <li>Des images (avec balise <code>&lt;img&gt;</code>)</li>
+                            <li>Des liens (<code>&lt;a href="..."&gt;</code>)</li>
+                            <li>Des tableaux, des listes, etc.</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>✓ Conseil :</strong> Utilisez le bouton <strong>👁️ Aperçu</strong> pour visualiser le rendu HTML avant de valider.</p>
+                        </div>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Limites :</strong> JavaScript n'est pas supporté dans les emails pour des raisons de sécurité.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE 4 : PROBLÈMES COURANTS -->
+            <div class="category">
+                <div class="category-header">
+                    <span class="category-icon">🐛</span>
+                    <h2 class="category-title">Problèmes courants</h2>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        L'extension ne se charge pas / ne s'affiche pas
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez les points suivants :</p>
+                        <ul>
+                            <li><strong>Version Thunderbird :</strong> L'extension nécessite Thunderbird 128.0 ou supérieur</li>
+                            <li><strong>Extension activée :</strong> Allez dans Modules complémentaires et vérifiez que Go2Econtact est bien activée</li>
+                            <li><strong>Redémarrage :</strong> Redémarrez complètement Thunderbird</li>
+                            <li><strong>Conflits :</strong> Désactivez temporairement les autres extensions pour tester</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>🔍 Diagnostic :</strong> Ouvrez la console de débogage de Thunderbird (Outils → Console d'erreurs) pour voir les éventuelles erreurs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Erreur "Send Later introuvable"
+                    </div>
+                    <div class="faq-answer">
+                        <p>Cette erreur signifie que l'extension Send Later n'est pas détectée. Solutions :</p>
+                        <ul>
+                            <li><strong>Vérifier installation :</strong> Send Later est-elle bien installée dans Modules complémentaires ?</li>
+                            <li><strong>Version :</strong> Send Later doit être en version 9.0 ou supérieure</li>
+                            <li><strong>Activation :</strong> Send Later doit être activée (pas juste installée)</li>
+                            <li><strong>Redémarrage :</strong> Redémarrez Thunderbird après l'installation de Send Later</li>
+                        </ul>
+                        <div class="answer-danger">
+                            <p><strong>🚨 Important :</strong> Go2Econtact nécessite ABSOLUMENT Send Later pour fonctionner. C'est une dépendance obligatoire.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment voir les logs de débogage ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour consulter les logs de l'extension :</p>
+                        <ul>
+                            <li>Ouvrez l'interface de configuration de Go2Econtact</li>
+                            <li>Allez dans l'onglet <strong>🐛 Logs</strong></li>
+                            <li>Les logs sont affichés dans un tableau avec la date, le niveau (INFO/WARNING/ERROR) et le message</li>
+                        </ul>
+                        <p><strong>Pour voir plus de détails :</strong></p>
+                        <ul>
+                            <li>Activez le logging détaillé dans l'onglet Général</li>
+                            <li>Reproduisez le problème</li>
+                            <li>Consultez les nouveaux logs</li>
+                        </ul>
+                        <div class="answer-success">
+                            <p><strong>💡 Export :</strong> Vous pouvez exporter les logs au format texte pour les partager avec le support.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Les AR sont envoyés immédiatement au lieu d'être différés
+                    </div>
+                    <div class="faq-answer">
+                        <p>Si les AR sont envoyés instantanément, c'est probablement un problème avec Send Later :</p>
+                        <ul>
+                            <li><strong>UUID incorrect :</strong> Vérifiez que l'UUID configuré est bien celui de votre installation Send Later</li>
+                            <li><strong>Send Later désactivé :</strong> Assurez-vous que Send Later est activé</li>
+                            <li><strong>Préférences Send Later :</strong> Vérifiez les paramètres de Send Later (peut-être un délai à 0)</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>ℹ️ Comportement normal :</strong> Les AR doivent apparaître dans le dossier "Drafts" de Send Later et être envoyés après le délai configuré (1-24h).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Mes statistiques sont à zéro / ne se mettent pas à jour
+                    </div>
+                    <div class="faq-answer">
+                        <p>Les statistiques sont mises à jour au démarrage de Thunderbird. Si elles restent à zéro :</p>
+                        <ul>
+                            <li><strong>Redémarrer Thunderbird :</strong> Les statistiques se calculent au démarrage</li>
+                            <li><strong>Bouton Actualiser :</strong> Cliquez sur le bouton 🔄 Actualiser dans l'onglet Statistiques</li>
+                            <li><strong>Rétention :</strong> Les données de plus de 15 jours sont automatiquement supprimées</li>
+                        </ul>
+                        <div class="answer-info">
+                            <p><strong>💡 Bon à savoir :</strong> Les statistiques sont locales à votre poste. Elles ne sont pas partagées entre différents PC.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment désinstaller proprement l'extension ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour désinstaller Go2Econtact :</p>
+                        <ul>
+                            <li>Allez dans <strong>Modules complémentaires et thèmes</strong></li>
+                            <li>Cherchez Go2Econtact dans la liste</li>
+                            <li>Cliquez sur les <strong>trois points (...)</strong> → <strong>Supprimer</strong></li>
+                            <li>Redémarrez Thunderbird</li>
+                        </ul>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Données :</strong> La désinstallation supprime tous les paramètres et statistiques. Pensez à exporter votre configuration si vous souhaitez la réinstaller plus tard.</p>
+                        </div>
+                        <div class="answer-info">
+                            <p><strong>ℹ️ Send Later :</strong> Send Later peut rester installé, il fonctionne indépendamment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact support -->
+            <div class="support-box">
+                <h3>💬 Besoin d'aide supplémentaire ?</h3>
+                <p><strong>Support technique Phase 2 :</strong> support@fip-toolkit.fr</p>
+                <p>(Le support par email sera disponible lors du passage en Phase 2 avec l'infrastructure professionnelle)</p>
+                <p><strong>En attendant :</strong> Consultez la <a href="documentation.html" style="color: #667eea; font-weight: 600;">documentation complète</a> ou le <a href="tutoriel.html" style="color: #667eea; font-weight: 600;">tutoriel de configuration</a>.</p>
+            </div>
+
+            <!-- Navigation -->
+            <div class="footer-nav">
+                <h3>📚 Ressources complémentaires</h3>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">🏠 Accueil Go2Econtact</a>
+                    <a href="tutoriel.html" class="nav-link">🚀 Tutoriel</a>
+                    <a href="documentation.html" class="nav-link">📖 Documentation</a>
+                    <a href="changelog.html" class="nav-link">📋 Changelog</a>
+                    <a href="../index.html" class="nav-link">🔙 FIP Toolkit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de l'accordéon FAQ (JavaScript minimal)
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.faq-question');
+            
+            questions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Toggle active sur la question
+                    this.classList.toggle('active');
+                    
+                    // Toggle active sur la réponse
+                    const answer = this.nextElementSibling;
+                    answer.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
