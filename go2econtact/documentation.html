@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Go2Econtact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* Navigation sommaire */
+        .toc {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .toc h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 12px;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: block;
+            padding: 8px 0;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 28px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .subsection {
+            margin-bottom: 35px;
+        }
+
+        .subsection h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .subsection p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Info box */
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box strong {
+            color: #333;
+        }
+
+        /* Warning box */
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box p {
+            color: #856404;
+            margin-bottom: 12px;
+        }
+
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Success box */
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success-box p {
+            color: #155724;
+            margin-bottom: 12px;
+        }
+
+        .success-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Danger box */
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .danger-box p {
+            color: #721c24;
+            margin-bottom: 12px;
+        }
+
+        .danger-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Liste à puces personnalisée */
+        .custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .custom-list li {
+            padding-left: 30px;
+            margin-bottom: 12px;
+            position: relative;
+            color: #555;
+        }
+
+        .custom-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Liste numérotée */
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            padding-left: 45px;
+            margin-bottom: 15px;
+            position: relative;
+            color: #555;
+        }
+
+        .numbered-list li:before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Code inline */
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: "Courier New", monospace;
+            font-size: 13px;
+            color: #d63031;
+        }
+
+        /* Bloc de code */
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Navigation bas de page */
+        .footer-nav {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .footer-nav h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Documentation</h1>
+            <p>Go2Econtact - Guide complet d'utilisation</p>
+        </div>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="info-box">
+                <p><strong>Bienvenue dans la documentation de Go2Econtact !</strong></p>
+                <p>Cette page décrit en détail toutes les fonctionnalités de l'extension. Vous y trouverez des explications sur chaque paramètre et des exemples d'utilisation.</p>
+                <p><strong>💡 Conseil :</strong> Si c'est votre première configuration, consultez d'abord le <a href="tutoriel.html" style="color: #667eea;">tutoriel pas à pas</a>.</p>
+            </div>
+
+            <!-- Sommaire -->
+            <div class="toc">
+                <h2>📑 Sommaire</h2>
+                <ul>
+                    <li><a href="#section-sendlater">1. Configuration UUID Send Later</a></li>
+                    <li><a href="#section-templates">2. Gestion des templates</a></li>
+                    <li><a href="#section-general">3. Paramètres généraux</a></li>
+                    <li><a href="#section-statistics">4. Statistiques d'activité</a></li>
+                    <li><a href="#section-updates">5. Système de mise à jour</a></li>
+                    <li><a href="#section-analysis">6. Analyse de l'activité</a></li>
+                    <li><a href="#section-logs">7. Logs de débogage</a></li>
+                </ul>
+            </div>
+
+            <!-- SECTION 1 : CONFIGURATION UUID SEND LATER -->
+            <div class="section" id="section-sendlater">
+                <div class="section-header">
+                    <span class="section-icon">🔗</span>
+                    <h2 class="section-title">1. Configuration UUID Send Later</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Qu'est-ce que l'UUID Send Later ?</h3>
+                    <p>L'UUID (Universally Unique Identifier) est un identifiant unique généré par l'extension Send Later lors de son installation. Go2Econtact utilise cet UUID pour programmer l'envoi différé des accusés de réception via l'API de Send Later.</p>
+                    
+                    <div class="info-box">
+                        <p><strong>ℹ️ Information importante :</strong></p>
+                        <p>Cette configuration est <strong>obligatoire</strong> pour que l'extension fonctionne. Sans UUID valide, les accusés de réception ne peuvent pas être programmés.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Comment configurer l'UUID ?</h3>
+                    <ol class="numbered-list">
+                        <li>Ouvrez Thunderbird et cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils principale</li>
+                        <li>Dans le menu qui s'ouvre, sélectionnez <strong>Send Later preferences</strong></li>
+                        <li>Allez dans l'onglet <strong>Advanced</strong></li>
+                        <li>Cherchez la ligne commençant par <code>instanceUUID</code></li>
+                        <li>Copiez <strong>toute la valeur</strong> entre guillemets (y compris les accolades { })</li>
+                        <li>Collez cette valeur dans le champ UUID de Go2Econtact</li>
+                        <li>Cliquez sur <strong>Enregistrer</strong></li>
+                    </ol>
+
+                    <p><strong>Exemple d'UUID valide :</strong></p>
+                    <pre><code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></pre>
+                </div>
+
+                <div class="subsection">
+                    <h3>Validation de l'UUID</h3>
+                    <p>L'extension vérifie automatiquement le format de l'UUID saisi. Vous verrez un indicateur visuel sous le champ :</p>
+                    <ul class="custom-list">
+                        <li><strong style="color: #28a745;">Vert (✓)</strong> : UUID valide et correctement configuré</li>
+                        <li><strong style="color: #dc3545;">Rouge (✗)</strong> : UUID invalide ou format incorrect</li>
+                        <li><strong style="color: #ffc107;">Orange (⚠️)</strong> : UUID manquant (champ vide)</li>
+                    </ul>
+
+                    <!-- À enrichir avec validation.js -->
+                    <div class="info-box">
+                        <p><strong>📝 Note :</strong> Le format attendu est : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code> où x représente un caractère hexadécimal (0-9, a-f).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Problèmes courants</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>⚠️ "UUID invalide" :</strong></p>
+                        <p>Vérifiez que vous avez bien copié <strong>toute la valeur</strong>, y compris les accolades { }. Ne copiez pas le nom du champ (<code>instanceUUID</code>), uniquement la valeur.</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ "Send Later introuvable" :</strong></p>
+                        <p>Assurez-vous que l'extension Send Later version 9.0 ou supérieure est bien installée et activée dans Thunderbird.</p>
+                    </div>
+
+                    <div class="danger-box">
+                        <p><strong>🚨 UUID change après réinstallation :</strong></p>
+                        <p>Si vous désinstallez puis réinstallez Send Later, un <strong>nouvel UUID sera généré</strong>. Vous devrez alors mettre à jour la configuration de Go2Econtact avec ce nouveau UUID.</p>
+                    </div>
+                </div>
+
+                <!-- À enrichir ultérieurement avec les détails du code de validation -->
+            </div>
+
+            <!-- SECTION 2 : GESTION DES TEMPLATES -->
+            <div class="section" id="section-templates">
+                <div class="section-header">
+                    <span class="section-icon">📝</span>
+                    <h2 class="section-title">2. Gestion des templates</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Principe des templates par compte</h3>
+                    <p>Go2Econtact permet de définir un template HTML personnalisé pour chaque compte email surveillé. Seuls les comptes avec un template configuré enverront des accusés de réception.</p>
+
+                    <div class="info-box">
+                        <p><strong>📧 Fonctionnement :</strong></p>
+                        <p>Chaque compte Thunderbird peut avoir son propre message d'accusé de réception. Si un compte n'a pas de template (champ vide), aucun AR ne sera envoyé pour les emails reçus sur ce compte.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Créer et configurer un compte</h3>
+                    <ol class="numbered-list">
+                        <li>Cliquez sur le bouton <strong>➕ Nouveau compte</strong></li>
+                        <li>Saisissez l'adresse email exacte du compte à surveiller</li>
+                        <li>Cliquez sur <strong>✓ Ajouter</strong> pour valider</li>
+                        <li>Le compte apparaît maintenant dans la liste déroulante</li>
+                        <li>Sélectionnez-le pour configurer son template</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Important :</strong> L'adresse email doit correspondre <strong>exactement</strong> à celle configurée dans Thunderbird (respectez la casse).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Personnaliser le template HTML</h3>
+                    <p>Le template est écrit en HTML et peut contenir des variables dynamiques qui seront remplacées automatiquement lors de l'envoi :</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Description</th>
+                                <th>Exemple</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>{{sender}}</code></td>
+                                <td>Nom de l'expéditeur</td>
+                                <td>Jean Dupont</td>
+                            </tr>
+                            <tr>
+                                <td><code>{{subject}}</code></td>
+                                <td>Sujet du message original</td>
+                                <td>Demande de devis</td>
+                            </tr>
+                            <tr>
+                                <td><code>{{date}}</code></td>
+                                <td>Date de réception</td>
+                                <td>31/10/2025</td>
+                            </tr>
+                            <tr>
+                                <td><code>{{time}}</code></td>
+                                <td>Heure de réception</td>
+                                <td>14:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Exemple de template :</strong></p>
+                    <pre><code>&lt;p&gt;Bonjour {{sender}},&lt;/p&gt;
+
+&lt;p&gt;Nous avons bien reçu votre message du {{date}} à {{time}} concernant :&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;{{subject}}&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nous y répondrons dans les meilleurs délais.&lt;/p&gt;
+
+&lt;p&gt;Cordialement,&lt;br&gt;
+L'équipe Support&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="subsection">
+                    <h3>Prévisualiser le template</h3>
+                    <p>Avant d'enregistrer, vous pouvez prévisualiser le rendu du template avec des données de test :</p>
+                    <ol class="numbered-list">
+                        <li>Cliquez sur le bouton <strong>👁️ Aperçu</strong></li>
+                        <li>Une fenêtre s'ouvre avec le rendu HTML du template</li>
+                        <li>Les variables sont remplacées par des exemples</li>
+                        <li>Vérifiez le formatage et la mise en page</li>
+                    </ol>
+
+                    <!-- À enrichir avec template-editor.js -->
+                    <div class="info-box">
+                        <p><strong>💡 Astuce :</strong> Utilisez l'aperçu pour tester différentes mises en forme HTML avant de valider votre template.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Gestion des comptes</h3>
+                    <p>Pour chaque compte configuré, vous pouvez consulter :</p>
+                    <ul class="custom-list">
+                        <li><strong>Adresse email</strong> du compte</li>
+                        <li><strong>Date de création</strong> de la configuration</li>
+                        <li><strong>Dernière modification</strong> du template</li>
+                        <li><strong>Statut</strong> : Actif (avec template) ou Inactif (sans template)</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>✓ Compte actif :</strong> Un template non-vide est configuré, les AR seront envoyés.</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Compte inactif :</strong> Aucun template ou template vide, aucun AR ne sera envoyé pour ce compte.</p>
+                    </div>
+                </div>
+
+                <!-- À enrichir ultérieurement avec template-editor.js -->
+            </div>
+
+            <!-- SECTION 3 : PARAMÈTRES GÉNÉRAUX -->
+            <div class="section" id="section-general">
+                <div class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <h2 class="section-title">3. Paramètres généraux</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Domaine interne</h3>
+                    <p>Le domaine interne est le domaine de votre organisation. Les emails provenant de ce domaine sont automatiquement exclus et ne recevront pas d'accusé de réception.</p>
+
+                    <p><strong>Exemples :</strong></p>
+                    <ul class="custom-list">
+                        <li><code>societe.fr</code> → Exclut tous les emails @societe.fr</li>
+                        <li><code>entreprise.com</code> → Exclut tous les emails @entreprise.com</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>ℹ️ Remarque :</strong> Vous pouvez forcer l'envoi d'AR à certaines adresses internes en utilisant les <strong>inclusions</strong> (voir ci-dessous).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Délai d'envoi de l'accusé de réception</h3>
+                    <p>Temps d'attente avant l'envoi automatique de l'AR. Valeurs disponibles :</p>
+                    <ul class="custom-list">
+                        <li>1 heure</li>
+                        <li>2 heures (recommandé)</li>
+                        <li>3 heures</li>
+                        <li>4 heures</li>
+                        <li>6 heures</li>
+                        <li>12 heures</li>
+                        <li>24 heures</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>💡 Valeur recommandée :</strong> 2 heures. Ce délai permet d'avoir traité manuellement les emails urgents avant l'envoi de l'AR automatique.</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Mode test :</strong> En mode test, le délai est réduit à 2-10 minutes pour faciliter les tests.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Mode test</h3>
+                    <p>Le mode test permet de tester l'extension sans envoyer d'AR à tous les expéditeurs. Seule l'adresse email de test configurée recevra les accusés de réception.</p>
+
+                    <div class="info-box">
+                        <p><strong>📋 Utilisation du mode test :</strong></p>
+                        <p>1. Cochez la case <strong>Activer le mode test</strong></p>
+                        <p>2. Saisissez une adresse email de test (la vôtre par exemple)</p>
+                        <p>3. Enregistrez la configuration</p>
+                        <p>4. Envoyez-vous un email pour tester</p>
+                        <p>5. Vérifiez que vous recevez bien l'AR au bout de 2-10 minutes</p>
+                    </div>
+
+                    <div class="danger-box">
+                        <p><strong>🚨 ATTENTION :</strong> En mode production (case décochée), <strong>tous les emails externes</strong> respectant les règles de filtrage recevront un accusé de réception automatique.</p>
+                        <p>Assurez-vous d'avoir bien configuré les exclusions/inclusions avant de désactiver le mode test.</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Bandeau d'avertissement :</strong> Lorsque le mode test est activé, un bandeau rouge permanent est affiché en haut de la fenêtre de configuration pour éviter tout oubli.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Système de filtrage : Exclusions</h3>
+                    <p>Les exclusions permettent de définir les domaines, adresses ou patterns qui ne recevront <strong>jamais</strong> d'accusé de réception.</p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Domaines exclus</h4>
+                    <p>Permet d'exclure des domaines entiers. Supporte les wildcards (*).</p>
+
+                    <p><strong>Exemples :</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pattern</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>*.exemple.com</code></td>
+                                <td>Exclut tous les sous-domaines d'exemple.com</td>
+                            </tr>
+                            <tr>
+                                <td><code>*.fr</code></td>
+                                <td>Exclut tous les domaines en .fr</td>
+                            </tr>
+                            <tr>
+                                <td><code>*.*</code></td>
+                                <td>Exclut tous les domaines avec un point (99% des cas)</td>
+                            </tr>
+                            <tr>
+                                <td><code>*</code></td>
+                                <td>Exclut TOUS les domaines (inclut localhost, etc.)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Adresses exclues</h4>
+                    <p>Permet d'exclure des adresses email spécifiques.</p>
+                    <p><strong>Exemples :</strong> <code>noreply@exemple.com</code>, <code>robot@auto.fr</code></p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Patterns exclus</h4>
+                    <p>Permet d'exclure des patterns génériques avec wildcards.</p>
+                    <p><strong>Exemples :</strong></p>
+                    <ul class="custom-list">
+                        <li><code>noreply@*</code> → Tous les noreply, quel que soit le domaine</li>
+                        <li><code>*@spam.com</code> → Toutes les adresses du domaine spam.com</li>
+                        <li><code>*newsletter*</code> → Toutes les adresses contenant "newsletter"</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Système de filtrage : Inclusions (exceptions)</h3>
+                    
+                    <div class="danger-box">
+                        <p><strong>⚡ PRIORITÉ ABSOLUE :</strong> Les INCLUSIONS ci-dessous ANNULENT les EXCLUSIONS ci-dessus.</p>
+                        <p>Un email dans INCLUSION recevra <strong>TOUJOURS</strong> un AR, même s'il est interne ou exclu par une autre règle.</p>
+                    </div>
+
+                    <p>Les inclusions permettent de forcer l'envoi d'AR à certains destinataires, même s'ils sont exclus par d'autres règles.</p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Adresses forcées</h4>
+                    <p>Adresses email spécifiques qui recevront toujours un AR.</p>
+                    <p><strong>Exemple :</strong> <code>client.vip@exemple.com</code></p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Domaines forcés</h4>
+                    <p>Domaines entiers qui recevront toujours un AR.</p>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Attention aux wildcards :</strong></p>
+                        <p>• <code>*.fr</code> = Force AR pour <strong>TOUS les .fr</strong> (y compris internes !)</p>
+                        <p>• <code>*.*</code> = Force AR pour domaines avec point (99% des emails)</p>
+                        <p>• <code>*</code> = Force AR pour <strong>ABSOLUMENT TOUS</strong> les domaines</p>
+                    </div>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Patterns forcés</h4>
+                    <p>Patterns génériques qui recevront toujours un AR.</p>
+                    <p><strong>Exemple :</strong> <code>contact@*</code></p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Ordre de priorité du filtrage</h3>
+                    <p>Les règles sont appliquées dans cet ordre (priorité décroissante) :</p>
+                    <ol class="numbered-list">
+                        <li><strong style="color: #d63031;">INCLUSIONS</strong> : Force l'envoi d'AR (priorité absolue)</li>
+                        <li><strong>EXCLUSIONS</strong> : Empêche l'envoi d'AR</li>
+                        <li><strong>DOMAINE INTERNE</strong> : Exclu par défaut</li>
+                    </ol>
+
+                    <div class="info-box">
+                        <p><strong>💡 Exemple pratique :</strong></p>
+                        <p>Si <code>test@societe.fr</code> est :</p>
+                        <p>• Dans le domaine interne : <strong>PAS d'AR</strong></p>
+                        <p>• Ajouté aux inclusions : <strong>AR envoyé</strong> (priorité absolue)</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Anti-doublons</h3>
+                    <p>L'extension évite automatiquement l'envoi de doublons. Si un email a déjà reçu un AR récemment, aucun nouvel AR ne sera envoyé.</p>
+
+                    <div class="info-box">
+                        <p><strong>ℹ️ Fonctionnement :</strong> L'extension conserve en mémoire les AR déjà envoyés et vérifie chaque nouvel email pour éviter les doublons.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Logging (journalisation)</h3>
+                    <p>L'extension peut enregistrer les événements dans un journal pour faciliter le débogage.</p>
+
+                    <p><strong>Deux modes disponibles :</strong></p>
+                    <ul class="custom-list">
+                        <li><strong>Mode standard</strong> (par défaut) : Enregistre uniquement les warnings et erreurs</li>
+                        <li><strong>Mode détaillé</strong> : Enregistre tous les logs, y compris les événements informatifs</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Recommandation :</strong> Activez le mode détaillé uniquement pour le debugging. Désactivez-le après résolution du problème pour économiser les ressources.</p>
+                    </div>
+
+                    <p>Pour consulter les logs, rendez-vous dans l'onglet <a href="#section-logs" style="color: #667eea;">Logs de débogage</a>.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 4 : STATISTIQUES -->
+            <div class="section" id="section-statistics">
+                <div class="section-header">
+                    <span class="section-icon">📊</span>
+                    <h2 class="section-title">4. Statistiques d'activité</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Vue d'ensemble</h3>
+                    <p>L'onglet Statistiques présente une vue consolidée de l'activité de l'extension sur <strong>les 15 derniers jours</strong>.</p>
+
+                    <div class="info-box">
+                        <p><strong>📊 Données locales :</strong> Les statistiques sont propres à ce poste de travail. Pour une vue globale de l'activité de votre organisation, exportez les CSV de tous les postes et consolidez-les.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Indicateurs principaux</h3>
+                    <p>Quatre indicateurs synthétiques sont affichés en haut de l'onglet :</p>
+                    <ul class="custom-list">
+                        <li><strong>Emails traités</strong> : Nombre total d'emails analysés par l'extension</li>
+                        <li><strong>AR envoyés (15j)</strong> : Nombre d'accusés de réception envoyés sur les 15 derniers jours</li>
+                        <li><strong>Doublons évités</strong> : Nombre d'AR non envoyés car déjà traités récemment</li>
+                        <li><strong>Erreurs</strong> : Nombre d'erreurs rencontrées lors du traitement</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Activité quotidienne</h3>
+                    <p>Un tableau détaillé présente l'activité jour par jour :</p>
+                    <ul class="custom-list">
+                        <li><strong>Date</strong></li>
+                        <li><strong>AR envoyés</strong> : Nombre d'AR envoyés ce jour-là</li>
+                        <li><strong>Doublons évités</strong> : Nombre de doublons détectés</li>
+                        <li><strong>Emails traités</strong> : Total des emails analysés</li>
+                        <li><strong>Erreurs</strong> : Nombre d'erreurs rencontrées</li>
+                        <li><strong>Temps moyen</strong> : Temps moyen de traitement par email</li>
+                    </ul>
+
+                    <!-- À enrichir avec statistics.js -->
+                </div>
+
+                <div class="subsection">
+                    <h3>Top domaines expéditeurs</h3>
+                    <p>Un tableau présente les domaines ayant reçu le plus d'AR sur les 15 derniers jours. Pour chaque domaine :</p>
+                    <ul class="custom-list">
+                        <li><strong>Domaine</strong> : Nom de domaine</li>
+                        <li><strong>Nombre d'AR</strong> : Nombre total d'AR envoyés à ce domaine</li>
+                        <li><strong>% du total</strong> : Pourcentage par rapport au total des AR</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>💡 Utilité :</strong> Ce tableau permet d'identifier les domaines les plus actifs et d'ajuster les règles de filtrage si nécessaire.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Export CSV pour consolidation</h3>
+                    <p>Vous pouvez exporter les statistiques au format CSV pour les analyser dans un tableur ou les consolider avec d'autres postes.</p>
+
+                    <p><strong>Options d'export disponibles :</strong></p>
+                    <ul class="custom-list">
+                        <li><strong>Hier</strong> : Exporte les données de la veille uniquement</li>
+                        <li><strong>7 derniers jours</strong> : Exporte une semaine de données</li>
+                        <li><strong>15 derniers jours</strong> : Exporte toutes les données disponibles</li>
+                        <li><strong>Période personnalisée</strong> : Permet de choisir une plage de dates spécifique</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>✓ Format CSV :</strong> Le fichier exporté est compatible avec Excel, LibreOffice Calc et tous les outils d'analyse de données.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Gestion des données</h3>
+                    <p>Deux actions sont disponibles :</p>
+                    <ul class="custom-list">
+                        <li><strong>🔄 Actualiser</strong> : Recharge les statistiques depuis la base de données</li>
+                        <li><strong>🗑️ Réinitialiser statistiques</strong> : Efface toutes les données statistiques (action irréversible)</li>
+                    </ul>
+
+                    <div class="danger-box">
+                        <p><strong>⚠️ Attention :</strong> La réinitialisation des statistiques est <strong>irréversible</strong>. Pensez à exporter vos données avant si vous souhaitez les conserver.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Période de rétention</h3>
+                    <p>Les statistiques sont automatiquement nettoyées après <strong>15 jours</strong>. Les données plus anciennes sont supprimées pour économiser l'espace de stockage.</p>
+
+                    <div class="info-box">
+                        <p><strong>ℹ️ Mise à jour :</strong> Les statistiques sont mises à jour au démarrage de Thunderbird.</p>
+                    </div>
+                </div>
+
+                <!-- À enrichir ultérieurement avec statistics.js -->
+            </div>
+
+            <!-- SECTION 5 : SYSTÈME DE MISE À JOUR -->
+            <div class="section" id="section-updates">
+                <div class="section-header">
+                    <span class="section-icon">🔄</span>
+                    <h2 class="section-title">5. Système de mise à jour</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Principe de fonctionnement</h3>
+                    <p>L'extension peut vérifier automatiquement la disponibilité de nouvelles versions en interrogeant un serveur externe (fichier JSON).</p>
+
+                    <div class="info-box">
+                        <p><strong>🔒 Sécurité :</strong></p>
+                        <p>• Les <strong>métadonnées</strong> (numéro de version, date) sont vérifiées sur un serveur externe (lecture seule)</p>
+                        <p>• Les <strong>fichiers .xpi</strong> sont téléchargés depuis votre répertoire partagé interne</p>
+                        <p>• Aucun code n'est téléchargé automatiquement depuis l'extérieur</p>
+                        <p>• L'installation reste manuelle via Thunderbird</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Configuration du serveur de mise à jour</h3>
+                    <p>Pour activer la vérification automatique, configurez l'URL du fichier JSON contenant les métadonnées :</p>
+
+                    <ol class="numbered-list">
+                        <li>Cochez la case <strong>Activer la vérification automatique</strong></li>
+                        <li>Saisissez l'URL complète du fichier JSON (ex: https://votre-serveur.fr/update.json)</li>
+                        <li>Configurez la fréquence de vérification (quotidienne, hebdomadaire, mensuelle)</li>
+                        <li>Enregistrez la configuration</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Format de l'URL :</strong> L'URL doit pointer vers un fichier JSON valide et accessible. Vérifiez que le serveur autorise les requêtes CORS.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Structure du fichier JSON</h3>
+                    <p>Le fichier JSON doit respecter le format suivant :</p>
+
+                    <pre><code>{
+  "latestVersion": "1.1",
+  "releaseDate": "2025-01-15",
+  "downloadPath": "\\\\serveur\\partage\\go2econtact\\",
+  "changelogUrl": "https://site.com/changelog.txt",
+  "critical": false
+}</code></pre>
+
+                    <p><strong>Description des champs :</strong></p>
+                    <ul class="custom-list">
+                        <li><strong>latestVersion</strong> : Numéro de la dernière version disponible</li>
+                        <li><strong>releaseDate</strong> : Date de sortie de la version (format YYYY-MM-DD)</li>
+                        <li><strong>downloadPath</strong> : Chemin réseau du répertoire contenant le fichier .xpi</li>
+                        <li><strong>changelogUrl</strong> : URL de la page des changements</li>
+                        <li><strong>critical</strong> : true si la mise à jour est critique (nécessite une notification insistante)</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Fréquence de vérification</h3>
+                    <p>Vous pouvez choisir la fréquence à laquelle l'extension vérifie les mises à jour :</p>
+                    <ul class="custom-list">
+                        <li><strong>Quotidienne</strong> : Vérifie tous les jours</li>
+                        <li><strong>Hebdomadaire</strong> : Vérifie toutes les semaines (recommandé)</li>
+                        <li><strong>Mensuelle</strong> : Vérifie tous les mois</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>💡 Recommandation :</strong> La vérification hebdomadaire est un bon compromis entre réactivité et économie de bande passante.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Vérification manuelle</h3>
+                    <p>Vous pouvez à tout moment lancer une vérification manuelle en cliquant sur le bouton <strong>Vérifier maintenant</strong>.</p>
+
+                    <p>Le résultat s'affiche immédiatement :</p>
+                    <ul class="custom-list">
+                        <li><strong>Version à jour</strong> : Vous disposez de la dernière version</li>
+                        <li><strong>Mise à jour disponible</strong> : Une nouvelle version est disponible avec un lien vers le changelog</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Gestion des erreurs (Fallbacks)</h3>
+                    <p>L'extension gère automatiquement les erreurs de connexion :</p>
+                    <ul class="custom-list">
+                        <li><strong>Timeout connexion</strong> : Enregistre uniquement dans les logs (pas de notification)</li>
+                        <li><strong>Serveur inaccessible</strong> : Enregistre dans les logs</li>
+                        <li><strong>JSON malformé</strong> : Enregistre dans les logs</li>
+                        <li><strong>5 échecs consécutifs</strong> : Désactivation automatique de la vérification</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <p><strong>ℹ️ Robustesse :</strong> Ces fallbacks garantissent que l'extension ne perturbera pas votre travail en cas de problème de connexion.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Informations sur la version actuelle</h3>
+                    <p>L'onglet affiche les informations suivantes sur votre installation :</p>
+                    <ul class="custom-list">
+                        <li><strong>Version actuelle</strong> : Numéro de version installée</li>
+                        <li><strong>Dernière vérification</strong> : Date et heure de la dernière vérification</li>
+                        <li><strong>Statut</strong> : À jour / Mise à jour disponible</li>
+                    </ul>
+                </div>
+
+                <!-- À enrichir ultérieurement avec update-manager.js -->
+            </div>
+
+            <!-- SECTION 6 : ANALYSE DE L'ACTIVITÉ -->
+            <div class="section" id="section-analysis">
+                <div class="section-header">
+                    <span class="section-icon">📊</span>
+                    <h2 class="section-title">6. Analyse de l'activité</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Vue d'ensemble</h3>
+                    <p>L'onglet Analyse permet de suivre en temps réel les décisions de filtrage prises par l'extension. Cette vue est idéale pour optimiser vos règles d'inclusion/exclusion.</p>
+
+                    <div class="info-box">
+                        <p><strong>📊 Objectif :</strong> Identifier les expéditeurs à exclure ou inclure selon la réalité des emails reçus.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Indicateurs résumés</h3>
+                    <p>Quatre indicateurs synthétiques sont affichés :</p>
+                    <ul class="custom-list">
+                        <li><strong>Événements traités</strong> : Nombre total d'emails analysés</li>
+                        <li><strong>AR créés</strong> : Nombre d'AR programmés pour envoi</li>
+                        <li><strong>Emails exclus</strong> : Nombre d'emails écartés par les règles</li>
+                        <li><strong>Doublons évités</strong> : Nombre d'emails déjà traités récemment</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Filtres d'analyse</h3>
+                    <p>Vous pouvez filtrer les événements affichés selon plusieurs critères :</p>
+                    <ul class="custom-list">
+                        <li><strong>Période</strong> : Plage de dates (du... au...)</li>
+                        <li><strong>Décision</strong> : Type de décision (AR créé, Exclu, Doublon, Ignoré, Erreur)</li>
+                        <li><strong>Compte</strong> : Compte email concerné</li>
+                        <li><strong>Expéditeur</strong> : Recherche dans les adresses d'expéditeur</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>💡 Astuce :</strong> Utilisez les filtres pour identifier rapidement les emails d'un domaine spécifique ou analyser l'activité d'un compte particulier.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Tableau détaillé des événements</h3>
+                    <p>Chaque ligne du tableau représente un événement de traitement avec :</p>
+                    <ul class="custom-list">
+                        <li><strong>Date/Heure</strong> : Moment de traitement</li>
+                        <li><strong>Expéditeur</strong> : Adresse email de l'expéditeur</li>
+                        <li><strong>Compte</strong> : Compte destinataire</li>
+                        <li><strong>Sujet</strong> : Sujet du message</li>
+                        <li><strong>Décision</strong> : Action prise (avec code couleur)</li>
+                        <li><strong>Raison</strong> : Explication détaillée de la décision</li>
+                    </ul>
+
+                    <p><strong>Codes couleur des décisions :</strong></p>
+                    <ul class="custom-list">
+                        <li><strong style="color: #28a745;">AR créé (Vert)</strong> : L'AR a été programmé</li>
+                        <li><strong style="color: #dc3545;">Exclu (Rouge)</strong> : Email exclu par une règle</li>
+                        <li><strong style="color: #ffc107;">Doublon (Orange)</strong> : AR déjà envoyé récemment</li>
+                        <li><strong style="color: #6c757d;">Ignoré (Gris)</strong> : Email ignoré (email interne, pas de template, etc.)</li>
+                        <li><strong style="color: #dc3545; background: #f8d7da;">Erreur (Rouge fond rose)</strong> : Erreur lors du traitement</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Analyse détaillée</h3>
+                    <p>Deux vues synthétiques vous aident à optimiser vos règles :</p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Top 5 règles appliquées</h4>
+                    <p>Affiche les règles de filtrage les plus utilisées. Permet d'identifier les règles les plus pertinentes et celles à ajuster.</p>
+
+                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Top 5 domaines expéditeurs</h4>
+                    <p>Affiche les domaines qui envoient le plus d'emails. Utile pour décider si un domaine doit être exclu ou non.</p>
+
+                    <div class="info-box">
+                        <p><strong>💡 Utilité :</strong> Si un domaine apparaît souvent dans les AR créés mais ne devrait pas recevoir d'AR (ex: newsletters), ajoutez-le aux exclusions.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Actions disponibles</h3>
+                    <ul class="custom-list">
+                        <li><strong>🔄 Actualiser</strong> : Recharge les données d'analyse</li>
+                        <li><strong>📤 Exporter CSV</strong> : Exporte les événements filtrés au format CSV</li>
+                        <li><strong>🗑️ Effacer données</strong> : Supprime toutes les données d'analyse (irréversible)</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Export CSV :</strong> L'export prend en compte les filtres actifs. Pour exporter toutes les données, retirez tous les filtres avant d'exporter.</p>
+                    </div>
+                </div>
+
+                <!-- À enrichir ultérieurement avec analysis.js -->
+            </div>
+
+            <!-- SECTION 7 : LOGS DE DÉBOGAGE -->
+            <div class="section" id="section-logs">
+                <div class="section-header">
+                    <span class="section-icon">🐛</span>
+                    <h2 class="section-title">7. Logs de débogage</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>Vue d'ensemble</h3>
+                    <p>L'onglet Logs affiche l'historique des événements enregistrés par l'extension. Ces logs sont précieux pour diagnostiquer des problèmes ou comprendre le comportement de l'extension.</p>
+
+                    <div class="info-box">
+                        <p><strong>🔍 Utilité :</strong> Les logs détaillent chaque opération effectuée par l'extension (traitement des emails, validation UUID, envoi d'AR, etc.).</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Niveaux de logging</h3>
+                    <p>L'extension utilise trois niveaux de logs :</p>
+                    <ul class="custom-list">
+                        <li><strong style="color: #0dcaf0;">INFO (Bleu)</strong> : Événements informatifs normaux (traitement d'email, AR programmé, etc.)</li>
+                        <li><strong style="color: #ffc107;">WARNING (Orange)</strong> : Avertissements (template vide, UUID manquant, doublon détecté, etc.)</li>
+                        <li><strong style="color: #dc3545;">ERROR (Rouge)</strong> : Erreurs critiques (échec connexion Send Later, erreur validation, etc.)</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Mode de logging :</strong> Par défaut, seuls les warnings et erreurs sont enregistrés. Pour voir tous les logs (y compris INFO), activez le mode logging détaillé dans l'onglet Général.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Consultation des logs</h3>
+                    <p>Les logs sont affichés dans un tableau avec les colonnes suivantes :</p>
+                    <ul class="custom-list">
+                        <li><strong>Date/Heure</strong> : Moment de l'événement</li>
+                        <li><strong>Niveau</strong> : INFO, WARNING ou ERROR (avec code couleur)</li>
+                        <li><strong>Catégorie</strong> : Module concerné (Background, Options, Template, etc.)</li>
+                        <li><strong>Message</strong> : Description détaillée de l'événement</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>💡 Astuce :</strong> Les logs les plus récents sont affichés en haut du tableau.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Filtres de logs</h3>
+                    <p>Vous pouvez filtrer les logs affichés selon :</p>
+                    <ul class="custom-list">
+                        <li><strong>Niveau</strong> : Afficher uniquement INFO, WARNING ou ERROR</li>
+                        <li><strong>Catégorie</strong> : Filtrer par module (Background, Template, etc.)</li>
+                        <li><strong>Recherche</strong> : Rechercher dans les messages</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>Actions disponibles</h3>
+                    <ul class="custom-list">
+                        <li><strong>🔄 Actualiser</strong> : Recharge les logs depuis la base de données</li>
+                        <li><strong>📤 Exporter</strong> : Exporte les logs au format texte (utile pour le support)</li>
+                        <li><strong>🗑️ Effacer l'historique</strong> : Supprime tous les logs (irréversible)</li>
+                    </ul>
+
+                    <div class="danger-box">
+                        <p><strong>⚠️ Effacer les logs :</strong> Cette action est irréversible. Pensez à exporter vos logs avant si vous devez les conserver pour le support.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Utilisation pour le support</h3>
+                    <p>En cas de problème, les logs sont très utiles pour le support technique :</p>
+                    <ol class="numbered-list">
+                        <li>Activez le mode logging détaillé (onglet Général)</li>
+                        <li>Reproduisez le problème</li>
+                        <li>Allez dans l'onglet Logs</li>
+                        <li>Exportez les logs au format texte</li>
+                        <li>Joignez le fichier de logs à votre demande de support</li>
+                    </ol>
+
+                    <div class="info-box">
+                        <p><strong>📧 Contact support :</strong> Pour toute question ou problème, contactez-nous à support@fip-toolkit.fr (disponible en Phase 2).</p>
+                    </div>
+                </div>
+
+                <!-- À enrichir ultérieurement avec logs-viewer.js -->
+            </div>
+
+            <!-- Navigation bas de page -->
+            <div class="footer-nav">
+                <h3>📚 Ressources complémentaires</h3>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">🏠 Accueil Go2Econtact</a>
+                    <a href="tutoriel.html" class="nav-link">🚀 Tutoriel de configuration</a>
+                    <a href="faq.html" class="nav-link">❓ FAQ</a>
+                    <a href="changelog.html" class="nav-link">📋 Changelog</a>
+                    <a href="../index.html" class="nav-link">🔙 Retour FIP Toolkit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
