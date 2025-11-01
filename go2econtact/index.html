@@ -4,312 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go2Econtact - Accusés de réception automatiques</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        
-        .header a:hover {
-            text-decoration: underline;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 3rem auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        /* Hero section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            color: white;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 1rem;
-        }
-        
-        .hero-description {
-            max-width: 700px;
-            margin: 2rem auto 0;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-        
-        /* Content */
-        .content {
-            padding: 3rem 2rem;
-        }
-        
-        .section {
-            margin-bottom: 3rem;
-        }
-        
-        .section h2 {
-            color: #667eea;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        /* Cards grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .card {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 1.5rem;
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
-        }
-        
-        .card h3 {
-            color: #667eea;
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .card p {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        
-        .card p:last-child {
-            margin-bottom: 0;
-        }
-        
-        /* Buttons */
-        .button {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 14px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        /* Features grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .feature {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .feature h3 {
-            color: #667eea;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .feature p {
-            color: #555;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        /* Info box */
-        .info-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-        }
-        
-        .info-box h3 {
-            color: #856404;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .info-box p {
-            color: #856404;
-            margin-bottom: 0.75rem;
-            line-height: 1.7;
-        }
-        
-        .info-box p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .info-box strong {
-            color: #664d03;
-        }
-        
-        /* Help grid */
-        .help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-        
-        .help-card {
-            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
-            border: 2px solid #667eea;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-        
-        .help-card h3 {
-            color: #667eea;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-        }
-        
-        .help-card p {
-            color: #555;
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-        
-        .help-card .button {
-            margin-top: 1rem;
-        }
-        
-        /* Footer navigation */
-        .footer-nav {
-            background: #f8f9fa;
-            padding: 2rem;
-            text-align: center;
-            border-top: 2px solid #e0e0e0;
-        }
-        
-        .footer-nav h3 {
-            color: #333;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .nav-link {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 14px;
-            border: 2px solid #667eea;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero .subtitle {
-                font-size: 1rem;
-            }
-            
-            .content {
-                padding: 2rem 1.5rem;
-            }
-            
-            .section h2 {
-                font-size: 1.5rem;
-            }
-            
-            .cards-grid,
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="header">
@@ -399,8 +94,8 @@
             <div class="section">
                 <h2>📦 Distribution</h2>
                 
-                <div class="info-box">
-                    <h3>📦 Distribution contrôlée (Phase 1)</h3>
+                <div class="warning-box">
+                    <p><strong>📦 Distribution contrôlée (Phase 1)</strong></p>
                     <p>Go2Econtact est actuellement en <strong>phase de test interne</strong>.</p>
                     <p>La distribution est limitée aux utilisateurs autorisés.</p>
                     <p><strong>Phase 2 :</strong> Un système de téléchargement sécurisé sera disponible sur fip-toolkit.fr avec vérification de l'adresse mail.</p>
@@ -411,14 +106,14 @@
             <div class="section">
                 <h2>❓ Besoin d'aide ?</h2>
                 
-                <div class="help-grid">
-                    <div class="help-card">
+                <div class="cards-grid">
+                    <div class="card">
                         <h3>📚 FAQ</h3>
                         <p>Consultez les réponses aux 24 questions les plus fréquentes sur l'installation, la configuration et l'utilisation de Go2Econtact.</p>
                         <a href="faq.html" class="button">Voir la FAQ</a>
                     </div>
                     
-                    <div class="help-card">
+                    <div class="card">
                         <h3>💬 Support technique</h3>
                         <p>Email support disponible en Phase 2 :</p>
                         <p><strong>support@fip-toolkit.fr</strong></p>
@@ -430,15 +125,16 @@
             <!-- Section Historique -->
             <div class="section">
                 <h2>📋 Historique des versions</h2>
-                <p style="color: #555; margin-bottom: 1rem;">Consultez le changelog pour suivre l'évolution de Go2Econtact et découvrir les nouvelles fonctionnalités.</p>
+                <p>Consultez le changelog pour suivre l'évolution de Go2Econtact et découvrir les nouvelles fonctionnalités.</p>
                 <a href="changelog.html" class="button">Voir le changelog</a>
             </div>
         </div>
         
         <!-- Footer Navigation -->
         <div class="footer-nav">
-            <h3>📚 Navigation rapide</h3>
+            <h3>📚 Navigation</h3>
             <div class="nav-links">
+                <a href="index.html" class="nav-link">🏠 Accueil</a>
                 <a href="tutoriel.html" class="nav-link">🚀 Tutoriel</a>
                 <a href="documentation.html" class="nav-link">📖 Documentation</a>
                 <a href="faq.html" class="nav-link">❓ FAQ</a>
