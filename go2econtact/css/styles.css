@@ -146,6 +146,12 @@ body {
     margin-bottom: var(--spacing-md);
 }
 
+/* Variante subtitle dans hero (sans bordure) */
+.hero .subtitle {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
 .hero-description {
     max-width: 700px;
     margin: var(--spacing-lg) auto 0;
