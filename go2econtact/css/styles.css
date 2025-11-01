@@ -521,7 +521,7 @@ tr:last-child td {
     margin: 0 auto;
 }
 
-.nav-button {
+.footer-nav .nav-button {
     display: block;
     padding: 12px 20px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
