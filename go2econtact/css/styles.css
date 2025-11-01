@@ -215,14 +215,14 @@ p {
 }
 
 /* Liens dans le contenu (colorés, soulignés au survol) */
-.content a:not(.button):not(.nav-link) {
+.content a:not(.button):not(.nav-link):not(.nav-button) {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: 500;
     transition: all var(--transition-fast);
 }
 
-.content a:not(.button):not(.nav-link):hover {
+.content a:not(.button):not(.nav-link):not(.nav-button):hover {
     text-decoration: underline;
     color: var(--color-secondary);
 }
