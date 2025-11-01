@@ -328,9 +328,43 @@
                 </div>
 
                 <div class="subsection">
+                    <h3>Exemple de template HTML réaliste</h3>
+                    
                     <div class="info-box">
-    <p><strong>💡 Exemple de template HTML réaliste :</strong></p>
-    <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4;">&lt;!DOCTYPE html&gt;
+                        <p><strong>💡 Template avec panneau d'attention stylisé :</strong></p>
+                        
+                        <!-- Rendu visuel -->
+                        <div style="margin-bottom: 20px; border: 2px dashed #ccc; padding: 15px; background: white; border-radius: 8px;">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 13px;"><strong>Aperçu du rendu :</strong></p>
+                            
+                            <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
+                              <tr>
+                                <td>
+                                  <div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;">
+                                    <div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                                      <svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;">
+                                        <circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/>
+                                        <text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">!</text>
+                                      </svg>
+                                      INFORMATION IMPORTANTE
+                                    </div>
+                                    <div style="color: #721c24; line-height: 1.4;">
+                                      <strong>Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sécurisé.</strong><br>
+                                      Les courriels seront dorénavant traités ultérieurement.<br><br>
+                                      <a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;">
+                                        📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Code source pliable -->
+                        <details style="margin-top: 15px;">
+                            <summary style="cursor: pointer; color: #667eea; font-weight: 600; padding: 8px 0;">📝 Afficher le code HTML source</summary>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4; margin-top: 10px;">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -355,10 +389,9 @@
             INFORMATION IMPORTANTE
           &lt;/div&gt;
           &lt;div style="color: #721c24; line-height: 1.4;"&gt;
-            &lt;strong&gt;Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sur notre site.&lt;/strong&gt;&lt;br&gt;
+            &lt;strong&gt;Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sécurisé.&lt;/strong&gt;&lt;br&gt;
             Les courriels seront dorénavant traités ultérieurement.&lt;br&gt;&lt;br&gt;
-            &lt;a href="https://www.exemple.fr/aide/portail-securise" 
-               style="color: #d63031; text-decoration: none; font-weight: bold;"&gt;
+            &lt;a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;"&gt;
               📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
             &lt;/a&gt;
           &lt;/div&gt;
@@ -368,7 +401,7 @@
   &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
-    <p><strong>Note :</strong> Ce template utilise du HTML enrichi avec un panneau d'attention stylisé.</p>
+                        </details>
                     </div>
                 </div>
 
@@ -399,10 +432,10 @@
 
                 <div class="subsection">
                     <h3>Prévisualisation</h3>
-                    <p>Utilisez le bouton <strong>"👁️ Prévisualiser"</strong> pour voir à quoi ressemblera l'AR avec les variables remplacées par des valeurs d'exemple.</p>
+                    <p>Utilisez le bouton <strong>"👁️ Prévisualiser"</strong> pour voir à quoi ressemblera l'AR avant de l'activer.</p>
                     
                     <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Prévisualisez toujours votre template avant de l'activer pour vérifier que les variables sont correctement placées et que le message est clair.</p>
+                        <p><strong>💡 Astuce :</strong> Prévisualisez toujours votre template avant de l'activer pour vérifier que le message est clair et que le rendu est correct.</p>
                     </div>
                 </div>
 
@@ -410,10 +443,11 @@
                     <h3>Bonnes pratiques</h3>
                     <ul class="custom-list">
                         <li>Créez des templates spécifiques pour chaque type d'absence (vacances, formation, maladie)</li>
-                        <li>Personnalisez vos messages avec les variables dynamiques pour un ton plus chaleureux</li>
+                        <li>Utilisez du HTML pour des messages riches et professionnels</li>
                         <li>Indiquez une date de retour claire pour rassurer vos correspondants</li>
                         <li>Proposez une personne de contact alternative pour les urgences</li>
                         <li>Restez professionnel et concis dans vos messages</li>
+                        <li>Testez le rendu de vos templates HTML dans différents clients email</li>
                     </ul>
                 </div>
 
@@ -423,7 +457,7 @@
                         <li><strong>➕ Nouveau template</strong> : Créer un nouveau message d'absence</li>
                         <li><strong>✏️ Modifier</strong> : Modifier un template existant</li>
                         <li><strong>🗑️ Supprimer</strong> : Supprimer un template (si non utilisé)</li>
-                        <li><strong>👁️ Prévisualiser</strong> : Voir l'aperçu du template avec variables</li>
+                        <li><strong>👁️ Prévisualiser</strong> : Voir l'aperçu du template</li>
                         <li><strong>💾 Enregistrer</strong> : Sauvegarder les modifications</li>
                     </ul>
                 </div>
