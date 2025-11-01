@@ -145,32 +145,86 @@
                         <li>Cliquez sur <strong>➕ Nouveau compte</strong></li>
                         <li>Saisissez l'adresse email exacte du compte pour lequel vous souhaitez activer les AR automatiques</li>
                         <li>Dans la zone de texte "Template HTML", personnalisez le message d'accusé de réception</li>
-                        <li>Utilisez les variables dynamiques pour personnaliser votre message :</li>
                     </ol>
                     
-                    <p><strong>Variables disponibles :</strong></p>
-                    <ul>
-                        <li><code>{{sender}}</code> : Nom de l'expéditeur du message original</li>
-                        <li><code>{{subject}}</code> : Sujet du message original</li>
-                        <li><code>{{date}}</code> : Date de réception du message</li>
-                        <li><code>{{time}}</code> : Heure de réception du message</li>
-                    </ul>
+                    <div class="info-box">
+                        <p><strong>💡 Exemple de template HTML réaliste :</strong></p>
+                        
+                        <!-- Rendu visuel -->
+                        <div style="margin-bottom: 20px; border: 2px dashed #ccc; padding: 15px; background: white; border-radius: 8px;">
+                            <p style="margin-bottom: 10px; color: #666; font-size: 13px;"><strong>Aperçu du rendu :</strong></p>
+                            
+                            <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
+                              <tr>
+                                <td>
+                                  <div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;">
+                                    <div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                                      <svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;">
+                                        <circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/>
+                                        <text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">!</text>
+                                      </svg>
+                                      INFORMATION IMPORTANTE
+                                    </div>
+                                    <div style="color: #721c24; line-height: 1.4;">
+                                      <strong>Pour un suivi prioritaire et confidentiel, utilisez votre espace sécurisé sur notre site.</strong><br>
+                                      Les courriels seront dorénavant traités ultérieurement.<br><br>
+                                      <a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;">
+                                        📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
+                                      </a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Code source pliable -->
+                        <details style="margin-top: 15px;">
+                            <summary style="cursor: pointer; color: #667eea; font-weight: 600; padding: 8px 0;">📝 Afficher le code HTML source</summary>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4; margin-top: 10px;"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Accusé de réception&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;!-- Panneau d'attention avec SVG rouge pour visibilité --&gt;
+        &lt;div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;"&gt;
+          &lt;div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"&gt;
+            &lt;!--[if !mso]&gt;&lt;!--&gt;
+            &lt;svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;"&gt;
+              &lt;circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/&gt;
+              &lt;text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold"&gt;!&lt;/text&gt;
+            &lt;/svg&gt;
+            &lt;!--&lt;![endif]--&gt;
+            &lt;!--[if mso]&gt;
+            &lt;span style="color: #d63031; font-size: 18px; font-weight: bold; margin-right: 5px;"&gt;⚠&lt;/span&gt;
+            &lt;![endif]--&gt;
+            INFORMATION IMPORTANTE
+          &lt;/div&gt;
+          &lt;div style="color: #721c24; line-height: 1.4;"&gt;
+            &lt;strong&gt;Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sécurisé.&lt;/strong&gt;&lt;br&gt;
+            Les courriels seront dorénavant traités ultérieurement.&lt;br&gt;&lt;br&gt;
+            &lt;a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;"&gt;
+              📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
+            &lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </details>
+                    </div>
                     
-                    <p><strong>Exemple de template :</strong></p>
-                    <pre><code>&lt;p&gt;Bonjour {{sender}},&lt;/p&gt;
-
-&lt;p&gt;Nous avons bien reçu votre message du {{date}} à {{time}} concernant :&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;{{subject}}&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Nous vous répondrons dans les meilleurs délais.&lt;/p&gt;
-
-&lt;p&gt;Cordialement,&lt;br&gt;
-L'équipe Support&lt;/p&gt;</code></pre>
-                    
-                    <ol class="instructions" start="6">
+                    <ol class="instructions" start="5">
                         <li>Cliquez sur <strong>👁️ Aperçu</strong> pour visualiser le rendu de votre template</li>
-                    </ol>
-                    
+                    </ol>                    
+
                     <!-- Sous-étape 3.3 : Paramètres généraux -->
                     <h3>3.3 Configurer les paramètres généraux</h3>
                     <ol class="instructions">
