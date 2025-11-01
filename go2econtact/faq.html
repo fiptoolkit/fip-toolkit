@@ -4,337 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Go2Econtact</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 16px;
-        }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        /* Intro */
-        .intro {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .intro p {
-            color: #555;
-            margin-bottom: 12px;
-        }
-
-        .intro p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Catégories */
-        .category {
-            margin-bottom: 50px;
-        }
-
-        .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .category-icon {
-            font-size: 28px;
-        }
-
-        .category-title {
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        /* Accordéon */
-        .faq-item {
-            margin-bottom: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: border-color 0.3s;
-        }
-
-        .faq-item:hover {
-            border-color: #667eea;
-        }
-
-        .faq-question {
-            background: #f8f9fa;
-            padding: 18px 20px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #333;
-            font-size: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-            background: #e9ecef;
-        }
-
-        .faq-question::after {
-            content: "▼";
-            font-size: 14px;
-            color: #667eea;
-            transition: transform 0.3s;
-        }
-
-        .faq-question.active::after {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-            background: white;
-            padding: 0 20px;
-        }
-
-        .faq-answer.active {
-            max-height: 2000px;
-            padding: 20px;
-        }
-
-        .faq-answer p {
-            color: #555;
-            margin-bottom: 12px;
-            line-height: 1.8;
-        }
-
-        .faq-answer p:last-child {
-            margin-bottom: 0;
-        }
-
-        .faq-answer ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 15px 0;
-        }
-
-        .faq-answer li {
-            padding-left: 25px;
-            margin-bottom: 8px;
-            position: relative;
-            color: #555;
-        }
-
-        .faq-answer li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .faq-answer code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-            color: #d63031;
-        }
-
-        .faq-answer strong {
-            color: #333;
-        }
-
-        /* Boxes dans les réponses */
-        .answer-info {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin: 12px 0;
-        }
-
-        .answer-warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin: 12px 0;
-        }
-
-        .answer-warning p {
-            color: #856404;
-        }
-
-        .answer-danger {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin: 12px 0;
-        }
-
-        .answer-danger p {
-            color: #721c24;
-        }
-
-        .answer-success {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin: 12px 0;
-        }
-
-        .answer-success p {
-            color: #155724;
-        }
-
-        /* Navigation */
-        .footer-nav {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        .footer-nav h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .nav-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Support contact */
-        .support-box {
-            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
-            border-left: 4px solid #667eea;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .support-box h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .support-box p {
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 26px;
-            }
-
-            .category-title {
-                font-size: 20px;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .faq-question {
-                font-size: 15px;
-                padding: 15px 18px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <!-- Hero Section -->
+        <div class="hero">
             <h1>❓ Foire Aux Questions</h1>
-            <p>Go2Econtact - Réponses aux questions fréquentes</p>
+            <p class="subtitle">Go2Econtact - Réponses aux questions fréquentes</p>
         </div>
 
         <div class="content">
-            <!-- Introduction -->
+            <!-- Intro -->
             <div class="intro">
-                <p><strong>Bienvenue dans la FAQ de Go2Econtact !</strong></p>
-                <p>Vous trouverez ici les réponses aux questions les plus fréquemment posées sur l'installation, la configuration et l'utilisation de l'extension.</p>
-                <p><strong>💡 Conseil :</strong> Utilisez la recherche de votre navigateur (Ctrl+F) pour trouver rapidement un mot-clé.</p>
+                <p>Vous trouverez ci-dessous les réponses aux questions les plus fréquemment posées sur Go2Econtact. Si votre question ne figure pas dans cette liste, consultez la <a href="documentation.html">documentation complète</a> ou le <a href="tutoriel.html">tutoriel de configuration</a>.</p>
             </div>
 
-            <!-- CATÉGORIE 1 : INSTALLATION & CONFIGURATION -->
+            <!-- CATÉGORIE 1 : INSTALLATION ET CONFIGURATION -->
             <div class="category">
                 <div class="category-header">
-                    <span class="category-icon">🔧</span>
-                    <h2 class="category-title">Installation & Configuration</h2>
+                    <span class="category-icon">⚙️</span>
+                    <h2 class="category-title">Installation et configuration</h2>
                 </div>
 
                 <!-- Question 1 -->
@@ -343,17 +33,16 @@
                         Comment installer Go2Econtact ?
                     </div>
                     <div class="faq-answer">
-                        <p>Go2Econtact s'installe comme n'importe quelle extension Thunderbird :</p>
+                        <p>Go2Econtact est une extension pour Thunderbird. Voici comment l'installer :</p>
                         <ul>
-                            <li>Téléchargez le fichier .xpi depuis votre source interne</li>
-                            <li>Dans Thunderbird, allez dans <strong>Modules complémentaires et thèmes</strong></li>
-                            <li>Cliquez sur l'icône ⚙️ puis <strong>Installer un module depuis un fichier</strong></li>
-                            <li>Sélectionnez le fichier .xpi téléchargé</li>
-                            <li>Confirmez l'installation</li>
-                            <li>Redémarrez Thunderbird</li>
+                            <li>Téléchargez le fichier <code>.xpi</code> depuis le site officiel</li>
+                            <li>Dans Thunderbird, allez dans <strong>Modules complémentaires et thèmes</strong> (menu hamburger ☰ → Modules complémentaires)</li>
+                            <li>Cliquez sur l'icône ⚙️ (engrenage) → <strong>Installer un module depuis un fichier</strong></li>
+                            <li>Sélectionnez le fichier <code>.xpi</code> téléchargé</li>
+                            <li>Confirmez l'installation et redémarrez Thunderbird si nécessaire</li>
                         </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Prérequis :</strong> L'extension Send Later 9.0 ou supérieure doit être installée AVANT Go2Econtact.</p>
+                        <div class="answer-info">
+                            <p><strong>ℹ️ Prérequis :</strong> Thunderbird 128.0 ou supérieur est requis.</p>
                         </div>
                     </div>
                 </div>
@@ -361,20 +50,17 @@
                 <!-- Question 2 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Où trouver l'UUID de Send Later ?
+                        Ai-je besoin d'autres extensions pour que Go2Econtact fonctionne ?
                     </div>
                     <div class="faq-answer">
-                        <p>L'UUID se trouve dans les préférences avancées de Send Later :</p>
+                        <p>Oui, Go2Econtact nécessite l'extension <strong>Send Later</strong> pour programmer l'envoi différé des accusés de réception.</p>
                         <ul>
-                            <li>Cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils Thunderbird</li>
-                            <li>Sélectionnez <strong>Send Later preferences</strong></li>
-                            <li>Allez dans l'onglet <strong>Advanced</strong></li>
-                            <li>Cherchez la ligne <code>instanceUUID</code></li>
-                            <li>Copiez toute la valeur entre guillemets (avec les accolades { })</li>
+                            <li><strong>Send Later</strong> doit être installé et activé dans Thunderbird</li>
+                            <li>Version minimale requise : Send Later 9.0 ou supérieur</li>
+                            <li>Téléchargement : <a href="https://addons.thunderbird.net" target="_blank">addons.thunderbird.net</a></li>
                         </ul>
-                        <p><strong>Format attendu :</strong> <code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></p>
-                        <div class="answer-info">
-                            <p><strong>💡 Astuce :</strong> Faites un clic droit sur la valeur et choisissez "Copier" pour éviter les erreurs de saisie.</p>
+                        <div class="answer-danger">
+                            <p><strong>🚨 Important :</strong> Sans Send Later, Go2Econtact ne pourra pas programmer l'envoi différé des AR et affichera une erreur.</p>
                         </div>
                     </div>
                 </div>
@@ -382,18 +68,16 @@
                 <!-- Question 3 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Message "UUID invalide", que faire ?
+                        Comment accéder à l'interface de configuration ?
                     </div>
                     <div class="faq-answer">
-                        <p>Ce message apparaît si le format de l'UUID n'est pas correct. Vérifiez les points suivants :</p>
+                        <p>Une fois Go2Econtact installé, vous pouvez accéder à son interface de configuration de deux façons :</p>
                         <ul>
-                            <li>Vous avez bien copié <strong>toute la valeur</strong>, y compris les accolades { }</li>
-                            <li>Vous n'avez pas copié le nom du champ (<code>instanceUUID</code>), uniquement la valeur</li>
-                            <li>Il n'y a pas d'espaces avant ou après l'UUID</li>
-                            <li>Le format est bien : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code></li>
+                            <li><strong>Via le menu Thunderbird :</strong> Outils → Go2Econtact</li>
+                            <li><strong>Via les modules complémentaires :</strong> Menu ☰ → Modules complémentaires → Go2Econtact → Options</li>
                         </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Important :</strong> Si vous avez récemment réinstallé Send Later, un nouvel UUID a été généré. Vous devez récupérer ce nouveau UUID.</p>
+                        <div class="answer-success">
+                            <p><strong>✓ Raccourci :</strong> L'interface s'ouvre dans un nouvel onglet de Thunderbird pour un accès facile.</p>
                         </div>
                     </div>
                 </div>
@@ -401,16 +85,18 @@
                 <!-- Question 4 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Dois-je configurer un template pour chaque compte ?
+                        Quels sont les paramètres minimaux pour démarrer ?
                     </div>
                     <div class="faq-answer">
-                        <p>Non, ce n'est pas obligatoire. Seuls les comptes avec un template configuré (non vide) enverront des accusés de réception.</p>
+                        <p>Pour que Go2Econtact fonctionne, vous devez au minimum :</p>
                         <ul>
-                            <li><strong>Compte avec template</strong> : Les AR seront envoyés pour les emails reçus sur ce compte</li>
-                            <li><strong>Compte sans template</strong> : Aucun AR ne sera envoyé pour ce compte</li>
+                            <li><strong>Créer un template</strong> dans l'onglet Templates (message d'absence)</li>
+                            <li><strong>Associer ce template à un compte</strong> dans l'onglet Comptes</li>
+                            <li><strong>Activer le compte</strong> concerné</li>
                         </ul>
-                        <div class="answer-success">
-                            <p><strong>✓ Conseil :</strong> Configurez uniquement les comptes professionnels qui doivent envoyer des AR automatiques.</p>
+                        <p>Les autres paramètres (délai d'envoi, règles de filtrage, etc.) peuvent être configurés ultérieurement selon vos besoins.</p>
+                        <div class="answer-info">
+                            <p><strong>💡 Conseil :</strong> Consultez le <a href="tutoriel.html">tutoriel de configuration</a> pour un guide pas à pas.</p>
                         </div>
                     </div>
                 </div>
@@ -418,23 +104,18 @@
                 <!-- Question 5 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment savoir si ma configuration est complète ?
+                        Comment configurer le délai d'envoi des AR ?
                     </div>
                     <div class="faq-answer">
-                        <p>L'interface utilise des codes couleur sur les onglets pour indiquer le statut de configuration :</p>
+                        <p>Le délai d'envoi se configure dans l'onglet <strong>Général</strong> :</p>
                         <ul>
-                            <li><strong style="color: #dc3545;">Bordure rouge (🔴)</strong> : Configuration manquante ou invalide</li>
-                            <li><strong style="color: #ffc107;">Bordure orange (🟠)</strong> : Configuration partielle</li>
-                            <li><strong style="color: #28a745;">Bordure verte (🟢)</strong> : Configuration complète</li>
+                            <li>Ouvrez l'interface de configuration de Go2Econtact</li>
+                            <li>Allez dans l'onglet <strong>⚙️ Général</strong></li>
+                            <li>Modifiez le champ <strong>"Délai d'envoi des AR"</strong> (en minutes)</li>
+                            <li>Cliquez sur <strong>Enregistrer</strong></li>
                         </ul>
-                        <p>Les onglets avec bordure rouge ou orange clignotent pour attirer votre attention.</p>
                         <div class="answer-info">
-                            <p><strong>Configuration minimale requise :</strong></p>
-                            <ul>
-                                <li>UUID Send Later valide</li>
-                                <li>Au moins 1 compte avec template actif</li>
-                                <li>Domaine interne défini</li>
-                            </ul>
+                            <p><strong>⏱️ Plage autorisée :</strong> De 1 à 1440 minutes (24 heures). Valeur recommandée : 15-30 minutes.</p>
                         </div>
                     </div>
                 </div>
@@ -442,24 +123,35 @@
                 <!-- Question 6 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Puis-je importer/exporter ma configuration ?
+                        Puis-je utiliser Go2Econtact avec plusieurs comptes email ?
                     </div>
                     <div class="faq-answer">
-                        <p>Oui ! L'extension permet d'exporter et d'importer la configuration complète au format JSON.</p>
-                        <p><strong>Exporter :</strong></p>
+                        <p>Oui ! Go2Econtact supporte la gestion de plusieurs comptes email simultanément.</p>
                         <ul>
-                            <li>Ouvrez l'interface de configuration</li>
-                            <li>Cliquez sur <strong>📤 Exporter configuration</strong></li>
-                            <li>Un fichier JSON est téléchargé avec tous vos paramètres</li>
-                        </ul>
-                        <p><strong>Importer :</strong></p>
-                        <ul>
-                            <li>Cliquez sur <strong>📥 Importer configuration</strong></li>
-                            <li>Sélectionnez un fichier JSON de configuration</li>
-                            <li>Confirmez le remplacement des paramètres actuels</li>
+                            <li>Chaque compte peut avoir son propre template d'AR</li>
+                            <li>Chaque compte peut être activé/désactivé indépendamment</li>
+                            <li>Les règles de filtrage s'appliquent à tous les comptes actifs</li>
                         </ul>
                         <div class="answer-success">
-                            <p><strong>💡 Utilité :</strong> Pratique pour dupliquer votre configuration sur plusieurs postes ou faire une sauvegarde.</p>
+                            <p><strong>💡 Exemple :</strong> Vous pouvez activer Go2Econtact uniquement sur votre compte professionnel pendant vos vacances, tout en gardant votre compte personnel inactif.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment vérifier que Send Later est correctement configuré ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Go2Econtact valide automatiquement la présence de Send Later au démarrage. Pour vérifier manuellement :</p>
+                        <ul>
+                            <li>Allez dans l'onglet <strong>Général</strong> de Go2Econtact</li>
+                            <li>Vérifiez le statut de l'UUID Send Later (doit afficher <code>sendlater3@kamens.us</code>)</li>
+                            <li>Si l'UUID est incorrect ou absent, réinstallez Send Later</li>
+                        </ul>
+                        <div class="answer-danger">
+                            <p><strong>🚨 Erreur UUID :</strong> Si l'UUID ne correspond pas, Go2Econtact refusera de programmer des AR pour éviter les conflits.</p>
                         </div>
                     </div>
                 </div>
@@ -468,45 +160,24 @@
             <!-- CATÉGORIE 2 : UTILISATION -->
             <div class="category">
                 <div class="category-header">
-                    <span class="category-icon">📧</span>
+                    <span class="category-icon">🚀</span>
                     <h2 class="category-title">Utilisation</h2>
-                </div>
-
-                <!-- Question 7 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Les AR ne sont pas envoyés, que faire ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Vérifiez les points suivants dans l'ordre :</p>
-                        <ul>
-                            <li><strong>UUID Send Later :</strong> Est-il configuré et valide ? (bordure verte sur l'onglet Send Later)</li>
-                            <li><strong>Template :</strong> Le compte concerné a-t-il un template non-vide ?</li>
-                            <li><strong>Domaine interne :</strong> L'expéditeur n'est-il pas du domaine interne ?</li>
-                            <li><strong>Exclusions :</strong> L'expéditeur n'est-il pas dans vos règles d'exclusion ?</li>
-                            <li><strong>Mode test :</strong> Si activé, seule l'adresse de test reçoit des AR</li>
-                            <li><strong>Send Later :</strong> L'extension Send Later est-elle bien installée et activée ?</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>🔍 Diagnostic :</strong> Consultez l'onglet <strong>Logs</strong> pour voir les détails du traitement de chaque email.</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Question 8 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Je reçois des AR pour mes emails internes, pourquoi ?
+                        Comment activer/désactiver rapidement l'extension ?
                     </div>
                     <div class="faq-answer">
-                        <p>Plusieurs raisons possibles :</p>
+                        <p>Pour activer ou désactiver Go2Econtact pour un compte spécifique :</p>
                         <ul>
-                            <li><strong>Domaine interne mal configuré :</strong> Vérifiez que le domaine interne est correctement saisi (ex: <code>societe.fr</code>)</li>
-                            <li><strong>Adresse en inclusion :</strong> L'adresse interne est peut-être dans vos règles d'inclusion (priorité absolue)</li>
-                            <li><strong>Wildcard en inclusion :</strong> Un pattern trop large (ex: <code>*.*</code>) force l'AR pour tous les domaines</li>
+                            <li>Allez dans l'onglet <strong>👥 Comptes</strong></li>
+                            <li>Cliquez sur le bouton <strong>"Activer"</strong> ou <strong>"Désactiver"</strong> du compte concerné</li>
+                            <li>Les changements sont immédiats (pas besoin de redémarrer Thunderbird)</li>
                         </ul>
-                        <div class="answer-danger">
-                            <p><strong>🚨 Rappel :</strong> Les INCLUSIONS ont la priorité absolue sur toutes les autres règles, y compris le domaine interne.</p>
+                        <div class="answer-success">
+                            <p><strong>✓ Astuce :</strong> Désactivez temporairement un compte si vous êtes disponible et voulez répondre manuellement aux emails.</p>
                         </div>
                     </div>
                 </div>
@@ -514,23 +185,20 @@
                 <!-- Question 9 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment tester l'extension sans envoyer de vrais AR ?
+                        Que se passe-t-il quand je reçois un nouvel email ?
                     </div>
                     <div class="faq-answer">
-                        <p>Utilisez le <strong>mode test</strong> :</p>
+                        <p>Voici le processus complet :</p>
                         <ul>
-                            <li>Allez dans l'onglet <strong>Général</strong></li>
-                            <li>Cochez <strong>Activer le mode test</strong></li>
-                            <li>Saisissez votre adresse email personnelle comme adresse de test</li>
-                            <li>Enregistrez la configuration</li>
-                            <li>Envoyez-vous un email de test</li>
-                            <li>Vous recevrez un AR au bout de 2-10 minutes (délai réduit en mode test)</li>
+                            <li><strong>1. Réception :</strong> Thunderbird reçoit un nouvel email</li>
+                            <li><strong>2. Analyse :</strong> Go2Econtact vérifie si le compte destinataire est actif</li>
+                            <li><strong>3. Filtrage :</strong> Les règles d'inclusion/exclusion sont appliquées</li>
+                            <li><strong>4. Détection doublons :</strong> Vérification si un AR a déjà été envoyé récemment à cet expéditeur</li>
+                            <li><strong>5. Génération AR :</strong> Si toutes les conditions sont remplies, un AR est généré à partir du template</li>
+                            <li><strong>6. Programmation :</strong> L'AR est transmis à Send Later pour envoi différé</li>
                         </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Important :</strong> En mode test, seule l'adresse de test configurée reçoit des AR. Tous les autres emails sont ignorés.</p>
-                        </div>
-                        <div class="answer-danger">
-                            <p><strong>🚨 N'oubliez pas :</strong> Désactivez le mode test une fois vos tests terminés pour passer en production !</p>
+                        <div class="answer-info">
+                            <p><strong>📊 Suivi :</strong> Consultez l'onglet Analyse pour voir les décisions prises en temps réel.</p>
                         </div>
                     </div>
                 </div>
@@ -538,23 +206,22 @@
                 <!-- Question 10 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Quel délai choisir pour l'envoi des AR ?
+                        Comment empêcher l'envoi d'AR aux newsletters ?
                     </div>
                     <div class="faq-answer">
-                        <p>Le délai recommandé est <strong>2 heures</strong>. Ce délai est un bon compromis car :</p>
+                        <p>Utilisez les règles d'exclusion dans l'onglet <strong>Règles</strong> :</p>
                         <ul>
-                            <li>Vous avez le temps de traiter manuellement les emails urgents</li>
-                            <li>L'expéditeur reçoit une confirmation dans un délai raisonnable</li>
-                            <li>Cela évite de donner l'impression d'un robot instantané</li>
+                            <li>Créez une règle d'exclusion basée sur le <strong>mot-clé dans le sujet</strong></li>
+                            <li>Ajoutez des mots comme "newsletter", "notification", "promo"</li>
+                            <li>Ou excluez les domaines d'expéditeurs connus (ex: <code>noreply@</code>)</li>
                         </ul>
-                        <p><strong>Autres délais disponibles :</strong></p>
-                        <ul>
-                            <li><strong>1 heure :</strong> Pour une réactivité maximale</li>
-                            <li><strong>4-6 heures :</strong> Pour les services moins urgents</li>
-                            <li><strong>12-24 heures :</strong> Pour les emails traités en fin de journée</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>💡 Bon à savoir :</strong> En mode test, le délai est automatiquement réduit à 2-10 minutes pour faciliter les tests.</p>
+                        <div class="answer-success">
+                            <p><strong>💡 Exemples de règles :</strong></p>
+                            <ul>
+                                <li>Exclure "newsletter" dans le sujet</li>
+                                <li>Exclure "noreply" dans l'email</li>
+                                <li>Exclure domaines <code>marketing.com</code>, <code>newsletter.fr</code></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -562,18 +229,17 @@
                 <!-- Question 11 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Les variables du template ne sont pas remplacées, pourquoi ?
+                        Les AR sont-ils envoyés aux emails internes de mon entreprise ?
                     </div>
                     <div class="faq-answer">
-                        <p>Vérifiez la syntaxe des variables. Le format correct est :</p>
+                        <p>Par défaut, oui. Mais vous pouvez facilement exclure les emails internes :</p>
                         <ul>
-                            <li><code>{{sender}}</code> pour le nom de l'expéditeur</li>
-                            <li><code>{{subject}}</code> pour le sujet du message</li>
-                            <li><code>{{date}}</code> pour la date de réception</li>
-                            <li><code>{{time}}</code> pour l'heure de réception</li>
+                            <li>Allez dans l'onglet <strong>🔍 Règles</strong></li>
+                            <li>Créez une règle d'exclusion sur le <strong>domaine expéditeur</strong></li>
+                            <li>Entrez votre domaine d'entreprise (ex: <code>monentreprise.fr</code>)</li>
                         </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Attention :</strong> Respectez bien la casse et les doubles accolades. <code>{sender}</code> ou <code>{{Sender}}</code> ne fonctionneront pas.</p>
+                        <div class="answer-info">
+                            <p><strong>ℹ️ Résultat :</strong> Tous les emails provenant de <code>@monentreprise.fr</code> seront automatiquement exclus des AR.</p>
                         </div>
                     </div>
                 </div>
@@ -581,91 +247,78 @@
                 <!-- Question 12 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment éviter les doublons d'AR ?
+                        Puis-je modifier un template déjà en cours d'utilisation ?
                     </div>
                     <div class="faq-answer">
-                        <p>L'extension gère automatiquement les doublons ! Aucune action de votre part n'est nécessaire.</p>
-                        <p><strong>Fonctionnement :</strong></p>
+                        <p>Oui, vous pouvez modifier un template à tout moment, même s'il est associé à un compte actif.</p>
                         <ul>
-                            <li>L'extension conserve en mémoire les AR déjà envoyés</li>
-                            <li>Si un même expéditeur renvoie un email similaire, l'AR n'est pas renvoyé</li>
-                            <li>Le nombre de doublons évités est visible dans l'onglet Statistiques</li>
+                            <li>Allez dans l'onglet <strong>🎨 Templates</strong></li>
+                            <li>Cliquez sur <strong>✏️ Modifier</strong> à côté du template</li>
+                            <li>Effectuez vos modifications et enregistrez</li>
                         </ul>
-                        <div class="answer-success">
-                            <p><strong>✓ Rassurant :</strong> Même si vous recevez plusieurs emails du même expéditeur, il ne recevra qu'un seul AR.</p>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Impact :</strong> Les AR générés après la modification utiliseront immédiatement la nouvelle version du template.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- CATÉGORIE 3 : PARAMÈTRES AVANCÉS -->
-            <div class="category">
-                <div class="category-header">
-                    <span class="category-icon">⚙️</span>
-                    <h2 class="category-title">Paramètres avancés</h2>
                 </div>
 
                 <!-- Question 13 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment exclure tous les domaines en .fr ?
+                        Comment savoir si un AR a été envoyé à un expéditeur ?
                     </div>
                     <div class="faq-answer">
-                        <p>Dans l'onglet <strong>Général</strong>, section <strong>Exclusions</strong> :</p>
+                        <p>Consultez l'onglet <strong>📊 Analyse</strong> pour suivre en temps réel les AR envoyés :</p>
                         <ul>
-                            <li>Allez dans le champ <strong>Domaines exclus</strong></li>
-                            <li>Ajoutez une ligne avec : <code>*.fr</code></li>
-                            <li>Enregistrez la configuration</li>
+                            <li>Chaque événement est enregistré avec la date, l'expéditeur et la décision prise</li>
+                            <li>Les AR créés sont affichés en <strong style="color: #28a745;">vert</strong></li>
+                            <li>Vous pouvez filtrer par expéditeur, compte ou période</li>
                         </ul>
-                        <p><strong>Autres exemples de wildcards :</strong></p>
-                        <ul>
-                            <li><code>*.com</code> : Tous les domaines en .com</li>
-                            <li><code>*.societe.fr</code> : Tous les sous-domaines de societe.fr</li>
-                            <li><code>*.*</code> : Tous les domaines avec un point (99% des cas)</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>💡 Note :</strong> Les inclusions ont priorité sur les exclusions. Un domaine .fr en inclusion recevra toujours un AR.</p>
+                        <div class="answer-success">
+                            <p><strong>💡 Export :</strong> Exportez les données au format CSV pour une analyse externe.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- CATÉGORIE 3 : FONCTIONNALITÉS AVANCÉES -->
+            <div class="category">
+                <div class="category-header">
+                    <span class="category-icon">🔧</span>
+                    <h2 class="category-title">Fonctionnalités avancées</h2>
                 </div>
 
                 <!-- Question 14 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment exclure toutes les adresses "noreply" ?
+                        Comment fonctionne la détection des doublons ?
                     </div>
                     <div class="faq-answer">
-                        <p>Utilisez les <strong>Patterns exclus</strong> dans l'onglet Général :</p>
+                        <p>Go2Econtact mémorise les expéditeurs auxquels un AR a été envoyé récemment :</p>
                         <ul>
-                            <li>Allez dans le champ <strong>Patterns exclus</strong></li>
-                            <li>Ajoutez : <code>noreply@*</code></li>
-                            <li>Ou plus large : <code>*noreply*</code> (exclut toutes les adresses contenant "noreply")</li>
+                            <li>Après envoi d'un AR, l'adresse de l'expéditeur est enregistrée avec un timestamp</li>
+                            <li>Si le même expéditeur vous envoie un autre email dans la période configurée, aucun nouvel AR n'est envoyé</li>
+                            <li>La période de détection est configurable dans l'onglet Général (1-168h, défaut 24h)</li>
                         </ul>
-                        <p><strong>Autres patterns utiles :</strong></p>
-                        <ul>
-                            <li><code>no-reply@*</code> : Toutes les adresses no-reply</li>
-                            <li><code>*newsletter*</code> : Toutes les newsletters</li>
-                            <li><code>robot@*</code> : Tous les robots</li>
-                        </ul>
+                        <div class="answer-info">
+                            <p><strong>💡 Objectif :</strong> Éviter de spammer vos correspondants avec plusieurs AR pour chaque email reçu.</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Question 15 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Que signifie "Mode test" exactement ?
+                        Puis-je forcer l'envoi d'un AR même si un doublon existe ?
                     </div>
                     <div class="faq-answer">
-                        <p>Le mode test est un mode de sécurité pour valider votre configuration sans risque.</p>
-                        <p><strong>Comportement en mode test :</strong></p>
+                        <p>Non, la détection des doublons est automatique et ne peut pas être contournée manuellement. Cependant, vous pouvez :</p>
                         <ul>
-                            <li>Seule l'adresse email de test configurée reçoit des AR</li>
-                            <li>Tous les autres expéditeurs sont ignorés (même s'ils respectent les règles)</li>
-                            <li>Le délai d'envoi est réduit à 2-10 minutes au lieu de 1-24 heures</li>
-                            <li>Un bandeau rouge permanent est affiché dans l'interface de configuration</li>
+                            <li>Réduire la période de détection dans l'onglet Général (ex: passer de 24h à 1h)</li>
+                            <li>Effacer l'historique des doublons dans l'onglet Analyse</li>
                         </ul>
-                        <div class="answer-success">
-                            <p><strong>💡 Utilité :</strong> Idéal pour tester votre template et vos règles de filtrage en toute sécurité avant de passer en production.</p>
+                        <div class="answer-warning">
+                            <p><strong>⚠️ Attention :</strong> Réduire la période de détection peut entraîner l'envoi de plusieurs AR au même expéditeur, ce qui n'est généralement pas souhaitable.</p>
                         </div>
                     </div>
                 </div>
@@ -673,43 +326,30 @@
                 <!-- Question 16 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Quelle est la différence entre exclusions et inclusions ?
+                        Comment exporter mes règles de filtrage ?
                     </div>
                     <div class="faq-answer">
-                        <p><strong>EXCLUSIONS :</strong> Empêchent l'envoi d'AR à certains destinataires</p>
-                        <p><strong>INCLUSIONS :</strong> Forcent l'envoi d'AR, même si le destinataire est exclu ailleurs</p>
-                        <div class="answer-danger">
-                            <p><strong>⚡ PRIORITÉ ABSOLUE :</strong> Les inclusions ont la priorité sur TOUTES les autres règles, y compris :</p>
-                            <ul>
-                                <li>Le domaine interne</li>
-                                <li>Les exclusions</li>
-                                <li>Le mode test (non, le mode test reste prioritaire)</li>
-                            </ul>
-                        </div>
-                        <p><strong>Exemple pratique :</strong></p>
+                        <p>Actuellement, Go2Econtact ne propose pas d'export/import de règles. Cependant, vos règles sont sauvegardées localement dans Thunderbird et seront conservées :</p>
                         <ul>
-                            <li>Domaine interne : <code>societe.fr</code> → Pas d'AR pour @societe.fr</li>
-                            <li>Inclusion : <code>partenaire@societe.fr</code> → AR envoyé malgré le domaine interne</li>
+                            <li>Lors des mises à jour de l'extension</li>
+                            <li>Lors des redémarrages de Thunderbird</li>
                         </ul>
+                        <div class="answer-info">
+                            <p><strong>💡 À venir :</strong> L'export/import de configuration est prévu pour une future version.</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Question 17 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment activer le logging détaillé ?
+                        Puis-je créer des règles avec des expressions régulières (regex) ?
                     </div>
                     <div class="faq-answer">
-                        <p>Dans l'onglet <strong>Général</strong>, section <strong>Logging</strong> :</p>
-                        <ul>
-                            <li>Cochez la case <strong>Activer l'enregistrement de tous les logs</strong></li>
-                            <li>Enregistrez la configuration</li>
-                            <li>L'extension enregistrera désormais tous les événements, y compris les logs informatifs</li>
-                        </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Recommandation :</strong> Activez le logging détaillé uniquement pour le debugging. Désactivez-le ensuite pour économiser les ressources.</p>
+                        <p>Non, Go2Econtact utilise un système de correspondance simple (recherche de chaîne de caractères). Les expressions régulières ne sont pas supportées dans cette version.</p>
+                        <div class="answer-info">
+                            <p><strong>ℹ️ Alternative :</strong> Vous pouvez créer plusieurs règles pour couvrir différentes variantes (ex: "newsletter", "newsletters", "Newsletter").</p>
                         </div>
-                        <p>Consultez les logs dans l'onglet <strong>Logs</strong>.</p>
                     </div>
                 </div>
 
@@ -869,16 +509,17 @@
                 <h3>💬 Besoin d'aide supplémentaire ?</h3>
                 <p><strong>Support technique Phase 2 :</strong> support@fip-toolkit.fr</p>
                 <p>(Le support par email sera disponible lors du passage en Phase 2 avec l'infrastructure professionnelle)</p>
-                <p><strong>En attendant :</strong> Consultez la <a href="documentation.html" style="color: #667eea; font-weight: 600;">documentation complète</a> ou le <a href="tutoriel.html" style="color: #667eea; font-weight: 600;">tutoriel de configuration</a>.</p>
+                <p><strong>En attendant :</strong> Consultez la <a href="documentation.html">documentation complète</a> ou le <a href="tutoriel.html">tutoriel de configuration</a>.</p>
             </div>
 
-            <!-- Navigation -->
+            <!-- Footer Navigation Unifié -->
             <div class="footer-nav">
-                <h3>📚 Ressources complémentaires</h3>
+                <h3>📚 Navigation</h3>
                 <div class="nav-links">
-                    <a href="index.html" class="nav-link">🏠 Accueil Go2Econtact</a>
+                    <a href="index.html" class="nav-link">🏠 Accueil</a>
                     <a href="tutoriel.html" class="nav-link">🚀 Tutoriel</a>
                     <a href="documentation.html" class="nav-link">📖 Documentation</a>
+                    <a href="faq.html" class="nav-link">❓ FAQ</a>
                     <a href="changelog.html" class="nav-link">📋 Changelog</a>
                     <a href="../index.html" class="nav-link">🔙 FIP Toolkit</a>
                 </div>
