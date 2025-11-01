@@ -328,31 +328,6 @@
                 </div>
 
                 <div class="subsection">
-                    <h3>Variables dynamiques</h3>
-                    <p>Vous pouvez utiliser des variables dynamiques dans vos templates pour personnaliser automatiquement les AR :</p>
-                    
-                    <ul class="custom-list">
-                        <li><strong>{{SENDER_NAME}}</strong> : Nom de l'expéditeur (extrait de l'email reçu)</li>
-                        <li><strong>{{SENDER_EMAIL}}</strong> : Adresse email de l'expéditeur</li>
-                        <li><strong>{{RECIPIENT_NAME}}</strong> : Votre nom (destinataire)</li>
-                        <li><strong>{{RECIPIENT_EMAIL}}</strong> : Votre adresse email</li>
-                        <li><strong>{{DATE_RETURN}}</strong> : Date de retour prévue</li>
-                        <li><strong>{{DATE_NOW}}</strong> : Date du jour</li>
-                    </ul>
-
-                    <div class="info-box">
-                        <p><strong>💡 Exemple de message personnalisé :</strong></p>
-                        <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;">Bonjour {{SENDER_NAME}},
-
-Je suis actuellement absent(e) du bureau jusqu'au {{DATE_RETURN}}.
-
-Votre message a bien été reçu et je vous répondrai dès mon retour.
-
-Pour toute urgence, contactez mon collègue à support@entreprise.fr.
-
-Cordialement,
-{{RECIPIENT_NAME}}</pre>
-                    </div>
                     <div class="info-box">
     <p><strong>💡 Exemple de template HTML réaliste :</strong></p>
     <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4;">&lt;!DOCTYPE html&gt;
