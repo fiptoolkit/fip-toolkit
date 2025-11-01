@@ -4,663 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutoriel de configuration - Go2Econtact</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 16px;
-        }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        /* Badge durée */
-        .duration-badge {
-            display: inline-block;
-            background: #f8f9fa;
-            color: #667eea;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 30px;
-        }
-
-        /* Intro */
-        .intro {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .intro p {
-            color: #555;
-            margin-bottom: 12px;
-        }
-
-        .intro p:last-child {
-            margin-bottom: 0;
-        }
-
-        .intro strong {
-            color: #333;
-        }
-
-        /* Prérequis */
-        .prerequisites {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 40px;
-        }
-
-        .prerequisites h3 {
-            color: #856404;
-            margin-bottom: 15px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .prerequisites ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .prerequisites li {
-            color: #856404;
-            margin-bottom: 10px;
-            padding-left: 24px;
-            position: relative;
-        }
-
-        .prerequisites li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* Étapes */
-        .step {
-            margin-bottom: 50px;
-            padding-bottom: 40px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .step:last-child {
-            border-bottom: none;
-        }
-
-        .step-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 25px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .step-number {
-            background: rgba(255, 255, 255, 0.2);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .step-title {
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-        .step-content {
-            padding: 0 25px;
-        }
-
-        .step-description {
-            color: #555;
-            font-size: 15px;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-
-        /* Instructions numérotées */
-        .instructions {
-            counter-reset: instruction;
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .instructions li {
-            counter-increment: instruction;
-            margin-bottom: 20px;
-            padding-left: 45px;
-            position: relative;
-            color: #333;
-            font-size: 15px;
-        }
-
-        .instructions li:before {
-            content: counter(instruction);
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: #667eea;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .instructions li strong {
-            color: #667eea;
-        }
-
-        /* Screenshot placeholder */
-        .screenshot-placeholder {
-            background: #f8f9fa;
-            border: 2px dashed #667eea;
-            border-radius: 8px;
-            padding: 60px 20px;
-            text-align: center;
-            margin: 25px 0;
-            color: #667eea;
-            font-weight: 500;
-        }
-
-        .screenshot-placeholder .icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        /* Tip box */
-        .tip {
-            background: #d1ecf1;
-            border-left: 4px solid #17a2b8;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .tip-title {
-            color: #0c5460;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tip-content {
-            color: #0c5460;
-            font-size: 14px;
-        }
-
-        /* Warning box */
-        .warning {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .warning-title {
-            color: #721c24;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .warning-content {
-            color: #721c24;
-            font-size: 14px;
-        }
-
-        /* Success section */
-        .success-section {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 25px;
-            border-radius: 8px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .success-section h3 {
-            color: #155724;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .success-section p {
-            color: #155724;
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        /* Navigation buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn-secondary:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Code inline */
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: "Courier New", monospace;
-            font-size: 13px;
-            color: #667eea;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                margin: 0;
-                border-radius: 0;
-            }
-
-            .content {
-                padding: 30px 20px;
-            }
-
-            .step-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📚 Tutoriel de configuration</h1>
-            <p>Go2Econtact - Accusés de réception automatiques</p>
-        </div>
-
+    <div class="header">
+        <a href="index.html">← Retour à Go2Econtact</a>
+    </div>
+    
+    <div class="container container-narrow">
         <div class="content">
-            <div class="duration-badge">
-                ⏱️ Durée estimée : 10-15 minutes
-            </div>
-
+            <h1>🚀 Tutoriel de configuration</h1>
+            <p class="subtitle">Guide pas à pas pour configurer Go2Econtact en 3 étapes</p>
+            
+            <span class="duration-badge">⏱️ Durée estimée : 10-15 minutes</span>
+            
             <!-- Introduction -->
             <div class="intro">
                 <p><strong>Bienvenue dans le tutoriel de configuration de Go2Econtact !</strong></p>
-                <p>Ce guide vous accompagne pas à pas dans la mise en place de l'extension pour automatiser l'envoi d'accusés de réception différés.</p>
-                <p>Suivez les 3 étapes ci-dessous dans l'ordre pour configurer Go2Econtact correctement.</p>
+                <p>Ce guide vous accompagne étape par étape pour configurer l'extension et commencer à automatiser vos accusés de réception.</p>
+                <p>À la fin de ce tutoriel, vous serez capable de générer automatiquement des AR personnalisés pour tous vos emails externes.</p>
             </div>
-
+            
             <!-- Prérequis -->
             <div class="prerequisites">
-                <h3>⚠️ Prérequis</h3>
+                <h3>📋 Prérequis</h3>
                 <ul>
-                    <li><strong>Thunderbird 128.0 ou supérieur</strong> installé sur votre ordinateur</li>
-                    <li><strong>Go2Econtact</strong> installé (si ce n'est pas encore fait, téléchargez-le depuis la page d'accueil)</li>
-                    <li><strong>Droits d'administrateur</strong> pour installer des extensions (selon votre environnement)</li>
-                    <li><strong>Connexion internet</strong> pour télécharger Send Later</li>
+                    <li>Thunderbird 128.0 ou version supérieure installé</li>
+                    <li>Extension Go2Econtact installée dans Thunderbird</li>
+                    <li>Extension Send Later (version 9.0+) installée dans Thunderbird</li>
+                    <li>10-15 minutes devant vous pour suivre ce tutoriel</li>
                 </ul>
             </div>
-
-            <!-- ÉTAPE 1 : INSTALLER SEND LATER -->
+            
+            <!-- ÉTAPE 1 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">1</div>
-                    <div class="step-title">Installer l'extension Send Later</div>
+                    <div class="step-title">Installer Send Later</div>
                 </div>
-
+                
                 <div class="step-content">
                     <p class="step-description">
-                        <strong>Send Later</strong> est une extension tierce indispensable pour Go2Econtact. 
-                        Elle permet de programmer l'envoi différé des accusés de réception. 
-                        Sans cette extension, Go2Econtact ne peut pas fonctionner.
+                        <strong>Send Later</strong> est une extension Thunderbird indispensable qui permet de programmer l'envoi différé de vos messages. 
+                        Go2Econtact l'utilise pour envoyer les accusés de réception après un délai configurable.
                     </p>
-
+                    
                     <ol class="instructions">
-                        <li>Ouvrez <strong>Thunderbird</strong></li>
-                        <li>Dans le menu principal, cliquez sur <strong>Outils</strong> → <strong>Modules complémentaires et thèmes</strong></li>
+                        <li>Dans Thunderbird, ouvrez le menu <strong>Modules complémentaires et thèmes</strong> (raccourci : Ctrl+Shift+A)</li>
                         <li>Dans la barre de recherche, tapez <strong>"Send Later"</strong></li>
-                        <li>Repérez l'extension <strong>Send Later</strong> (développée par Jonathan Kamens)</li>
+                        <li>Repérez l'extension <strong>"Send Later"</strong> de Jonathan Kamens</li>
                         <li>Cliquez sur le bouton <strong>Ajouter à Thunderbird</strong></li>
-                        <li>Confirmez l'installation en cliquant sur <strong>Ajouter</strong> dans la fenêtre de confirmation</li>
-                        <li><strong>Redémarrez Thunderbird</strong> pour activer l'extension</li>
+                        <li>Confirmez l'installation en cliquant sur <strong>Ajouter</strong></li>
+                        <li>Attendez la fin de l'installation (quelques secondes)</li>
+                        <li>Redémarrez Thunderbird si demandé</li>
                     </ol>
-
-                    <div class="screenshot-placeholder">
-                        <div class="icon">📸</div>
-                        <div>
-                            <strong>CAPTURE D'ÉCRAN À AJOUTER :</strong><br>
-                            Interface de recherche d'extensions Thunderbird avec "Send Later" visible
-                        </div>
+                    
+                    <!-- Placeholder capture d'écran -->
+                    <div class="info-box">
+                        <p><strong>📸 Capture d'écran à venir :</strong> Interface de recherche d'extensions dans Thunderbird</p>
                     </div>
-
-                    <div class="tip">
-                        <div class="tip-title">💡 Astuce</div>
-                        <div class="tip-content">
-                            Vérifiez que la version de Send Later est <strong>9.0 ou supérieure</strong>. 
-                            Les versions antérieures ne sont pas compatibles avec Go2Econtact.
-                        </div>
+                    
+                    <div class="success-box">
+                        <p><strong>💡 Astuce :</strong> Vérifiez que la version installée est bien 9.0 ou supérieure. Les versions antérieures ne sont pas compatibles avec Go2Econtact.</p>
                     </div>
-
-                    <div class="warning">
-                        <div class="warning-title">⚠️ Important</div>
-                        <div class="warning-content">
-                            Si vous désinstallez et réinstallez Send Later ultérieurement, vous devrez mettre à jour l'UUID dans Go2Econtact (voir Étape 2). 
-                            Chaque installation génère un nouvel identifiant unique.
-                        </div>
+                    
+                    <div class="warning-box">
+                        <p><strong>⚠️ Important :</strong> Si vous désinstallez puis réinstallez Send Later ultérieurement, un nouvel UUID sera généré. Vous devrez alors mettre à jour la configuration de Go2Econtact avec ce nouveau UUID.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- ÉTAPE 2 : RÉCUPÉRER UUID SEND LATER -->
+            
+            <!-- ÉTAPE 2 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">2</div>
-                    <div class="step-title">Récupérer l'UUID d'instance de Send Later</div>
+                    <div class="step-title">Récupérer l'UUID d'instance Send Later</div>
                 </div>
-
+                
                 <div class="step-content">
                     <p class="step-description">
-                        L'<strong>UUID d'instance</strong> (Universally Unique Identifier) est un identifiant unique généré automatiquement lors de l'installation de Send Later. 
-                        Go2Econtact a besoin de cet identifiant pour communiquer avec Send Later et programmer l'envoi des accusés de réception.
+                        L'<strong>UUID (Universally Unique Identifier)</strong> est un identifiant unique généré automatiquement par Send Later lors de son installation. 
+                        Go2Econtact a besoin de cet UUID pour communiquer avec Send Later et programmer l'envoi des accusés de réception.
                     </p>
-
+                    
                     <ol class="instructions">
-                        <li>Dans Thunderbird, ouvrez <strong>Outils</strong> → <strong>Modules complémentaires et thèmes</strong></li>
-                        <li>Dans la liste des extensions installées, cliquez sur <strong>Send Later</strong></li>
-                        <li>Faites défiler la page vers le bas jusqu'à la section <strong>Détails</strong></li>
-                        <li>Repérez la ligne <strong>"UUID d'instance"</strong> ou <strong>"Instance ID"</strong></li>
-                        <li>Copiez l'identifiant complet (format : <code>{12345678-1234-1234-1234-123456789012}</code>)</li>
+                        <li>Dans Thunderbird, cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils principale (en haut)</li>
+                        <li>Dans le menu déroulant qui s'ouvre, cliquez sur <strong>Send Later preferences</strong></li>
+                        <li>Dans la fenêtre des préférences, allez dans l'onglet <strong>Advanced</strong></li>
+                        <li>Cherchez la ligne commençant par <code>instanceUUID</code> dans la liste des paramètres</li>
+                        <li>Sélectionnez et copiez <strong>TOUTE la valeur</strong> entre les guillemets (y compris les accolades { })</li>
                     </ol>
-
-                    <div class="screenshot-placeholder">
-                        <div class="icon">📸</div>
-                        <div>
-                            <strong>CAPTURE D'ÉCRAN À AJOUTER :</strong><br>
-                            Page de détails de Send Later avec flèche rouge pointant vers l'UUID d'instance
-                        </div>
+                    
+                    <!-- Placeholder capture d'écran -->
+                    <div class="info-box">
+                        <p><strong>📸 Capture d'écran à venir :</strong> Onglet Advanced de Send Later avec une flèche rouge pointant vers l'UUID</p>
                     </div>
-
-                    <div class="tip">
-                        <div class="tip-title">💡 Reconnaissance de l'UUID</div>
-                        <div class="tip-content">
-                            L'UUID ressemble toujours à ceci : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code><br>
-                            Il commence par <strong>{</strong> et se termine par <strong>}</strong>, avec 5 groupes de chiffres/lettres séparés par des tirets.
-                        </div>
+                    
+                    <p><strong>Exemple d'UUID :</strong></p>
+                    <pre><code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></pre>
+                    
+                    <div class="success-box">
+                        <p><strong>💡 Astuce :</strong> Le format de l'UUID est toujours le même : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code> où x représente un caractère hexadécimal (0-9, a-f).</p>
                     </div>
-
-                    <div class="warning">
-                        <div class="warning-title">⚠️ Attention</div>
-                        <div class="warning-content">
-                            Ne confondez pas l'<strong>UUID d'instance</strong> avec l'<strong>ID de l'extension</strong>. 
-                            Ce sont deux identifiants différents. Assurez-vous de copier le bon !
-                        </div>
+                    
+                    <div class="warning-box">
+                        <p><strong>⚠️ Attention :</strong> Ne confondez pas l'UUID d'instance (<code>instanceUUID</code>) avec l'ID de l'extension Send Later. Ce sont deux identifiants différents !</p>
                     </div>
                 </div>
             </div>
-
-            <!-- ÉTAPE 3 : CONFIGURER GO2ECONTACT -->
+            
+            <!-- ÉTAPE 3 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">Configurer Go2Econtact</div>
                 </div>
-
+                
                 <div class="step-content">
                     <p class="step-description">
-                        Maintenant que Send Later est installé et que vous avez son UUID, il est temps de configurer Go2Econtact. 
-                        Cette étape se déroule en plusieurs sous-étapes correspondant aux différents onglets de l'interface.
+                        Maintenant que vous avez récupéré l'UUID de Send Later, vous allez configurer Go2Econtact pour qu'il puisse automatiser l'envoi des accusés de réception.
                     </p>
-
+                    
                     <!-- Sous-étape 3.1 : UUID -->
-                    <h4 style="color: #667eea; margin: 25px 0 15px 0; font-size: 18px;">
-                        3.1 - Configurer l'UUID de Send Later
-                    </h4>
-
+                    <h3>3.1 Configurer l'UUID Send Later</h3>
                     <ol class="instructions">
-                        <li>Cliquez sur l'icône <strong>Go2Econtact</strong> dans la barre d'outils Thunderbird</li>
-                        <li>Dans la fenêtre qui s'ouvre, sélectionnez l'onglet <strong>🔗 Send Later</strong></li>
-                        <li>Collez l'UUID que vous avez copié à l'étape 2 dans le champ <strong>"UUID d'instance de Send Later"</strong></li>
-                        <li>Cliquez sur le bouton <strong>"Tester la connexion"</strong> pour vérifier que l'UUID est valide</li>
-                        <li>Si le test réussit, vous verrez un message de confirmation en vert</li>
+                        <li>Ouvrez l'interface de configuration de Go2Econtact (clic droit sur l'icône de l'extension → Options)</li>
+                        <li>Allez dans l'onglet <strong>🔗 Send Later</strong></li>
+                        <li>Collez l'UUID que vous avez copié à l'étape 2 dans le champ <strong>UUID Send Later</strong></li>
+                        <li>Vérifiez que l'indicateur de validation passe au vert ✓</li>
+                        <li>Si l'indicateur reste rouge ✗, vérifiez que vous avez bien copié toute la valeur avec les accolades</li>
                     </ol>
-
-                    <div class="screenshot-placeholder">
-                        <div class="icon">📸</div>
-                        <div>
-                            <strong>CAPTURE D'ÉCRAN À AJOUTER :</strong><br>
-                            Onglet "Send Later" de Go2Econtact avec champ UUID rempli
-                        </div>
-                    </div>
-
+                    
                     <!-- Sous-étape 3.2 : Templates -->
-                    <h4 style="color: #667eea; margin: 35px 0 15px 0; font-size: 18px;">
-                        3.2 - Configurer vos comptes et templates d'accusé de réception
-                    </h4>
-
+                    <h3>3.2 Configurer vos templates d'accusé de réception</h3>
                     <ol class="instructions">
-                        <li>Passez à l'onglet <strong>📝 Templates</strong></li>
-                        <li>Go2Econtact détecte automatiquement tous vos comptes email configurés dans Thunderbird</li>
-                        <li>Pour chaque compte que vous souhaitez utiliser, cochez la case <strong>"Activer l'envoi d'AR pour ce compte"</strong></li>
-                        <li>Personnalisez le <strong>template d'accusé de réception</strong> dans la zone de texte</li>
-                        <li>Utilisez les variables disponibles pour personnaliser vos messages :
-                            <ul style="margin-top: 10px; padding-left: 45px;">
-                                <li><code>{{sender}}</code> : Nom de l'expéditeur</li>
-                                <li><code>{{subject}}</code> : Sujet du message original</li>
-                                <li><code>{{date}}</code> : Date de réception</li>
-                                <li><code>{{time}}</code> : Heure de réception</li>
-                            </ul>
-                        </li>
-                        <li>Cliquez sur <strong>"Aperçu"</strong> pour visualiser le rendu final</li>
+                        <li>Allez dans l'onglet <strong>📝 Templates</strong></li>
+                        <li>Cliquez sur <strong>➕ Nouveau compte</strong></li>
+                        <li>Saisissez l'adresse email exacte du compte pour lequel vous souhaitez activer les AR automatiques</li>
+                        <li>Dans la zone de texte "Template HTML", personnalisez le message d'accusé de réception</li>
+                        <li>Utilisez les variables dynamiques pour personnaliser votre message :</li>
                     </ol>
+                    
+                    <p><strong>Variables disponibles :</strong></p>
+                    <ul>
+                        <li><code>{{sender}}</code> : Nom de l'expéditeur du message original</li>
+                        <li><code>{{subject}}</code> : Sujet du message original</li>
+                        <li><code>{{date}}</code> : Date de réception du message</li>
+                        <li><code>{{time}}</code> : Heure de réception du message</li>
+                    </ul>
+                    
+                    <p><strong>Exemple de template :</strong></p>
+                    <pre><code>&lt;p&gt;Bonjour {{sender}},&lt;/p&gt;
 
-                    <div class="screenshot-placeholder">
-                        <div class="icon">📸</div>
-                        <div>
-                            <strong>CAPTURE D'ÉCRAN À AJOUTER :</strong><br>
-                            Onglet "Templates" avec un compte activé et template personnalisé
-                        </div>
-                    </div>
+&lt;p&gt;Nous avons bien reçu votre message du {{date}} à {{time}} concernant :&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;{{subject}}&lt;/strong&gt;&lt;/p&gt;
 
-                    <div class="tip">
-                        <div class="tip-title">💡 Exemple de template</div>
-                        <div class="tip-content">
-                            <strong>Bonjour {{sender}},</strong><br><br>
-                            J'ai bien reçu votre message concernant "{{subject}}" le {{date}} à {{time}}.<br>
-                            Je reviendrai vers vous dans les meilleurs délais.<br><br>
-                            Cordialement
-                        </div>
-                    </div>
+&lt;p&gt;Nous vous répondrons dans les meilleurs délais.&lt;/p&gt;
 
+&lt;p&gt;Cordialement,&lt;br&gt;
+L'équipe Support&lt;/p&gt;</code></pre>
+                    
+                    <ol class="instructions" start="6">
+                        <li>Cliquez sur <strong>👁️ Aperçu</strong> pour visualiser le rendu de votre template</li>
+                    </ol>
+                    
                     <!-- Sous-étape 3.3 : Paramètres généraux -->
-                    <h4 style="color: #667eea; margin: 35px 0 15px 0; font-size: 18px;">
-                        3.3 - Configurer les paramètres généraux
-                    </h4>
-
+                    <h3>3.3 Configurer les paramètres généraux</h3>
                     <ol class="instructions">
-                        <li>Passez à l'onglet <strong>⚙️ Général</strong></li>
-                        <li>Renseignez votre <strong>domaine interne</strong> (ex : <code>entreprise.fr</code>) pour éviter d'envoyer des AR aux collègues</li>
-                        <li>Choisissez le <strong>délai d'envoi</strong> des accusés de réception (par défaut : 2 heures)</li>
-                        <li><strong>Optionnel</strong> : Activez le <strong>mode test</strong> pour vérifier le fonctionnement sans envoyer de vrais AR</li>
-                        <li><strong>Optionnel</strong> : Configurez des exclusions ou inclusions spécifiques (domaines, adresses, patterns)</li>
+                        <li>Allez dans l'onglet <strong>⚙️ Général</strong></li>
+                        <li>Renseignez votre <strong>domaine interne</strong> (ex: societe.fr) pour exclure les emails internes des AR automatiques</li>
+                        <li>Choisissez le <strong>délai d'envoi</strong> des AR (recommandé : 2 heures)</li>
+                        <li>Activez le <strong>mode test</strong> et saisissez votre adresse email personnelle pour tester sans risque</li>
+                        <li>Configurez vos règles d'exclusion si nécessaire (domaines, adresses, patterns à exclure)</li>
                     </ol>
-
-                    <div class="screenshot-placeholder">
-                        <div class="icon">📸</div>
-                        <div>
-                            <strong>CAPTURE D'ÉCRAN À AJOUTER :</strong><br>
-                            Onglet "Général" avec domaine interne et délai configurés
-                        </div>
-                    </div>
-
-                    <div class="warning">
-                        <div class="warning-title">⚠️ Mode test recommandé</div>
-                        <div class="warning-content">
-                            Avant de mettre Go2Econtact en production, nous vous recommandons vivement d'activer le <strong>mode test</strong> 
-                            et de vérifier que tout fonctionne correctement pendant quelques jours. 
-                            En mode test, les AR sont envoyés uniquement à l'adresse email de test que vous spécifiez.
-                        </div>
-                    </div>
-
+                    
                     <!-- Sous-étape 3.4 : Enregistrer -->
-                    <h4 style="color: #667eea; margin: 35px 0 15px 0; font-size: 18px;">
-                        3.4 - Enregistrer la configuration
-                    </h4>
-
+                    <h3>3.4 Enregistrer et tester</h3>
                     <ol class="instructions">
-                        <li>Une fois tous les paramètres configurés, cliquez sur le bouton <strong>"💾 Enregistrer la configuration"</strong> en bas de la page</li>
-                        <li>Un message de confirmation s'affiche pour vous indiquer que la configuration a été sauvegardée</li>
-                        <li>Vous pouvez maintenant fermer la fenêtre de configuration</li>
+                        <li>Cliquez sur le bouton <strong>💾 Enregistrer</strong> en bas de la page de configuration</li>
+                        <li>Vérifiez que tous les onglets ont une bordure verte (configuration complète)</li>
+                        <li>Envoyez-vous un email de test pour vérifier que tout fonctionne</li>
                     </ol>
-                </div>
-            </div>
-
-            <!-- Section succès -->
-            <div class="success-section">
-                <h3>✅ Félicitations ! Go2Econtact est configuré !</h3>
-                <p>Votre extension est maintenant opérationnelle et enverra automatiquement des accusés de réception différés pour vos emails externes.</p>
-                <p>Vous recevrez une notification lors du prochain accusé de réception envoyé.</p>
-            </div>
-
-            <!-- Conseil final mode test -->
-            <div class="tip">
-                <div class="tip-title">💡 Conseil : Vérifiez avec le mode test</div>
-                <div class="tip-content">
-                    Si vous avez activé le mode test, envoyez-vous un email de test depuis une adresse externe. 
-                    Vérifiez que vous recevez bien un accusé de réception à l'adresse email de test configurée. 
-                    Une fois satisfait du fonctionnement, désactivez le mode test pour passer en production.
-                </div>
-            </div>
-
-            <!-- Que faire ensuite ? -->
-            <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-top: 40px;">
-                <h3 style="color: #333; margin-bottom: 20px; font-size: 20px;">📖 Que faire ensuite ?</h3>
-                
-                <div style="display: grid; gap: 15px;">
-                    <div style="padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #667eea;">
-                        <strong style="color: #667eea;">📚 Consulter la documentation complète</strong><br>
-                        <span style="color: #666; font-size: 14px;">Pour en savoir plus sur toutes les fonctionnalités de Go2Econtact</span>
-                    </div>
                     
-                    <div style="padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #28a745;">
-                        <strong style="color: #28a745;">❓ Consulter la FAQ</strong><br>
-                        <span style="color: #666; font-size: 14px;">Réponses aux questions fréquentes et problèmes courants</span>
-                    </div>
-                    
-                    <div style="padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #17a2b8;">
-                        <strong style="color: #17a2b8;">📊 Explorer les statistiques</strong><br>
-                        <span style="color: #666; font-size: 14px;">Suivez l'activité de vos accusés de réception dans l'onglet Statistiques</span>
-                    </div>
-                    
-                    <div style="padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #ffc107;">
-                        <strong style="color: #856404;">🔄 Vérifier les mises à jour</strong><br>
-                        <span style="color: #666; font-size: 14px;">Consultez régulièrement l'onglet Mise à jour pour bénéficier des dernières améliorations</span>
+                    <!-- Placeholder capture d'écran -->
+                    <div class="info-box">
+                        <p><strong>📸 Capture d'écran à venir :</strong> Interface de configuration Go2Econtact avec onglets</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Navigation -->
-            <div class="nav-buttons">
-                <a href="index.html" class="btn btn-secondary">← Retour à l'accueil</a>
-                <a href="documentation.html" class="btn btn-primary">Documentation complète →</a>
+            
+            <!-- Section finale -->
+            <div class="success-box">
+                <h3>🎉 Félicitations !</h3>
+                <p>Votre configuration est terminée. Go2Econtact va maintenant automatiser l'envoi d'accusés de réception pour tous vos emails externes.</p>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>💡 Conseil :</strong> Gardez le mode test activé pendant quelques jours pour valider que tout fonctionne comme prévu. Une fois rassuré, désactivez-le pour passer en production.</p>
+            </div>
+            
+            <div class="section">
+                <h2>📚 Que faire ensuite ?</h2>
+                <p>Maintenant que votre configuration de base est terminée, vous pouvez :</p>
+                <ul>
+                    <li>Consulter la <a href="documentation.html">documentation complète</a> pour découvrir toutes les fonctionnalités avancées</li>
+                    <li>Parcourir la <a href="faq.html">FAQ</a> pour trouver des réponses aux questions courantes</li>
+                    <li>Consulter les <a href="changelog.html">notes de version</a> pour suivre l'évolution de l'extension</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Footer Navigation -->
+        <div class="footer-nav">
+            <h3>📚 Navigation</h3>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">🏠 Accueil</a>
+                <a href="tutoriel.html" class="nav-link">🚀 Tutoriel</a>
+                <a href="documentation.html" class="nav-link">📖 Documentation</a>
+                <a href="faq.html" class="nav-link">❓ FAQ</a>
+                <a href="changelog.html" class="nav-link">📋 Changelog</a>
+                <a href="../index.html" class="nav-link">🔙 FIP Toolkit</a>
             </div>
         </div>
     </div>
