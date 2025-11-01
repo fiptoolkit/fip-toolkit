@@ -7,14 +7,14 @@
    PALETTE ACTIVE : ROUGE GRENAT
    ============================================ */
 :root {
-    --color-bg: #d4c5b0;              /* Fond beige foncé */
+    --color-bg: #fff7ed;              /* Fond beige foncé */
     --color-primary: #b91c1c;         /* Rouge principal */
     --color-primary-dark: #991b1b;    /* Rouge foncé */
     --color-primary-light: #dc2626;   /* Rouge clair */
     --color-accent: #fbbf24;          /* Jaune pour status */
     --color-text: #333;
     --color-text-light: #666;
-    --border-width: 30px;             /* Bordure container */
+    --border-width: 25px;             /* Bordure container */
 }
 
 /* ============================================
@@ -132,10 +132,10 @@ h1 {
     display: inline-block;
     padding: 0.3rem 0.8rem;
     background: var(--color-accent);
-    color: white;
+    color: #000;
     border-radius: 20px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 /* ============================================
