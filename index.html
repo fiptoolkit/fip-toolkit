@@ -4,80 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIP Toolkit - Outils professionnels</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .container {
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            max-width: 800px;
-            text-align: center;
-        }
-        
-        h1 {
-            color: #667eea;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .tools {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .tool-card {
-            padding: 1.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .tool-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        .tool-card h3 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-        
-        .status {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: #ffc107;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="css/fip-toolkit.css">
 </head>
 <body>
     <div class="container">
@@ -85,11 +12,11 @@
         <p class="subtitle">Suite d'outils professionnels pour Thunderbird et plus</p>
         
         <div class="tools">
-            <div class="tool-card">
-                <h3>📧 Go2Econtact</h3>
+            <a href="go2econtact/index.html" class="tool-card">
+                <h3>🔧 Go2Econtact</h3>
                 <p>Accusés de réception automatiques pour Thunderbird</p>
                 <span class="status">En test</span>
-            </div>
+            </a>
             
             <div class="tool-card">
                 <h3>📊 Margaret</h3>
@@ -98,7 +25,7 @@
             </div>
         </div>
         
-        <p style="margin-top: 2rem; color: #999;">
+        <p class="footer-text">
             Documentation complète bientôt disponible
         </p>
     </div>

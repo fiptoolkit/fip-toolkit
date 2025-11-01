@@ -1,0 +1,185 @@
+/* ============================================
+   FIP-TOOLKIT.CSS
+   Feuille de styles pour la page d'accueil FIP Toolkit
+   ============================================ */
+
+/* ============================================
+   PALETTE ACTIVE : ROUGE GRENAT
+   ============================================ */
+:root {
+    --color-bg: #d4c5b0;              /* Fond beige foncé */
+    --color-primary: #b91c1c;         /* Rouge principal */
+    --color-primary-dark: #991b1b;    /* Rouge foncé */
+    --color-primary-light: #dc2626;   /* Rouge clair */
+    --color-accent: #fbbf24;          /* Jaune pour status */
+    --color-text: #333;
+    --color-text-light: #666;
+    --border-width: 30px;             /* Bordure container */
+}
+
+/* ============================================
+   PALETTE ALTERNATIVE : CYAN TECH (commentée)
+   Pour activer, décommenter et commenter la palette rouge
+   ============================================
+:root {
+    --color-bg: linear-gradient(135deg, #0e7490 0%, #06b6d4 100%);
+    --color-primary: #0891b2;
+    --color-primary-dark: #0e7490;
+    --color-primary-light: #06b6d4;
+    --color-accent: #f97316;
+    --color-text: #333;
+    --color-text-light: #666;
+    --border-width: 30px;
+}
+============================================ */
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+.container {
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    border: var(--border-width) solid var(--color-primary);
+}
+
+/* ============================================
+   TYPOGRAPHIE
+   ============================================ */
+h1 {
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   GRILLE D'OUTILS
+   ============================================ */
+.tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* ============================================
+   CARDS OUTILS
+   ============================================ */
+.tool-card {
+    padding: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.tool-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(185, 28, 28, 0.3);
+}
+
+.tool-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.tool-card p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   STATUS BADGE
+   ============================================ */
+.status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: var(--color-accent);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer-text {
+    margin-top: 2rem;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .container {
+        padding: 2rem;
+        border-width: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .tools {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+        border-width: 15px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+}
