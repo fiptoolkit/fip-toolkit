@@ -166,6 +166,16 @@ body {
     margin-top: var(--spacing-sm);
 }
 
+/* Forcer le blanc pour TOUT le contenu du hero */
+.hero,
+.hero h1,
+.hero p,
+.hero .subtitle,
+.hero .hero-description,
+.hero .hero-description p {
+    color: white !important;
+}
+
 /* ============================================
    CONTENT - Zone de contenu
    ============================================ */
