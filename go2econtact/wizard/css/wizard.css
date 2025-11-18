@@ -1,0 +1,839 @@
+/**
+ * Ce code source est soumis aux termes de la licence publique Mozilla,
+ * version 2.0. Si une copie de la MPL n'a pas été distribuée avec ce fichier,
+ * vous pouvez en obtenir une à l'adresse http://mozilla.org/MPL/2.0/.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * 
+ * Go2Econtact - Styles pour simulateur et wizard de configuration
+ * Feuille de styles commune pour les outils web Go2Econtact
+ * 
+ * @author Hervé ROUVROY
+ * @copyright 2025 Hervé ROUVROY
+ * @license MPL-2.0
+ * @version 2.0
+ * @see https://fiptoolkit.github.io/fip-toolkit/go2econtact/
+ */
+
+/**
+ * CONTEXTE MÉTIER :
+ * Styles pour interface web de simulation et de configuration guidée
+ * des règles d'accusés de réception de l'extension Thunderbird Go2Econtact
+ */
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 2.5rem;
+}
+
+/* Force des marges latérales */
+body {
+    padding: 2rem 1rem; /* Déjà présent, mais vérifiez */
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto; /* Centre */
+    padding: 2.5rem; /* Marge intérieure - DÉJÀ PRÉSENT */
+}
+
+/* Sécurité responsive : marges minimales */
+@media (min-width: 768px) {
+    body {
+        padding: 2rem 2rem; /* Plus de marge sur desktop */
+    }
+}
+
+/* ============================================
+   TYPOGRAPHIE
+   ============================================ */
+
+h1 {
+    color: #667eea;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    color: #667eea;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+h3 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+h4 {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   FORMULAIRES COMMUNS
+   ============================================ */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.optional {
+    font-weight: 400;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+    font-family: "Courier New", monospace;
+}
+
+.form-hint {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+.form-error {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.validation-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 15;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.form-group {
+    position: relative; /* Pour positionnement badge */
+}
+
+code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    color: #0056b3;
+    font-weight: bold;
+}
+
+/* ============================================
+   BOUTONS COMMUNS
+   ============================================ */
+
+button,
+.btn-primary,
+.btn-secondary,
+.btn-success {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #555;
+}
+
+.btn-secondary:hover {
+    background: #d0d0d0;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-preset {
+    background: #667eea;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-preset:hover {
+    background: #5568d3;
+}
+
+button.loading::after {
+    content: "⏳";
+    margin-left: 0.5rem;
+}
+
+/* ============================================
+   CARDS & BOXES
+   ============================================ */
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-box,
+.warning-box,
+.examples-box {
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left: 4px solid;
+}
+
+.info-box {
+    background: #e7f3ff;
+    border-left-color: #2196f3;
+}
+
+.warning-box {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+}
+
+.examples-box {
+    background: #f8f9fa;
+    border-left-color: #6c757d;
+}
+
+.info-box strong,
+.warning-box strong,
+.examples-box strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.info-box p,
+.warning-box p,
+.examples-box p {
+    margin: 0.5rem 0;
+}
+
+.info-box ul,
+.warning-box ul,
+.examples-box ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.info-box li,
+.warning-box li,
+.examples-box li {
+    margin-bottom: 0.25rem;
+}
+
+/* ============================================
+   ZONES DE RÉSULTATS (SIMULATEUR)
+   ============================================ */
+
+#error-zone,
+#result-zone {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    display: none;
+}
+
+#error-zone {
+    background: #f8d7da;
+    border-left: 4px solid #dc3545;
+}
+
+#result-zone {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+}
+
+.result-decision {
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-decision.allowed {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.result-decision.blocked {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+.result-decision-icon {
+    font-size: 2rem;
+}
+
+.result-explanation {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    line-height: 1.8;
+}
+
+.result-rule {
+    background: #f4f4f4;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+/* ============================================
+   HISTORIQUE (SIMULATEUR)
+   ============================================ */
+
+.history-list {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+}
+
+.history-item-email {
+    flex: 1;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.history-item-result {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.history-item-result.allowed {
+    background: #28a745;
+    color: white;
+}
+
+.history-item-result.blocked {
+    background: #dc3545;
+    color: white;
+}
+
+.history-item-time {
+    font-size: 0.8rem;
+    color: #999;
+    white-space: nowrap;
+}
+
+/* ============================================
+   BARRE DE PROGRESSION (WIZARD)
+   ============================================ */
+
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 3rem;
+    position: relative;
+}
+
+.progress-bar::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.progress-step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active .progress-step-circle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: scale(1.1);
+}
+
+.progress-step.completed .progress-step-circle {
+    background: #28a745;
+    color: white;
+}
+
+.progress-step-label {
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+    font-weight: 500;
+}
+
+.progress-step.active .progress-step-label {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* ============================================
+   ÉTAPES WIZARD
+   ============================================ */
+
+.wizard-form {
+    margin: 2rem 0;
+}
+
+.wizard-step {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.step-description {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.form-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.section-description {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   PATTERNS PRESETS (WIZARD)
+   ============================================ */
+
+.patterns-presets {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+.presets-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.presets-list li {
+    padding: 0.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   RÉCAPITULATIF (WIZARD)
+   ============================================ */
+
+.summary-content {
+    margin: 2rem 0;
+}
+
+.summary-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.summary-section h3 {
+    color: #667eea;
+    margin-top: 0;
+}
+
+.summary-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.summary-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+}
+
+.summary-list li:last-child {
+    border-bottom: none;
+}
+
+.summary-empty {
+    color: #999;
+    font-style: italic;
+}
+
+/* ============================================
+   EXPORT (WIZARD)
+   ============================================ */
+
+.export-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.export-instructions {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+.export-instructions ol {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.export-instructions li {
+    margin-bottom: 0.5rem;
+}
+
+.test-section {
+    background: #e7f3ff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+/* ============================================
+   NAVIGATION WIZARD
+   ============================================ */
+
+.wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 3rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e0e0;
+}
+
+.wizard-navigation button {
+    min-width: 150px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.wizard-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.wizard-footer a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.wizard-footer a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    margin-top: 0.5rem;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   UTILITAIRES
+   ============================================ */
+
+.text-muted {
+    color: #999;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+strong {
+    font-weight: 600;
+}
+
+em {
+    font-style: italic;
+    color: #667eea;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .progress-bar {
+        flex-wrap: wrap;
+    }
+
+    .progress-step {
+        flex-basis: 50%;
+        margin-bottom: 1rem;
+    }
+
+    .progress-bar::before {
+        display: none;
+    }
+
+    .progress-step-label {
+        font-size: 0.75rem;
+    }
+
+    .wizard-navigation {
+        flex-direction: column;
+    }
+
+    .wizard-navigation button {
+        width: 100%;
+    }
+
+    .export-buttons {
+        flex-direction: column;
+    }
+
+    .export-buttons button {
+        width: 100%;
+    }
+
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .history-item-time {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .progress-step-circle {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}

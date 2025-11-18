@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--
+ * Ce code source est soumis aux termes de la licence publique Mozilla,
+ * version 2.0. Si une copie de la MPL n'a pas été distribuée avec ce fichier,
+ * vous pouvez en obtenir une à l'adresse http://mozilla.org/MPL/2.0/.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * 
+ * Go2Econtact - Wizard de configuration guidée
+ * Interface web pour créer des règles d'inclusion/exclusion
+ * 
+ * @author Hervé ROUVROY
+ * @copyright 2025 Hervé ROUVROY
+ * @license MPL-2.0
+ * @version 1.0
+ * @see https://fiptoolkit.github.io/fip-toolkit/go2econtact/
+ *
+ * CONTEXTE MÉTIER :
+ * Wizard guidé pour aider les utilisateurs non-techniques à configurer
+ * les règles d'inclusion/exclusion de l'extension Go2Econtact.
+ * Permet de créer une configuration exportable vers l'extension Thunderbird.
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant Configuration - Go2Econtact</title>
+    
+    <!-- Styles communs + spécifiques wizard -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/wizard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <header class="wizard-header">
+            <h1>🧙‍♂️ Assistant de Configuration Go2Econtact</h1>
+            <p class="subtitle">Créez vos règles d'accusés de réception en quelques étapes simples</p>
+        </header>
+
+        <!-- Barre de progression -->
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">
+                <div class="progress-step-circle">1</div>
+                <div class="progress-step-label">Domaine interne</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="progress-step-circle">2</div>
+                <div class="progress-step-label">Exclusions</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="progress-step-circle">3</div>
+                <div class="progress-step-label">Inclusions</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="progress-step-circle">4</div>
+                <div class="progress-step-label">Récapitulatif</div>
+            </div>
+        </div>
+
+        <!-- Formulaire wizard -->
+        <form id="wizard-form" class="wizard-form">
+            
+            <!-- ÉTAPE 1 : Domaine interne -->
+            <div class="wizard-step active" data-step="1">
+                <h2>📧 Votre domaine interne</h2>
+                <p class="step-description">
+                    Le domaine interne correspond à votre organisation (entreprise, association, etc.).
+                    Les emails de ce domaine ne recevront <strong>pas</strong> d'accusé de réception par défaut,
+                    sauf si vous les ajoutez explicitement aux inclusions.
+                </p>
+
+                <div class="form-group">
+                    <label for="internalDomain">
+                        Domaine de votre organisation
+                        <span class="optional">(optionnel)</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="internalDomain" 
+                        name="internalDomain"
+                        placeholder="exemple : societe.fr ou *.societe.fr"
+                        class="form-control"
+                    >
+                    <small class="form-hint">
+                        💡 Utilisez <code>*.domaine.fr</code> pour inclure tous les sous-domaines
+                        (ex: <code>paris.societe.fr</code>, <code>lyon.societe.fr</code>)
+                    </small>
+                </div>
+
+                <div class="examples-box">
+                    <h4>📚 Exemples</h4>
+                    <ul>
+                        <li><code>entreprise.fr</code> → Bloque uniquement <em>@entreprise.fr</em></li>
+                        <li><code>*.entreprise.fr</code> → Bloque <em>@paris.entreprise.fr</em>, <em>@lyon.entreprise.fr</em>, etc.</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>ℹ️ Pourquoi bloquer les emails internes ?</strong>
+                    <p>
+                        Par défaut, on évite d'envoyer des accusés de réception aux collègues de votre
+                        organisation pour ne pas encombrer inutilement les boîtes email internes.
+                        Les AR sont réservés aux contacts externes (clients, partenaires, etc.).
+                    </p>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 2 : Exclusions -->
+            <div class="wizard-step" data-step="2">
+                <h2>🚫 Qui ne recevra JAMAIS d'accusé de réception ?</h2>
+                <p class="step-description">
+                    Définissez les adresses, domaines ou patterns qui ne doivent <strong>jamais</strong>
+                    recevoir d'accusé de réception automatique.
+                </p>
+
+                <!-- Exclusion par domaine -->
+                <div class="form-section">
+                    <h3>🌐 Domaines à exclure</h3>
+                    <p class="section-description">
+                        Bloquez tous les emails d'un domaine complet (ex: tous les emails de <em>publicite.fr</em>)
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="exclusionDomains">
+                            Domaines à exclure
+                            <span class="optional">(un par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="exclusionDomains" 
+                            name="exclusionDomains"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;spam.com&#10;publicite.fr&#10;*.partenaire.net"
+                        ></textarea>
+                        <small class="form-hint">
+                            💡 Vous pouvez utiliser <code>*.</code> pour exclure tous les sous-domaines
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Exclusion par adresse -->
+                <div class="form-section">
+                    <h3>✉️ Adresses spécifiques à exclure</h3>
+                    <p class="section-description">
+                        Bloquez des adresses email précises (ex: <em>robot@exemple.com</em>)
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="exclusionAddresses">
+                            Adresses à exclure
+                            <span class="optional">(une par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="exclusionAddresses" 
+                            name="exclusionAddresses"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;contact@spam.com&#10;noreply@newsletter.fr&#10;robot@service.net"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Exclusion par pattern -->
+                <div class="form-section">
+                    <h3>🔍 Patterns automatiques à exclure</h3>
+                    <p class="section-description">
+                        Bloquez des types d'emails automatiques (ex: tous les <em>noreply@*</em>)
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="exclusionPatterns">
+                            Patterns à exclure
+                            <span class="optional">(un par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="exclusionPatterns" 
+                            name="exclusionPatterns"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;noreply@*&#10;no-reply@*&#10;postmaster@*"
+                        ></textarea>
+                        <small class="form-hint">
+                            💡 Utilisez <code>*</code> comme joker (ex: <code>noreply@*</code> bloque tous les noreply)
+                        </small>
+                    </div>
+
+                    <div class="patterns-presets">
+                        <h4>📋 Patterns recommandés</h4>
+                        <button type="button" class="btn-preset" data-action="add-default-patterns">
+                            ➕ Ajouter les patterns par défaut
+                        </button>
+                        <ul class="presets-list">
+                            <li><code>noreply@*</code> - Emails "ne pas répondre"</li>
+                            <li><code>no-reply@*</code> - Variante avec tiret</li>
+                            <li><code>postmaster@*</code> - Administrateurs serveurs mail</li>
+                            <li><code>mailer-daemon@*</code> - Emails d'erreur automatiques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>ℹ️ Différence domaine / adresse / pattern ?</strong>
+                    <ul>
+                        <li><strong>Domaine</strong> : Bloque TOUS les emails d'un domaine (ex: <code>spam.com</code> bloque <em>contact@spam.com</em>, <em>info@spam.com</em>, etc.)</li>
+                        <li><strong>Adresse</strong> : Bloque UNE adresse précise (ex: <code>robot@service.fr</code>)</li>
+                        <li><strong>Pattern</strong> : Bloque selon un motif (ex: <code>noreply@*</code> bloque tous les noreply de tous les domaines)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 3 : Inclusions -->
+            <div class="wizard-step" data-step="3">
+                <h2>⭐ Qui recevra TOUJOURS un accusé de réception ?</h2>
+                <p class="step-description">
+                    Ces adresses/domaines ont la <strong>priorité ABSOLUE</strong> : elles recevront
+                    un AR même si elles sont dans les exclusions ou le domaine interne.
+                </p>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important :</strong> Les inclusions annulent TOUTES les autres règles.
+                    Utilisez-les pour créer des exceptions ciblées.
+                </div>
+
+                <!-- Inclusion par adresse -->
+                <div class="form-section">
+                    <h3>✉️ Adresses qui recevront TOUJOURS un AR</h3>
+                    <p class="section-description">
+                        Ajoutez des adresses qui doivent recevoir un AR même si elles sont bloquées ailleurs
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="inclusionAddresses">
+                            Adresses prioritaires
+                            <span class="optional">(une par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="inclusionAddresses" 
+                            name="inclusionAddresses"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;patron@entreprise.fr&#10;vip@client.com&#10;contact-urgent@partenaire.net"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Inclusion par domaine -->
+                <div class="form-section">
+                    <h3>🌐 Domaines qui recevront TOUJOURS un AR</h3>
+                    <p class="section-description">
+                        Forcez l'envoi d'AR pour tous les emails d'un domaine
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="inclusionDomains">
+                            Domaines prioritaires
+                            <span class="optional">(un par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="inclusionDomains" 
+                            name="inclusionDomains"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;client-vip.com&#10;*.partenaire-strategique.fr"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="examples-box">
+                    <h4>📚 Cas d'usage typiques</h4>
+                    <ul>
+                        <li><strong>Patron dans domaine interne</strong> : <code>patron@entreprise.fr</code> reçoit un AR même si <code>entreprise.fr</code> est bloqué</li>
+                        <li><strong>Client VIP</strong> : <code>vip@client.com</code> reçoit toujours un AR</li>
+                        <li><strong>Test interne</strong> : <code>test@entreprise.fr</code> pour vérifier que l'extension fonctionne</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 4 : Récapitulatif -->
+            <div class="wizard-step" data-step="4">
+                <h2>✅ Récapitulatif de votre configuration</h2>
+                <p class="step-description">
+                    Vérifiez votre configuration avant de l'exporter vers l'extension Go2Econtact
+                </p>
+
+                <div id="summary-content" class="summary-content">
+                    <!-- Généré dynamiquement par JS -->
+                </div>
+
+                <div class="export-section">
+                    <h3>💾 Exporter votre configuration</h3>
+                    <p>Téléchargez votre configuration pour l'importer dans l'extension Thunderbird</p>
+                    
+                    <div class="export-buttons">
+                        <button type="button" class="btn-primary" id="btnExportJson">
+                            📥 Télécharger la configuration (JSON)
+                        </button>
+                        <button type="button" class="btn-secondary" id="btnCopyJson">
+                            📋 Copier dans le presse-papier
+                        </button>
+                    </div>
+
+                    <div class="export-instructions">
+                        <h4>📖 Comment importer dans Thunderbird ?</h4>
+                        <ol>
+                            <li>Téléchargez le fichier JSON ci-dessus</li>
+                            <li>Ouvrez Thunderbird</li>
+                            <li>Allez dans les <strong>Préférences Go2Econtact</strong></li>
+                            <li>Cliquez sur <strong>"Importer configuration"</strong></li>
+                            <li>Sélectionnez le fichier téléchargé</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>🧪 Tester votre configuration</h3>
+                    <p>Avant d'exporter, testez votre configuration avec le simulateur</p>
+                    
+                    <a href="simulateur.php" class="btn-secondary" target="_blank">
+                        🔬 Ouvrir le simulateur
+                    </a>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- Boutons de navigation -->
+        <div class="wizard-navigation">
+            <button type="button" class="btn-secondary" id="btnPrevious" style="display: none;">
+                ← Précédent
+            </button>
+            
+            <button type="button" class="btn-primary" id="btnNext">
+                Suivant →
+            </button>
+            
+            <button type="button" class="btn-success" id="btnFinish" style="display: none;">
+                ✓ Terminer
+            </button>
+        </div>
+
+        <!-- Footer Navigation Unifié -->
+        <div class="footer-nav">
+            <h3>📚 Ressources complémentaires</h3>
+            <div class="nav-links-grid">
+                <a href="../index.html" class="nav-button">🏠 Accueil</a>
+                <a href="../tutoriel.html" class="nav-button">🚀 Tutoriel</a>
+                <a href="../documentation.html" class="nav-button">📖 Documentation</a>
+                <a href="../faq.html" class="nav-button">❓ FAQ</a>
+                <a href="../changelog.html" class="nav-button">📋 Changelog</a>
+                <a href="../legal.html" class="nav-button">📄 Informations légales</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/wizard.js"></script>
+</body>
+</html>
