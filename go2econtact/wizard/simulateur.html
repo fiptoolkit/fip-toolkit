@@ -10,16 +10,23 @@
  * 
  * Go2Econtact - Simulateur de règles d'accusés de réception
  * Interface web pour tester l'algorithme d'inclusion/exclusion
+ * Version JavaScript pur (sans backend PHP) pour GitHub Pages
  * 
  * @author Hervé ROUVROY
  * @copyright 2025 Hervé ROUVROY
  * @license MPL-2.0
- * @version 2.0
+ * @version 3.0
  * @see https://fiptoolkit.github.io/fip-toolkit/go2econtact/
  *
  * CONTEXTE MÉTIER :
  * Simulateur permettant de tester l'algorithme de décision d'envoi d'accusés
  * de réception différés avant de déployer la configuration dans Thunderbird.
+ * 
+ * ARCHITECTURE v3.0 :
+ * - Simulation côté client avec filterEngine.js
+ * - Explications générées par explanationGenerator.js
+ * - Aucune dépendance PHP/MySQL
+ * - Compatible GitHub Pages
 -->
 <html lang="fr">
 <head>
