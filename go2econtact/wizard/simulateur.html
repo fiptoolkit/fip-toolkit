@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+ * Ce code source est soumis aux termes de la licence publique Mozilla,
+ * version 2.0. Si une copie de la MPL n'a pas été distribuée avec ce fichier,
+ * vous pouvez en obtenir une à l'adresse http://mozilla.org/MPL/2.0/.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * 
+ * Go2Econtact - Simulateur de règles d'accusés de réception
+ * Interface web pour tester l'algorithme d'inclusion/exclusion
+ * 
+ * @author Hervé ROUVROY
+ * @copyright 2025 Hervé ROUVROY
+ * @license MPL-2.0
+ * @version 2.0
+ * @see https://fiptoolkit.github.io/fip-toolkit/go2econtact/
+ *
+ * CONTEXTE MÉTIER :
+ * Simulateur permettant de tester l'algorithme de décision d'envoi d'accusés
+ * de réception différés avant de déployer la configuration dans Thunderbird.
+-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur - Go2Econtact</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/wizard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête -->
+        <header>
+            <h1>🔬 Simulateur Go2Econtact</h1>
+            <p class="subtitle">Testez vos règles d'accusés de réception avant de les déployer</p>
+        </header>
+
+        <!-- Info box règle par défaut -->
+        <div class="info-box">
+            <strong>📬 Règle par défaut</strong>
+            <p>Tous les emails reçoivent un AR, <strong>SAUF</strong> votre organisation/association/service et les exclusions configurées ci-dessous.</p>
+            <p>Les inclusions servent à forcer l'envoi d'AR pour des exceptions spécifiques (ex: un email interne qui doit quand même recevoir un AR).</p>
+        </div>
+
+        <!-- Formulaire de configuration -->
+        <form id="config-form">
+            
+            <!-- Section Domaine interne -->
+            <div class="form-section">
+                <h2>📧 Domaine interne</h2>
+                <p class="section-description">
+                    Le domaine de votre organisation. Les emails de ce domaine ne recevront pas d'AR par défaut.
+                </p>
+                
+                <div class="form-group">
+                    <label for="internalDomain">
+                        Domaine de votre organisation
+                        <span class="optional">(optionnel)</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="internalDomain" 
+                        name="internalDomain"
+                        placeholder="exemple : societe.fr ou *.societe.fr"
+                        class="form-control"
+                    >
+                    <small class="form-hint">
+                        💡 Utilisez <code>*.</code> pour inclure tous les sous-domaines
+                    </small>
+                </div>
+            </div>
+
+            <!-- Section Exclusions -->
+            <h2>🚫 Exclusions (ne recevront JAMAIS d'AR)</h2>
+            
+            <!-- Exclusion Domaines -->
+            <div class="form-section">
+                <h3>🌐 Domaines à exclure</h3>
+                <p class="section-description">
+                    Bloquez tous les emails d'un domaine complet (ex: <em>publicite.fr</em>)
+                </p>
+                
+                <div class="form-group">
+                    <label for="exclusionDomains">
+                        Domaines exclus
+                        <span class="optional">(un par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="exclusionDomains" 
+                        name="exclusionDomains"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;spam.com&#10;publicite.fr&#10;*.partenaire.net"
+                    ></textarea>
+                    <small class="form-hint">
+                        💡 Vous pouvez utiliser <code>*.</code> pour exclure tous les sous-domaines
+                    </small>
+                </div>
+            </div>
+
+            <!-- Exclusion Adresses -->
+            <div class="form-section">
+                <h3>✉️ Adresses spécifiques à exclure</h3>
+                <p class="section-description">
+                    Bloquez des adresses email précises (ex: <em>robot@exemple.com</em>)
+                </p>
+                
+                <div class="form-group">
+                    <label for="exclusionAddresses">
+                        Adresses exclues
+                        <span class="optional">(une par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="exclusionAddresses" 
+                        name="exclusionAddresses"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;contact@spam.com&#10;noreply@newsletter.fr&#10;robot@service.net"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Exclusion Patterns -->
+            <div class="form-section">
+                <h3>🔍 Patterns automatiques à exclure</h3>
+                <p class="section-description">
+                    Bloquez des types d'emails automatiques (ex: tous les <em>noreply@*</em>)
+                </p>
+                
+                <div class="form-group">
+                    <label for="exclusionPatterns">
+                        Patterns exclus
+                        <span class="optional">(un par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="exclusionPatterns" 
+                        name="exclusionPatterns"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;noreply@*&#10;no-reply@*&#10;postmaster@*&#10;mailer-daemon@*"
+                    ></textarea>
+                    <small class="form-hint">
+                        💡 Utilisez <code>*</code> comme joker (ex: <code>noreply@*</code> bloque tous les noreply)
+                    </small>
+                </div>
+            </div>
+
+            <!-- Section Inclusions -->
+            <h2>⭐ Inclusions (recevront TOUJOURS un AR)</h2>
+            
+            <div class="warning-box">
+                <strong>⚠️ Important :</strong> Les inclusions ont la priorité ABSOLUE. Elles annulent toutes les autres règles (exclusions, domaine interne, patterns).
+            </div>
+
+            <!-- Inclusion Adresses -->
+            <div class="form-section">
+                <h3>✉️ Adresses qui recevront TOUJOURS un AR</h3>
+                <p class="section-description">
+                    Ces adresses recevront un AR même si elles sont dans les exclusions ou le domaine interne
+                </p>
+                
+                <div class="form-group">
+                    <label for="inclusionAddresses">
+                        Adresses prioritaires
+                        <span class="optional">(une par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="inclusionAddresses" 
+                        name="inclusionAddresses"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;patron@entreprise.fr&#10;vip@client.com&#10;contact-urgent@partenaire.net"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Inclusion Domaines -->
+            <div class="form-section">
+                <h3>🌐 Domaines qui recevront TOUJOURS un AR</h3>
+                <p class="section-description">
+                    Tous les emails de ces domaines recevront un AR
+                </p>
+                
+                <div class="form-group">
+                    <label for="inclusionDomains">
+                        Domaines prioritaires
+                        <span class="optional">(un par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="inclusionDomains" 
+                        name="inclusionDomains"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;client-vip.com&#10;*.partenaire-strategique.fr"
+                    ></textarea>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- Zone de test -->
+        <div class="form-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); margin-top: 3rem;">
+            <h2>🧪 Tester une adresse email</h2>
+            <p class="section-description">
+                Testez si une adresse recevra ou non un accusé de réception selon votre configuration
+            </p>
+            
+            <div class="form-group">
+                <label for="testEmail">Adresse email à tester</label>
+                <input 
+                    type="email" 
+                    id="testEmail" 
+                    name="testEmail"
+                    placeholder="exemple : client@externe.com"
+                    class="form-control"
+                >
+            </div>
+            
+            <button type="button" id="btnTest" class="btn-primary">
+                🔬 Tester cette adresse
+            </button>
+        </div>
+
+        <!-- Zone d'erreur -->
+        <div id="error-zone"></div>
+
+        <!-- Zone de résultat -->
+        <div id="result-zone">
+            <div id="result-decision"></div>
+            <div id="result-explanation"></div>
+        </div>
+
+        <!-- Historique -->
+        <div class="form-section" style="margin-top: 3rem;">
+            <h2>📊 Historique des tests</h2>
+            <div id="history-zone">
+                <p class="text-muted">Aucun test effectué pour le moment</p>
+            </div>
+        </div>
+
+        <!-- Footer Navigation Unifié -->
+        <div class="footer-nav">
+            <h3>📚 Ressources complémentaires</h3>
+            <div class="nav-links-grid">
+                <a href="../index.html" class="nav-button">🏠 Accueil</a>
+                <a href="../tutoriel.html" class="nav-button">🚀 Tutoriel</a>
+                <a href="../documentation.html" class="nav-button">📖 Documentation</a>
+                <a href="../faq.html" class="nav-button">❓ FAQ</a>
+                <a href="../changelog.html" class="nav-button">📋 Changelog</a>
+                <a href="../legal.html" class="nav-button">📄 Informations légales</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/filterEngine.js"></script>
+    <script src="js/explanationGenerator.js"></script>
+    <script src="js/simulateur.js?v=3"></script>
+</body>
+</html>
