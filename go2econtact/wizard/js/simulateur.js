@@ -150,7 +150,8 @@ function attachEventListeners() {
         'exclusionAddresses': 'email',
         'exclusionPatterns': 'pattern',
         'inclusionAddresses': 'email',
-        'inclusionDomains': 'domain'
+        'inclusionDomains': 'domain',
+        'exclusionSubjects': 'subject'
     };
     
     for (const [id, type] of Object.entries(textareas)) {
@@ -241,6 +242,9 @@ function cleanAndValidateSimulatorTextarea(textarea, type) {
                     suggestion = 'Utilisez la section "Domaines à exclure" pour ' + domain;
                 }
             }
+        } else if (type === 'subject') {
+            // Valide si commence par [COMMENCE], [CONTIENT] ou [FINIT] suivi d'au moins 1 caractère
+            isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
         }
         
         if (isValid) {
@@ -335,12 +339,21 @@ function getConfigFromForm() {
         .map(line => line.trim())
         .filter(line => line !== '');
     
+    const exclusionSubjects = document.getElementById('exclusionSubjects').value
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line !== '');
+
+    const subject = document.getElementById('testSubject').value.trim();
+
     return {
         internalDomain: internalDomain,
+        subject: subject,
         exclusion: {
             domains: exclusionDomains,
             addresses: exclusionAddresses,
-            patterns: exclusionPatterns
+            patterns: exclusionPatterns,
+            subjects: exclusionSubjects
         },
         inclusion: {
             addresses: inclusionAddresses,

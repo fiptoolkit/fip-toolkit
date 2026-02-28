@@ -36,7 +36,8 @@ const wizardState = {
         exclusion: {
             domains: [],
             addresses: [],
-            patterns: []
+            patterns: [],
+            subjects: []
         },
         inclusion: {
             addresses: [],
@@ -113,6 +114,7 @@ function attachValidationListeners() {
         { id: 'exclusionDomains', type: 'domain' },
         { id: 'exclusionAddresses', type: 'email' },
         { id: 'exclusionPatterns', type: 'pattern' },
+        { id: 'exclusionSubjects', type: 'subject' },
         { id: 'inclusionAddresses', type: 'email' },
         { id: 'inclusionDomains', type: 'domain' }
     ];
@@ -387,6 +389,9 @@ function cleanAndValidateWizardTextarea(textarea, type) {
             if (!isValid && cleaned.startsWith('*@')) {
                 suggestion = 'Utilisez la section "Domaines" pour ' + cleaned.substring(2);
             }
+        } else if (type === 'subject') {
+            // Valide si commence par [COMMENCE], [CONTIENT] ou [FINIT] suivi d'au moins 1 caractère
+            isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
         }
         
         if (isValid) {
@@ -463,7 +468,8 @@ function saveStep2Data() {
     wizardState.config.exclusion = {
         domains: textareaToArray(document.getElementById('exclusionDomains').value),
         addresses: textareaToArray(document.getElementById('exclusionAddresses').value),
-        patterns: textareaToArray(document.getElementById('exclusionPatterns').value)
+        patterns: textareaToArray(document.getElementById('exclusionPatterns').value),
+        subjects: textareaToArray(document.getElementById('exclusionSubjects').value)
     };
 }
 
@@ -511,6 +517,7 @@ function populateFormFromConfig() {
     document.getElementById('exclusionDomains').value = arrayToTextarea(config.exclusion.domains);
     document.getElementById('exclusionAddresses').value = arrayToTextarea(config.exclusion.addresses);
     document.getElementById('exclusionPatterns').value = arrayToTextarea(config.exclusion.patterns);
+    document.getElementById('exclusionSubjects').value = arrayToTextarea(config.exclusion.subjects || []);
     
     // Étape 3
     document.getElementById('inclusionAddresses').value = arrayToTextarea(config.inclusion.addresses);
@@ -589,7 +596,8 @@ function generateSummary() {
     const hasExclusions = 
         config.exclusion.domains.length > 0 ||
         config.exclusion.addresses.length > 0 ||
-        config.exclusion.patterns.length > 0;
+        config.exclusion.patterns.length > 0 ||
+        (config.exclusion.subjects && config.exclusion.subjects.length > 0);
     
     html += `
         <div class="summary-section">
@@ -620,6 +628,14 @@ function generateSummary() {
                 <h4>Patterns exclus :</h4>
                 <ul class="summary-list">
                     ${config.exclusion.patterns.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
+                </ul>
+            `;
+        }
+        if (config.exclusion.subjects && config.exclusion.subjects.length > 0) {
+            html += `
+                <h4>Sujets exclus :</h4>
+                <ul class="summary-list">
+                    ${config.exclusion.subjects.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
                 </ul>
             `;
         }
@@ -743,6 +759,15 @@ function copyConfigToClipboard() {
     text += '=== EXCLUSIONS - PATTERNS ===\n';
     if (config.exclusion.patterns.length > 0) {
         text += config.exclusion.patterns.join('\n') + '\n';
+    } else {
+        text += '(aucun)\n';
+    }
+    text += '\n';
+
+    // Exclusions - Sujets
+    text += '=== EXCLUSIONS - SUJETS ===\n';
+    if (config.exclusion.subjects && config.exclusion.subjects.length > 0) {
+        text += config.exclusion.subjects.join('\n') + '\n';
     } else {
         text += '(aucun)\n';
     }

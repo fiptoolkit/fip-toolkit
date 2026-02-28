@@ -70,6 +70,9 @@ class ExplanationGenerator {
         } else if (rule && rule.includes('Pattern exclu')) {
             return this._explainExclusionPattern(email, rule);
         }
+        if (rule && rule.includes('Sujet exclu')) {
+            return this._explainExclusionSubject(email, rule);
+        }
         
         // Fallback générique
         return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car elle est dans votre liste d'<strong>EXCLUSIONS</strong>. " +
@@ -134,6 +137,20 @@ class ExplanationGenerator {
         };
         
         return explanations[pattern] || "Ce pattern bloque automatiquement certains types d'emails.";
+    }
+
+    /**
+     * Explication : Exclusion par sujet
+     * @private
+     */
+    _explainExclusionSubject(email, rule) {
+        const match = rule.match(/Sujet exclu: (.+)/);
+        const pattern = match ? match[1] : '';
+
+        return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car le sujet de l'email correspond au pattern <code>" + this._escapeHtml(pattern) + "</code>. " +
+               "Les exclusions par sujet permettent de bloquer des types d'emails récurrents (réponses, transferts, newsletters) " +
+               "indépendamment de l'expéditeur. " +
+               "Si vous souhaitez forcer l'envoi d'un AR malgré cette règle, ajoutez l'adresse dans la liste <strong>INCLUSION</strong> (priorité absolue).";
     }
     
     /**

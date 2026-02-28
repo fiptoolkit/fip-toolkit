@@ -211,6 +211,32 @@
                 </div>
             </div>
 
+            <!-- Exclusion par sujet -->
+                <div class="form-section">
+                    <h3>📝 Sujets à exclure</h3>
+                    <p class="section-description">
+                        Bloquez les emails selon leur objet, indépendamment de l'expéditeur
+                        (ex: réponses automatiques, newsletters).
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="exclusionSubjects">
+                            Sujets à exclure
+                            <span class="optional">(un par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="exclusionSubjects" 
+                            name="exclusionSubjects"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;[COMMENCE]Re:&#10;[COMMENCE]Fwd:&#10;[CONTIENT]newsletter&#10;[FINIT]automatique"
+                        ></textarea>
+                        <small class="form-hint">
+                            💡 <code>[COMMENCE]texte</code> · <code>[CONTIENT]texte</code> · <code>[FINIT]texte</code> — insensible à la casse
+                        </small>
+                    </div>
+                </div>
+
             <!-- ÉTAPE 3 : Inclusions -->
             <div class="wizard-step" data-step="3">
                 <h2>⭐ Qui recevra TOUJOURS un accusé de réception ?</h2>

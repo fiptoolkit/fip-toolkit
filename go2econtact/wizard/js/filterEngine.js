@@ -7,11 +7,12 @@
  * ORDRE DE PRIORITÉ (CRITIQUE) :
  * 1. INCLUSION (priorité absolue) - Force AR même si exclu/interne
  * 2. EXCLUSION - Bloque AR (domaines, adresses, patterns)
+ *    (dont sujets — vérifiés en priorité #1 dans l'exclusion)
  * 3. Domaine interne - Bloque AR si pas dans INCLUSION
  * 4. Par défaut - Email externe non exclu = AR envoyé
  * 
  * @author Hervé ROUVROY (port JS depuis PHP)
- * @version 2.0
+ * @version 2.1
  * @license MPL-2.0
  */
 
@@ -49,7 +50,7 @@ class FilterEngine {
         }
         
         // 2. Vérifier EXCLUSION
-        if (this._isInExclusionList(email, config.exclusion)) {
+        if (this._isInExclusionList(email, config.exclusion, config.subject || null)) {
             return {
                 allowed: false,
                 reason: 'Exclusion',
@@ -106,7 +107,7 @@ class FilterEngine {
             const domain = this._extractDomain(email);
             if (domain) {
                 for (const domainPattern of inclusion.domains) {
-                    if (this._matchesWildcard(domain, domainPattern)) {
+                    if (this._matchesWildcard(domain, this._normalizeDomainPattern(domainPattern))) {
                         this.lastAppliedRule = `Domaine inclus: ${domainPattern}`;
                         return true;
                     }
@@ -126,18 +127,29 @@ class FilterEngine {
      * @returns {boolean}
      * @private
      */
-    _isInExclusionList(email, exclusion) {
+    _isInExclusionList(email, exclusion, subject = null) {
         if (!exclusion) {
             return false;
         }
-        
+
+        // Vérifier sujets (PRIORITÉ #1 — reproduit background.js)
+        if (subject && exclusion.subjects && Array.isArray(exclusion.subjects)) {
+            const subjectLower = subject.toLowerCase();
+            for (const subjectPattern of exclusion.subjects) {
+                if (this._matchesSubjectPattern(subjectLower, subjectPattern)) {
+                    this.lastAppliedRule = `Sujet exclu: ${subjectPattern}`;
+                    return true;
+                }
+            }
+        }
+
         const domain = this._extractDomain(email);
         
         // Vérifier domaines (avec wildcards)
         if (exclusion.domains && Array.isArray(exclusion.domains)) {
             if (domain) {
                 for (const domainPattern of exclusion.domains) {
-                    if (this._matchesWildcard(domain, domainPattern)) {
+                    if (this._matchesWildcard(domain, this._normalizeDomainPattern(domainPattern))) {
                         this.lastAppliedRule = `Domaine exclu: ${domainPattern}`;
                         return true;
                     }
@@ -240,6 +252,52 @@ class FilterEngine {
         return regex.test(text);
     }
     
+    /**
+     * Vérifier si un sujet correspond à un pattern préfixé
+     * Reproduction de matchesSubjectPattern() de background.js
+     * Le sujet doit être passé déjà en lowercase.
+     *
+     * @param {string} subject Sujet normalisé (lowercase)
+     * @param {string} pattern Pattern de la forme [COMMENCE|CONTIENT|FINIT]texte
+     * @returns {boolean}
+     * @private
+     */
+    _matchesSubjectPattern(subject, pattern) {
+        if (!pattern || !subject) return false;
+
+        const match = pattern.match(/^\[(COMMENCE|CONTIENT|FINIT)\](.+)$/);
+        if (!match) return false;
+
+        const [, type, content] = match;
+        const contentLower = content.toLowerCase();
+
+        switch (type) {
+            case 'COMMENCE': return subject.startsWith(contentLower);
+            case 'CONTIENT': return subject.includes(contentLower);
+            case 'FINIT':    return subject.endsWith(contentLower);
+            default:         return false;
+        }
+    }
+
+    /**
+     * Normalise un pattern de domaine — reproduit normalizeDomainPattern() de background.js
+     * @societe.fr  → *.societe.fr
+     * @*           → *
+     * *.societe.fr → *.societe.fr (inchangé)
+     *
+     * @param {string} domainPattern
+     * @returns {string}
+     * @private
+     */
+    _normalizeDomainPattern(domainPattern) {
+        if (!domainPattern) return domainPattern;
+        if (domainPattern.startsWith('@')) {
+            if (domainPattern === '@*') return '*';
+            return '*' + domainPattern.substring(1);
+        }
+        return domainPattern;
+    }
+
     /**
      * Extraire le domaine d'une adresse email
      * 

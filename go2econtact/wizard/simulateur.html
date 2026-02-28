@@ -156,6 +156,33 @@
                 </div>
             </div>
 
+            <!-- Exclusion Sujets -->
+            <div class="form-section">
+                <h3>📝 Sujets à exclure</h3>
+                <p class="section-description">
+                    Bloquez les emails selon leur objet. Utilisez les préfixes
+                    <code>[COMMENCE]</code>, <code>[CONTIENT]</code> ou <code>[FINIT]</code>
+                    (ex: <em>[COMMENCE]Re:</em> exclut toutes les réponses).
+                </p>
+                
+                <div class="form-group">
+                    <label for="exclusionSubjects">
+                        Sujets exclus
+                        <span class="optional">(un par ligne)</span>
+                    </label>
+                    <textarea 
+                        id="exclusionSubjects" 
+                        name="exclusionSubjects"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Exemple :&#10;[COMMENCE]Re:&#10;[COMMENCE]Fwd:&#10;[CONTIENT]newsletter&#10;[FINIT]automatique"
+                    ></textarea>
+                    <small class="form-hint">
+                        💡 <code>[COMMENCE]texte</code> · <code>[CONTIENT]texte</code> · <code>[FINIT]texte</code> — insensible à la casse
+                    </small>
+                </div>
+            </div>
+
             <!-- Section Inclusions -->
             <h2>⭐ Inclusions (recevront TOUJOURS un AR)</h2>
             
@@ -227,6 +254,17 @@
                 >
             </div>
             
+            <div class="form-group">
+                <label for="testSubject">Sujet de l'email à tester <span class="optional">(optionnel)</span></label>
+                <input 
+                    type="text" 
+                    id="testSubject" 
+                    name="testSubject"
+                    placeholder="exemple : Re: Votre demande"
+                    class="form-control"
+                >
+            </div>
+
             <button type="button" id="btnTest" class="btn-primary">
                 🔬 Tester cette adresse
             </button>
