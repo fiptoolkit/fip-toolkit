@@ -291,14 +291,32 @@ function validateStep1() {
 }
 
 function validateStep2() {
-    // Validation des exclusions (optionnel)
-    // Pour l'instant, on accepte tout
-    return true;
+    const textareas = [
+        { id: 'exclusionDomains',    type: 'domain'  },
+        { id: 'exclusionAddresses',  type: 'email'   },
+        { id: 'exclusionPatterns',   type: 'pattern' },
+        { id: 'exclusionSubjects',   type: 'subject' }
+    ];
+    return validateTextareaGroup(textareas);
 }
 
 function validateStep3() {
-    // Validation des inclusions (optionnel)
-    return true;
+    const textareas = [
+        { id: 'inclusionAddresses', type: 'email'  },
+        { id: 'inclusionDomains',   type: 'domain' }
+    ];
+    return validateTextareaGroup(textareas);
+}
+
+function validateTextareaGroup(textareas) {
+    let allValid = true;
+    textareas.forEach(({ id, type }) => {
+        const textarea = document.getElementById(id);
+        if (!textarea) return;
+        const { invalid } = cleanAndValidateWizardTextarea(textarea, type);
+        if (invalid.length > 0) allValid = false;
+    });
+    return allValid;
 }
 
 function validateDomain(inputElement) {
@@ -380,74 +398,61 @@ function cleanAndValidateWizardTextarea(textarea, type) {
     const lines = textarea.value.split('\n');
     const validLines = [];
     const invalidLines = [];
-    const suggestions = [];
-    
+
     lines.forEach(line => {
         const cleaned = line.trim();
         if (!cleaned) return;
-        
+
         let isValid = false;
-        let suggestion = '';
-        
+
         if (type === 'email') {
             isValid = isValidEmailFormat(cleaned);
-            if (!isValid && cleaned.startsWith('*@')) {
-                suggestion = 'Utilisez la section "Domaines" pour ' + cleaned.substring(2);
-            }
         } else if (type === 'domain') {
-            // Réutiliser validateDomain existant (mais juste le test)
-            const domainRegex = /^(\*\.)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
             isValid = isValidDomainWithWildcards(cleaned);
         } else if (type === 'pattern') {
             isValid = isValidPatternFormat(cleaned);
-            if (!isValid && cleaned.startsWith('*@')) {
-                suggestion = 'Utilisez la section "Domaines" pour ' + cleaned.substring(2);
-            }
         } else if (type === 'subject') {
-            // Valide si commence par [COMMENCE], [CONTIENT] ou [FINIT] suivi d'au moins 1 caractère
             isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
         }
-        
+
         if (isValid) {
             validLines.push(cleaned);
         } else {
             invalidLines.push(cleaned);
-            if (suggestion) suggestions.push(suggestion);
         }
     });
-    
-    textarea.value = validLines.join('\n');
-    
+
+    // Ne pas modifier textarea.value — les lignes invalides restent visibles
     if (invalidLines.length > 0) {
-        showWizardValidationFeedback(textarea, invalidLines.length, suggestions);
+        showTextareaErrors(textarea, invalidLines);
+    } else {
+        clearTextareaErrors(textarea);
     }
-    
+
     return { valid: validLines, invalid: invalidLines };
 }
 
 /**
  * Feedback wizard avec classes existantes
  */
-function showWizardValidationFeedback(textarea, removedCount, suggestions = []) {
-    // Utiliser classe existante
+function showTextareaErrors(textarea, invalidLines) {
     textarea.classList.add('is-invalid');
-    
-    // Badge avec classe CSS
-    const badge = document.createElement('div');
-    badge.className = 'validation-badge';
-    badge.textContent = `${removedCount} supprimé${removedCount > 1 ? 's' : ''}`;
-    
-    if (suggestions.length > 0) {
-        badge.title = suggestions.join('\n');
-    }
-    
-    textarea.parentNode.appendChild(badge);
-    
-    // Supprimer après 3 secondes
-    setTimeout(() => {
-        textarea.classList.remove('is-invalid');
-        if (badge.parentNode) badge.remove();
-    }, 3000);
+
+    // Supprimer message existant si présent
+    clearTextareaErrors(textarea);
+
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error textarea-error-list';
+    errorDiv.innerHTML = `⚠️ ${invalidLines.length} ligne${invalidLines.length > 1 ? 's' : ''} invalide${invalidLines.length > 1 ? 's' : ''} : `
+        + invalidLines.map(l => `<code>${escapeHtml(l)}</code>`).join(', ');
+
+    textarea.parentNode.appendChild(errorDiv);
+}
+
+function clearTextareaErrors(textarea) {
+    textarea.classList.remove('is-invalid');
+    const existing = textarea.parentNode.querySelector('.textarea-error-list');
+    if (existing) existing.remove();
 }
 
 // ============================================
