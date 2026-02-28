@@ -94,6 +94,20 @@ function attachEventListeners() {
     if (btnCopyJson) {
         btnCopyJson.addEventListener('click', copyConfigToClipboard);
     }
+
+    // Navigation directe par clic sur les étapes de la barre de progression
+    document.querySelectorAll('.progress-step').forEach(step => {
+        step.addEventListener('click', () => {
+            const targetStep = parseInt(step.getAttribute('data-step'), 10);
+            if (targetStep !== wizardState.currentStep) {
+                if (!validateCurrentStep()) {
+                    return; // Bloque le saut si l'étape courante est invalide
+                }
+                saveCurrentStepData();
+                showStep(targetStep);
+            }
+        });
+    });
     
     // Validation en temps réel
     attachValidationListeners();

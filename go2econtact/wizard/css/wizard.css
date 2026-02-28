@@ -494,6 +494,7 @@ button.loading::after {
     flex: 1;
     position: relative;
     z-index: 1;
+    cursor: pointer;
 }
 
 .progress-step-circle {
