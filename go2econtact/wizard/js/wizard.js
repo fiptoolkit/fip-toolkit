@@ -666,7 +666,7 @@ function generateSummary() {
     
     html += `
         <div class="summary-section">
-            <h3>⭐ Inclusions (recevront TOUJOURS un AR)</h3>
+            <h3>✅ Inclusions (recevront TOUJOURS un AR)</h3>
     `;
     
     if (hasInclusions) {
