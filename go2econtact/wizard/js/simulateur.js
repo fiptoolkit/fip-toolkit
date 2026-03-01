@@ -467,8 +467,8 @@ function validateImportedConfig(raw) {
         }).map(item => item.trim());
     };
 
-    const isValidSubject = (v) => /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(v);
-    const isValidInternalDomain = (v) => !v || isValidDomain(v);
+    const normalizeSubject = (v) => v.replace(/^\[(commence|contient|finit)\]/i, m => m.toUpperCase());
+    const isValidSubject = (v) => /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(normalizeSubject(v));
 
     // Valider internalDomain
     const internalDomain = s.internalDomain ? s.internalDomain.trim() : '';
@@ -482,7 +482,7 @@ function validateImportedConfig(raw) {
             domains:   filterArray(s.exclusion?.domains,   isValidDomain,       'exclusion.domains'),
             addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,  'exclusion.addresses'),
             patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat,'exclusion.patterns'),
-            subjects:  filterArray(s.exclusion?.subjects,  isValidSubject,      'exclusion.subjects')
+            subjects:  filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'exclusion.subjects')
         },
         inclusion: {
             addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat, 'inclusion.addresses'),
