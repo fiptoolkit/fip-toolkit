@@ -218,72 +218,60 @@ function cleanAndValidateSimulatorTextarea(textarea, type) {
     const lines = textarea.value.split('\n');
     const validLines = [];
     const invalidLines = [];
-    const suggestions = [];
-    
+
     lines.forEach(line => {
         const cleaned = line.trim();
         if (!cleaned) return;
-        
+
         let isValid = false;
-        let suggestion = '';
-        
+
         if (type === 'email') {
             isValid = isValidEmailFormat(cleaned);
-            if (!isValid && cleaned.startsWith('*@')) {
-                suggestion = 'Utilisez la section "Domaines à exclure" pour ' + cleaned.substring(2);
-            }
         } else if (type === 'domain') {
             isValid = isValidDomain(cleaned);
         } else if (type === 'pattern') {
             isValid = isValidPatternFormat(cleaned);
-            if (!isValid && cleaned.startsWith('*@')) {
-                const domain = cleaned.substring(2);
-                if (isValidDomain(domain)) {
-                    suggestion = 'Utilisez la section "Domaines à exclure" pour ' + domain;
-                }
-            }
         } else if (type === 'subject') {
-            // Valide si commence par [COMMENCE], [CONTIENT] ou [FINIT] suivi d'au moins 1 caractère
             isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
         }
-        
+
         if (isValid) {
             validLines.push(cleaned);
         } else {
             invalidLines.push(cleaned);
-            if (suggestion) suggestions.push(suggestion);
         }
     });
-    
-    textarea.value = validLines.join('\n');
-    
+
+    // Ne pas modifier textarea.value — les lignes invalides restent visibles
     if (invalidLines.length > 0) {
-        showSimulatorValidationFeedback(textarea, invalidLines.length, suggestions);
+        showTextareaErrors(textarea, invalidLines);
+    } else {
+        clearTextareaErrors(textarea);
     }
-    
+
     return { valid: validLines, invalid: invalidLines };
 }
 
 /**
  * Feedback simulateur (réutilise classes CSS wizard existantes)
  */
-function showSimulatorValidationFeedback(textarea, removedCount, suggestions = []) {
+function showTextareaErrors(textarea, invalidLines) {
     textarea.classList.add('is-invalid');
-    
-    const badge = document.createElement('div');
-    badge.className = 'validation-badge';
-    badge.textContent = `${removedCount} supprimé${removedCount > 1 ? 's' : ''}`;
-    
-    if (suggestions.length > 0) {
-        badge.title = suggestions.join('\n');
-    }
-    
-    textarea.parentNode.appendChild(badge);
-    
-    setTimeout(() => {
-        textarea.classList.remove('is-invalid');
-        if (badge.parentNode) badge.remove();
-    }, 3000);
+
+    clearTextareaErrors(textarea);
+
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'form-error textarea-error-list';
+    errorDiv.innerHTML = `⚠️ ${invalidLines.length} ligne${invalidLines.length > 1 ? 's' : ''} invalide${invalidLines.length > 1 ? 's' : ''} : `
+        + invalidLines.map(l => `<code>${escapeHtml(l)}</code>`).join(', ');
+
+    textarea.parentNode.appendChild(errorDiv);
+}
+
+function clearTextareaErrors(textarea) {
+    textarea.classList.remove('is-invalid');
+    const existing = textarea.parentNode.querySelector('.textarea-error-list');
+    if (existing) existing.remove();
 }
 
 function validateEmailInput() {
