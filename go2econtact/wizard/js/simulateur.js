@@ -375,13 +375,20 @@ function handleJsonImport(event) {
 
             if (!validation.valid) {
                 showImportFeedback(false, 'Fichier invalide : ' + validation.error);
-                // Réinitialiser l'input pour permettre de re-sélectionner le même fichier
                 event.target.value = '';
                 return;
             }
 
             populateFormFromConfig(validation.config);
-            showImportFeedback(true, 'Configuration importée avec succès.');
+
+            if (validation.discarded.length > 0) {
+                const details = validation.discarded
+                    .map(d => `"${d.value}" (${d.label} — ${d.reason})`)
+                    .join(', ');
+                showImportFeedback('warn', `Configuration importée. ${validation.discarded.length} valeur(s) écartée(s) : ${details}`);
+            } else {
+                showImportFeedback(true, 'Configuration importée avec succès.');
+            }
 
         } catch (err) {
             showImportFeedback(false, 'Fichier JSON illisible ou malformé.');
@@ -420,48 +427,66 @@ function validateImportedConfig(raw) {
         return { valid: false, error: '"internalDomain" doit être une chaîne de caractères.' };
     }
 
-    // exclusion : objet avec tableaux
-    if (s.exclusion !== undefined) {
-        if (typeof s.exclusion !== 'object') {
-            return { valid: false, error: '"exclusion" doit être un objet.' };
-        }
-        const arrayFields = ['domains', 'addresses', 'patterns', 'subjects'];
-        for (const field of arrayFields) {
-            if (s.exclusion[field] !== undefined && !Array.isArray(s.exclusion[field])) {
-                return { valid: false, error: `"exclusion.${field}" doit être un tableau.` };
-            }
-        }
-    }
-
-    // inclusion : objet avec tableaux
-    if (s.inclusion !== undefined) {
-        if (typeof s.inclusion !== 'object') {
-            return { valid: false, error: '"inclusion" doit être un objet.' };
-        }
-        const arrayFields = ['addresses', 'domains'];
-        for (const field of arrayFields) {
-            if (s.inclusion[field] !== undefined && !Array.isArray(s.inclusion[field])) {
-                return { valid: false, error: `"inclusion.${field}" doit être un tableau.` };
-            }
+    // Vérifier types des tableaux avant de filtrer leur contenu
+    const arrayChecks = [
+        { path: 'exclusion.domains' },
+        { path: 'exclusion.addresses' },
+        { path: 'exclusion.patterns' },
+        { path: 'exclusion.subjects' },
+        { path: 'inclusion.addresses' },
+        { path: 'inclusion.domains' }
+    ];
+    for (const { path } of arrayChecks) {
+        const [section, field] = path.split('.');
+        if (s[section] && s[section][field] !== undefined && !Array.isArray(s[section][field])) {
+            return { valid: false, error: `"${path}" doit être un tableau.` };
         }
     }
 
-    // Construire config normalisée avec valeurs par défaut
+    const discarded = []; // Lignes écartées avec leur origine
+
+    // Filtrer et valider le contenu de chaque tableau
+    const filterArray = (arr, validatorFn, label) => {
+        if (!arr || !Array.isArray(arr)) return [];
+        return arr.filter(item => {
+            if (typeof item !== 'string') {
+                discarded.push({ label, value: String(item), reason: 'type non-string' });
+                return false;
+            }
+            const trimmed = item.trim();
+            if (!trimmed) return false;
+            if (!validatorFn(trimmed)) {
+                discarded.push({ label, value: trimmed, reason: 'format invalide' });
+                return false;
+            }
+            return true;
+        }).map(item => item.trim());
+    };
+
+    const isValidSubject = (v) => /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(v);
+    const isValidInternalDomain = (v) => !v || isValidDomain(v);
+
+    // Valider internalDomain
+    const internalDomain = s.internalDomain ? s.internalDomain.trim() : '';
+    if (internalDomain && !isValidDomain(internalDomain)) {
+        discarded.push({ label: 'internalDomain', value: internalDomain, reason: 'format invalide' });
+    }
+
     const config = {
-        internalDomain: s.internalDomain || '',
+        internalDomain: (internalDomain && isValidDomain(internalDomain)) ? internalDomain : '',
         exclusion: {
-            domains:   (s.exclusion && s.exclusion.domains)   || [],
-            addresses: (s.exclusion && s.exclusion.addresses) || [],
-            patterns:  (s.exclusion && s.exclusion.patterns)  || [],
-            subjects:  (s.exclusion && s.exclusion.subjects)  || []
+            domains:   filterArray(s.exclusion?.domains,   isValidDomain,       'exclusion.domains'),
+            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,  'exclusion.addresses'),
+            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat,'exclusion.patterns'),
+            subjects:  filterArray(s.exclusion?.subjects,  isValidSubject,      'exclusion.subjects')
         },
         inclusion: {
-            addresses: (s.inclusion && s.inclusion.addresses) || [],
-            domains:   (s.inclusion && s.inclusion.domains)   || []
+            addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat, 'inclusion.addresses'),
+            domains:   filterArray(s.inclusion?.domains,   isValidDomain,      'inclusion.domains')
         }
     };
 
-    return { valid: true, config };
+    return { valid: true, config, discarded };
 }
 
 /**
@@ -480,13 +505,19 @@ function populateFormFromConfig(config) {
 /**
  * Afficher le feedback d'import
  */
-function showImportFeedback(success, message) {
+function showImportFeedback(status, message) {
     const feedback = document.getElementById('import-feedback');
-    feedback.className = success ? 'form-hint' : 'form-error';
-    feedback.textContent = (success ? '✅ ' : '⚠️ ') + message;
-    // Effacer après 5 secondes si succès
-    if (success) {
+    if (status === true) {
+        feedback.className = 'form-hint';
+        feedback.textContent = '✅ ' + message;
         setTimeout(() => { feedback.textContent = ''; }, 5000);
+    } else if (status === 'warn') {
+        feedback.className = 'form-error';
+        feedback.textContent = '⚠️ ' + message;
+        // Avertissement persistant — l'utilisateur doit voir ce qui a été écarté
+    } else {
+        feedback.className = 'form-error';
+        feedback.textContent = '⚠️ ' + message;
     }
 }
 
