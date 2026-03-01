@@ -473,20 +473,20 @@ function validateImportedConfig(raw) {
     // Valider internalDomain
     const internalDomain = s.internalDomain ? s.internalDomain.trim() : '';
     if (internalDomain && !isValidDomain(internalDomain)) {
-        discarded.push({ label: 'internalDomain', value: internalDomain, reason: 'format invalide' });
+        discarded.push({ label: 'Domaine interne', value: internalDomain, reason: 'format invalide' });
     }
 
     const config = {
         internalDomain: (internalDomain && isValidDomain(internalDomain)) ? internalDomain : '',
         exclusion: {
-            domains:   filterArray(s.exclusion?.domains,   isValidDomain,       'exclusion.domains'),
-            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,  'exclusion.addresses'),
-            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat,'exclusion.patterns'),
-            subjects:  filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'exclusion.subjects')
+            domains:   filterArray(s.exclusion?.domains,   isValidDomain,        'Domaines exclus'),
+            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,   'Adresses exclues'),
+            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat, 'Patterns exclus'),
+            subjects:  filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'Sujets exclus')
         },
         inclusion: {
-            addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat, 'inclusion.addresses'),
-            domains:   filterArray(s.inclusion?.domains,   isValidDomain,      'inclusion.domains')
+            addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat, 'Adresses incluses'),
+            domains:   filterArray(s.inclusion?.domains,   isValidDomain,      'Domaines inclus')
         }
     };
 
