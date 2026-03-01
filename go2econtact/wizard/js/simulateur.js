@@ -165,6 +165,11 @@ function attachEventListeners() {
     
     // Validation domaine interne
     const internalDomain = document.getElementById('internalDomain');
+    // Import JSON wizard
+    const importJsonFile = document.getElementById('importJsonFile');
+    if (importJsonFile) {
+        importJsonFile.addEventListener('change', handleJsonImport);
+    }
     if (internalDomain) {
         internalDomain.addEventListener('blur', () => {
             const value = internalDomain.value.trim();
@@ -348,6 +353,141 @@ function getConfigFromForm() {
             domains: inclusionDomains
         }
     };
+}
+
+// ============================================
+// IMPORT JSON WIZARD
+// ============================================
+
+/**
+ * Valider et importer un fichier JSON exporté par le wizard
+ */
+function handleJsonImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        try {
+            const raw = JSON.parse(e.target.result);
+            const validation = validateImportedConfig(raw);
+
+            if (!validation.valid) {
+                showImportFeedback(false, 'Fichier invalide : ' + validation.error);
+                // Réinitialiser l'input pour permettre de re-sélectionner le même fichier
+                event.target.value = '';
+                return;
+            }
+
+            populateFormFromConfig(validation.config);
+            showImportFeedback(true, 'Configuration importée avec succès.');
+
+        } catch (err) {
+            showImportFeedback(false, 'Fichier JSON illisible ou malformé.');
+            event.target.value = '';
+        }
+    };
+
+    reader.onerror = () => {
+        showImportFeedback(false, 'Impossible de lire le fichier.');
+        event.target.value = '';
+    };
+
+    reader.readAsText(file);
+}
+
+/**
+ * Valider la structure du JSON importé
+ * Retourne { valid: true, config: {...} } ou { valid: false, error: '...' }
+ */
+function validateImportedConfig(raw) {
+    // Vérifier enveloppe wizard
+    if (!raw || typeof raw !== 'object') {
+        return { valid: false, error: 'Format non reconnu.' };
+    }
+    if (raw.extension !== 'Go2Econtact') {
+        return { valid: false, error: 'Ce fichier n\'est pas un export Go2Econtact.' };
+    }
+    if (!raw.settings || typeof raw.settings !== 'object') {
+        return { valid: false, error: 'Section "settings" absente ou invalide.' };
+    }
+
+    const s = raw.settings;
+
+    // internalDomain : string ou absent
+    if (s.internalDomain !== undefined && typeof s.internalDomain !== 'string') {
+        return { valid: false, error: '"internalDomain" doit être une chaîne de caractères.' };
+    }
+
+    // exclusion : objet avec tableaux
+    if (s.exclusion !== undefined) {
+        if (typeof s.exclusion !== 'object') {
+            return { valid: false, error: '"exclusion" doit être un objet.' };
+        }
+        const arrayFields = ['domains', 'addresses', 'patterns', 'subjects'];
+        for (const field of arrayFields) {
+            if (s.exclusion[field] !== undefined && !Array.isArray(s.exclusion[field])) {
+                return { valid: false, error: `"exclusion.${field}" doit être un tableau.` };
+            }
+        }
+    }
+
+    // inclusion : objet avec tableaux
+    if (s.inclusion !== undefined) {
+        if (typeof s.inclusion !== 'object') {
+            return { valid: false, error: '"inclusion" doit être un objet.' };
+        }
+        const arrayFields = ['addresses', 'domains'];
+        for (const field of arrayFields) {
+            if (s.inclusion[field] !== undefined && !Array.isArray(s.inclusion[field])) {
+                return { valid: false, error: `"inclusion.${field}" doit être un tableau.` };
+            }
+        }
+    }
+
+    // Construire config normalisée avec valeurs par défaut
+    const config = {
+        internalDomain: s.internalDomain || '',
+        exclusion: {
+            domains:   (s.exclusion && s.exclusion.domains)   || [],
+            addresses: (s.exclusion && s.exclusion.addresses) || [],
+            patterns:  (s.exclusion && s.exclusion.patterns)  || [],
+            subjects:  (s.exclusion && s.exclusion.subjects)  || []
+        },
+        inclusion: {
+            addresses: (s.inclusion && s.inclusion.addresses) || [],
+            domains:   (s.inclusion && s.inclusion.domains)   || []
+        }
+    };
+
+    return { valid: true, config };
+}
+
+/**
+ * Pré-remplir le formulaire du simulateur depuis une config normalisée
+ */
+function populateFormFromConfig(config) {
+    document.getElementById('internalDomain').value    = config.internalDomain;
+    document.getElementById('exclusionDomains').value  = config.exclusion.domains.join('\n');
+    document.getElementById('exclusionAddresses').value = config.exclusion.addresses.join('\n');
+    document.getElementById('exclusionPatterns').value  = config.exclusion.patterns.join('\n');
+    document.getElementById('exclusionSubjects').value  = config.exclusion.subjects.join('\n');
+    document.getElementById('inclusionAddresses').value = config.inclusion.addresses.join('\n');
+    document.getElementById('inclusionDomains').value   = config.inclusion.domains.join('\n');
+}
+
+/**
+ * Afficher le feedback d'import
+ */
+function showImportFeedback(success, message) {
+    const feedback = document.getElementById('import-feedback');
+    feedback.className = success ? 'form-hint' : 'form-error';
+    feedback.textContent = (success ? '✅ ' : '⚠️ ') + message;
+    // Effacer après 5 secondes si succès
+    if (success) {
+        setTimeout(() => { feedback.textContent = ''; }, 5000);
+    }
 }
 
 // ============================================

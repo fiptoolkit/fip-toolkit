@@ -55,6 +55,19 @@
 
         <!-- Formulaire de configuration -->
         <form id="config-form">
+
+            <!-- Import JSON wizard -->
+            <div class="form-section" style="background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);">
+                <h2>📂 Importer une configuration</h2>
+                <p class="section-description">
+                    Importez directement un fichier JSON exporté depuis le wizard Go2Econtact pour tester votre configuration.
+                </p>
+                <div class="form-group">
+                    <input type="file" id="importJsonFile" accept=".json" class="form-control" style="cursor: pointer;">
+                    <small class="form-hint">💡 Fichier au format <code>Go2Econtact-wizard-config-*.json</code></small>
+                </div>
+                <div id="import-feedback"></div>
+            </div>
             
             <!-- Section Domaine interne -->
             <div class="form-section">
