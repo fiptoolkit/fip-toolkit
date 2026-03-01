@@ -395,6 +395,10 @@ function isValidPatternFormat(pattern) {
  * Nettoyage textarea wizard avec feedback
  */
 function cleanAndValidateWizardTextarea(textarea, type) {
+    // Auto-conversion majuscules pour les préfixes sujets (reproduit options.js)
+    if (type === 'subject') {
+        textarea.value = textarea.value.replace(/^\[(commence|contient|finit)\]/gim, m => m.toUpperCase());
+    }
     const lines = textarea.value.split('\n');
     const validLines = [];
     const invalidLines = [];
