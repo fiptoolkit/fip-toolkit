@@ -48,19 +48,10 @@ class FilterEngine {
                 rule: this.lastAppliedRule
             };
         }
-        
-        // 2. Vérifier EXCLUSION
-        if (this._isInExclusionList(email, config.exclusion, config.subject || null)) {
-            return {
-                allowed: false,
-                reason: 'Exclusion',
-                rule: this.lastAppliedRule
-            };
-        }
-        
-        // 3. Vérifier si email EXTERNE
+
+        // 2. Vérifier si email INTERNE (avant exclusion — conforme background.js)
         const isExternal = this._isExternalEmail(email, config.internalDomain);
-        
+
         if (!isExternal) {
             this.lastAppliedRule = 'Domaine interne: ' + config.internalDomain;
             return {
@@ -69,7 +60,16 @@ class FilterEngine {
                 rule: this.lastAppliedRule
             };
         }
-        
+
+        // 3. Vérifier EXCLUSION (seulement pour emails externes)
+        if (this._isInExclusionList(email, config.exclusion, config.subject || null)) {
+            return {
+                allowed: false,
+                reason: 'Exclusion',
+                rule: this.lastAppliedRule
+            };
+        }
+
         // 4. Par défaut : Email externe non exclu = OK
         return {
             allowed: true,

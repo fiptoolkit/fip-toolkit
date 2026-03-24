@@ -739,7 +739,7 @@ function exportConfigJson() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    console.log('Configuration exportée:', config);
+    console.log('Configuration exportée:', wizardState.config);
 }
 
 function copyConfigToClipboard() {
