@@ -243,7 +243,8 @@
         --wz-code-color: #90caf9;
 
         /* Gradient fond de page atténué */
-        --wz-bg-body: linear-gradient(135deg, #2a2f5e 0%, #3a2060 100%);
+        /*--wz-bg-body: linear-gradient(135deg, #2a2f5e 0%, #3a2060 100%);*/
+        --wz-bg-body: linear-gradient(135deg, #1a1a2e 0%, #12121f 100%);
 
         /* Ombres */
         --wz-shadow-container: 0 20px 60px rgba(0, 0, 0, 0.6);
