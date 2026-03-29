@@ -355,6 +355,10 @@ label {
     color: var(--wz-input-color);
 }
 
+.form-control-file {
+    cursor: pointer;
+}
+
 .form-control:focus {
     outline: none;
     border-color: var(--wz-border-focus);

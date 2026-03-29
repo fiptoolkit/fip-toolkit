@@ -109,7 +109,7 @@
             </div>
 
             <!-- SECTION 2 : OUTILS DE CONFIGURATION -->
-            <div class="section" id="section-outils" style="background: #e7f3ff; border-left: 4px solid #667eea; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+            <div class="section section-tools" id="section-outils">
                 <div class="section-header">
                     <span class="section-icon">🛠️</span>
                     <h2 class="section-title">Outils de configuration interactifs</h2>
@@ -381,8 +381,8 @@
                         <p><strong>💡 Template avec panneau d'attention stylisé :</strong></p>
                         
                         <!-- Rendu visuel -->
-                        <div style="margin-bottom: 20px; border: 2px dashed #ccc; padding: 15px; background: white; border-radius: 8px;">
-                            <p style="margin-bottom: 10px; color: #666; font-size: 13px;"><strong>Aperçu du rendu :</strong></p>
+                        <div class="email-preview-wrapper">
+                            <p class="email-preview-label"><strong>Aperçu du rendu :</strong></p>
                             
                             <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
                               <tr>
@@ -409,9 +409,9 @@
                         </div>
                         
                         <!-- Code source pliable -->
-                        <details style="margin-top: 15px;">
-                            <summary style="cursor: pointer; color: #667eea; font-weight: 600; padding: 8px 0;">📝 Afficher le code HTML source</summary>
-                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4; margin-top: 10px;">&lt;!DOCTYPE html&gt;
+                        <details class="source-details">
+                            <summary class="source-summary">📝 Afficher le code HTML source</summary>
+                            <pre class="source-pre">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;

@@ -57,13 +57,13 @@
         <form id="config-form">
 
             <!-- Import JSON wizard -->
-            <div class="form-section" style="background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);">
+            <div class="form-section form-section-import">
                 <h2>📂 Importer une configuration</h2>
                 <p class="section-description">
                     Importez directement un fichier JSON exporté depuis le wizard Go2Econtact pour tester votre configuration.
                 </p>
                 <div class="form-group">
-                    <input type="file" id="importJsonFile" accept=".json" class="form-control" style="cursor: pointer;">
+                    <input type="file" id="importJsonFile" accept=".json" class="form-control form-control-file">
                     <small class="form-hint">💡 Fichier au format <code>Go2Econtact-wizard-config-*.json</code></small>
                 </div>
                 <div id="import-feedback"></div>
@@ -250,7 +250,7 @@
         </form>
 
         <!-- Zone de test -->
-        <div class="form-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); margin-top: 3rem;">
+        <div class="form-section form-section-test-email">
             <h2>🧪 Tester une adresse email</h2>
             <p class="section-description">
                 Testez si une adresse recevra ou non un accusé de réception selon votre configuration

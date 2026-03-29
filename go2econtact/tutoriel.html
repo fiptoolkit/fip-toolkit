@@ -147,8 +147,8 @@
                         <p><strong>💡 Exemple de template HTML :</strong></p>
                         
                         <!-- Rendu visuel -->
-                        <div style="margin-bottom: 20px; border: 2px dashed #ccc; padding: 15px; background: white; border-radius: 8px;">
-                            <p style="margin-bottom: 10px; color: #666; font-size: 13px;"><strong>Aperçu du rendu :</strong></p>
+                        <div class="email-preview-wrapper">
+                            <p class="email-preview-label"><strong>Aperçu du rendu :</strong></p>
                             
                             <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
                               <tr>
@@ -175,9 +175,9 @@
                         </div>
                         
                         <!-- Code source pliable -->
-                        <details style="margin-top: 15px;">
-                            <summary style="cursor: pointer; color: #667eea; font-weight: 600; padding: 8px 0;">📝 Afficher le code HTML source</summary>
-                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; line-height: 1.4; margin-top: 10px;"><code>&lt;!DOCTYPE html&gt;
+                        <details class="source-details">
+                            <summary class="source-summary">📝 Afficher le code HTML source</summary>
+                            <pre class="source-pre"><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -232,7 +232,7 @@
                     </ol>
 
                     <!-- Encadré outils de configuration -->
-                    <div class="info-box" style="background: #e7f3ff; border-left: 4px solid #667eea;">
+                    <div class="info-box section-tools">
                         <h4>💡 Besoin d'aide pour configurer vos règles ?</h4>
                         <p>Utilisez nos outils interactifs pour vous accompagner dans la configuration :</p>
                         <ul>
