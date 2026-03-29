@@ -4,25 +4,25 @@
    ============================================ */
 
 /* ============================================
-   VARIABLES CSS - Design System
+   VARIABLES CSS — THÈME CLAIR (défaut)
    ============================================ */
 :root {
     /* Couleurs principales */
     --color-primary: #667eea;
     --color-secondary: #764ba2;
     --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    
+
     /* Couleurs texte */
     --color-text: #333;
     --color-text-light: #555;
     --color-text-muted: #666;
     --color-text-subtle: #777;
-    
+
     /* Couleurs de fond */
     --color-bg-white: #fff;
     --color-bg-light: #f8f9fa;
     --color-bg-gray: #e9ecef;
-    
+
     /* Couleurs status */
     --color-success: #28a745;
     --color-success-light: #d4edda;
@@ -35,39 +35,132 @@
     --color-danger-dark: #721c24;
     --color-info: #17a2b8;
     --color-info-light: #d1ecf1;
-    
+    --color-info-dark: #0c5460;
+
     /* Bordures */
     --color-border: #e0e0e0;
     --color-border-dark: #dee2e6;
-    
+
+    /* Fond code */
+    --color-bg-code: #f4f4f4;
+
+    /* Header */
+    --color-bg-header: rgba(255, 255, 255, 0.95);
+
+    /* Bouton secondaire */
+    --color-btn-secondary-bg: #6c757d;
+    --color-btn-secondary-bg-hover: #5a6268;
+
+    /* Version courante changelog */
+    --color-bg-version-current: #e8f4f8;
+
+    /* Boîtes sémantiques orphelines */
+    --color-bg-requirement-box: #f8f9fa;
+    --color-border-requirement-box: #667eea;
+    --color-bg-note-box: #f0f4ff;
+    --color-border-note-box: #667eea;
+    --color-bg-template-info: #f8f9ff;
+    --color-border-template-info: #667eea;
+
+    /* Section outils (index, documentation, tutoriel) */
+    --color-bg-section-tools: #e7f3ff;
+    --color-border-section-tools: #667eea;
+
+    /* Titres sémantiques dans legal.html */
+    --color-heading-success: #2ecc71;
+    --color-heading-warning: #e67e22;
+    --color-heading-primary: #667eea;
+
     /* Typographie */
     --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     --font-mono: "Courier New", monospace;
-    
+
     /* Espacements */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
-    
+
     /* Bordures arrondies */
     --radius-sm: 4px;
     --radius-md: 6px;
     --radius-lg: 8px;
     --radius-xl: 12px;
     --radius-round: 50%;
-    
+
     /* Ombres */
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.2);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 5px 15px rgba(102, 126, 234, 0.3);
-    
+
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.4s ease;
+}
+
+/* ============================================
+   VARIABLES CSS — THÈME SOMBRE
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Couleurs texte */
+        --color-text: #e8e8e8;
+        --color-text-light: #b0b0b0;
+        --color-text-muted: #888;
+        --color-text-subtle: #888;
+
+        /* Couleurs de fond */
+        --color-bg-white: #2a2a2a;
+        --color-bg-light: #333;
+        --color-bg-gray: #3a3a3a;
+
+        /* Couleurs status — variantes light adaptées fond sombre */
+        --color-success-light: #1a3a2a;
+        --color-success-dark: #6ee7b7;
+        --color-warning-light: #2a1f00;
+        --color-warning-dark: #fcd34d;
+        --color-danger-light: #2a0d0d;
+        --color-danger-dark: #fca5a5;
+        --color-info-light: #0d2137;
+        --color-info-dark: #90caf9;
+
+        /* Bordures */
+        --color-border: #444;
+        --color-border-dark: #505050;
+
+        /* Fond code */
+        --color-bg-code: #3a3a3a;
+
+        /* Header */
+        --color-bg-header: rgba(30, 30, 30, 0.97);
+
+        /* Bouton secondaire */
+        --color-btn-secondary-bg: #4a4a4a;
+        --color-btn-secondary-bg-hover: #555;
+
+        /* Version courante changelog */
+        --color-bg-version-current: #0d2137;
+
+        /* Boîtes sémantiques orphelines */
+        --color-bg-requirement-box: #2a2a2a;
+        --color-border-requirement-box: #a78bfa;
+        --color-bg-note-box: #1e2540;
+        --color-border-note-box: #a78bfa;
+        --color-bg-template-info: #1e2a3a;
+        --color-border-template-info: #a78bfa;
+
+        /* Section outils */
+        --color-bg-section-tools: #0d2137;
+        --color-border-section-tools: #a78bfa;
+
+        /* Titres sémantiques dans legal.html */
+        --color-heading-success: #6ee7b7;
+        --color-heading-warning: #fbbf24;
+        --color-heading-primary: #a78bfa;
+    }
 }
 
 /* ============================================
@@ -91,7 +184,7 @@ body {
    HEADER - Navigation retour FIP Toolkit
    ============================================ */
 .header {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-bg-header);
     padding: var(--spacing-sm) var(--spacing-lg);
     box-shadow: var(--shadow-sm);
 }
@@ -144,10 +237,6 @@ body {
     font-size: 1.2rem;
     opacity: 0.9;
     margin-bottom: var(--spacing-md);
-}
-
-/* Variante subtitle dans hero (sans bordure) */
-.hero .subtitle {
     border-bottom: none;
     padding-bottom: 0;
 }
@@ -229,7 +318,7 @@ p {
 
 /* Code inline */
 code {
-    background: #f4f4f4;
+    background: var(--color-bg-code);
     padding: 3px 8px;
     border-radius: var(--radius-sm);
     font-family: var(--font-mono);
@@ -239,7 +328,7 @@ code {
 
 /* Bloc de code */
 pre {
-    background: #f4f4f4;
+    background: var(--color-bg-code);
     padding: var(--spacing-md);
     border-radius: var(--radius-lg);
     overflow-x: auto;
@@ -278,6 +367,25 @@ li {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Section outils — index.html, documentation.html, tutoriel.html */
+.section-tools {
+    background: var(--color-bg-section-tools);
+    border-left: 4px solid var(--color-border-section-tools);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-tools h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.section-tools > p {
+    color: var(--color-text-muted);
     margin-bottom: var(--spacing-md);
 }
 
@@ -406,6 +514,73 @@ li {
 }
 
 /* ============================================
+   BOXES ORPHELINES — requirement-box, note-box, template-info
+   ============================================ */
+.requirement-box {
+    background: var(--color-bg-requirement-box);
+    border-left: 4px solid var(--color-border-requirement-box);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-text);
+}
+
+.requirement-box p,
+.requirement-box li {
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+.note-box {
+    background: var(--color-bg-note-box);
+    border-left: 4px solid var(--color-border-note-box);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-text);
+}
+
+.note-box p,
+.note-box li {
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+.template-info {
+    background: var(--color-bg-template-info);
+    border-left: 4px solid var(--color-border-template-info);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-text);
+}
+
+.template-info p {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}
+
+.template-info p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   TITRES SÉMANTIQUES — legal.html
+   ============================================ */
+.heading-success {
+    color: var(--color-heading-success);
+}
+
+.heading-warning {
+    color: var(--color-heading-warning);
+}
+
+.heading-primary {
+    color: var(--color-heading-primary);
+}
+
+/* ============================================
    BOUTONS (page d'accueil uniquement)
    ============================================ */
 .button {
@@ -428,11 +603,11 @@ li {
 }
 
 .button-secondary {
-    background: #6c757d;
+    background: var(--color-btn-secondary-bg);
 }
 
 .button-secondary:hover {
-    background: #5a6268;
+    background: var(--color-btn-secondary-bg-hover);
 }
 
 /* ============================================
@@ -468,7 +643,7 @@ tr:last-child td {
 }
 
 /* ============================================
-   FOOTER NAVIGATION - Unifié
+   FOOTER NAVIGATION — Unifié
    ============================================ */
 .footer-nav {
     background: var(--color-bg-light);
@@ -509,10 +684,9 @@ tr:last-child td {
     transform: translateY(-2px);
 }
 
-/* ========================================
-   FOOTER NAVIGATION - BOUTONS GRADIENT 3x3
-   ======================================== */
-
+/* ============================================
+   FOOTER NAVIGATION — BOUTONS GRADIENT 3x3
+   ============================================ */
 .nav-links-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -524,33 +698,19 @@ tr:last-child td {
 .footer-nav .nav-button {
     display: block;
     padding: 12px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-main);
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     text-align: center;
     font-weight: 500;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .nav-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-/* Responsive : 2 colonnes sur tablette */
-@media (max-width: 768px) {
-    .nav-links-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Responsive : 1 colonne sur mobile */
-@media (max-width: 480px) {
-    .nav-links-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* ============================================
@@ -837,7 +997,7 @@ tr:last-child td {
 }
 
 .version-block.current {
-    background: #e8f4f8;
+    background: var(--color-bg-version-current);
     border-left-color: var(--color-success);
 }
 
@@ -897,31 +1057,35 @@ tr:last-child td {
     h1 {
         font-size: 1.75rem;
     }
-    
+
     h2 {
         font-size: 1.3rem;
     }
-    
+
     .content {
         padding: var(--spacing-lg) var(--spacing-md);
     }
-    
+
     .cards-grid,
     .features-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .nav-links {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .nav-link {
         width: 100%;
     }
-    
+
     .step-header {
         padding: var(--spacing-md);
+    }
+
+    .nav-links-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -930,16 +1094,20 @@ tr:last-child td {
         margin: var(--spacing-md);
         border-radius: var(--radius-lg);
     }
-    
+
     .hero {
         padding: var(--spacing-lg) var(--spacing-md);
     }
-    
+
     .hero h1 {
         font-size: 1.5rem;
     }
-    
+
     .hero .subtitle {
         font-size: 1rem;
+    }
+
+    .nav-links-grid {
+        grid-template-columns: 1fr;
     }
 }
