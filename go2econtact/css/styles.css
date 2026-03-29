@@ -156,6 +156,9 @@
         --color-bg-section-tools: #0d2137;
         --color-border-section-tools: #a78bfa;
 
+        /* Gradient fond de page atténué */
+        --gradient-main: linear-gradient(135deg, #2a2f5e 0%, #3a2060 100%);
+
         /* Titres sémantiques dans legal.html */
         --color-heading-success: #6ee7b7;
         --color-heading-warning: #fbbf24;
