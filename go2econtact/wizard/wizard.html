@@ -34,13 +34,13 @@
 </head>
 <body>
     <div class="container">
-        <!-- En-tête -->
-        <header class="wizard-header">
-            <h1>🧙‍♂️ Assistant de Configuration Go2Econtact</h1>
-            <p class="subtitle">Créez vos règles d'accusés de réception en quelques étapes simples</p>
-        </header>
 
-        <!-- Barre de progression -->
+        <div class="hero">
+            <h1>Assistant de configuration Go2Econtact</h1>
+            <p class="subtitle">Créez vos règles d'accusés de réception en quelques étapes simples</p>
+        </div>
+
+        <div class="wizard-content">
         <div class="progress-bar">
             <div class="progress-step active" data-step="1">
                 <div class="progress-step-circle">1</div>
@@ -65,7 +65,7 @@
             
             <!-- ÉTAPE 1 : Domaine interne -->
             <div class="wizard-step active" data-step="1">
-                <h2>📧 Votre domaine interne</h2>
+                <h2>Votre domaine interne</h2>
                 <p class="step-description">
                     Le domaine interne correspond à votre organisation (entreprise, association, etc.).
                     Les emails de ce domaine ne recevront <strong>pas</strong> d'accusé de réception par défaut,
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="examples-box">
-                    <h4>📚 Exemples</h4>
+                    <h4>Exemples</h4>
                     <ul>
                         <li><code>entreprise.fr</code> → Bloque uniquement <em>@entreprise.fr</em></li>
                         <li><code>*.entreprise.fr</code> → Bloque <em>@paris.entreprise.fr</em>, <em>@lyon.entreprise.fr</em>, etc.</li>
@@ -110,7 +110,7 @@
 
             <!-- ÉTAPE 2 : Exclusions -->
             <div class="wizard-step" data-step="2">
-                <h2>🚫 Qui ne recevra JAMAIS d'accusé de réception ?</h2>
+                <h2>Qui ne recevra JAMAIS d'accusé de réception ?</h2>
                 <p class="step-description">
                     Définissez les adresses, domaines ou patterns qui ne doivent <strong>jamais</strong>
                     recevoir d'accusé de réception automatique.
@@ -118,7 +118,7 @@
 
                 <!-- Exclusion par domaine -->
                 <div class="form-section">
-                    <h3>🌐 Domaines à exclure</h3>
+                    <h3>Domaines à exclure</h3>
                     <p class="section-description">
                         Bloquez tous les emails d'un domaine complet (ex: tous les emails de <em>publicite.fr</em>)
                     </p>
@@ -143,7 +143,7 @@
 
                 <!-- Exclusion par adresse -->
                 <div class="form-section">
-                    <h3>✉️ Adresses spécifiques à exclure</h3>
+                    <h3>Adresses spécifiques à exclure</h3>
                     <p class="section-description">
                         Bloquez des adresses email précises (ex: <em>robot@exemple.com</em>)
                     </p>
@@ -165,7 +165,7 @@
 
                 <!-- Exclusion par pattern -->
                 <div class="form-section">
-                    <h3>🔍 Patterns automatiques à exclure</h3>
+                    <h3>Patterns automatiques à exclure</h3>
                     <p class="section-description">
                         Bloquez des types d'emails automatiques (ex: tous les <em>noreply@*</em>)
                     </p>
@@ -188,7 +188,7 @@
                     </div>
 
                     <div class="patterns-presets">
-                        <h4>📋 Patterns recommandés</h4>
+                        <h4>Patterns recommandés</h4>
                         <button type="button" class="btn-preset" data-action="add-default-patterns">
                             ➕ Ajouter les patterns par défaut
                         </button>
@@ -212,7 +212,7 @@
 
                 <!-- Exclusion par sujet -->
                 <div class="form-section">
-                    <h3>📝 Sujets à exclure</h3>
+                    <h3>Sujets à exclure</h3>
                     <p class="section-description">
                         Bloquez les emails selon leur objet, indépendamment de l'expéditeur
                         (ex: réponses automatiques, newsletters).
@@ -239,7 +239,7 @@
 
             <!-- ÉTAPE 3 : Inclusions -->
             <div class="wizard-step" data-step="3">
-                <h2>✅ Qui recevra TOUJOURS un accusé de réception ?</h2>
+                <h2>Qui recevra TOUJOURS un accusé de réception ?</h2>
                 <p class="step-description">
                     Ces adresses/domaines ont la <strong>priorité ABSOLUE</strong> : elles recevront
                     un AR même si elles sont dans les exclusions ou le domaine interne.
@@ -252,7 +252,7 @@
 
                 <!-- Inclusion par adresse -->
                 <div class="form-section">
-                    <h3>✉️ Adresses qui recevront TOUJOURS un AR</h3>
+                    <h3>Adresses qui recevront TOUJOURS un AR</h3>
                     <p class="section-description">
                         Ajoutez des adresses qui doivent recevoir un AR même si elles sont bloquées ailleurs
                     </p>
@@ -274,7 +274,7 @@
 
                 <!-- Inclusion par domaine -->
                 <div class="form-section">
-                    <h3>🌐 Domaines qui recevront TOUJOURS un AR</h3>
+                    <h3>Domaines qui recevront TOUJOURS un AR</h3>
                     <p class="section-description">
                         Forcez l'envoi d'AR pour tous les emails d'un domaine
                     </p>
@@ -295,7 +295,7 @@
                 </div>
 
                 <div class="examples-box">
-                    <h4>📚 Cas d'usage typiques</h4>
+                    <h4>Cas d'usage typiques</h4>
                     <ul>
                         <li><strong>Patron dans domaine interne</strong> : <code>patron@entreprise.fr</code> reçoit un AR même si <code>entreprise.fr</code> est bloqué</li>
                         <li><strong>Client VIP</strong> : <code>vip@client.com</code> reçoit toujours un AR</li>
@@ -306,7 +306,7 @@
 
             <!-- ÉTAPE 4 : Récapitulatif -->
             <div class="wizard-step" data-step="4">
-                <h2>📋 Récapitulatif de votre configuration</h2>
+                <h2>Récapitulatif de votre configuration</h2>
                 <p class="step-description">
                     Vérifiez votre configuration avant de l'exporter vers l'extension Go2Econtact
                 </p>
@@ -316,20 +316,20 @@
                 </div>
 
                 <div class="export-section">
-                    <h3>💾 Exporter votre configuration</h3>
+                    <h3>Exporter votre configuration</h3>
                     <p>Exportez votre configuration pour l'importer directement dans l'extension Go2Econtact</p>
                     
                     <div class="export-buttons">
                         <button type="button" class="btn-primary" id="btnExportJson">
-                            📥 Exporter la configuration (JSON)
+                            Exporter la configuration (JSON)
                         </button>
                         <button type="button" class="btn-secondary" id="btnCopyJson">
-                            📋 Copier dans le presse-papier
+                            Copier dans le presse-papier
                         </button>
                     </div>
 
                     <div class="export-instructions">
-                        <h4>📖 Comment importer dans Go2Econtact ?</h4>
+                        <h4>Comment importer dans Go2Econtact ?</h4>
                         <ol>
                             <li>Téléchargez le fichier JSON ci-dessus</li>
                             <li>Ouvrez Thunderbird - Go2Econtact</li>
@@ -341,11 +341,11 @@
                 </div>
 
                 <div class="test-section">
-                    <h3>🧪 Tester votre configuration</h3>
+                    <h3>Tester votre configuration</h3>
                     <p>Avant d'exporter, testez votre configuration avec le simulateur</p>
                     
                     <a href="simulateur.html" class="btn-secondary" target="_blank">
-                        🔬 Ouvrir le simulateur
+                        Ouvrir le simulateur
                     </a>
                 </div>
             </div>
@@ -369,17 +369,18 @@
 
         <!-- Footer Navigation Unifié -->
         <div class="footer-nav">
-            <h3>📚 Ressources complémentaires</h3>
+            <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
-                <a href="../index.html" class="nav-button">🏠 Accueil</a>
-                <a href="../tutoriel.html" class="nav-button">🚀 Tutoriel</a>
-                <a href="../documentation.html" class="nav-button">📖 Documentation</a>
-                <a href="../faq.html" class="nav-button">❓ FAQ</a>
-                <a href="../changelog.html" class="nav-button">📋 Changelog</a>
-                <a href="../legal.html" class="nav-button">📄 Informations légales</a>
+                <a href="../index.html" class="nav-button">Accueil</a>
+                <a href="../tutoriel.html" class="nav-button">Tutoriel</a>
+                <a href="../documentation.html" class="nav-button">Documentation</a>
+                <a href="../faq.html" class="nav-button">FAQ</a>
+                <a href="../changelog.html" class="nav-button">Changelog</a>
+                <a href="../legal.html" class="nav-button">Informations légales</a>
             </div>
-        </div>
-    </div>
+        </div><!-- fin wizard-navigation -->
+    </div><!-- fin wizard-content -->
+    </div><!-- fin container -->
 
     <!-- Scripts -->
     <script src="js/wizard.js"></script>
