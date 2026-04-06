@@ -1,0 +1,1322 @@
+/* ============================================
+   STYLES.CSS - Go2Econtact
+   Feuille de styles centralisée pour toutes les pages
+   ============================================ */
+
+/* ============================================
+   VARIABLES CSS — THÈME CLAIR (défaut)
+   ============================================ */
+:root {
+    /* Couleurs principales */
+    --gradient-main: linear-gradient(135deg, #4a6fa5 0%, #3a5a80 100%);
+    --color-primary: #4a6fa5;
+    --color-secondary: #3a5a80;
+
+    /* Couleurs texte */
+    --color-text: #333;
+    --color-text-light: #555;
+    --color-text-muted: #666;
+    --color-text-subtle: #777;
+
+    /* Couleurs de fond */
+    --color-bg-white: #fff;
+    --color-bg-light: #f8f9fa;
+    --color-bg-gray: #e9ecef;
+
+    /* Couleurs status */
+    --color-success: #28a745;
+    --color-success-light: #d4edda;
+    --color-success-dark: #155724;
+    --color-warning: #ffc107;
+    --color-warning-light: #fff3cd;
+    --color-warning-dark: #856404;
+    --color-danger: #dc3545;
+    --color-danger-light: #f8d7da;
+    --color-danger-dark: #721c24;
+    --color-info: #17a2b8;
+    --color-info-light: #d1ecf1;
+    --color-info-dark: #0c5460;
+
+    /* Bordures */
+    --color-border: #e0e0e0;
+    --color-border-dark: #dee2e6;
+
+    /* Fond code */
+    --color-bg-code: #f4f4f4;
+    --color-bg-code-inline: #fdf6d3;
+    --color-code-inline: #0d3d8f;
+
+    /* Header */
+    --color-bg-header: rgba(255, 255, 255, 0.95);
+
+    /* Bouton secondaire */
+    --color-btn-secondary-bg: #6c757d;
+    --color-btn-secondary-bg-hover: #5a6268;
+
+    /* Hover états sémantiques */
+    --color-danger-hover: #c82333;
+    --color-success-hover: #218838;
+    --color-info-hover: #138496;
+
+    /* Lien */
+    --color-link: #0056b3;
+
+    /* Version courante changelog */
+    --color-bg-version-current: #e8f4f8;
+
+    /* Boîtes sémantiques orphelines */
+    --color-bg-requirement-box: #f8f9fa;
+    --color-border-requirement-box: #4a6fa5;
+    --color-bg-note-box: #f0f4ff;
+    --color-border-note-box: #4a6fa5;
+    --color-bg-template-info: #f8f9ff;
+    --color-border-template-info: #4a6fa5;
+
+    /* Section outils (index, documentation, tutoriel) */
+    --color-bg-section-tools: #e7f3ff;
+    --color-border-section-tools: #4a6fa5;
+
+    /* Titres sémantiques dans legal.html */
+    --color-heading-success: #2ecc71;
+    --color-heading-warning: #e67e22;
+    --color-heading-primary: #4a6fa5;
+
+    /* Typographie */
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-mono: "Courier New", monospace;
+
+    /* Espacements */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Bordures arrondies */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-round: 50%;
+
+    /* Ombres */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 5px 15px rgba(74, 111, 165, 0.3);
+
+    /* Schéma de couleurs */
+    color-scheme: light dark;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s ease;
+}
+
+/* ============================================
+   VARIABLES CSS — THÈME SOMBRE
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Couleurs texte */
+        --color-text: #e8e8e8;
+        --color-text-light: #b0b0b0;
+        --color-text-muted: #888;
+        --color-text-subtle: #888;
+
+        /* Couleurs de fond */
+        --color-bg-white: #2a2a2a;
+        --color-bg-light: #333;
+        --color-bg-gray: #3a3a3a;
+
+        /* Couleurs status — variantes light adaptées fond sombre */
+        --color-success-light: #1a3a2a;
+        --color-success-dark: #6ee7b7;
+        --color-warning-light: #2a1f00;
+        --color-warning-dark: #fcd34d;
+        --color-danger-light: #2a0d0d;
+        --color-danger-dark: #fca5a5;
+        --color-info-light: #0d2137;
+        --color-info-dark: #90caf9;
+
+        /* Bordures */
+        --color-border: #444;
+        --color-border-dark: #505050;
+
+        /* Fond code */
+        --color-bg-code: #3a3a3a;
+
+        /* Fond code inline */
+        --color-bg-code-inline: #1e1e1e;
+        --color-code-inline: #90caf9;
+
+        /* Lien */
+        --color-link: #6ea8d8;
+
+        /* Ombre colorée atténuée */
+        --shadow-hover: 0 5px 15px rgba(74, 111, 165, 0.15);
+
+        /* Header */
+        --color-bg-header: rgba(30, 30, 30, 0.97);
+
+        /* Bouton secondaire */
+        --color-btn-secondary-bg: #4a4a4a;
+        --color-btn-secondary-bg-hover: #555;
+
+        /* Version courante changelog */
+        --color-bg-version-current: #0d2137;
+
+        /* Boîtes sémantiques orphelines */
+        --color-bg-requirement-box: #1e2a38;
+        --color-border-requirement-box: #6ea8d8;
+        --color-bg-note-box: #1a2535;
+        --color-border-note-box: #6ea8d8;
+        --color-bg-template-info: #1e2a38;
+        --color-border-template-info: #6ea8d8;
+
+        /* Section outils */
+        --color-bg-section-tools: #0d2137;
+        --color-border-section-tools: #6ea8d8;
+
+        /* Gradient fond de page atténué */
+        --gradient-main: linear-gradient(135deg, #2e4a6e 0%, #243d5c 100%);
+
+        /* Titres sémantiques dans legal.html */
+        --color-heading-success: #6ee7b7;
+        --color-heading-warning: #fbbf24;
+        --color-heading-primary: #6ea8d8;
+    }
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg-gray);
+    min-height: 100vh;
+}
+
+/* ============================================
+   HEADER - Navigation retour FIP Toolkit
+   ============================================ */
+.header {
+    background: var(--color-bg-header);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.header a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   CONTAINER - Wrapper principal
+   ============================================ */
+.container {
+    max-width: 1000px;
+    margin: var(--spacing-xl) auto;
+    background: var(--color-bg-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+/* Variante container plus étroit pour pages textuelles */
+.container-narrow {
+    max-width: 900px;
+}
+
+/* ============================================
+   HERO SECTION (page d'accueil uniquement)
+   ============================================ */
+.hero {
+    background: var(--gradient-main);
+    color: white;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: var(--spacing-md);
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.hero-description {
+    max-width: 700px;
+    margin: var(--spacing-lg) auto 0;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-pending {
+    background: var(--color-warning-light);
+    color: var(--color-warning-dark);
+}
+
+.status-validated {
+    background: var(--color-info-light);
+    color: var(--color-info);
+}
+
+.status-downloaded {
+    background: var(--color-success-light);
+    color: var(--color-success-dark);
+}
+
+.status-expired {
+    background: var(--color-bg-gray);
+    color: var(--color-text-muted);
+}
+
+/* Forcer le blanc pour TOUT le contenu du hero */
+.hero,
+.hero h1,
+.hero p,
+.hero .subtitle,
+.hero .hero-description,
+.hero .hero-description p {
+    color: white !important;
+}
+
+/* ============================================
+   CONTENT - Zone de contenu
+   ============================================ */
+.content {
+    padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+/* ============================================
+   TYPOGRAPHIE
+   ============================================ */
+h1 {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+h2 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+h3 {
+    color: var(--color-text);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Liens dans le contenu (colorés, soulignés au survol) */
+.content a:not(.button):not(.nav-link):not(.nav-button):not(.download-button) {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.content a:not(.button):not(.nav-link):not(.nav-button):hover {
+    text-decoration: underline;
+    color: var(--color-secondary);
+}
+
+/* Code inline */
+code {
+    background: var(--color-bg-code-inline);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-code-inline);
+}
+
+/* Bloc de code */
+pre {
+    background: var(--color-bg-code);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    margin: var(--spacing-md) 0;
+    border-left: 4px solid var(--color-primary);
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    color: var(--color-text);
+}
+
+/* Listes */
+ul, ol {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+li {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.section h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Section outils — index.html, documentation.html, tutoriel.html */
+.section-tools {
+    background: var(--color-bg-section-tools);
+    border-left: 4px solid var(--color-border-section-tools);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-tools h2 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.section-tools > p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   GRILLES - Cards & Features
+   ============================================ */
+.cards-grid,
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    background: var(--color-bg-light);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card h3 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.card p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Features (similaire aux cards mais sans hover) */
+.feature {
+    background: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.feature h3 {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.feature p {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   BOXES - Info, Warning, Danger, Success
+   ============================================ */
+.info-box {
+    background: var(--color-bg-light);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+}
+
+.info-box--info {
+    background: var(--color-info-light);
+    border-left: 4px solid var(--color-info);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-info);
+}
+
+.info-box--info h3 {
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--color-info);
+}
+
+.info-box--info ul {
+    margin: var(--spacing-sm) 0 0 var(--spacing-lg);
+}
+
+.info-box--info li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.warning-box {
+    background: var(--color-warning-light);
+    border-left: 4px solid var(--color-warning);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+}
+
+.warning-box p,
+.warning-box strong {
+    color: var(--color-warning-dark);
+}
+
+.danger-box {
+    background: var(--color-danger-light);
+    border-left: 4px solid var(--color-danger);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+}
+
+.danger-box p,
+.danger-box strong {
+    color: var(--color-danger-dark);
+}
+
+.success-box {
+    background: var(--color-success-light);
+    border-left: 4px solid var(--color-success);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+}
+
+.success-box p,
+.success-box strong {
+    color: var(--color-success-dark);
+}
+
+.info-box p,
+.warning-box p,
+.danger-box p,
+.success-box p {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+}
+
+.info-box p:last-child,
+.warning-box p:last-child,
+.danger-box p:last-child,
+.success-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   BOXES ORPHELINES — requirement-box, note-box, template-info
+   ============================================ */
+.requirement-box {
+    background: var(--color-bg-requirement-box);
+    border-left: 4px solid var(--color-border-requirement-box);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-text);
+}
+
+.requirement-box p,
+.requirement-box li {
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+.note-box {
+    background: var(--color-bg-note-box);
+    border-left: 4px solid var(--color-border-note-box);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+    color: var(--color-text);
+}
+
+/* Variante note-box pour notice légale monospace */
+.note-box-mono-title {
+    margin-top: 0;
+    font-size: 0.95em;
+    color: var(--color-text);
+}
+
+.note-box-mono-text {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    margin: 0;
+    line-height: 1.6;
+    color: var(--color-text-light);
+}
+
+.note-box-mono-text--spaced {
+    margin-top: 1rem;
+}
+
+/* Texte note secondaire (petite taille, muted) */
+.text-note {
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+}
+
+.text-note-sm {
+    color: var(--color-text-muted);
+    font-size: 0.9em;
+}
+
+/* Wrapper boutons en ligne */
+.button-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.note-box p,
+.note-box li {
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+/* Paragraphe introductif dans une box (marge basse renforcée) */
+.requirement-box > p.box-intro,
+.note-box > p.box-intro {
+    margin-bottom: var(--spacing-sm);
+}
+
+.requirement-box > p:last-child,
+.note-box > p:last-child {
+    margin-bottom: 0;
+}
+
+/* Reset marge sur premier paragraphe dans requirement-box */
+.requirement-box > p:first-child {
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ============================================
+   TITRES SÉMANTIQUES — legal.html
+   ============================================ */
+.heading-success {
+    color: var(--color-heading-success);
+}
+
+.heading-warning {
+    color: var(--color-heading-warning);
+}
+
+.heading-primary {
+    color: var(--color-heading-primary);
+}
+
+/* ============================================
+   SOUS-TITRES DE SECTION — documentation.html
+   ============================================ */
+
+/* Sous-titre dans liste d'exemples (h4 dans subsection) */
+.h4-subsection {
+    color: var(--color-text);
+    font-size: 1rem;
+    margin: 1.25rem 0 0.625rem;
+}
+
+/* ============================================
+   LABELS COLORÉS INLINE — documentation.html
+   ============================================ */
+
+.label-error {
+    color: var(--color-danger);
+}
+
+.label-success {
+    color: var(--color-success);
+}
+
+.label-warning {
+    color: var(--color-warning);
+}
+
+.label-muted {
+    color: var(--color-btn-secondary-bg);
+}
+
+.label-error-bg {
+    color: var(--color-danger);
+    background: var(--color-danger-light);
+}
+
+/* ============================================
+   BOUTONS (page d'accueil uniquement)
+   ============================================ */
+.button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--gradient-main);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 14px;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.button-secondary {
+    background: var(--color-btn-secondary-bg);
+}
+
+.button-secondary:hover {
+    background: var(--color-btn-secondary-bg-hover);
+}
+
+/* ============================================
+   TABLEAUX
+   ============================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-md) 0;
+    background: var(--color-bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th {
+    background: var(--color-bg-light);
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-text-light);
+    border-bottom: 2px solid var(--color-border);
+}
+
+td {
+    padding: 12px var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-light);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================
+   FOOTER NAVIGATION — Unifié
+   ============================================ */
+.footer-nav {
+    background: var(--color-bg-light);
+    padding: var(--spacing-lg);
+    text-align: center;
+    border-top: 2px solid var(--color-border);
+}
+
+.footer-nav h3 {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: var(--color-bg-white);
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 14px;
+    border: 2px solid var(--color-primary);
+    transition: all var(--transition-normal);
+}
+
+.nav-link:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   FOOTER NAVIGATION — BOUTONS GRADIENT 3x3
+   ============================================ */
+.nav-links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-nav .nav-button {
+    display: block;
+    padding: 12px 20px;
+    background: var(--gradient-main);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    font-weight: 500;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    box-shadow: var(--shadow-hover);
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 111, 165, 0.4);
+}
+
+/* ============================================
+   SOMMAIRE / TOC (Documentation)
+   ============================================ */
+.toc {
+    background: var(--color-bg-light);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.toc h2 {
+    font-size: 1.3rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.toc li {
+    margin-bottom: 12px;
+}
+
+.toc a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    display: block;
+    padding: var(--spacing-xs) 0;
+}
+
+.toc a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+/* ============================================
+   ACCORDÉON FAQ
+   ============================================ */
+.faq-item {
+    margin-bottom: var(--spacing-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-normal);
+}
+
+.faq-item:hover {
+    border-color: var(--color-primary);
+}
+
+.faq-question {
+    background: var(--color-bg-light);
+    padding: 18px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background var(--transition-normal);
+}
+
+.faq-question:hover {
+    background: var(--color-bg-gray);
+}
+
+.faq-question::after {
+    content: "▼";
+    font-size: 14px;
+    color: var(--color-primary);
+    transition: transform var(--transition-normal);
+}
+
+.faq-question.active::after {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-slow), padding var(--transition-slow);
+    background: var(--color-bg-white);
+    padding: 0 20px;
+}
+
+.faq-answer.active {
+    max-height: 2000px;
+    padding: 20px;
+}
+
+.faq-answer p {
+    color: var(--color-text-light);
+    margin-bottom: 12px;
+    line-height: 1.8;
+}
+
+.faq-answer ul {
+    list-style: none;
+    padding-left: 0;
+    margin: var(--spacing-md) 0;
+}
+
+.faq-answer li {
+    padding-left: 25px;
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    color: var(--color-text-light);
+}
+
+.faq-answer li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+/* ============================================
+   TUTORIEL - Styles spécifiques
+   ============================================ */
+/* Conteneur aperçu email (fond blanc volontaire, bordure tiretée) */
+.email-preview-wrapper {
+    margin-bottom: 20px;
+    border: 2px dashed var(--color-border);
+    padding: 15px;
+    background: var(--color-bg-white);
+    border-radius: var(--radius-lg);
+}
+
+.email-preview-label {
+    margin-bottom: 10px;
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+/* Bloc details/summary pour code source pliable */
+.source-details {
+    margin-top: 15px;
+}
+
+.source-summary {
+    cursor: pointer;
+    color: var(--color-primary);
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.source-pre {
+    background: var(--color-bg-light);
+    padding: 15px;
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 10px;
+}
+
+.duration-badge {
+    display: inline-block;
+    background: var(--color-bg-light);
+    color: var(--color-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+}
+
+.intro {
+    background: var(--color-bg-light);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.prerequisites {
+    background: var(--color-warning-light);
+    border-left: 4px solid var(--color-warning);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.prerequisites h3 {
+    color: var(--color-warning-dark);
+    margin-bottom: var(--spacing-md);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.prerequisites ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.prerequisites li {
+    color: var(--color-warning-dark);
+    margin-bottom: 10px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.prerequisites li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.step {
+    margin-bottom: 50px;
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.step:last-child {
+    border-bottom: none;
+}
+
+.step-header {
+    background: var(--gradient-main);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.step-number {
+    background: rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.step-content {
+    padding: 0 var(--spacing-lg);
+}
+
+.step-description {
+    color: var(--color-text-light);
+    font-size: 15px;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+.instructions {
+    counter-reset: instruction;
+    list-style: none;
+    padding-left: 0;
+}
+
+.instructions li {
+    counter-increment: instruction;
+    margin-bottom: var(--spacing-md);
+    padding-left: 45px;
+    position: relative;
+    color: var(--color-text);
+    font-size: 15px;
+}
+
+.instructions li:before {
+    content: counter(instruction);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--color-primary);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ============================================
+   CHANGELOG - Styles spécifiques
+   ============================================ */
+.subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.version-block {
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-light);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.version-block.current {
+    background: var(--color-bg-version-current);
+    border-left-color: var(--color-success);
+}
+
+.version-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.version-header h2 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: var(--color-success);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.version-date {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.version-intro {
+    color: var(--color-text-light);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    padding: var(--spacing-xs) 0 var(--spacing-xs) var(--spacing-lg);
+    position: relative;
+    line-height: 1.6;
+}
+
+.feature-list li:before {
+    content: '✓';
+    position: absolute;
+    left: var(--spacing-xs);
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+/* ============================================
+   LISTES STRUCTURELLES
+   ============================================ */
+
+/* ul en retrait dans une box (requirement-box, note-box) */
+.ul-indented {
+    margin: 0.5rem 0 0 1.5rem;
+}
+
+/* ul structurel autonome (hors box) */
+.ul-body {
+    margin-left: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+/* sous-liste dans une liste parente (documentation) */
+.ul-nested {
+    margin-top: 0.5rem;
+    margin-left: 1.25rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .hero h1,
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .content {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .cards-grid,
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .nav-link {
+        width: 100%;
+    }
+
+    .step-header {
+        padding: var(--spacing-md);
+    }
+
+    .nav-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: var(--spacing-md);
+        border-radius: var(--radius-lg);
+    }
+
+    .hero {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+    }
+
+    .nav-links-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   COMPOSANTS COMMUNS
+   ============================================ */
+
+/* --- Titre de section --- */
+.section-title {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-primary);
+}
