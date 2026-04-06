@@ -41,11 +41,12 @@
 <body>
     <div class="container">
         <!-- En-tête -->
-        <header>
-            <h1>🔬 Simulateur Go2Econtact</h1>
+        <div class="hero">
+            <h1>Simulateur Go2Econtact</h1>
             <p class="subtitle">Testez vos règles d'accusés de réception avant de les déployer</p>
-        </header>
+        </div>
 
+        <div class="wizard-content">
         <!-- Info box règle par défaut -->
         <div class="info-box">
             <strong>📬 Règle par défaut</strong>
@@ -58,7 +59,7 @@
 
             <!-- Import JSON wizard -->
             <div class="form-section form-section-import">
-                <h2>📂 Importer une configuration</h2>
+                <h2>Importer une configuration</h2>
                 <p class="section-description">
                     Importez directement un fichier JSON exporté depuis le wizard Go2Econtact pour tester votre configuration.
                 </p>
@@ -71,7 +72,7 @@
             
             <!-- Section Domaine interne -->
             <div class="form-section">
-                <h2>📧 Domaine interne</h2>
+                <h2>Domaine interne</h2>
                 <p class="section-description">
                     Le domaine de votre organisation. Les emails de ce domaine ne recevront pas d'AR par défaut.
                 </p>
@@ -95,11 +96,11 @@
             </div>
 
             <!-- Section Exclusions -->
-            <h2>🚫 Exclusions (ne recevront JAMAIS d'AR)</h2>
+            <h2>Exclusions (ne recevront JAMAIS d'AR)</h2>
             
             <!-- Exclusion Domaines -->
             <div class="form-section">
-                <h3>🌐 Domaines à exclure</h3>
+                <h3>Domaines à exclure</h3>
                 <p class="section-description">
                     Bloquez tous les emails d'un domaine complet (ex: <em>publicite.fr</em>)
                 </p>
@@ -124,7 +125,7 @@
 
             <!-- Exclusion Adresses -->
             <div class="form-section">
-                <h3>✉️ Adresses spécifiques à exclure</h3>
+                <h3>Adresses spécifiques à exclure</h3>
                 <p class="section-description">
                     Bloquez des adresses email précises (ex: <em>robot@exemple.com</em>)
                 </p>
@@ -146,7 +147,7 @@
 
             <!-- Exclusion Patterns -->
             <div class="form-section">
-                <h3>🔍 Patterns automatiques à exclure</h3>
+                <h3>Patterns automatiques à exclure</h3>
                 <p class="section-description">
                     Bloquez des types d'emails automatiques (ex: tous les <em>noreply@*</em>)
                 </p>
@@ -171,7 +172,7 @@
 
             <!-- Exclusion Sujets -->
             <div class="form-section">
-                <h3>📝 Sujets à exclure</h3>
+                <h3>Sujets à exclure</h3>
                 <p class="section-description">
                     Bloquez les emails selon leur objet. Utilisez les préfixes
                     <code>[COMMENCE]</code>, <code>[CONTIENT]</code> ou <code>[FINIT]</code>
@@ -197,7 +198,7 @@
             </div>
 
             <!-- Section Inclusions -->
-            <h2>⭐ Inclusions (recevront TOUJOURS un AR)</h2>
+            <h2>Inclusions (recevront TOUJOURS un AR)</h2>
             
             <div class="warning-box">
                 <strong>⚠️ Important :</strong> Les inclusions ont la priorité ABSOLUE. Elles annulent toutes les autres règles (exclusions, domaine interne, patterns).
@@ -205,7 +206,7 @@
 
             <!-- Inclusion Adresses -->
             <div class="form-section">
-                <h3>✉️ Adresses qui recevront TOUJOURS un AR</h3>
+                <h3>Adresses qui recevront TOUJOURS un AR</h3>
                 <p class="section-description">
                     Ces adresses recevront un AR même si elles sont dans les exclusions ou le domaine interne
                 </p>
@@ -227,7 +228,7 @@
 
             <!-- Inclusion Domaines -->
             <div class="form-section">
-                <h3>🌐 Domaines qui recevront TOUJOURS un AR</h3>
+                <h3>Domaines qui recevront TOUJOURS un AR</h3>
                 <p class="section-description">
                     Tous les emails de ces domaines recevront un AR
                 </p>
@@ -251,7 +252,7 @@
 
         <!-- Zone de test -->
         <div class="form-section form-section-test-email">
-            <h2>🧪 Tester une adresse email</h2>
+            <h2>Tester une adresse email</h2>
             <p class="section-description">
                 Testez si une adresse recevra ou non un accusé de réception selon votre configuration
             </p>
@@ -293,8 +294,8 @@
         </div>
 
         <!-- Historique -->
-        <div class="form-section" style="margin-top: 3rem;">
-            <h2>📊 Historique des tests</h2>
+        <div class="form-section form-section--spaced">
+            <h2>Historique des tests</h2>
             <div id="history-zone">
                 <p class="text-muted">Aucun test effectué pour le moment</p>
             </div>
@@ -302,17 +303,18 @@
 
         <!-- Footer Navigation Unifié -->
         <div class="footer-nav">
-            <h3>📚 Ressources complémentaires</h3>
+            <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
-                <a href="../index.html" class="nav-button">🏠 Accueil</a>
-                <a href="../tutoriel.html" class="nav-button">🚀 Tutoriel</a>
-                <a href="../documentation.html" class="nav-button">📖 Documentation</a>
-                <a href="../faq.html" class="nav-button">❓ FAQ</a>
-                <a href="../changelog.html" class="nav-button">📋 Changelog</a>
-                <a href="../legal.html" class="nav-button">📄 Informations légales</a>
+                <a href="../index.html" class="nav-button">Accueil</a>
+                <a href="../tutoriel.html" class="nav-button">Tutoriel</a>
+                <a href="../documentation.html" class="nav-button">Documentation</a>
+                <a href="../faq.html" class="nav-button">FAQ</a>
+                <a href="../changelog.html" class="nav-button">Changelog</a>
+                <a href="../legal.html" class="nav-button">Informations légales</a>
             </div>
         </div>
-    </div>
+    </div><!-- fin wizard-content -->
+    </div><!-- fin container -->
 
     <!-- Scripts -->
     <script src="js/filterEngine.js"></script>
