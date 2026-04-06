@@ -598,7 +598,7 @@ function generateSummary() {
     // Encadré comportement par défaut
     html += `
         <div class="info-box">
-            <strong>📬 Règle par défaut</strong>
+            <strong>Règle par défaut</strong>
             <p>Tous les emails reçoivent un AR, <strong>SAUF</strong> votre organisation/association/service (page 1) et les exclusions (page 2).</p>
             <p>Les inclusions (page 3) servent uniquement à forcer l'envoi d'AR pour des exceptions spécifiques.</p>
         </div>
@@ -607,7 +607,7 @@ function generateSummary() {
     // Domaine interne
     html += `
         <div class="summary-section">
-            <h3>📧 Domaine interne</h3>
+            <h3>Domaine interne</h3>
             ${config.internalDomain 
                 ? `<p>Les emails de <code>${escapeHtml(config.internalDomain)}</code> ne recevront pas d'AR par défaut.</p>`
                 : `<p class="summary-empty">Aucun domaine interne configuré</p>`
@@ -624,7 +624,7 @@ function generateSummary() {
     
     html += `
         <div class="summary-section">
-            <h3>🚫 Exclusions (ne recevront JAMAIS d'AR)</h3>
+            <h3>Exclusions (ne recevront JAMAIS d'AR)</h3>
     `;
     
     if (hasExclusions) {
@@ -675,7 +675,7 @@ function generateSummary() {
     
     html += `
         <div class="summary-section">
-            <h3>✅ Inclusions (recevront TOUJOURS un AR)</h3>
+            <h3>Inclusions (recevront TOUJOURS un AR)</h3>
     `;
     
     if (hasInclusions) {
