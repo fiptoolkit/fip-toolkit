@@ -7,152 +7,62 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
-            <h1>Foire Aux Questions</h1>
-            <p class="subtitle">Go2Econtact - Réponses aux questions fréquentes</p>
+            <h1>Questions fréquentes</h1>
+            <p class="subtitle">Go2Econtact — réponses aux questions courantes</p>
         </div>
 
         <div class="content">
-            <!-- Intro -->
+
             <div class="intro">
-                <p>Vous trouverez ci-dessous les réponses aux questions les plus fréquemment posées sur Go2Econtact. Si votre question ne figure pas dans cette liste, consultez la <a href="documentation.html">documentation complète</a> ou le <a href="tutoriel.html">tutoriel de configuration</a>.</p>
+                <p>Vous ne trouvez pas votre réponse ici ? Consultez la <a href="documentation.html">documentation</a> ou le <a href="tutoriel.html">tutoriel</a>.</p>
             </div>
 
-            <!-- CATÉGORIE 1 : INSTALLATION ET CONFIGURATION -->
+            <!-- CATÉGORIE 1 : DÉMARRAGE -->
             <div class="category">
                 <div class="category-header">
-                    <h2 class="category-title">Installation et configuration</h2>
+                    <h2 class="category-title">Démarrage</h2>
                 </div>
 
-                <!-- Question 1 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment installer Go2Econtact ?
+                        Go2Econtact fonctionne-t-il sans Send Later ?
                     </div>
                     <div class="faq-answer">
-                        <p>Go2Econtact est une extension pour Thunderbird. Voici comment l'installer :</p>
-                        <ul>
-                            <li>Téléchargez le fichier <code>.xpi</code> depuis le site officiel</li>
-                            <li>Dans Thunderbird, allez dans <strong>Modules complémentaires et thèmes</strong> (menu hamburger ☰ → Modules complémentaires)</li>
-                            <li>Cliquez sur l'icône ⚙️ (engrenage) → <strong>Installer un module depuis un fichier</strong></li>
-                            <li>Sélectionnez le fichier <code>.xpi</code> téléchargé</li>
-                            <li>Confirmez l'installation et redémarrez Thunderbird si nécessaire</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>ℹ️ Prérequis :</strong> Thunderbird 128.0 ou supérieur est requis.</p>
-                        </div>
+                        <p>Non. Send Later est indispensable — c'est elle qui gère l'envoi différé des accusés de réception. Sans elle, Go2Econtact ne peut pas fonctionner.</p>
+                        <p style="margin-top: 0.5rem;">Send Later doit être installée en version 9.0 ou supérieure et activée dans Thunderbird.</p>
                     </div>
                 </div>
 
-                <!-- Question 2 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Ai-je besoin d'autres extensions pour que Go2Econtact fonctionne ?
+                        Comment accéder à la configuration ?
                     </div>
                     <div class="faq-answer">
-                        <p>Oui, Go2Econtact nécessite l'extension <strong>Send Later</strong> pour programmer l'envoi différé des accusés de réception.</p>
+                        <p>Deux façons :</p>
                         <ul>
-                            <li><strong>Send Later</strong> doit être installé et activé dans Thunderbird</li>
-                            <li>Version minimale requise : Send Later 9.0 ou supérieur</li>
-                            <li>Téléchargement : <a href="https://addons.thunderbird.net" target="_blank">addons.thunderbird.net</a></li>
+                            <li>Cliquez sur l'icône Go2Econtact dans Thunderbird, puis sur <strong>Paramètres</strong></li>
+                            <li>Ou : clic droit sur l'icône → <strong>Options</strong></li>
                         </ul>
-                        <div class="answer-danger">
-                            <p><strong>🚨 Important :</strong> Sans Send Later, Go2Econtact ne pourra pas programmer l'envoi différé des AR et affichera une erreur.</p>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Question 3 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment accéder à l'interface de configuration ?
+                        Puis-je l'utiliser avec plusieurs adresses courriel ?
                     </div>
                     <div class="faq-answer">
-                        <p>Une fois Go2Econtact installé, vous pouvez accéder à son interface de configuration de deux façons :</p>
-                        <ul>
-                            <li><strong>Via le menu Thunderbird :</strong> Outils → Go2Econtact</li>
-                            <li><strong>Via les modules complémentaires :</strong> Menu ☰ → Modules complémentaires → Go2Econtact → Options</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>✓ Raccourci :</strong> L'interface s'ouvre dans un nouvel onglet de Thunderbird pour un accès facile.</p>
-                        </div>
+                        <p>Oui. Chaque adresse gérée dans Thunderbird peut avoir son propre modèle de message. 
+                        Une adresse sans modèle configuré ne génèrera aucun accusé de réception.</p>
+                        <p style="margin-top: 0.5rem;">La configuration se fait dans l'onglet <strong>Modèles</strong>.</p>
                     </div>
                 </div>
 
-                <!-- Question 4 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Quels sont les paramètres minimaux pour démarrer ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Pour que Go2Econtact fonctionne, vous devez au minimum :</p>
-                        <ul>
-                            <li><strong>Créer un template</strong> dans l'onglet Templates (message d'absence)</li>
-                            <li><strong>Associer ce template à un compte</strong> dans l'onglet Comptes</li>
-                            <li><strong>Activer le compte</strong> concerné</li>
-                        </ul>
-                        <p>Les autres paramètres (délai d'envoi, règles de filtrage, etc.) peuvent être configurés ultérieurement selon vos besoins.</p>
-                        <div class="answer-info">
-                            <p><strong>💡 Conseil :</strong> Consultez le <a href="tutoriel.html">tutoriel de configuration</a> pour un guide pas à pas.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 5 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment configurer facilement mes règles sans formation technique ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Go2Econtact propose deux outils interactifs pour vous aider à configurer vos règles d'accusés de réception :</p>
-                        <ul>
-                            <li><strong><a href="wizard/wizard.html">Assistant de configuration</a></strong> - Un guide pas-à-pas en 4 étapes qui vous accompagne dans la création de votre configuration. Idéal pour débuter sans formation technique.</li>
-                            <li><strong><a href="wizard/simulateur.php">Simulateur de règles</a></strong> - Un outil qui vous permet de tester vos règles en temps réel. Vous saisissez une adresse email et le simulateur vous indique immédiatement si elle recevra ou non un accusé de réception.</li>
-                        </ul>
-                        <p>Ces outils sont accessibles directement depuis la <a href="index.html">page d'accueil</a> de Go2Econtact.</p>
-                        <div class="answer-success">
-                            <p><strong>✓ Recommandé :</strong> Utilisez d'abord l'assistant pour créer votre configuration, puis le simulateur pour la tester avant de l'importer dans Thunderbird.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 6 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Puis-je utiliser Go2Econtact avec plusieurs comptes email ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Oui ! Go2Econtact supporte la gestion de plusieurs comptes email simultanément.</p>
-                        <ul>
-                            <li>Chaque compte peut avoir son propre template d'AR</li>
-                            <li>Chaque compte peut être activé/désactivé indépendamment</li>
-                            <li>Les règles de filtrage s'appliquent à tous les comptes actifs</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>💡 Exemple :</strong> Vous pouvez activer Go2Econtact uniquement sur votre compte professionnel pendant vos vacances, tout en gardant votre compte personnel inactif.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 7 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment vérifier que Send Later est correctement configuré ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Go2Econtact valide automatiquement la présence de Send Later au démarrage. Pour vérifier manuellement :</p>
-                        <ul>
-                            <li>Allez dans l'onglet <strong>Général</strong> de Go2Econtact</li>
-                            <li>Vérifiez le statut de l'UUID Send Later (doit afficher <code>sendlater3@kamens.us</code>)</li>
-                            <li>Si l'UUID est incorrect ou absent, réinstallez Send Later</li>
-                        </ul>
-                        <div class="answer-danger">
-                            <p><strong>🚨 Erreur UUID :</strong> Si l'UUID ne correspond pas, Go2Econtact refusera de programmer des AR pour éviter les conflits.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- CATÉGORIE 2 : UTILISATION -->
@@ -161,352 +71,121 @@
                     <h2 class="category-title">Utilisation</h2>
                 </div>
 
-                <!-- Question 8 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment activer/désactiver rapidement l'extension ?
+                        Comment activer ou désactiver rapidement l'extension ?
                     </div>
                     <div class="faq-answer">
-                        <p>Pour activer ou désactiver Go2Econtact pour un compte spécifique :</p>
-                        <ul>
-                            <li>Allez dans l'onglet <strong>Comptes</strong></li>
-                            <li>Cliquez sur le bouton <strong>"Activer"</strong> ou <strong>"Désactiver"</strong> du compte concerné</li>
-                            <li>Les changements sont immédiats (pas besoin de redémarrer Thunderbird)</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>✓ Astuce :</strong> Désactivez temporairement un compte si vous êtes disponible et voulez répondre manuellement aux emails.</p>
+                        <p>Cliquez sur l'icône Go2Econtact dans Thunderbird : le popup affiche un bouton bascule en haut. 
+                        Décochez-le pour suspendre l'envoi des accusés de réception.</p>
+                        <div class="warning-box" style="margin-top: 0.75rem;">
+                            <strong>À savoir :</strong> cette désactivation est temporaire — elle ne concerne que la session en cours. 
+                            Au prochain démarrage de Thunderbird, l'extension se réactive automatiquement.
                         </div>
                     </div>
                 </div>
 
-                <!-- Question 9 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Que se passe-t-il quand je reçois un nouvel email ?
+                        Les courriels internes de mon organisation reçoivent-ils un accusé de réception ?
                     </div>
                     <div class="faq-answer">
-                        <p>Voici le processus complet :</p>
-                        <ul>
-                            <li><strong>1. Réception :</strong> Thunderbird reçoit un nouvel email</li>
-                            <li><strong>2. Analyse :</strong> Go2Econtact vérifie si le compte destinataire est actif</li>
-                            <li><strong>3. Filtrage :</strong> Les règles d'inclusion/exclusion sont appliquées</li>
-                            <li><strong>4. Détection doublons :</strong> Vérification si un AR a déjà été envoyé récemment à cet expéditeur</li>
-                            <li><strong>5. Génération AR :</strong> Si toutes les conditions sont remplies, un AR est généré à partir du template</li>
-                            <li><strong>6. Programmation :</strong> L'AR est transmis à Send Later pour envoi différé</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>Suivi :</strong> Consultez l'onglet Analyse pour voir les décisions prises en temps réel.</p>
-                        </div>
+                        <p>Non, si vous avez renseigné votre domaine interne dans l'onglet <strong>Général</strong> 
+                        (champ "Domaine interne"). Tous les courriels provenant de ce domaine sont automatiquement exclus.</p>
+                        <p style="margin-top: 0.5rem;">Si une adresse interne doit tout de même recevoir un AR, 
+                        ajoutez-la dans les <strong>Inclusions</strong> — elles ont la priorité absolue.</p>
                     </div>
                 </div>
 
-                <!-- Question 10 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Comment empêcher l'envoi d'AR aux newsletters ?
+                        Comment éviter d'envoyer des AR aux newsletters et courriels automatiques ?
                     </div>
                     <div class="faq-answer">
-                        <p>Utilisez les règles d'exclusion dans l'onglet <strong>Règles</strong> :</p>
+                        <p>Utilisez les <strong>Exclusions</strong> dans l'onglet Général :</p>
                         <ul>
-                            <li>Créez une règle d'exclusion basée sur le <strong>mot-clé dans le sujet</strong></li>
-                            <li>Ajoutez des mots comme "newsletter", "notification", "promo"</li>
-                            <li>Ou excluez les domaines d'expéditeurs connus (ex: <code>noreply@</code>)</li>
+                            <li><strong>Par filtre automatique</strong> — <code>noreply@*</code> exclut tous les expéditeurs "noreply" quel que soit leur domaine. Le bouton <strong>Ajouter les filtres par défaut</strong> insère les plus courants d'un clic.</li>
+                            <li><strong>Par sujet</strong> — <code>[CONTIENT]newsletter</code> exclut tous les courriels dont l'objet contient ce mot.</li>
+                            <li><strong>Par domaine</strong> — excluez directement le domaine de l'expéditeur.</li>
                         </ul>
-                        <div class="answer-success">
-                            <p><strong>💡 Exemples de règles :</strong></p>
-                            <ul>
-                                <li>Exclure "newsletter" dans le sujet</li>
-                                <li>Exclure "noreply" dans l'email</li>
-                                <li>Exclure domaines <code>marketing.com</code>, <code>newsletter.fr</code></li>
-                            </ul>
-                        </div>
+                        <p style="margin-top: 0.5rem;">Le <a href="wizard/simulateur.html">Simulateur</a> permet de tester vos règles avant de les appliquer.</p>
                     </div>
                 </div>
 
-                <!-- Question 11 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        Les AR sont-ils envoyés aux emails internes de mon entreprise ?
+                        Un même expéditeur peut-il recevoir plusieurs accusés de réception ?
                     </div>
                     <div class="faq-answer">
-                        <p>Par défaut, oui. Mais vous pouvez facilement exclure les emails internes :</p>
-                        <ul>
-                            <li>Allez dans l'onglet <strong>🔍 Règles</strong></li>
-                            <li>Créez une règle d'exclusion sur le <strong>domaine expéditeur</strong></li>
-                            <li>Entrez votre domaine d'entreprise (ex: <code>monentreprise.fr</code>)</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>ℹ️ Résultat :</strong> Tous les emails provenant de <code>@monentreprise.fr</code> seront automatiquement exclus des AR.</p>
-                        </div>
+                        <p>Pas si la personne vous écrit plusieurs fois dans la même journée. Go2Econtact mémorise 
+                        les expéditeurs ayant déjà reçu un AR et n'en envoie pas un second pendant 
+                        <strong>4 heures</strong> (réglage par défaut, modifiable dans les Paramètres avancés).</p>
+                        <p style="margin-top: 0.5rem;">Au-delà de cette fenêtre, un nouvel AR sera envoyé normalement.</p>
                     </div>
                 </div>
 
-                <!-- Question 12 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Puis-je modifier un template déjà en cours d'utilisation ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Oui, vous pouvez modifier un template à tout moment, même s'il est associé à un compte actif.</p>
-                        <ul>
-                            <li>Allez dans l'onglet <strong>Templates</strong></li>
-                            <li>Cliquez sur <strong>✏️ Modifier</strong> à côté du template</li>
-                            <li>Effectuez vos modifications et enregistrez</li>
-                        </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Impact :</strong> Les AR générés après la modification utiliseront immédiatement la nouvelle version du template.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 13 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment savoir si un AR a été envoyé à un expéditeur ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Consultez l'onglet <strong>Analyse</strong> pour suivre en temps réel les AR envoyés :</p>
-                        <ul>
-                            <li>Chaque événement est enregistré avec la date, l'expéditeur et la décision prise</li>
-                            <li>Les AR créés sont affichés en <strong style="color: #28a745;">vert</strong></li>
-                            <li>Vous pouvez filtrer par expéditeur, compte ou période</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>💡 Export :</strong> Exportez les données au format CSV pour une analyse externe.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <!-- CATÉGORIE 3 : FONCTIONNALITÉS AVANCÉES -->
-            <div class="category">
-                <div class="category-header">
-                    <h2 class="category-title">Fonctionnalités avancées</h2>
-                </div>
-
-                <!-- Question 14 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment fonctionne la détection des doublons ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Go2Econtact mémorise les expéditeurs auxquels un AR a été envoyé récemment :</p>
-                        <ul>
-                            <li>Après envoi d'un AR, l'adresse de l'expéditeur est enregistrée avec un timestamp</li>
-                            <li>Si le même expéditeur vous envoie un autre email dans la période configurée, aucun nouvel AR n'est envoyé</li>
-                            <li>La période de détection est configurable dans l'onglet Général (1-168h, défaut 24h)</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>💡 Objectif :</strong> Éviter de spammer vos correspondants avec plusieurs AR pour chaque email reçu.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 15 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Puis-je forcer l'envoi d'un AR même si un doublon existe ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Non, la détection des doublons est automatique et ne peut pas être contournée manuellement. Cependant, vous pouvez :</p>
-                        <ul>
-                            <li>Réduire la période de détection dans l'onglet Général (ex: passer de 24h à 1h)</li>
-                            <li>Effacer l'historique des doublons dans l'onglet Analyse</li>
-                        </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Attention :</strong> Réduire la période de détection peut entraîner l'envoi de plusieurs AR au même expéditeur, ce qui n'est généralement pas souhaitable.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 16 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment exporter mes règles de filtrage ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Actuellement, Go2Econtact ne propose pas d'export/import de règles. Cependant, vos règles sont sauvegardées localement dans Thunderbird et seront conservées :</p>
-                        <ul>
-                            <li>Lors des mises à jour de l'extension</li>
-                            <li>Lors des redémarrages de Thunderbird</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>💡 À venir :</strong> L'export/import de configuration est prévu pour une future version.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 17 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Puis-je créer des règles avec des expressions régulières (regex) ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Non, Go2Econtact utilise un système de correspondance simple (recherche de chaîne de caractères). Les expressions régulières ne sont pas supportées dans cette version.</p>
-                        <div class="answer-info">
-                            <p><strong>ℹ️ Alternative :</strong> Vous pouvez créer plusieurs règles pour couvrir différentes variantes (ex: "newsletter", "newsletters", "Newsletter").</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 18 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Puis-je personnaliser le format HTML du template ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Oui, le template supporte le HTML complet ! Vous pouvez y inclure :</p>
-                        <ul>
-                            <li>Des styles CSS inline (<code>&lt;p style="color: blue;"&gt;</code>)</li>
-                            <li>Des images (avec balise <code>&lt;img&gt;</code>)</li>
-                            <li>Des liens (<code>&lt;a href="..."&gt;</code>)</li>
-                            <li>Des tableaux, des listes, etc.</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>✓ Conseil :</strong> Utilisez le bouton <strong>👁️ Aperçu</strong> pour visualiser le rendu HTML avant de valider.</p>
-                        </div>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Limites :</strong> JavaScript n'est pas supporté dans les emails pour des raisons de sécurité.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CATÉGORIE 4 : PROBLÈMES COURANTS -->
+            <!-- CATÉGORIE 3 : PROBLÈMES -->
             <div class="category">
                 <div class="category-header">
                     <h2 class="category-title">Problèmes courants</h2>
                 </div>
 
-                <!-- Question 19 -->
                 <div class="faq-item">
                     <div class="faq-question">
-                        L'extension ne se charge pas / ne s'affiche pas
+                        L'extension ne se charge pas ou ne s'affiche pas
                     </div>
                     <div class="faq-answer">
-                        <p>Vérifiez les points suivants :</p>
+                        <p>Vérifiez dans cet ordre :</p>
                         <ul>
-                            <li><strong>Version Thunderbird :</strong> L'extension nécessite Thunderbird 128.0 ou supérieur</li>
-                            <li><strong>Extension activée :</strong> Allez dans Modules complémentaires et vérifiez que Go2Econtact est bien activée</li>
-                            <li><strong>Redémarrage :</strong> Redémarrez complètement Thunderbird</li>
-                            <li><strong>Conflits :</strong> Désactivez temporairement les autres extensions pour tester</li>
+                            <li>Thunderbird est en version 115 ou supérieure</li>
+                            <li>Go2Econtact est bien activée dans <strong>Modules complémentaires</strong></li>
+                            <li>Redémarrez complètement Thunderbird</li>
+                            <li>Si le problème persiste, désactivez temporairement les autres extensions pour isoler un éventuel conflit</li>
                         </ul>
-                        <div class="answer-info">
-                            <p><strong>Diagnostic :</strong> Ouvrez la console de débogage de Thunderbird (Outils → Console d'erreurs) pour voir les éventuelles erreurs.</p>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Question 20 -->
                 <div class="faq-item">
                     <div class="faq-question">
                         Erreur "Send Later introuvable"
                     </div>
                     <div class="faq-answer">
-                        <p>Cette erreur signifie que l'extension Send Later n'est pas détectée. Solutions :</p>
+                        <p>Go2Econtact ne détecte pas Send Later. Vérifiez :</p>
                         <ul>
-                            <li><strong>Vérifier installation :</strong> Send Later est-elle bien installée dans Modules complémentaires ?</li>
-                            <li><strong>Version :</strong> Send Later doit être en version 9.0 ou supérieure</li>
-                            <li><strong>Activation :</strong> Send Later doit être activée (pas juste installée)</li>
-                            <li><strong>Redémarrage :</strong> Redémarrez Thunderbird après l'installation de Send Later</li>
+                            <li>Send Later est installée <strong>et activée</strong> dans Modules complémentaires</li>
+                            <li>La version installée est 9.0 ou supérieure</li>
+                            <li>Thunderbird a été redémarré après l'installation de Send Later</li>
                         </ul>
-                        <div class="answer-danger">
-                            <p><strong>🚨 Important :</strong> Go2Econtact nécessite ABSOLUMENT Send Later pour fonctionner. C'est une dépendance obligatoire.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Les accusés de réception partent immédiatement au lieu d'être différés
+                    </div>
+                    <div class="faq-answer">
+                        <p>Cause la plus fréquente : le code d'identification Send Later est incorrect. 
+                        Vérifiez dans l'onglet <strong>Send Later</strong> que l'indicateur est bien au vert ✓.</p>
+                        <p style="margin-top: 0.5rem;">Si le code est correct, vérifiez dans les préférences de Send Later 
+                        qu'aucun délai à zéro n'est configuré.</p>
+                        <div class="info-box" style="margin-top: 0.75rem;">
+                            Comportement normal : l'accusé de réception doit apparaître dans le dossier 
+                            Brouillons de Send Later, puis partir après le délai configuré (2 heures par défaut).
                         </div>
                     </div>
                 </div>
 
-                <!-- Question 21 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment voir les logs de débogage ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Pour consulter les logs de l'extension :</p>
-                        <ul>
-                            <li>Ouvrez l'interface de configuration de Go2Econtact</li>
-                            <li>Allez dans l'onglet <strong>Logs</strong></li>
-                            <li>Les logs sont affichés dans un tableau avec la date, le niveau (INFO/WARNING/ERROR) et le message</li>
-                        </ul>
-                        <p><strong>Pour voir plus de détails :</strong></p>
-                        <ul>
-                            <li>Activez le logging détaillé dans l'onglet Général</li>
-                            <li>Reproduisez le problème</li>
-                            <li>Consultez les nouveaux logs</li>
-                        </ul>
-                        <div class="answer-success">
-                            <p><strong>💡 Export :</strong> Vous pouvez exporter les logs au format texte pour les partager avec le support.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 22 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Les AR sont envoyés immédiatement au lieu d'être différés
-                    </div>
-                    <div class="faq-answer">
-                        <p>Si les AR sont envoyés instantanément, c'est probablement un problème avec Send Later :</p>
-                        <ul>
-                            <li><strong>UUID incorrect :</strong> Vérifiez que l'UUID configuré est bien celui de votre installation Send Later</li>
-                            <li><strong>Send Later désactivé :</strong> Assurez-vous que Send Later est activé</li>
-                            <li><strong>Préférences Send Later :</strong> Vérifiez les paramètres de Send Later (peut-être un délai à 0)</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>ℹ️ Comportement normal :</strong> Les AR doivent apparaître dans le dossier "Drafts" de Send Later et être envoyés après le délai configuré (1-24h).</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 23 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Mes statistiques sont à zéro / ne se mettent pas à jour
-                    </div>
-                    <div class="faq-answer">
-                        <p>Les statistiques sont mises à jour au démarrage de Thunderbird. Si elles restent à zéro :</p>
-                        <ul>
-                            <li><strong>Redémarrer Thunderbird :</strong> Les statistiques se calculent au démarrage</li>
-                            <li><strong>Bouton Actualiser :</strong> Cliquez sur le bouton 🔄 Actualiser dans l'onglet Statistiques</li>
-                            <li><strong>Rétention :</strong> Les données de plus de 15 jours sont automatiquement supprimées</li>
-                        </ul>
-                        <div class="answer-info">
-                            <p><strong>💡 Bon à savoir :</strong> Les statistiques sont locales à votre poste. Elles ne sont pas partagées entre différents PC.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 24 -->
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Comment désinstaller proprement l'extension ?
-                    </div>
-                    <div class="faq-answer">
-                        <p>Pour désinstaller Go2Econtact :</p>
-                        <ul>
-                            <li>Allez dans <strong>Modules complémentaires et thèmes</strong></li>
-                            <li>Cherchez Go2Econtact dans la liste</li>
-                            <li>Cliquez sur les <strong>trois points (...)</strong> → <strong>Supprimer</strong></li>
-                            <li>Redémarrez Thunderbird</li>
-                        </ul>
-                        <div class="answer-warning">
-                            <p><strong>⚠️ Données :</strong> La désinstallation supprime tous les paramètres et statistiques. Pensez à exporter votre configuration si vous souhaitez la réinstaller plus tard.</p>
-                        </div>
-                        <div class="answer-info">
-                            <p><strong>ℹ️ Send Later :</strong> Send Later peut rester installé, il fonctionne indépendamment.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <!-- Contact support -->
+            <!-- Contact -->
             <div class="support-box">
                 <h3>Besoin d'aide supplémentaire ?</h3>
-                <p><strong>Support technique :</strong> go2econtact@fip-toolkit.fr</p>
-                <p><strong>N'hésitez pas :</strong> Consultez la <a href="documentation.html">documentation complète</a> ou le <a href="tutoriel.html">tutoriel de configuration</a>.</p>
+                <p>Contactez le support : <strong><a href="mailto:go2econtact@fip-toolkit.fr">go2econtact@fip-toolkit.fr</a></strong></p>
             </div>
 
-            <!-- Footer Navigation Unifié -->
+            <!-- Footer Navigation -->
             <div class="footer-nav">
                 <h3>Ressources complémentaires</h3>
                 <div class="nav-links-grid">
@@ -518,25 +197,8 @@
                     <a href="legal.html" class="nav-button">Informations légales</a>
                 </div>
             </div>
+
         </div>
     </div>
-
-    <script>
-        // Gestion de l'accordéon FAQ (JavaScript minimal)
-        document.addEventListener('DOMContentLoaded', function() {
-            const questions = document.querySelectorAll('.faq-question');
-            
-            questions.forEach(question => {
-                question.addEventListener('click', function() {
-                    // Toggle active sur la question
-                    this.classList.toggle('active');
-                    
-                    // Toggle active sur la réponse
-                    const answer = this.nextElementSibling;
-                    answer.classList.toggle('active');
-                });
-            });
-        });
-    </script>
 </body>
 </html>
