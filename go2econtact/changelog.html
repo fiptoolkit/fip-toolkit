@@ -7,171 +7,85 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
             <h1>Changelog</h1>
             <p class="subtitle">Historique des versions de Go2Econtact</p>
         </div>
 
         <div class="content">
-            <!-- ============================================
-                 VERSION 1.0 - VERSION ACTUELLE
-                 ============================================ -->
+
             <div class="version-block current">
                 <div class="version-header">
                     <h2>Version 1.0</h2>
                     <span class="badge">Actuelle</span>
                 </div>
-                
+
                 <p class="version-date">📅 15 novembre 2025</p>
-                
+
                 <p class="version-intro">
-                    Première version publique de Go2Econtact - Extension Thunderbird pour l'automatisation des accusés de réception différés.
+                    Première version de Go2Econtact.
                 </p>
 
-                <!-- Fonctionnalités principales -->
                 <div class="section">
-                    <h3>Fonctionnalités principales</h3>
+                    <h3>Fonctionnalités</h3>
                     <ul class="feature-list">
-                        <li><strong>Envoi automatique d'AR différés</strong> : Les accusés de réception sont envoyés après un délai configurable (1 à 24 heures) via l'extension Send Later</li>
-                        <li><strong>Templates multi-comptes</strong> : Gestion de templates d'AR personnalisés pour chaque compte de messagerie surveillé</li>
-                        <li><strong>Système de filtrage intelligent</strong> : Règles d'inclusion et d'exclusion par domaines, adresses email et patterns (avec support wildcards)</li>
-                        <li><strong>Mode test sécurisé</strong> : Testez votre configuration avec des délais réduits (2-10 minutes) avant la mise en production</li>
-                        <li><strong>Anti-doublons</strong> : Système intelligent pour éviter l'envoi de plusieurs AR au même expéditeur (fenêtre de 4 heures)</li>
-                        <li><strong>Statistiques d'utilisation</strong> : Suivez le nombre d'AR envoyés, les doublons évités et optimisez vos règles de filtrage</li>
-                        <li><strong>Analyse détaillée</strong> : Collecte de métriques pour optimiser les règles de filtrage</li>
-                        <li><strong>Système de mise à jour</strong> : Vérification automatique ou manuelle des nouvelles versions disponibles</li>
-                        <li><strong>Logs de débogage</strong> : Système de logging configurable (warnings/errors ou mode complet) pour faciliter le diagnostic</li>
-                        <li><strong>Interface intuitive</strong> : Système d'onglets avec validation visuelle (bordures colorées) pour guider la configuration</li>
+                        <li><strong>Accusés de réception différés</strong> — envoi automatique après un délai configurable (1 à 24 heures) via Send Later</li>
+                        <li><strong>Modèles par adresse</strong> — chaque adresse surveillée peut avoir son propre message personnalisé</li>
+                        <li><strong>Filtrage par exclusions et inclusions</strong> — par domaine, adresse, filtre automatique et sujet (commence par / contient / finit par)</li>
+                        <li><strong>Anti-doublons</strong> — un seul AR par expéditeur sur une fenêtre de 4 heures</li>
+                        <li><strong>Mode test</strong> — AR limités à une seule adresse pour valider la configuration sans risque</li>
+                        <li><strong>Planification</strong> — activation/désactivation automatique par jour et par heure, avec ajustement ponctuel depuis le popup</li>
+                        <li><strong>Statistiques et analyse</strong> — suivi de l'activité, décisions détaillées par courriel, export CSV</li>
+                        <li><strong>Journal</strong> — traces des opérations pour faciliter le diagnostic</li>
+                        <li><strong>Mises à jour</strong> — vérification manuelle ou automatique des nouvelles versions</li>
+                        <li><strong>Import / Export</strong> — sauvegarde et partage de la configuration entre postes</li>
                     </ul>
                 </div>
-                
-                <!-- Configuration requise -->
+
                 <div class="section">
-                    <h3>Configuration requise</h3>
+                    <h3>Prérequis</h3>
                     <div class="requirement-box">
-                        <strong>Prérequis obligatoires :</strong>
                         <ul style="margin: 0.5rem 0 0 1.5rem;">
-                            <li><strong>Thunderbird 128.0</strong> ou version supérieure</li>
-                            <li><strong>Extension Send Later</strong> (v9.0+) installée et configurée</li>
+                            <li><strong>Thunderbird 115</strong> ou version supérieure</li>
+                            <li><strong>Send Later 9.0+</strong> — installée et activée</li>
                         </ul>
                     </div>
-                    <p style="margin-top: 1rem;">
-                        <strong>Note importante :</strong> Sans Send Later, Go2Econtact ne peut pas fonctionner. 
-                        Send Later gère l'envoi effectif des messages différés tandis que Go2Econtact automatise la création des accusés de réception.
-                    </p>
-                </div>
-                
-                <!-- Notes importantes -->
-                <div class="section">
-                    <h3>Notes importantes</h3>
-                    <div class="note-box">
-                        <ul style="margin: 0; padding-left: 1.5rem;">
-                            <li><strong>Environnement cible :</strong> Conçu pour des environnements professionnels avec boîtes IMAP partagées</li>
-                            <li><strong>Configuration UUID Send Later :</strong> L'UUID d'instance de Send Later doit être configuré manuellement dans l'onglet "Send Later"</li>
-                            <li><strong>Domaine interne :</strong> Les emails internes (même domaine) sont exclus automatiquement des AR</li>
-                            <li><strong>Suppression des AR envoyés :</strong> Par défaut, les AR envoyés sont automatiquement supprimés du dossier "Éléments envoyés"</li>
-                            <li><strong>Intervalle de vérification :</strong> Les nouveaux emails sont vérifiés toutes les 5 minutes par défaut</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Architecture technique -->
-                <div class="section">
-                    <h3>Architecture technique</h3>
-                    <p style="margin-bottom: 0.8rem;">Go2Econtact est structuré en modules fonctionnels :</p>
-                    <ul style="margin-left: 2rem; line-height: 1.8;">
-                        <li><strong>background.js</strong> : Cœur algorithmique et logique métier principale</li>
-                        <li><strong>config.js</strong> : Configuration centralisée et constantes</li>
-                        <li><strong>popup</strong> : Interface rapide de vérification Send Later</li>
-                        <li><strong>options</strong> : Interface de configuration complète avec modules spécialisés</li>
-                    </ul>
-                </div>
-                
-                <!-- Modules fonctionnels -->
-                <div class="section">
-                    <h3>Modules fonctionnels</h3>
-                    <ul style="margin-left: 2rem; line-height: 1.8;">
-                        <li><strong>template-editor.js</strong> : Gestion multi-comptes avec templates personnalisés</li>
-                        <li><strong>statistics.js</strong> : Métriques d'utilisation et export CSV</li>
-                        <li><strong>analysis.js</strong> : Collecte détaillée pour optimiser règles filtrage</li>
-                        <li><strong>update-manager.js</strong> : Vérification des mises à jour (format Mozilla standard)</li>
-                        <li><strong>logs-viewer.js</strong> : Affichage et gestion des logs de débogage</li>
-                    </ul>
                 </div>
             </div>
 
-            <!-- ============================================
-                 TEMPLATE POUR VERSIONS FUTURES
-                 Décommenter et remplir lors des prochaines releases
-                 ============================================ -->
-            
-            <!-- EXEMPLE VERSION 1.1 (masqué par défaut)
-            <div class="version-block future">
+            <!-- Template pour versions futures — décommenter lors des prochaines releases
+            <div class="version-block">
                 <div class="version-header">
-                    <h2>Version 1.1</h2>
+                    <h2>Version 1.x</h2>
                 </div>
-                
-                <p class="version-date">📅 [Date à définir]</p>
-                
-                <p class="version-intro">
-                    [Description courte de la version]
-                </p>
-                
+                <p class="version-date">📅 [Date]</p>
+                <p class="version-intro">[Description courte]</p>
                 <div class="section">
-                    <h3><span class="icon">✨</span>Nouveautés</h3>
+                    <h3>Nouveautés</h3>
                     <ul class="feature-list">
-                        <li>[Nouvelle fonctionnalité 1]</li>
-                        <li>[Nouvelle fonctionnalité 2]</li>
+                        <li>[Nouveauté 1]</li>
                     </ul>
                 </div>
-                
                 <div class="section">
-                    <h3><span class="icon">⚡</span>Améliorations</h3>
+                    <h3>Corrections</h3>
                     <ul class="feature-list">
-                        <li>[Amélioration 1]</li>
-                        <li>[Amélioration 2]</li>
-                    </ul>
-                </div>
-                
-                <div class="section">
-                    <h3><span class="icon">🐛</span>Corrections</h3>
-                    <ul class="feature-list">
-                        <li>[Correction bug 1]</li>
-                        <li>[Correction bug 2]</li>
+                        <li>[Correction 1]</li>
                     </ul>
                 </div>
             </div>
             -->
-            
-            <!-- ============================================
-                 INSTRUCTIONS POUR FUTURES MISES À JOUR
-                 ============================================
-                 
-                 Pour ajouter une nouvelle version :
-                 
-                 1. Copier le bloc "EXEMPLE VERSION 1.1" ci-dessus
-                 2. Retirer le commentaire HTML (enlever les balises commentaire)
-                 3. Retirer la classe "future" du div.version-block
-                 4. Remplir la date, description et listes de changements
-                 5. Ajouter le nouveau bloc EN HAUT (après Version 1.0)
-                 6. Retirer le badge "Actuelle" de l'ancienne version
-                 
-                 Types de changements recommandés :
-                 Nouveautés - Nouvelles fonctionnalités
-                 Améliorations - Optimisations et améliorations
-                 Corrections - Corrections de bugs
-                 Sécurité - Correctifs de sécurité
-                 Documentation - Améliorations de la documentation
-                 
-                 ============================================ -->
 
-            <!-- Footer Navigation Unifié -->
+            <!-- Footer Navigation -->
             <div class="footer-nav">
                 <h3>Ressources complémentaires</h3>
                 <div class="nav-links-grid">
                     <a href="index.html" class="nav-button">Accueil</a>
+                    <a href="popup.html" class="nav-button">Popup</a>
                     <a href="tutoriel.html" class="nav-button">Tutoriel</a>
                     <a href="documentation.html" class="nav-button">Documentation</a>
                     <a href="faq.html" class="nav-button">FAQ</a>
@@ -179,6 +93,7 @@
                     <a href="legal.html" class="nav-button">Informations légales</a>
                 </div>
             </div>
+
         </div>
     </div>
 </body>

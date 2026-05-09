@@ -7,261 +7,128 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
-            <h1>📱 Interface Popup</h1>
+            <h1>Le popup</h1>
             <p class="subtitle">Contrôle rapide et planification de Go2Econtact</p>
         </div>
 
         <div class="content">
-            <!-- Introduction -->
+
             <div class="section">
-                <p style="font-size: 15px; line-height: 1.7; color: #555;">
-                    L'interface popup est le <strong>point d'entrée principal</strong> de Go2Econtact. 
-                    Accessible en cliquant sur l'icône de l'extension dans Thunderbird, elle vous permet de 
-                    contrôler l'activation, consulter le statut et gérer la planification hebdomadaire.
+                <p>
+                    Le popup est la porte d'entrée de Go2Econtact dans Thunderbird. 
+                    Cliquez sur l'icône de l'extension dans la barre d'outils pour l'ouvrir. 
+                    Il donne accès aux paramètres et affiche l'état de l'extension en un coup d'œil.
                 </p>
-            </div>
 
-            <!-- Section Accès rapide -->
-            <div class="section">
-                <h2>🎯 Accès rapide</h2>
-                
-                <div class="info-box">
-                    <p><strong>Comment ouvrir le popup :</strong></p>
-                    <p>Cliquez sur l'icône 📧⏰ de Go2Econtact dans la barre d'outils de Thunderbird</p>
-                </div>
-
-                <div class="cards-grid" style="margin-top: 20px;">
-                    <div class="card">
-                        <h3>⚙️ Paramètres</h3>
-                        <p>Bouton visible immédiatement en haut du popup pour accéder à la configuration complète de l'extension.</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>✓ Statut Send Later</h3>
-                        <p>Vérification automatique de la présence et de l'activation de l'extension Send Later (prérequis obligatoire).</p>
-                    </div>
+                <div class="info-box" style="margin-top: 1rem;">
+                    📸 <em>Capture d'écran — popup complet avec statut et planification du jour</em>
                 </div>
             </div>
 
-            <!-- Section Toggle activation -->
+            <!-- Toggle -->
             <div class="section">
-                <h2>🔄 Toggle activation/désactivation</h2>
-                
-                <div class="warning-box" style="margin-bottom: 20px;">
-                    <p><strong>⚠️ Important :</strong> Ce toggle est <strong>éphémère</strong> (non persistant)</p>
-                    <p>L'extension se réactivera automatiquement au prochain démarrage de Thunderbird</p>
-                </div>
+                <h2>Activer / désactiver l'extension</h2>
 
-                <h3 style="margin-top: 25px;">Fonctionnement</h3>
-                <p style="line-height: 1.7;">
-                    Le toggle permet de <strong>stopper temporairement</strong> la création d'accusés de réception 
-                    pendant la session en cours, sans modifier votre configuration.
+                <p>
+                    Le bouton bascule en haut du popup permet de suspendre Go2Econtact 
+                    pour la session en cours. Décochez-le pour arrêter temporairement 
+                    la création d'accusés de réception.
                 </p>
 
-                <div class="features-grid" style="margin-top: 20px;">
-                    <div class="feature">
-                        <h4>✓ Extension active</h4>
-                        <p>Toggle coché : Go2Econtact surveille les emails et crée des AR différés selon votre configuration</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h4>✗ Extension inactive</h4>
-                        <p>Toggle décoché : Aucun AR ne sera créé jusqu'à réactivation manuelle ou redémarrage de Thunderbird</p>
-                    </div>
-                </div>
-
-                <div class="info-box" style="margin-top: 20px;">
-                    <p><strong>💡 Cas d'usage :</strong></p>
-                    <p>• Pause temporaire pendant une maintenance</p>
-                    <p>• Test de configuration sans créer d'AR</p>
-                    <p>• Désactivation rapide en cas d'urgence</p>
+                <div class="warning-box" style="margin-top: 0.75rem;">
+                    <strong>Temporaire uniquement :</strong> au prochain démarrage de Thunderbird, 
+                    l'extension se réactivera automatiquement. Ce réglage ne modifie pas votre configuration.
                 </div>
             </div>
 
-            <!-- Section Planification aujourd'hui -->
+            <!-- Aujourd'hui -->
             <div class="section">
-                <h2>📅 Planification - Aujourd'hui</h2>
-                
-                <p style="line-height: 1.7; margin-bottom: 20px;">
-                    La section <strong>Aujourd'hui</strong> affiche le statut de la planification pour la journée en cours 
-                    et permet un ajustement ponctuel sans modifier la planification hebdomadaire.
+                <h2>Planification — Aujourd'hui</h2>
+
+                <p>
+                    La section <strong>Aujourd'hui</strong> affiche le jour en cours 
+                    et le mode de fonctionnement prévu selon votre planification hebdomadaire :
                 </p>
 
-                <h3>Affichage du statut</h3>
-                <p style="line-height: 1.7;">
-                    Le popup affiche le jour de la semaine et le mode de fonctionnement prévu :
-                </p>
-
-                <ul style="margin-left: 2rem; line-height: 1.8;">
-                    <li><strong>✓ ON toute la journée</strong> : L'extension fonctionne en continu</li>
-                    <li><strong>✗ OFF toute la journée</strong> : L'extension est désactivée pour la journée</li>
-                    <li><strong>⏰ OFF automatique prévu à [heure]</strong> : L'extension s'arrêtera automatiquement à l'heure configurée</li>
+                <ul class="custom-list">
+                    <li><strong>✓ ON toute la journée</strong> — l'extension fonctionne en continu</li>
+                    <li><strong>✗ OFF toute la journée</strong> — l'extension est désactivée</li>
+                    <li><strong>⏰ OFF automatique à [heure]</strong> — l'extension s'arrêtera à l'heure prévue</li>
                 </ul>
 
-                <h3 style="margin-top: 25px;">Bouton "🔧 Ajuster pour aujourd'hui"</h3>
-                <p style="line-height: 1.7; margin-bottom: 15px;">
-                    Permet de modifier ponctuellement le comportement pour la journée en cours sans toucher à la planification hebdomadaire.
+                <p style="margin-top: 0.75rem;">
+                    Le bouton <strong>Ajuster pour aujourd'hui</strong> permet de modifier 
+                    ponctuellement ce comportement sans toucher à la planification hebdomadaire. 
+                    L'ajustement ne vaut que pour la journée en cours.
                 </p>
 
-                <div class="cards-grid">
-                    <div class="card">
-                        <h4>Mode édition</h4>
-                        <p><strong>3 boutons de mode :</strong></p>
-                        <p>• ✓ ON toute la journée</p>
-                        <p>• ✗ OFF toute la journée</p>
-                        <p>• ⏰ OFF automatique + sélecteur d'heure</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h4>Validation</h4>
-                        <p><strong>✓ Valider</strong> : Applique l'ajustement pour aujourd'hui uniquement</p>
-                        <p><strong>✗ Annuler</strong> : Ferme le mode édition sans modification</p>
-                    </div>
-                </div>
-
-                <div class="warning-box" style="margin-top: 20px;">
-                    <p><strong>⚠️ Ajustement temporaire :</strong></p>
-                    <p>Les modifications apportées via "Ajuster pour aujourd'hui" ne sont valables que pour la journée en cours. 
-                    Demain, la planification hebdomadaire reprendra normalement.</p>
+                <div class="info-box" style="margin-top: 1rem;">
+                    📸 <em>Capture d'écran — section Aujourd'hui en mode édition</em>
                 </div>
             </div>
 
-            <!-- Section Planification hebdomadaire -->
+            <!-- Planification hebdomadaire -->
             <div class="section">
-                <h2>📆 Planification hebdomadaire</h2>
-                
-                <p style="line-height: 1.7; margin-bottom: 20px;">
-                    La section <strong>Planification hebdomadaire</strong> est collapsible (repliable) et permet de configurer 
-                    le comportement de l'extension pour chaque jour de la semaine.
+                <h2>Planification hebdomadaire</h2>
+
+                <p>
+                    La section <strong>Planification hebdomadaire</strong> est repliable. 
+                    Elle permet de configurer le comportement de l'extension pour chaque jour 
+                    de la semaine.
                 </p>
 
-                <h3>Activation/Désactivation du planificateur</h3>
-                <div class="info-box" style="margin-bottom: 20px;">
-                    <p><strong>Toggle "Activé/Désactivé" :</strong></p>
-                    <p>• <strong>Activé</strong> : La planification hebdomadaire est appliquée automatiquement</p>
-                    <p>• <strong>Désactivé</strong> : L'extension fonctionne en continu (pas d'arrêt automatique)</p>
-                </div>
-
-                <h3 style="margin-top: 25px;">Configuration par jour</h3>
-                <p style="line-height: 1.7; margin-bottom: 15px;">
-                    Chaque jour de la semaine dispose de 3 modes de fonctionnement :
+                <p style="margin-top: 0.5rem;">
+                    Un bouton bascule active ou désactive l'ensemble du planificateur. 
+                    Quand il est désactivé, l'extension fonctionne en continu sans arrêt automatique.
                 </p>
 
-                <div class="features-grid">
-                    <div class="feature">
-                        <h4>✓ ON toute la journée</h4>
-                        <p>L'extension fonctionne en continu du lundi au vendredi. Le sélecteur d'heure est désactivé.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h4>✗ OFF toute la journée</h4>
-                        <p>L'extension est désactivée pour la journée (typiquement samedi/dimanche). Le sélecteur d'heure est désactivé.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h4>⏰ OFF automatique</h4>
-                        <p>L'extension s'arrête automatiquement à l'heure configurée. Le toggle passe à OFF à cette heure, vous pouvez le réactiver manuellement si besoin.</p>
-                    </div>
-                </div>
+                <h3 style="margin-top: 1.25rem;">Trois modes par jour</h3>
+                <ul class="custom-list">
+                    <li><strong>✓ ON toute la journée</strong> — fonctionnement continu (typiquement le week-end)</li>
+                    <li><strong>✗ OFF toute la journée</strong> — extension désactivée pour la journée</li>
+                    <li><strong>⏰ OFF automatique</strong> — le bascule passe à OFF à l'heure choisie. Vous pouvez le réactiver manuellement si besoin.</li>
+                </ul>
 
-                <h3 style="margin-top: 25px;">Exemple de configuration</h3>
-                <div class="requirement-box">
-                    <p><strong>Configuration typique bureau 9h-17h :</strong></p>
+                <div class="requirement-box" style="margin-top: 1rem;">
+                    <strong>Exemple — bureau 9h-17h :</strong>
                     <ul style="margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
-                        <li><strong>Lundi à Jeudi</strong> : ⏰ OFF automatique à 17:00</li>
-                        <li><strong>Vendredi</strong> : ⏰ OFF automatique à 16:00</li>
-                        <li><strong>Samedi et Dimanche</strong> : ✓ ON toute la journée (pas de bureau, AR acceptables)</li>
+                        <li>Lundi à jeudi : ⏰ OFF automatique à 17:00</li>
+                        <li>Vendredi : ⏰ OFF automatique à 16:00</li>
+                        <li>Samedi et dimanche : ✓ ON toute la journée</li>
                     </ul>
                 </div>
 
-                <div class="note-box" style="margin-top: 20px;">
-                    <p><strong>ℹ️ Note importante :</strong></p>
-                    <p>Le toggle passera automatiquement à OFF à l'heure programmée. Vous pourrez le réactiver manuellement 
-                    si vous devez traiter des emails après l'heure de coupure prévue.</p>
-                </div>
-
-                <h3 style="margin-top: 25px;">Sauvegarde de la planification</h3>
-                <p style="line-height: 1.7;">
-                    Après avoir configuré vos jours de la semaine, cliquez sur <strong>💾 Enregistrer la planification</strong> 
-                    pour valider et activer votre configuration.
+                <p style="margin-top: 0.75rem;">
+                    Cliquez sur <strong>Enregistrer la planification</strong> pour valider vos réglages.
                 </p>
 
-                <div class="warning-box" style="margin-top: 15px;">
-                    <p><strong>⚠️ Validation requise :</strong></p>
-                    <p>Les modifications ne sont pas appliquées tant que vous n'avez pas cliqué sur "Enregistrer la planification"</p>
+                <div class="info-box" style="margin-top: 1rem;">
+                    📸 <em>Capture d'écran — planification hebdomadaire dépliée</em>
                 </div>
             </div>
 
-            <!-- Section Liens utiles -->
-            <div class="section">
-                <h2>🔗 Liens utiles du popup</h2>
-                
-                <p style="line-height: 1.7; margin-bottom: 20px;">
-                    Le popup intègre des liens rapides vers les ressources essentielles :
-                </p>
+        </div>
 
-                <div class="cards-grid">
-                    <div class="card">
-                        <h3>📘 Aide & Documentation</h3>
-                        <p>Accès direct au site de documentation complet de Go2Econtact</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>💬 Contact</h3>
-                        <p>Email de support : <strong>go2econtact@fip-toolkit.fr</strong></p>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🔧 GitHub</h3>
-                        <p>Code source et suivi des issues sur le dépôt GitHub du projet</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🐛 Diagnostic</h3>
-                        <p>Accès rapide aux logs de débogage pour résolution de problèmes</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section Workflow recommandé -->
-            <div class="section">
-                <h2>🎯 Workflow recommandé</h2>
-                
-                <div class="requirement-box">
-                    <p><strong>Première utilisation :</strong></p>
-                    <ol style="margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
-                        <li>Ouvrir le popup et vérifier que Send Later est détecté (statut ✓)</li>
-                        <li>Cliquer sur <strong>⚙️ Paramètres</strong> pour accéder à la configuration complète</li>
-                        <li>Configurer les templates, règles de filtrage et comptes surveillés</li>
-                        <li>Revenir au popup et configurer la planification hebdomadaire</li>
-                        <li>Vérifier que le toggle est activé (✓)</li>
-                    </ol>
-                </div>
-
-                <div class="info-box" style="margin-top: 20px;">
-                    <p><strong>💡 Utilisation quotidienne :</strong></p>
-                    <p>• Ouvrir le popup pour vérifier le statut du jour</p>
-                    <p>• Utiliser "Ajuster pour aujourd'hui" si besoin ponctuel</p>
-                    <p>• Désactiver temporairement via le toggle si nécessaire</p>
-                </div>
-            </div>
-
-            <!-- Footer Navigation Unifié -->
-            <div class="footer-nav">
-                <h3>Ressources complémentaires</h3>
-                <div class="nav-links-grid">
-                    <a href="index.html" class="nav-button">Accueil</a>
-                    <a href="tutoriel.html" class="nav-button">Tutoriel</a>
-                    <a href="documentation.html" class="nav-button">Documentation</a>
-                    <a href="faq.html" class="nav-button">FAQ</a>
-                    <a href="changelog.html" class="nav-button">Changelog</a>
-                    <a href="legal.html" class="nav-button">Informations légales</a>
-                </div>
+        <!-- Footer Navigation -->
+        <div class="footer-nav">
+            <h3>Ressources complémentaires</h3>
+            <div class="nav-links-grid">
+                <a href="index.html" class="nav-button">Accueil</a>
+                <a href="popup.html" class="nav-button">Popup</a>
+                <a href="tutoriel.html" class="nav-button">Tutoriel</a>
+                <a href="documentation.html" class="nav-button">Documentation</a>
+                <a href="faq.html" class="nav-button">FAQ</a>
+                <a href="changelog.html" class="nav-button">Changelog</a>
+                <a href="legal.html" class="nav-button">Informations légales</a>
             </div>
         </div>
+
     </div>
 </body>
 </html>
