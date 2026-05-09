@@ -929,3 +929,11 @@ em {
         font-size: 1rem;
     }
 }
+
+/* ============================================
+   FOOTER NAVIGATION — Harmonisation avec pages principales
+   Le footer-nav hérite du fond blanc du container
+   ============================================ */
+.footer-nav {
+    background: var(--color-bg-white);
+}
