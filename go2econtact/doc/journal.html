@@ -1,0 +1,49 @@
+<!-- doc/journal.html — chargé en AJAX dans documentation.html -->
+
+<h2>📋 Onglet Journal</h2>
+
+<div class="subsection">
+    <p>
+        Le journal enregistre les événements techniques survenus pendant le fonctionnement 
+        de Go2Econtact. Il est principalement utile pour comprendre pourquoi quelque chose 
+        ne s'est pas passé comme prévu.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Ce que contient le journal</h3>
+    <p>
+        Trois niveaux d'entrées sont enregistrés, reconnaissables à leur couleur :
+    </p>
+    <ul class="custom-list">
+        <li><strong>Information</strong> — déroulement normal des opérations (visible uniquement si l'enregistrement complet est activé dans l'onglet Général)</li>
+        <li><strong>Avertissement</strong> — situation inhabituelle mais non bloquante</li>
+        <li><strong>Erreur</strong> — problème ayant empêché une opération de se terminer normalement</li>
+    </ul>
+    <p style="margin-top: 0.5rem;">
+        Le journal conserve les <strong>50 dernières entrées</strong>. 
+        Les plus anciennes sont effacées automatiquement au-delà de cette limite.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Filtrer les entrées</h3>
+    <p>
+        Trois boutons permettent d'afficher toutes les entrées, uniquement les erreurs, 
+        ou uniquement les avertissements — pratique pour aller droit à l'essentiel.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Actions</h3>
+    <ul class="custom-list">
+        <li><strong>Copier</strong> — copie le contenu du journal dans le presse-papier pour le coller dans un email de support</li>
+        <li><strong>Vider</strong> — efface toutes les entrées</li>
+    </ul>
+</div>
+
+<div class="info-box">
+    En cas de problème inexpliqué, activez l'<strong>enregistrement complet des traces</strong> 
+    dans l'onglet Général, reproduisez le problème, puis revenez ici consulter les nouvelles entrées. 
+    Pensez à désactiver l'enregistrement complet une fois le diagnostic terminé.
+</div>

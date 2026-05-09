@@ -1,0 +1,62 @@
+<!-- doc/analyse.html — chargé en AJAX dans documentation.html -->
+
+<h2>🔍 Onglet Analyse</h2>
+
+<div class="subsection">
+    <p>
+        Là où l'onglet Statistiques donne des chiffres globaux, l'onglet Analyse 
+        descend au niveau de chaque email reçu. Pour chaque message, vous voyez 
+        la décision prise par Go2Econtact et la règle qui l'a motivée.
+        Données conservées sur les 15 derniers jours.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Le tableau des événements</h3>
+    <p>Chaque ligne correspond à un email reçu, avec les colonnes suivantes :</p>
+    <ul class="custom-list">
+        <li><strong>Date/Heure</strong> — quand le message a été reçu</li>
+        <li><strong>Expéditeur</strong> — adresse de l'envoyeur</li>
+        <li>
+            <strong>Décision</strong> — ce que Go2Econtact a fait :
+            <em>AR créé</em>, <em>Exclu</em>, <em>Inclus (forcé)</em>, 
+            <em>Doublon évité</em> ou <em>Ignoré</em>
+        </li>
+        <li><strong>Règle appliquée</strong> — la règle précise qui a déclenché cette décision</li>
+        <li><strong>Sujet</strong> — l'objet de l'email reçu</li>
+    </ul>
+
+    <div class="info-box" style="margin-top: 1rem;">
+        📸 <em>Capture d'écran — tableau d'analyse avec décisions colorées</em>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>Filtres</h3>
+    <p>
+        Le tableau peut être filtré par période, par expéditeur (recherche libre), 
+        par type de décision ou par type d'événement (message nouveau ou déplacé). 
+        Combinez les filtres pour isoler rapidement un expéditeur ou comprendre 
+        pourquoi un AR n'a pas été envoyé.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Analyse détaillée</h3>
+    <p>
+        Deux listes complètent le tableau :
+    </p>
+    <ul class="custom-list">
+        <li><strong>Top 5 règles appliquées</strong> — les règles qui se déclenchent le plus souvent, utiles pour affiner vos exclusions</li>
+        <li><strong>Top 5 domaines expéditeurs</strong> — les domaines les plus actifs dans votre boîte</li>
+    </ul>
+</div>
+
+<div class="subsection">
+    <h3>Actions</h3>
+    <ul class="custom-list">
+        <li><strong>Actualiser</strong> — recharge les données depuis le dernier démarrage de Thunderbird</li>
+        <li><strong>Exporter CSV</strong> — sauvegarde le tableau filtré dans un fichier tableur</li>
+        <li><strong>Effacer données</strong> — supprime l'historique d'analyse</li>
+    </ul>
+</div>
