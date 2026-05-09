@@ -1,0 +1,51 @@
+<!-- doc/sendlater.html — chargé en AJAX dans documentation.html -->
+
+<h2>🔗 Onglet Send Later</h2>
+
+<div class="subsection">
+    <p>
+        Go2Econtact ne peut pas envoyer lui-même des messages : il délègue cet envoi à une autre 
+        extension Thunderbird appelée <strong>Send Later</strong>. C'est elle qui se charge de 
+        mettre le message d'accusé de réception en attente et de l'expédier au moment voulu.
+    </p>
+    <p style="margin-top: 0.75rem;">
+        Pour que les deux extensions se reconnaissent, Go2Econtact a besoin d'un 
+        <strong>code d'identification</strong> propre à votre installation de Send Later. 
+        Ce code est généré automatiquement par Send Later lors de son installation — 
+        il est donc unique à votre poste.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>Où trouver ce code ?</h3>
+    <ol class="numbered-list">
+        <li>Dans Thunderbird, cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils</li>
+        <li>Ouvrez <strong>Send Later — Préférences</strong></li>
+        <li>Allez dans l'onglet <strong>Avancé</strong></li>
+        <li>Repérez la ligne <code>instanceUUID</code> dans la liste des paramètres</li>
+        <li>Copiez <strong>toute la valeur</strong>, accolades comprises — exemple : <code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></li>
+    </ol>
+
+    <div class="info-box" style="margin-top: 1rem;">
+        📸 <em>Capture d'écran — onglet Avancé de Send Later, ligne instanceUUID surlignée</em>
+    </div>
+</div>
+
+<div class="subsection">
+    <h3>Saisir le code dans Go2Econtact</h3>
+    <ol class="numbered-list">
+        <li>Dans l'onglet <strong>Send Later</strong>, collez le code dans le champ prévu</li>
+        <li>Un indicateur passe au vert ✓ si le code est reconnu comme valide</li>
+        <li>S'il reste rouge ✗, vérifiez que vous avez bien copié l'intégralité du code, accolades incluses</li>
+        <li>Cliquez sur <strong>Enregistrer</strong></li>
+    </ol>
+
+    <div class="info-box" style="margin-top: 1rem;">
+        📸 <em>Capture d'écran — onglet Send Later avec indicateur vert</em>
+    </div>
+</div>
+
+<div class="warning-box">
+    <strong>À savoir :</strong> si vous désinstallez puis réinstallez Send Later, 
+    un nouveau code sera généré. Il faudra alors revenir ici pour le mettre à jour.
+</div>

@@ -5,836 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation - Go2Econtact</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Grille de navigation niveau 1 */
+        .doc-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        /* Carte cliquable — étend .card sans le modifier */
+        .doc-nav-card {
+            background: var(--color-bg-light);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 0.9rem 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            user-select: none;
+        }
+
+        .doc-nav-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .doc-nav-card.active {
+            border-color: var(--color-primary);
+            background: var(--color-bg-white);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.15);
+        }
+
+        .doc-nav-card .card-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .doc-nav-card .card-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: block;
+        }
+
+        /* Zone de détail AJAX */
+        .doc-detail {
+            margin-top: 1.5rem;
+            border-top: 2px solid var(--color-border);
+            padding-top: 1.5rem;
+            min-height: 200px;
+        }
+
+        /* Indicateur de chargement */
+        .doc-loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        /* Message d'erreur chargement */
+        .doc-error {
+            padding: 1rem;
+            background: var(--color-danger-light);
+            border-left: 4px solid var(--color-danger);
+            border-radius: var(--radius-md);
+            color: var(--color-danger-dark);
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
             <h1>Documentation</h1>
-            <p class="subtitle">Go2Econtact - Guide complet d'utilisation</p>
+            <p class="subtitle">Toutes les fonctionnalités de Go2Econtact expliquées simplement</p>
         </div>
 
         <div class="content">
-            <!-- Navigation sommaire -->
-            <div class="toc">
-                <h2>📖 Sommaire</h2>
-                <ul>
-                    <li><a href="#section-presentation">1. Présentation générale</a></li>
-                    <li><a href="#section-general">2. Onglet Général</a></li>
-                    <li><a href="#section-comptes">3. Onglet Comptes</a></li>
-                    <li><a href="#section-templates">4. Onglet Templates</a></li>
-                    <li><a href="#section-regles">5. Onglet Règles de filtrage</a></li>
-                    <li><a href="#section-analyse">6. Onglet Analyse</a></li>
-                    <li><a href="#section-logs">7. Logs de débogage</a></li>
-                </ul>
-            </div>
 
-            <!-- SECTION 1 : PRÉSENTATION GÉNÉRALE -->
-            <div class="section" id="section-presentation">
-                <div class="section-header">
-                    <h2 class="section-title">1. Présentation générale</h2>
-                </div>
+            <!-- NIVEAU 1 — Vue d'ensemble des onglets -->
+            <div class="section">
+                <h2>Les onglets de configuration</h2>
+                <p>
+                    La fenêtre de paramétrage de Go2Econtact est organisée en onglets.
+                    Cliquez sur l'un d'eux ci-dessous pour en lire le détail.
+                </p>
 
-                <div class="subsection">
-                    <h3>Objectif de Go2Econtact</h3>
-                    <p>Go2Econtact est une extension pour Thunderbird conçue pour automatiser l'envoi d'accusés de réception (AR) différés en cas d'absence. Elle s'intègre parfaitement avec l'extension Send Later pour programmer l'envoi de vos AR selon vos règles personnalisées.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>📧 Cas d'usage :</strong> Vous partez en vacances ? Go2Econtact peut envoyer automatiquement un AR différé à tous vos contacts professionnels, tout en excluant les newsletters et les emails internes.</p>
+                <div class="doc-nav" id="doc-nav">
+
+                    <div class="doc-nav-card active" data-page="doc/sendlater.html" tabindex="0">
+                        <span class="card-icon">🔗</span>
+                        <span class="card-label">Send Later</span>
                     </div>
-                </div>
 
-                <div class="subsection">
-                    <h3>Fonctionnalités principales</h3>
-                    <ul class="custom-list">
-                        <li><strong>🎨 Gestion de templates personnalisables</strong> : Créez des messages d'absence personnalisés avec des variables dynamiques (nom, prénom, date de retour, etc.)</li>
-                        <li><strong>🔍 Filtrage intelligent</strong> : Définissez des règles d'inclusion/exclusion pour contrôler qui reçoit vos AR (domaines, expéditeurs, mots-clés)</li>
-                        <li><strong>👥 Multi-comptes</strong> : Gérez plusieurs comptes email avec des templates et règles distincts pour chaque compte</li>
-                        <li><strong>📊 Analyse détaillée</strong> : Suivez en temps réel les décisions de filtrage et optimisez vos règles</li>
-                        <li><strong>🐛 Logs de débogage</strong> : Consultez l'historique complet des opérations pour diagnostiquer tout problème</li>
-                        <li><strong>🔒 Sécurité UUID</strong> : Validation stricte de l'extension Send Later pour éviter les conflits</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Architecture et intégration</h3>
-                    <p>Go2Econtact fonctionne en étroite collaboration avec l'extension <strong>Send Later</strong>. Voici comment :</p>
-                    
-                    <ol class="numbered-list">
-                        <li><strong>Réception d'un email</strong> : Thunderbird reçoit un nouvel email</li>
-                        <li><strong>Analyse par Go2Econtact</strong> : L'extension analyse l'email selon vos règles de filtrage</li>
-                        <li><strong>Génération de l'AR</strong> : Si l'email passe les filtres, Go2Econtact génère un AR basé sur votre template</li>
-                        <li><strong>Programmation via Send Later</strong> : L'AR est transmis à Send Later pour envoi différé selon le délai configuré</li>
-                        <li><strong>Envoi automatique</strong> : Send Later envoie l'AR au moment programmé</li>
-                    </ol>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Prérequis :</strong> L'extension <strong>Send Later</strong> doit être installée et configurée dans Thunderbird pour que Go2Econtact fonctionne. Go2Econtact ne peut pas envoyer d'AR sans Send Later.</p>
+                    <div class="doc-nav-card" data-page="doc/modeles.html" tabindex="0">
+                        <span class="card-icon">✉️</span>
+                        <span class="card-label">Modèles</span>
                     </div>
-                </div>
 
-                <div class="subsection">
-                    <h3>Interface utilisateur</h3>
-                    <p>L'interface de Go2Econtact est organisée en 6 onglets principaux :</p>
-                    
-                    <ul class="custom-list">
-                        <li><strong>🏠 Général</strong> : Configuration globale (délai d'envoi, détection doublons, logging)</li>
-                        <li><strong>👥 Comptes</strong> : Association des templates aux comptes email</li>
-                        <li><strong>🎨 Templates</strong> : Création et édition des messages d'absence</li>
-                        <li><strong>🔍 Règles</strong> : Définition des règles d'inclusion/exclusion</li>
-                        <li><strong>📊 Analyse</strong> : Suivi des décisions de filtrage et optimisation</li>
-                        <li><strong>🐛 Logs</strong> : Consultation des logs de débogage</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Workflow typique</h3>
-                    <p>Voici un exemple de workflow complet pour configurer Go2Econtact :</p>
-                    
-                    <ol class="numbered-list">
-                        <li><strong>Installation</strong> : Installer Go2Econtact et Send Later depuis les addons Thunderbird</li>
-                        <li><strong>Configuration globale</strong> : Définir le délai d'envoi (ex: 15 min) dans l'onglet Général</li>
-                        <li><strong>Création d'un template</strong> : Créer un message d'absence dans l'onglet Templates</li>
-                        <li><strong>Association du template</strong> : Associer le template à un compte dans l'onglet Comptes</li>
-                        <li><strong>Définition des règles</strong> : Exclure les newsletters et emails internes dans l'onglet Règles</li>
-                        <li><strong>Activation</strong> : Activer l'extension pour le compte concerné</li>
-                        <li><strong>Suivi</strong> : Consulter l'onglet Analyse pour vérifier le bon fonctionnement</li>
-                    </ol>
-
-                    <div class="success-box">
-                        <p><strong>✅ Bon à savoir :</strong> Une fois configuré, Go2Econtact fonctionne de manière totalement autonome. Vous n'avez plus qu'à activer/désactiver l'extension selon vos périodes d'absence.</p>
+                    <div class="doc-nav-card" data-page="doc/general.html" tabindex="0">
+                        <span class="card-icon">⚙️</span>
+                        <span class="card-label">Général</span>
                     </div>
+
+                    <div class="doc-nav-card" data-page="doc/statistiques.html" tabindex="0">
+                        <span class="card-icon">📊</span>
+                        <span class="card-label">Statistiques</span>
+                    </div>
+
+                    <div class="doc-nav-card" data-page="doc/analyse.html" tabindex="0">
+                        <span class="card-icon">🔍</span>
+                        <span class="card-label">Analyse</span>
+                    </div>
+
+                    <div class="doc-nav-card" data-page="doc/journal.html" tabindex="0">
+                        <span class="card-icon">📋</span>
+                        <span class="card-label">Journal</span>
+                    </div>
+
+                    <div class="doc-nav-card" data-page="doc/mises-a-jour.html" tabindex="0">
+                        <span class="card-icon">🔄</span>
+                        <span class="card-label">Mises à jour</span>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- SECTION 2 : OUTILS DE CONFIGURATION -->
-            <div class="section section-tools" id="section-outils">
-                <div class="section-header">
-                    <span class="section-icon">🛠️</span>
-                    <h2 class="section-title">Outils de configuration interactifs</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Besoin d'aide pour configurer vos règles ?</h3>
-                    <p>Avant de plonger dans la configuration manuelle, nous vous recommandons d'utiliser nos outils interactifs qui simplifient grandement la mise en place de Go2Econtact :</p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Assistant de configuration</h3>
-                    <p>Un guide pas-à-pas en 4 étapes qui vous accompagne dans la création de votre configuration complète.</p>
-                    <ul class="custom-list">
-                        <li>Interface guidée avec explications contextuelles</li>
-                        <li>Idéal pour comprendre le système d'inclusions/exclusions</li>
-                        <li>Export JSON compatible avec l'extension Thunderbird</li>
-                        <li>Pas de formation technique requise</li>
-                    </ul>
-                    <p><a href="wizard/wizard.html" class="button">Accéder à l'assistant</a></p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Simulateur de règles</h3>
-                    <p>Un outil de test en temps réel pour valider vos règles avant de les déployer dans Thunderbird.</p>
-                    <ul class="custom-list">
-                        <li>Testez n'importe quelle adresse email instantanément</li>
-                        <li>Explication détaillée de chaque décision (AR envoyé ou bloqué)</li>
-                        <li>Historique des tests pour comparer différents scénarios</li>
-                        <li>Parfait pour comprendre l'algorithme de décision</li>
-                    </ul>
-                    <p><a href="wizard/simulateur.php" class="button">Accéder au simulateur</a></p>
-                </div>
-
-                <div class="success-box">
-                    <p><strong>✅ Workflow recommandé :</strong></p>
-                    <ol>
-                        <li>Utilisez l'<strong>assistant</strong> pour créer votre configuration de base</li>
-                        <li>Testez avec le <strong>simulateur</strong> pour vérifier que tout fonctionne comme prévu</li>
-                        <li>Importez la configuration dans Thunderbird</li>
-                        <li>Consultez cette documentation pour les fonctionnalités avancées</li>
-                    </ol>
-                </div>
+            <!-- NIVEAU 2 — Zone de détail chargée en AJAX -->
+            <div class="doc-detail" id="doc-detail">
+                <div class="doc-loading">Chargement…</div>
             </div>
 
-            <!-- SECTION 3 : ONGLET GÉNÉRAL -->
-            <div class="section" id="section-general">
-                <div class="section-header">
-                    <h2 class="section-title">2. Onglet Général</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Général regroupe les paramètres globaux de Go2Econtact qui s'appliquent à tous les comptes email configurés. C'est le point de départ pour configurer l'extension.</p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Délai d'envoi des AR</h3>
-                    <p>Ce paramètre définit le temps d'attente avant l'envoi de l'AR automatique.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>⏱️ Valeur par défaut :</strong> 15 minutes</p>
-                        <p><strong>📏 Plage autorisée :</strong> 1 à 1440 minutes (24 heures)</p>
-                        <p><strong>💡 Recommandation :</strong> Un délai de 15 à 30 minutes est idéal pour laisser le temps de répondre manuellement aux emails urgents.</p>
-                    </div>
-
-                    <p><strong>Pourquoi un délai ?</strong></p>
-                    <ul class="custom-list">
-                        <li>Permet de répondre manuellement aux emails urgents avant l'envoi automatique de l'AR</li>
-                        <li>Évite d'envoyer un AR si vous êtes finalement disponible pour répondre</li>
-                        <li>Réduit le risque d'envoyer des AR en double (si vous désactivez l'extension rapidement)</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Période de détection des doublons</h3>
-                    <p>Ce paramètre définit la durée pendant laquelle Go2Econtact se souvient d'avoir déjà envoyé un AR à un expéditeur donné.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>⏱️ Valeur par défaut :</strong> 24 heures</p>
-                        <p><strong>📏 Plage autorisée :</strong> 1 à 168 heures (7 jours)</p>
-                        <p><strong>💡 Recommandation :</strong> 24 heures pour une absence courte, 48-72 heures pour une absence longue.</p>
-                    </div>
-
-                    <p><strong>Fonctionnement :</strong></p>
-                    <p>Si un expéditeur vous envoie plusieurs emails dans la période définie, Go2Econtact n'enverra qu'un seul AR. Cela évite de spammer vos correspondants avec plusieurs AR pour chaque email reçu.</p>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Attention :</strong> Si vous réduisez cette période, vous risquez d'envoyer plusieurs AR au même expéditeur. À l'inverse, une période trop longue pourrait empêcher l'envoi d'AR légitimes lors d'absences répétées.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Mode de logging détaillé</h3>
-                    <p>Active ou désactive l'enregistrement détaillé des événements dans les logs de débogage.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>🔍 Mode activé :</strong> Enregistre tous les événements (INFO, WARNING, ERROR)</p>
-                        <p><strong>🔍 Mode désactivé :</strong> Enregistre uniquement les avertissements et erreurs (WARNING, ERROR)</p>
-                    </div>
-
-                    <p><strong>Quand l'activer ?</strong></p>
-                    <ul class="custom-list">
-                        <li><strong>En phase de configuration</strong> : Pour vérifier que tout fonctionne correctement</li>
-                        <li><strong>En cas de problème</strong> : Pour diagnostiquer un dysfonctionnement</li>
-                        <li><strong>Pour le support</strong> : Si vous devez fournir des logs au support technique</li>
-                    </ul>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Impact sur les performances :</strong> Le mode détaillé génère beaucoup de logs et peut ralentir légèrement Thunderbird. Désactivez-le en utilisation normale.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Validation de l'UUID Send Later</h3>
-                    <p>Go2Econtact vérifie automatiquement que l'extension Send Later installée correspond bien à l'UUID officiel attendu.</p>
-                    
-                    <div class="success-box">
-                        <p><strong>✅ UUID attendu :</strong> <code>sendlater3@kamens.us</code></p>
-                        <p><strong>🔒 Sécurité :</strong> Cette validation empêche l'utilisation d'extensions Send Later non officielles qui pourraient causer des conflits.</p>
-                    </div>
-
-                    <p><strong>Messages d'erreur possibles :</strong></p>
-                    <ul class="custom-list">
-                        <li><strong style="color: #dc3545;">"Send Later non détecté"</strong> : L'extension Send Later n'est pas installée</li>
-                        <li><strong style="color: #dc3545;">"UUID Send Later invalide"</strong> : L'extension Send Later installée n'a pas le bon UUID</li>
-                    </ul>
-
-                    <div class="info-box">
-                        <p><strong>💡 Solution :</strong> Installez l'extension officielle Send Later depuis <a href="https://addons.thunderbird.net" target="_blank">addons.thunderbird.net</a></p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>💾 Enregistrer les modifications</strong> : Sauvegarde les paramètres modifiés</li>
-                        <li><strong>🔄 Réinitialiser</strong> : Restaure les valeurs par défaut de l'onglet</li>
-                    </ul>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Enregistrement obligatoire :</strong> N'oubliez pas de cliquer sur "Enregistrer" après avoir modifié les paramètres, sinon vos changements seront perdus.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 4 : ONGLET COMPTES -->
-            <div class="section" id="section-comptes">
-                <div class="section-header">
-                    <h2 class="section-title">3. Onglet Comptes</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Comptes permet d'associer des templates d'AR à vos différents comptes email configurés dans Thunderbird. Chaque compte peut avoir son propre template et ses propres règles de filtrage.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>📧 Comptes détectés :</strong> Go2Econtact détecte automatiquement tous les comptes email configurés dans Thunderbird.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Liste des comptes</h3>
-                    <p>Tous vos comptes email Thunderbird sont affichés dans un tableau avec les informations suivantes :</p>
-                    <ul class="custom-list">
-                        <li><strong>Compte</strong> : Nom du compte (ex: "Compte principal")</li>
-                        <li><strong>Adresse email</strong> : Adresse associée au compte</li>
-                        <li><strong>Template associé</strong> : Template actuellement sélectionné pour ce compte</li>
-                        <li><strong>Statut</strong> : Activé (✅) ou Désactivé (❌)</li>
-                        <li><strong>Actions</strong> : Boutons pour activer/désactiver ou configurer le compte</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Association d'un template</h3>
-                    <p>Pour associer un template à un compte :</p>
-                    <ol class="numbered-list">
-                        <li>Cliquez sur le bouton <strong>"⚙️ Configurer"</strong> du compte concerné</li>
-                        <li>Sélectionnez un template dans la liste déroulante</li>
-                        <li>Cliquez sur <strong>"Enregistrer"</strong></li>
-                    </ol>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Template obligatoire :</strong> Un compte ne peut pas être activé sans template associé. Créez d'abord un template dans l'onglet Templates.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Activation / Désactivation d'un compte</h3>
-                    <p>Vous pouvez activer ou désactiver individuellement chaque compte via le bouton <strong>"Activer"</strong> ou <strong>"Désactiver"</strong>.</p>
-                    
-                    <div class="success-box">
-                        <p><strong>✅ Compte activé :</strong> Go2Econtact traitera automatiquement les nouveaux emails reçus sur ce compte et enverra des AR selon les règles définies.</p>
-                    </div>
-
-                    <div class="info-box">
-                        <p><strong>❌ Compte désactivé :</strong> Go2Econtact ignorera les emails reçus sur ce compte. Aucun AR ne sera envoyé.</p>
-                    </div>
-
-                    <p><strong>Cas d'usage :</strong></p>
-                    <ul class="custom-list">
-                        <li>Activer uniquement votre compte professionnel pendant vos vacances</li>
-                        <li>Désactiver temporairement un compte sans supprimer sa configuration</li>
-                        <li>Tester l'extension sur un seul compte avant de l'activer sur tous</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Gestion multi-comptes</h3>
-                    <p>Go2Econtact supporte la gestion de plusieurs comptes email avec des configurations distinctes :</p>
-                    
-                    <div class="info-box">
-                        <p><strong>💡 Exemple :</strong></p>
-                        <ul class="custom-list">
-                            <li><strong>Compte pro</strong> : Template "Absence bureau" + Règles strictes (exclure newsletters)</li>
-                            <li><strong>Compte perso</strong> : Template "Absence vacances" + Règles souples</li>
-                            <li><strong>Compte association</strong> : Désactivé (pas d'AR sur ce compte)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>⚙️ Configurer</strong> : Associer un template au compte</li>
-                        <li><strong>✅ Activer / ❌ Désactiver</strong> : Activer ou désactiver le traitement des emails pour ce compte</li>
-                        <li><strong>💾 Enregistrer</strong> : Sauvegarder les modifications</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- SECTION 5 : ONGLET TEMPLATES -->
-            <div class="section" id="section-templates">
-                <div class="section-header">
-                    <h2 class="section-title">4. Onglet Templates</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Templates permet de créer, modifier et gérer les messages d'absence (AR) qui seront envoyés automatiquement. Vous pouvez créer plusieurs templates pour différents contextes (vacances, formation, maladie, etc.).</p>
-                </div>
-
-                <div class="subsection">
-                    <h3>Création d'un template</h3>
-                    <ol class="numbered-list">
-                        <li>Cliquez sur le bouton <strong>"➕ Nouveau template"</strong></li>
-                        <li>Remplissez les champs obligatoires :
-                            <ul class="custom-list">
-                                <li><strong>Nom du template</strong> : Un nom descriptif (ex: "Vacances été 2024")</li>
-                                <li><strong>Objet</strong> : L'objet de l'email AR (ex: "Absence du bureau")</li>
-                                <li><strong>Message</strong> : Le corps du message d'absence</li>
-                            </ul>
-                        </li>
-                        <li>Cliquez sur <strong>"💾 Enregistrer"</strong></li>
-                    </ol>
-
-                    <div class="success-box">
-                        <p><strong>✅ Template créé :</strong> Votre template est maintenant disponible pour être associé à un compte dans l'onglet Comptes.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Exemple de template HTML :</h3>
-                    
-                    <div class="info-box">
-                        <p><strong>💡 Template avec panneau d'attention stylisé :</strong></p>
-                        
-                        <!-- Rendu visuel -->
-                        <div class="email-preview-wrapper">
-                            <p class="email-preview-label"><strong>Aperçu du rendu :</strong></p>
-                            
-                            <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
-                              <tr>
-                                <td>
-                                  <div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;">
-                                    <div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-                                      <svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;">
-                                        <circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/>
-                                        <text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">!</text>
-                                      </svg>
-                                      INFORMATION IMPORTANTE
-                                    </div>
-                                    <div style="color: #721c24; line-height: 1.4;">
-                                      <strong>Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sécurisé.</strong><br>
-                                      Les courriels seront dorénavant traités ultérieurement.<br><br>
-                                      <a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;">
-                                        📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
-                                      </a>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                        </div>
-                        
-                        <!-- Code source pliable -->
-                        <details class="source-details">
-                            <summary class="source-summary">📝 Afficher le code HTML source</summary>
-                            <pre class="source-pre">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Accusé de réception&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;"&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-        &lt;!-- Panneau d'attention avec SVG rouge pour visibilité --&gt;
-        &lt;div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;"&gt;
-          &lt;div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"&gt;
-            &lt;!--[if !mso]&gt;&lt;!--&gt;
-            &lt;svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;"&gt;
-              &lt;circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/&gt;
-              &lt;text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold"&gt;!&lt;/text&gt;
-            &lt;/svg&gt;
-            &lt;!--&lt;![endif]--&gt;
-            &lt;!--[if mso]&gt;
-            &lt;span style="color: #d63031; font-size: 18px; font-weight: bold; margin-right: 5px;"&gt;⚠&lt;/span&gt;
-            &lt;![endif]--&gt;
-            INFORMATION IMPORTANTE
-          &lt;/div&gt;
-          &lt;div style="color: #721c24; line-height: 1.4;"&gt;
-            &lt;strong&gt;Pour un suivi prioritaire et confidentiel, utilisez votre espace sécurisé sur notre site.&lt;/strong&gt;&lt;br&gt;
-            Les courriels seront dorénavant traités ultérieurement.&lt;br&gt;&lt;br&gt;
-            &lt;a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;"&gt;
-              📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
-            &lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
-                        </details>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Modification d'un template</h3>
-                    <ol class="numbered-list">
-                        <li>Dans la liste des templates, cliquez sur <strong>"✏️ Modifier"</strong></li>
-                        <li>Effectuez vos modifications</li>
-                        <li>Cliquez sur <strong>"💾 Enregistrer"</strong></li>
-                    </ol>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Impact sur les comptes :</strong> Si vous modifiez un template déjà associé à un compte actif, les nouveaux AR utiliseront immédiatement la version modifiée.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Suppression d'un template</h3>
-                    <ol class="numbered-list">
-                        <li>Cliquez sur <strong>"🗑️ Supprimer"</strong> à côté du template</li>
-                        <li>Confirmez la suppression</li>
-                    </ol>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Template en cours d'utilisation :</strong> Vous ne pouvez pas supprimer un template actuellement associé à un compte actif. Désactivez d'abord le compte ou associez-lui un autre template.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Prévisualisation</h3>
-                    <p>Utilisez le bouton <strong>"👁️ Prévisualiser"</strong> pour voir à quoi ressemblera l'AR avant de l'activer.</p>
-                    
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Prévisualisez toujours votre template avant de l'activer pour vérifier que le message est clair et que le rendu est correct.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Bonnes pratiques</h3>
-                    <ul class="custom-list">
-                        <li>Créez des templates spécifiques pour chaque type d'absence (vacances, formation, maladie)</li>
-                        <li>Utilisez du HTML pour des messages riches et professionnels</li>
-                        <li>Indiquez une date de retour claire pour rassurer vos correspondants</li>
-                        <li>Proposez une personne de contact alternative pour les urgences</li>
-                        <li>Restez professionnel et concis dans vos messages</li>
-                        <li>Testez le rendu de vos templates HTML dans différents clients email</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>➕ Nouveau template</strong> : Créer un nouveau message d'absence</li>
-                        <li><strong>✏️ Modifier</strong> : Modifier un template existant</li>
-                        <li><strong>🗑️ Supprimer</strong> : Supprimer un template (si non utilisé)</li>
-                        <li><strong>👁️ Prévisualiser</strong> : Voir l'aperçu du template</li>
-                        <li><strong>💾 Enregistrer</strong> : Sauvegarder les modifications</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- SECTION 6 : ONGLET RÈGLES DE FILTRAGE -->
-            <div class="section" id="section-regles">
-                <div class="section-header">
-                    <h2 class="section-title">5. Onglet Règles de filtrage</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Règles de filtrage permet de définir précisément quels expéditeurs doivent recevoir un AR et lesquels doivent être exclus. C'est l'outil le plus puissant de Go2Econtact pour contrôler finement l'envoi d'AR.</p>
-                    
-                    <div class="info-box">
-                        <p><strong>🎯 Objectif :</strong> Envoyer des AR uniquement aux contacts pertinents (clients, partenaires, collègues externes) tout en excluant les newsletters, notifications automatiques et emails internes.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Types de règles</h3>
-                    <p>Go2Econtact propose deux types de règles :</p>
-                    
-                    <div class="success-box">
-                        <p><strong>✅ Règles d'inclusion</strong> : Définissent les expéditeurs qui DOIVENT recevoir un AR.</p>
-                        <p><strong>Exemple :</strong> Inclure tous les emails du domaine <code>@client-important.com</code></p>
-                    </div>
-
-                    <div class="warning-box">
-                        <p><strong>❌ Règles d'exclusion</strong> : Définissent les expéditeurs qui NE DOIVENT PAS recevoir d'AR.</p>
-                        <p><strong>Exemple :</strong> Exclure tous les emails contenant "newsletter" dans le sujet</p>
-                    </div>
-
-                    <div class="info-box">
-                        <p><strong>⚖️ Priorité :</strong> Les règles d'exclusion ont toujours la priorité sur les règles d'inclusion. Si un email correspond à une règle d'exclusion ET une règle d'inclusion, il sera exclu.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Critères de filtrage</h3>
-                    <p>Chaque règle peut être basée sur l'un des critères suivants :</p>
-                    
-                    <ul class="custom-list">
-                        <li><strong>📧 Domaine expéditeur</strong> : Filtre basé sur le nom de domaine de l'adresse email
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>Exemple : <code>gmail.com</code> filtre tous les emails <code>@gmail.com</code></li>
-                            </ul>
-                        </li>
-                        <li><strong>👤 Email expéditeur complet</strong> : Filtre basé sur l'adresse email complète
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>Exemple : <code>noreply@entreprise.fr</code></li>
-                            </ul>
-                        </li>
-                        <li><strong>📝 Mot-clé dans le sujet</strong> : Filtre basé sur un mot ou une expression dans l'objet de l'email
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>Exemple : <code>newsletter</code> filtre tous les emails avec "newsletter" dans le sujet</li>
-                            </ul>
-                        </li>
-                        <li><strong>🔤 Mot-clé dans le corps</strong> : Filtre basé sur un mot ou une expression dans le contenu de l'email
-                            <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>Exemple : <code>se désabonner</code> filtre les emails contenant cette expression</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Création d'une règle</h3>
-                    <ol class="numbered-list">
-                        <li>Cliquez sur <strong>"➕ Nouvelle règle"</strong></li>
-                        <li>Sélectionnez le <strong>type de règle</strong> (Inclusion ou Exclusion)</li>
-                        <li>Choisissez le <strong>critère de filtrage</strong> (Domaine, Email, Sujet, Corps)</li>
-                        <li>Saisissez la <strong>valeur</strong> à filtrer (ex: <code>newsletter</code>)</li>
-                        <li>Optionnel : Ajoutez une <strong>description</strong> pour vous souvenir de l'objectif de la règle</li>
-                        <li>Cliquez sur <strong>"💾 Enregistrer"</strong></li>
-                    </ol>
-
-                    <div class="success-box">
-                        <p><strong>✅ Règle créée :</strong> La règle est immédiatement active et sera appliquée aux prochains emails reçus.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Exemples de règles courantes</h3>
-                    
-                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Exclusions recommandées</h4>
-                    <ul class="custom-list">
-                        <li><strong>Newsletters :</strong> Exclure "newsletter" dans le sujet</li>
-                        <li><strong>Notifications automatiques :</strong> Exclure "noreply@" dans l'email</li>
-                        <li><strong>Réseaux sociaux :</strong> Exclure domaines <code>facebook.com</code>, <code>linkedin.com</code>, <code>twitter.com</code></li>
-                        <li><strong>Emails internes :</strong> Exclure domaine <code>@monentreprise.fr</code></li>
-                        <li><strong>Publicités :</strong> Exclure "promo", "offre", "soldes" dans le sujet</li>
-                        <li><strong>Services :</strong> Exclure "no-reply", "donotreply", "notification" dans l'email</li>
-                    </ul>
-
-                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Inclusions recommandées</h4>
-                    <ul class="custom-list">
-                        <li><strong>Clients importants :</strong> Inclure domaine <code>@client-vip.com</code></li>
-                        <li><strong>Partenaires :</strong> Inclure domaine <code>@partenaire.fr</code></li>
-                        <li><strong>Contact spécifique :</strong> Inclure email <code>chef@entreprise.fr</code></li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Modification / Suppression</h3>
-                    <ul class="custom-list">
-                        <li><strong>✏️ Modifier</strong> : Cliquez sur le bouton "Modifier" pour changer les paramètres d'une règle</li>
-                        <li><strong>🗑️ Supprimer</strong> : Cliquez sur "Supprimer" pour retirer définitivement une règle</li>
-                    </ul>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Impact immédiat :</strong> Toute modification ou suppression de règle est immédiatement appliquée aux emails suivants.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Activation / Désactivation temporaire</h3>
-                    <p>Vous pouvez désactiver temporairement une règle sans la supprimer via le bouton <strong>"Activer/Désactiver"</strong>.</p>
-                    
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Utile pour tester l'impact d'une règle ou pour la réactiver plus tard sans la recréer.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Ordre d'application des règles</h3>
-                    <p>Go2Econtact applique les règles dans l'ordre suivant :</p>
-                    <ol class="numbered-list">
-                        <li><strong>Vérification des règles d'exclusion</strong> : Si une règle d'exclusion correspond, l'AR n'est pas envoyé</li>
-                        <li><strong>Vérification des règles d'inclusion</strong> : Si aucune règle d'inclusion n'est définie, l'AR est envoyé par défaut. Si des règles d'inclusion existent, l'email doit correspondre à au moins une règle pour envoyer l'AR</li>
-                        <li><strong>Vérification des doublons</strong> : Si un AR a déjà été envoyé récemment à cet expéditeur, aucun AR n'est envoyé</li>
-                    </ol>
-
-                    <div class="info-box">
-                        <p><strong>💡 Stratégie recommandée :</strong> Commencez par définir les règles d'exclusion (ce que vous NE voulez PAS). Ajoutez ensuite des règles d'inclusion uniquement si vous voulez restreindre davantage.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>➕ Nouvelle règle</strong> : Créer une règle d'inclusion ou d'exclusion</li>
-                        <li><strong>✏️ Modifier</strong> : Modifier les paramètres d'une règle</li>
-                        <li><strong>🗑️ Supprimer</strong> : Supprimer définitivement une règle</li>
-                        <li><strong>✅ Activer / ❌ Désactiver</strong> : Activer ou désactiver temporairement une règle</li>
-                        <li><strong>💾 Enregistrer</strong> : Sauvegarder les modifications</li>
-                    </ul>
-                </div>
-
-                <!-- À enrichir ultérieurement avec rules-manager.js -->
-            </div>
-
-            <!-- SECTION 7 : ONGLET ANALYSE -->
-            <div class="section" id="section-analyse">
-                <div class="section-header">
-                    <h2 class="section-title">6. Onglet Analyse</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Analyse permet de suivre en temps réel les décisions de filtrage prises par l'extension. Cette vue est idéale pour optimiser vos règles d'inclusion/exclusion.</p>
-
-                    <div class="info-box">
-                        <p><strong>📊 Objectif :</strong> Identifier les expéditeurs à exclure ou inclure selon la réalité des emails reçus.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Indicateurs résumés</h3>
-                    <p>Quatre indicateurs synthétiques sont affichés :</p>
-                    <ul class="custom-list">
-                        <li><strong>Événements traités</strong> : Nombre total d'emails analysés</li>
-                        <li><strong>AR créés</strong> : Nombre d'AR programmés pour envoi</li>
-                        <li><strong>Emails exclus</strong> : Nombre d'emails écartés par les règles</li>
-                        <li><strong>Doublons évités</strong> : Nombre d'emails déjà traités récemment</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Filtres d'analyse</h3>
-                    <p>Vous pouvez filtrer les événements affichés selon plusieurs critères :</p>
-                    <ul class="custom-list">
-                        <li><strong>Période</strong> : Plage de dates (du... au...)</li>
-                        <li><strong>Décision</strong> : Type de décision (AR créé, Exclu, Doublon, Ignoré, Erreur)</li>
-                        <li><strong>Compte</strong> : Compte email concerné</li>
-                        <li><strong>Expéditeur</strong> : Recherche dans les adresses d'expéditeur</li>
-                    </ul>
-
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Utilisez les filtres pour identifier rapidement les emails d'un domaine spécifique ou analyser l'activité d'un compte particulier.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Tableau détaillé des événements</h3>
-                    <p>Chaque ligne du tableau représente un événement de traitement avec :</p>
-                    <ul class="custom-list">
-                        <li><strong>Date/Heure</strong> : Moment de traitement</li>
-                        <li><strong>Expéditeur</strong> : Adresse email de l'expéditeur</li>
-                        <li><strong>Compte</strong> : Compte destinataire</li>
-                        <li><strong>Sujet</strong> : Sujet du message</li>
-                        <li><strong>Décision</strong> : Action prise (avec code couleur)</li>
-                        <li><strong>Raison</strong> : Explication détaillée de la décision</li>
-                    </ul>
-
-                    <p><strong>Codes couleur des décisions :</strong></p>
-                    <ul class="custom-list">
-                        <li><strong style="color: #28a745;">AR créé (Vert)</strong> : L'AR a été programmé</li>
-                        <li><strong style="color: #dc3545;">Exclu (Rouge)</strong> : Email exclu par une règle</li>
-                        <li><strong style="color: #ffc107;">Doublon (Orange)</strong> : AR déjà envoyé récemment</li>
-                        <li><strong style="color: #6c757d;">Ignoré (Gris)</strong> : Email ignoré (email interne, pas de template, etc.)</li>
-                        <li><strong style="color: #dc3545; background: #f8d7da;">Erreur (Rouge fond rose)</strong> : Erreur lors du traitement</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Analyse détaillée</h3>
-                    <p>Deux vues synthétiques vous aident à optimiser vos règles :</p>
-
-                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Top 5 règles appliquées</h4>
-                    <p>Affiche les règles de filtrage les plus utilisées. Permet d'identifier les règles les plus pertinentes et celles à ajuster.</p>
-
-                    <h4 style="color: #333; font-size: 16px; margin: 20px 0 10px;">Top 5 domaines expéditeurs</h4>
-                    <p>Affiche les domaines qui envoient le plus d'emails. Utile pour décider si un domaine doit être exclu ou non.</p>
-
-                    <div class="info-box">
-                        <p><strong>💡 Utilité :</strong> Si un domaine apparaît souvent dans les AR créés mais ne devrait pas recevoir d'AR (ex: newsletters), ajoutez-le aux exclusions.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>🔄 Actualiser</strong> : Recharge les données d'analyse</li>
-                        <li><strong>📤 Exporter CSV</strong> : Exporte les événements filtrés au format CSV</li>
-                        <li><strong>🗑️ Effacer données</strong> : Supprime toutes les données d'analyse (irréversible)</li>
-                    </ul>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Export CSV :</strong> L'export prend en compte les filtres actifs. Pour exporter toutes les données, retirez tous les filtres avant d'exporter.</p>
-                    </div>
-                </div>
-
-                <!-- À enrichir ultérieurement avec analysis.js -->
-            </div>
-
-            <!-- SECTION 8 : LOGS DE DÉBOGAGE -->
-            <div class="section" id="section-logs">
-                <div class="section-header">
-                    <h2 class="section-title">7. Logs de débogage</h2>
-                </div>
-
-                <div class="subsection">
-                    <h3>Vue d'ensemble</h3>
-                    <p>L'onglet Logs affiche l'historique des événements enregistrés par l'extension. Ces logs sont précieux pour diagnostiquer des problèmes ou comprendre le comportement de l'extension.</p>
-
-                    <div class="info-box">
-                        <p><strong>🔍 Utilité :</strong> Les logs détaillent chaque opération effectuée par l'extension (traitement des emails, validation UUID, envoi d'AR, etc.).</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Niveaux de logging</h3>
-                    <p>L'extension utilise trois niveaux de logs :</p>
-                    <ul class="custom-list">
-                        <li><strong style="color: #0dcaf0;">INFO (Bleu)</strong> : Événements informatifs normaux (traitement d'email, AR programmé, etc.)</li>
-                        <li><strong style="color: #ffc107;">WARNING (Orange)</strong> : Avertissements (template vide, UUID manquant, doublon détecté, etc.)</li>
-                        <li><strong style="color: #dc3545;">ERROR (Rouge)</strong> : Erreurs critiques (échec connexion Send Later, erreur validation, etc.)</li>
-                    </ul>
-
-                    <div class="warning-box">
-                        <p><strong>⚠️ Mode de logging :</strong> Par défaut, seuls les warnings et erreurs sont enregistrés. Pour voir tous les logs (y compris INFO), activez le mode logging détaillé dans l'onglet Général.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Consultation des logs</h3>
-                    <p>Les logs sont affichés dans un tableau avec les colonnes suivantes :</p>
-                    <ul class="custom-list">
-                        <li><strong>Date/Heure</strong> : Moment de l'événement</li>
-                        <li><strong>Niveau</strong> : INFO, WARNING ou ERROR (avec code couleur)</li>
-                        <li><strong>Catégorie</strong> : Module concerné (Background, Options, Template, etc.)</li>
-                        <li><strong>Message</strong> : Description détaillée de l'événement</li>
-                    </ul>
-
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Les logs les plus récents sont affichés en haut du tableau.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Filtres de logs</h3>
-                    <p>Vous pouvez filtrer les logs affichés selon :</p>
-                    <ul class="custom-list">
-                        <li><strong>Niveau</strong> : Afficher uniquement INFO, WARNING ou ERROR</li>
-                        <li><strong>Catégorie</strong> : Filtrer par module (Background, Template, etc.)</li>
-                        <li><strong>Recherche</strong> : Rechercher dans les messages</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3>Actions disponibles</h3>
-                    <ul class="custom-list">
-                        <li><strong>🔄 Actualiser</strong> : Recharge les logs depuis la base de données</li>
-                        <li><strong>📤 Exporter</strong> : Exporte les logs au format texte (utile pour le support)</li>
-                        <li><strong>🗑️ Effacer l'historique</strong> : Supprime tous les logs (irréversible)</li>
-                    </ul>
-
-                    <div class="danger-box">
-                        <p><strong>⚠️ Effacer les logs :</strong> Cette action est irréversible. Pensez à exporter vos logs avant si vous devez les conserver pour le support.</p>
-                    </div>
-                </div>
-
-                <div class="subsection">
-                    <h3>Utilisation pour le support</h3>
-                    <p>En cas de problème, les logs sont très utiles pour le support technique :</p>
-                    <ol class="numbered-list">
-                        <li>Activez le mode logging détaillé (onglet Général)</li>
-                        <li>Reproduisez le problème</li>
-                        <li>Allez dans l'onglet Logs</li>
-                        <li>Exportez les logs au format texte</li>
-                        <li>Joignez le fichier de logs à votre demande de support</li>
-                    </ol>
-
-                    <div class="info-box">
-                        <p><strong>📧 Contact support :</strong> Pour toute question ou problème, contactez-moi à cette adresse : go2econtact@fip-toolkit.fr.</p>
-                    </div>
-                </div>
-
-                <!-- À enrichir ultérieurement avec logs-viewer.js -->
-            </div>
-
-            <!-- Footer Navigation Unifié -->
+            <!-- Footer Navigation -->
             <div class="footer-nav">
                 <h3>Ressources complémentaires</h3>
                 <div class="nav-links-grid">
@@ -846,7 +155,48 @@
                     <a href="legal.html" class="nav-button">Informations légales</a>
                 </div>
             </div>
+
         </div>
     </div>
+
+    <script>
+        const detailZone = document.getElementById('doc-detail');
+        const cards      = document.querySelectorAll('.doc-nav-card');
+
+        function loadDetail(page) {
+            detailZone.innerHTML = '<div class="doc-loading">Chargement…</div>';
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier introuvable');
+                    return response.text();
+                })
+                .then(html => {
+                    detailZone.innerHTML = html;
+                    detailZone.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                })
+                .catch(() => {
+                    detailZone.innerHTML = '<div class="doc-error">Impossible de charger cette section. Vérifiez votre connexion.</div>';
+                });
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                loadDetail(card.dataset.page);
+            });
+
+            card.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Chargement initial : Send Later
+        loadDetail('doc/sendlater.html');
+    </script>
+
 </body>
 </html>
