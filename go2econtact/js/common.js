@@ -1,31 +1,38 @@
 /**
  * common.js — Go2Econtact site d'aide
  * Injecte le header et le footer communs sur toutes les pages.
- * 
+ *
  * Prérequis dans chaque page HTML :
  *   <div id="site-header"></div>   — en haut du body
  *   <div id="site-footer"></div>   — en bas du container
- *   <script src="js/common.js"></script>
+ *   <script src="js/common.js"></script>        (pages racine go2econtact/)
+ *   <script src="../js/common.js"></script>     (pages sous-dossier wizard/)
+ *
+ * Le script détecte automatiquement sa profondeur et ajuste les chemins.
  */
 
 (function () {
 
+    // Détection de la profondeur : sous-dossier (wizard/) ou racine (go2econtact/)
+    const inSubfolder = window.location.pathname.includes('/wizard/');
+    const base = inSubfolder ? '../' : '';
+
     const HEADER_HTML = `
         <div class="header">
-            <a href="../index.html">← Retour à FIP Toolkit</a>
+            <a href="${base}../index.html">← Retour à FIP Toolkit</a>
         </div>`;
 
     const FOOTER_HTML = `
         <div class="footer-nav">
             <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
-                <a href="index.html" class="nav-button">Accueil</a>
-                <a href="popup.html" class="nav-button">Popup</a>
-                <a href="tutoriel.html" class="nav-button">Tutoriel</a>
-                <a href="documentation.html" class="nav-button">Documentation</a>
-                <a href="faq.html" class="nav-button">FAQ</a>
-                <a href="changelog.html" class="nav-button">Changelog</a>
-                <a href="legal.html" class="nav-button">Informations légales</a>
+                <a href="${base}index.html" class="nav-button">Accueil</a>
+                <a href="${base}popup.html" class="nav-button">Popup</a>
+                <a href="${base}tutoriel.html" class="nav-button">Tutoriel</a>
+                <a href="${base}documentation.html" class="nav-button">Documentation</a>
+                <a href="${base}faq.html" class="nav-button">FAQ</a>
+                <a href="${base}changelog.html" class="nav-button">Nouveautés</a>
+                <a href="${base}legal.html" class="nav-button">Informations légales</a>
             </div>
         </div>`;
 
