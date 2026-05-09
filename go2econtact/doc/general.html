@@ -51,8 +51,11 @@
         </li>
         <li>
             <strong>Filtres automatiques</strong> — avec le caractère joker <code>*</code>. 
-            Exemple : <code>noreply@*</code> exclut tous les expéditeurs "noreply" 
-            quel que soit leur domaine. Le bouton <strong>Ajouter les filtres par défaut</strong> 
+            Exemple : <code>noreply@*</code> exclut d'un seul coup tous les expéditeurs 
+            "noreply", quel que soit leur domaine — 
+            <code>noreply@banque.fr</code>, <code>noreply@client.com</code>, 
+            <code>noreply@fournisseur.fr</code>, etc. 
+            Le bouton <strong>Ajouter les filtres par défaut</strong> 
             insère les plus courants d'un seul clic.
         </li>
     </ul>
@@ -60,7 +63,8 @@
     <div class="info-box" style="margin-top: 1rem;">
         Les boutons <strong>Assistant</strong> et <strong>Tester</strong> ouvrent directement 
         les outils interactifs du site d'aide pour créer ou vérifier vos règles sans risque.
-        Le bouton <strong>Importer</strong> charge un fichier de configuration préparé par l'Assistant.
+        Le bouton <strong>Importer</strong> charge un fichier de règles de filtrage 
+        préparé par l'Assistant du site d'aide (règles uniquement, pas la configuration complète).
     </div>
 </div>
 
@@ -91,6 +95,7 @@
         <li>
             <strong>Dossiers personnalisés</strong> — si vos emails externes arrivent dans 
             un dossier autre que la Boîte de réception, indiquez son nom ici (un par ligne).
+            Exemple : <code>courriel externe</code>, <code>courriel interne</code>
         </li>
         <li>
             <strong>Supprimer les AR du dossier Envoyés</strong> — activée par défaut, 
@@ -172,14 +177,19 @@
     </p>
     <ul class="custom-list">
         <li>
-            <strong>Exporter la configuration</strong> — crée un fichier que vous pouvez 
-            partager avec un collègue ou conserver comme sauvegarde.
+            <strong>Exporter la configuration</strong> — crée un fichier de sauvegarde complet 
+            (filtrage, surveillance, paramètres avancés) que vous pouvez conserver ou transmettre.
         </li>
         <li>
-            <strong>Importer une configuration</strong> — charge un fichier exporté 
-            précédemment ou produit par l'Assistant de configuration du site d'aide.
+            <strong>Importer une configuration</strong> — restaure une configuration exportée 
+            précédemment. Une fenêtre de confirmation s'affiche avant l'import.
         </li>
     </ul>
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        <strong>Important :</strong> le code d'identification Send Later est propre à chaque 
+        poste de travail. Si vous importez une configuration sur un autre poste, 
+        pensez à mettre à jour ce code dans l'onglet Send Later.
+    </div>
 </div>
 
 <div class="info-box">
