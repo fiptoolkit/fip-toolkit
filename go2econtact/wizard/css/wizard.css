@@ -126,32 +126,8 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: var(--font-family);
-    background: var(--color-bg-gray);
-    color: var(--color-text);
-    line-height: 1.6;
-    padding: 2rem 1rem;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: var(--color-bg-white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-}
-
 .wizard-content {
     padding: 2.5rem;
-}
-
-@media (min-width: 768px) {
-    body {
-        padding: 2rem;
-    }
 }
 
 /* ============================================
@@ -847,14 +823,6 @@ em {
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
-    body {
-        padding: 1rem 0.5rem;
-    }
-
-    .container {
-        border-radius: var(--radius-md);
-    }
-
     .wizard-content {
         padding: 1.5rem;
     }
@@ -928,12 +896,4 @@ em {
         height: 35px;
         font-size: 1rem;
     }
-}
-
-/* ============================================
-   FOOTER NAVIGATION — Harmonisation avec pages principales
-   Le footer-nav hérite du fond blanc du container
-   ============================================ */
-.footer-nav {
-    background: var(--color-bg-white);
 }
