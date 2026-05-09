@@ -1,0 +1,188 @@
+<!-- doc/general.html — chargé en AJAX dans documentation.html -->
+
+<h2>⚙️ Onglet Général</h2>
+
+<div class="subsection">
+    <p>
+        C'est l'onglet central de Go2Econtact. Il regroupe tout ce qui concerne 
+        le comportement de l'extension : qui reçoit un accusé de réception, dans quelles 
+        conditions, et comment l'extension réagit en cas de situation particulière.
+    </p>
+</div>
+
+<!-- PARAMÈTRES GÉNÉRAUX -->
+<div class="subsection">
+    <h3>Paramètres généraux</h3>
+    <ul class="custom-list">
+        <li>
+            <strong>Domaine interne</strong> — Saisissez le domaine de votre organisation 
+            (ex : <code>societe.fr</code>). Les emails provenant de ce domaine ne recevront 
+            jamais d'accusé de réception, sauf exception définie dans les Inclusions.
+        </li>
+        <li>
+            <strong>Délai d'envoi</strong> — Temps d'attente avant l'envoi de l'accusé de réception. 
+            Valeur par défaut : <strong>2 heures</strong> (recommandé). 
+            Plage disponible : 1 à 24 heures.
+        </li>
+    </ul>
+</div>
+
+<!-- FILTRAGE EXCLUSIONS -->
+<div class="subsection">
+    <h3>Filtrage — Exclusions</h3>
+    <p>
+        Les exclusions définissent qui ne recevra <strong>jamais</strong> d'accusé de réception.
+        Quatre types de règles sont disponibles, à saisir une par ligne :
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Sujets</strong> — filtre sur l'objet du message reçu. 
+            Trois formes disponibles, insensibles à la casse :<br>
+            <code>[COMMENCE]Re:</code> — l'objet commence par "Re:"<br>
+            <code>[CONTIENT]absence</code> — l'objet contient le mot "absence"<br>
+            <code>[FINIT]automatique</code> — l'objet se termine par "automatique"
+        </li>
+        <li>
+            <strong>Domaines</strong> — tous les emails d'un domaine entier. 
+            Exemple : <code>@spam.com</code> exclut tout le monde chez spam.com.
+        </li>
+        <li>
+            <strong>Adresses</strong> — une adresse email exacte à exclure.
+        </li>
+        <li>
+            <strong>Filtres automatiques</strong> — avec le caractère joker <code>*</code>. 
+            Exemple : <code>noreply@*</code> exclut tous les expéditeurs "noreply" 
+            quel que soit leur domaine. Le bouton <strong>Ajouter les filtres par défaut</strong> 
+            insère les plus courants d'un seul clic.
+        </li>
+    </ul>
+
+    <div class="info-box" style="margin-top: 1rem;">
+        Les boutons <strong>Assistant</strong> et <strong>Tester</strong> ouvrent directement 
+        les outils interactifs du site d'aide pour créer ou vérifier vos règles sans risque.
+        Le bouton <strong>Importer</strong> charge un fichier de configuration préparé par l'Assistant.
+    </div>
+</div>
+
+<!-- FILTRAGE INCLUSIONS -->
+<div class="subsection">
+    <h3>Filtrage — Inclusions</h3>
+    <p>
+        Les inclusions fonctionnent à l'inverse : elles forcent l'envoi d'un accusé de réception, 
+        même si l'expéditeur figure dans les exclusions. 
+        <strong>Les inclusions ont toujours la priorité absolue.</strong>
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Exemple d'usage : votre domaine interne est exclu par défaut, 
+        mais un collaborateur précis doit tout de même recevoir un AR — 
+        ajoutez son adresse dans les inclusions.
+    </p>
+</div>
+
+<!-- SURVEILLANCE -->
+<div class="subsection">
+    <h3>Surveillance des emails</h3>
+    <ul class="custom-list">
+        <li>
+            <strong>Comptes surveillés</strong> — un résumé affiche le nombre de comptes 
+            configurés et actifs. Le bouton <strong>Gérer les comptes et modèles</strong> 
+            renvoie directement vers l'onglet Modèles.
+        </li>
+        <li>
+            <strong>Dossiers personnalisés</strong> — si vos emails externes arrivent dans 
+            un dossier autre que la Boîte de réception, indiquez son nom ici (un par ligne).
+        </li>
+        <li>
+            <strong>Supprimer les AR du dossier Envoyés</strong> — activée par défaut, 
+            cette option supprime automatiquement l'accusé de réception de votre dossier 
+            Envoyés après son expédition, pour ne pas l'encombrer.
+        </li>
+    </ul>
+</div>
+
+<!-- MODE TEST -->
+<div class="subsection">
+    <h3>Mode test</h3>
+    <p>
+        Quand cette case est cochée, Go2Econtact n'envoie des accusés de réception qu'à 
+        <strong>une seule adresse</strong> — celle que vous indiquez. 
+        Tous les autres emails sont ignorés.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        C'est la façon la plus sûre de vérifier que tout fonctionne avant de passer 
+        en utilisation réelle : envoyez-vous un email depuis l'adresse de test, 
+        et vérifiez que vous recevez bien l'accusé de réception.
+    </p>
+
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        <strong>Avant de décocher le mode test</strong>, vérifiez que vos exclusions 
+        sont bien configurées — une fois désactivé, tous les emails externes éligibles 
+        recevront un accusé de réception automatiquement.
+    </div>
+</div>
+
+<!-- PARAMÈTRES AVANCÉS -->
+<div class="subsection">
+    <h3>Paramètres avancés</h3>
+    <p>
+        Ces réglages n'ont pas besoin d'être modifiés en utilisation normale. 
+        Touchez-y uniquement si vous observez des dysfonctionnements.
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Fenêtre anti-doublons</strong> — durée pendant laquelle 
+            Go2Econtact se souvient d'avoir déjà envoyé un AR à un expéditeur. 
+            Défaut : <strong>4 heures</strong> (plage : 1 à 48h). 
+            Cela évite d'envoyer plusieurs AR à la même personne si elle vous écrit 
+            plusieurs fois dans la journée.
+        </li>
+        <li>
+            <strong>Intervalle de surveillance</strong> — fréquence à laquelle 
+            Go2Econtact vérifie l'arrivée de nouveaux messages. 
+            Défaut : <strong>5 minutes</strong> (plage : 1 à 60 min).
+        </li>
+        <li>
+            <strong>Nombre de tentatives</strong> — si un message tarde à apparaître 
+            côté serveur, combien de fois réessayer avant d'abandonner. 
+            Défaut : <strong>5</strong>. Augmentez si votre serveur de messagerie est lent.
+        </li>
+        <li>
+            <strong>Délais d'attente</strong> — temps de pause entre chaque tentative, 
+            séparément pour le dossier Brouillons et le dossier Envoyés. 
+            Défaut : <strong>1 seconde</strong> chacun.
+        </li>
+        <li>
+            <strong>Enregistrement complet des traces</strong> — active un journal 
+            détaillé de toutes les opérations. Utile pour diagnostiquer un problème, 
+            à désactiver ensuite.
+        </li>
+        <li>
+            <strong>Nom pour les exports</strong> — nom qui apparaîtra dans les fichiers 
+            exportés depuis l'onglet Statistiques. Laissez vide pour la détection automatique.
+        </li>
+    </ul>
+</div>
+
+<!-- GESTION CONFIGURATION -->
+<div class="subsection">
+    <h3>Gestion de la configuration</h3>
+    <p>
+        Deux boutons permettent de sauvegarder ou de restaurer l'ensemble de votre 
+        configuration dans un fichier :
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Exporter la configuration</strong> — crée un fichier que vous pouvez 
+            partager avec un collègue ou conserver comme sauvegarde.
+        </li>
+        <li>
+            <strong>Importer une configuration</strong> — charge un fichier exporté 
+            précédemment ou produit par l'Assistant de configuration du site d'aide.
+        </li>
+    </ul>
+</div>
+
+<div class="info-box">
+    N'oubliez pas de cliquer sur <strong>Enregistrer la configuration</strong> en bas 
+    de l'onglet après toute modification.
+</div>
