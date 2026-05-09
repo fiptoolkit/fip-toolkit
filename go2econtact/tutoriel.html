@@ -7,278 +7,190 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="header">
+        <a href="../index.html">← Retour à FIP Toolkit</a>
+    </div>
+
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
             <h1>Tutoriel de configuration</h1>
-            <p class="subtitle">Guide pas à pas pour configurer Go2Econtact en 3 étapes</p>
+            <p class="subtitle">Mise en service en 3 étapes</p>
         </div>
+
         <div class="content">
-            
+
             <span class="duration-badge">⏱️ Durée estimée : 10-15 minutes</span>
-            
-            <!-- Introduction -->
-            <div class="intro">
-                <p><strong>Bienvenue dans le tutoriel de configuration de Go2Econtact !</strong></p>
-                <p>Ce guide vous accompagne étape par étape pour configurer l'extension et commencer à automatiser vos accusés de réception.</p>
-                <p>À la fin de ce tutoriel, vous serez capable de générer automatiquement des AR personnalisés pour tous vos emails externes.</p>
-            </div>
-            
+
             <!-- Prérequis -->
             <div class="prerequisites">
-                <h3>📋 Prérequis</h3>
+                <h3>Prérequis</h3>
                 <ul>
-                    <li>Thunderbird 128.0 ou version supérieure installé</li>
+                    <li>Thunderbird 115 ou version supérieure</li>
                     <li>Extension Go2Econtact installée dans Thunderbird</li>
                     <li>Extension Send Later (version 9.0+) installée dans Thunderbird</li>
-                    <li>10-15 minutes devant vous pour suivre ce tutoriel</li>
                 </ul>
             </div>
-            
+
             <!-- ÉTAPE 1 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">1</div>
                     <div class="step-title">Installer Send Later</div>
                 </div>
-                
+
                 <div class="step-content">
                     <p class="step-description">
-                        <strong>Send Later</strong> est une extension Thunderbird indispensable qui permet de programmer l'envoi différé de vos messages. 
-                        Go2Econtact l'utilise pour envoyer les accusés de réception après un délai configurable.
+                        Go2Econtact s'appuie sur l'extension <strong>Send Later</strong> pour 
+                        expédier les accusés de réception au moment voulu. 
+                        Si elle n'est pas encore installée :
                     </p>
-                    
+
                     <ol class="instructions">
-                        <li>Dans Thunderbird, ouvrez le menu <strong>Modules complémentaires et thèmes</strong> (raccourci : Ctrl+Shift+A)</li>
-                        <li>Dans la barre de recherche, tapez <strong>"Send Later"</strong></li>
-                        <li>Repérez l'extension <strong>"Send Later"</strong> de Jonathan Kamens</li>
-                        <li>Cliquez sur le bouton <strong>Ajouter à Thunderbird</strong></li>
-                        <li>Confirmez l'installation en cliquant sur <strong>Ajouter</strong></li>
-                        <li>Attendez la fin de l'installation (quelques secondes)</li>
+                        <li>Dans Thunderbird, ouvrez <strong>Modules complémentaires et thèmes</strong> (Ctrl+Maj+A)</li>
+                        <li>Recherchez <strong>Send Later</strong></li>
+                        <li>Installez l'extension de <strong>Jonathan Kamens</strong></li>
                         <li>Redémarrez Thunderbird si demandé</li>
                     </ol>
-                    
-                    <!-- Placeholder capture d'écran -->
+
                     <div class="info-box">
-                        <p><strong>📸 Capture d'écran à venir :</strong> Interface de recherche d'extensions dans Thunderbird</p>
+                        📸 <em>Capture d'écran — résultat de recherche "Send Later" dans les modules Thunderbird</em>
                     </div>
-                    
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Vérifiez que la version installée est bien 9.0 ou supérieure. Les versions antérieures ne sont pas compatibles avec Go2Econtact.</p>
-                    </div>
-                    
+
                     <div class="warning-box">
-                        <p><strong>⚠️ Important :</strong> Si vous désinstallez puis réinstallez Send Later ultérieurement, un nouvel UUID sera généré. Vous devrez alors mettre à jour la configuration de Go2Econtact avec ce nouveau UUID.</p>
+                        <strong>À retenir :</strong> si vous désinstallez puis réinstallez Send Later, 
+                        un nouveau code d'identification sera généré. 
+                        Vous devrez alors revenir à l'étape 2 pour le mettre à jour dans Go2Econtact.
                     </div>
                 </div>
             </div>
-            
+
             <!-- ÉTAPE 2 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">2</div>
-                    <div class="step-title">Récupérer l'UUID d'instance Send Later</div>
+                    <div class="step-title">Récupérer le code d'identification Send Later</div>
                 </div>
-                
+
                 <div class="step-content">
                     <p class="step-description">
-                        L'<strong>UUID (Universally Unique Identifier)</strong> est un identifiant unique généré automatiquement par Send Later lors de son installation. 
-                        Go2Econtact a besoin de cet UUID pour communiquer avec Send Later et programmer l'envoi des accusés de réception.
+                        Pour que Go2Econtact et Send Later puissent communiquer, 
+                        Go2Econtact a besoin d'un <strong>code d'identification</strong> 
+                        propre à votre installation de Send Later. 
+                        Ce code est généré automatiquement — il est unique à votre poste.
                     </p>
-                    
+
                     <ol class="instructions">
-                        <li>Dans Thunderbird, cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils principale (en haut)</li>
-                        <li>Dans le menu déroulant qui s'ouvre, cliquez sur <strong>Send Later preferences</strong></li>
-                        <li>Dans la fenêtre des préférences, allez dans l'onglet <strong>Advanced</strong></li>
-                        <li>Cherchez la ligne commençant par <code>instanceUUID</code> dans la liste des paramètres</li>
-                        <li>Sélectionnez et copiez <strong>TOUTE la valeur</strong> entre les guillemets (y compris les accolades { })</li>
+                        <li>Dans Thunderbird, cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils</li>
+                        <li>Ouvrez <strong>Send Later — Préférences</strong></li>
+                        <li>Allez dans l'onglet <strong>Advanced</strong></li>
+                        <li>Repérez la ligne <code>instanceUUID</code></li>
+                        <li>Copiez <strong>toute la valeur</strong>, accolades comprises</li>
                     </ol>
-                    
-                    <!-- Placeholder capture d'écran -->
+
                     <div class="info-box">
-                        <p><strong>📸 Capture d'écran à venir :</strong> Onglet Advanced de Send Later avec une flèche rouge pointant vers l'UUID</p>
+                        📸 <em>Capture d'écran — onglet Advanced de Send Later, ligne instanceUUID surlignée</em>
                     </div>
-                    
-                    <p><strong>Exemple d'UUID :</strong></p>
+
+                    <p><strong>Exemple de code :</strong></p>
                     <pre><code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></pre>
-                    
-                    <div class="success-box">
-                        <p><strong>💡 Astuce :</strong> Le format de l'UUID est toujours le même : <code>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</code> où x représente un caractère hexadécimal (0-9, a-f).</p>
-                    </div>
-                    
+
                     <div class="warning-box">
-                        <p><strong>⚠️ Attention :</strong> Ne confondez pas l'UUID d'instance (<code>instanceUUID</code>) avec l'ID de l'extension Send Later. Ce sont deux identifiants différents !</p>
+                        <strong>Attention :</strong> ne confondez pas ce code d'identification 
+                        avec l'identifiant de l'extension Send Later elle-même — ce sont deux choses différentes.
                     </div>
                 </div>
             </div>
-            
+
             <!-- ÉTAPE 3 -->
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">3</div>
                     <div class="step-title">Configurer Go2Econtact</div>
                 </div>
-                
+
                 <div class="step-content">
                     <p class="step-description">
-                        Maintenant que vous avez récupéré l'UUID de Send Later, vous allez configurer Go2Econtact pour qu'il puisse automatiser l'envoi des accusés de réception.
+                        Ouvrez la configuration de Go2Econtact : clic droit sur l'icône 
+                        de l'extension dans Thunderbird → <strong>Options</strong>.
                     </p>
-                    
-                    <!-- Sous-étape 3.1 : UUID -->
-                    <h3>3.1 Configurer l'UUID Send Later</h3>
+
+                    <!-- 3.1 -->
+                    <h3>3.1 Saisir le code d'identification Send Later</h3>
                     <ol class="instructions">
-                        <li>Ouvrez l'interface de configuration de Go2Econtact (clic droit sur l'icône de l'extension → Options)</li>
-                        <li>Allez dans l'onglet <strong>🔗 Send Later</strong></li>
-                        <li>Collez l'UUID que vous avez copié à l'étape 2 dans le champ <strong>UUID Send Later</strong></li>
-                        <li>Vérifiez que l'indicateur de validation passe au vert ✓</li>
-                        <li>Si l'indicateur reste rouge ✗, vérifiez que vous avez bien copié toute la valeur avec les accolades</li>
+                        <li>Allez dans l'onglet <strong>Send Later</strong></li>
+                        <li>Collez le code copié à l'étape 2 dans le champ prévu</li>
+                        <li>L'indicateur doit passer au vert ✓ — s'il reste rouge ✗, vérifiez que les accolades sont bien incluses</li>
                     </ol>
-                    
-                    <!-- Sous-étape 3.2 : Templates -->
-                    <h3>3.2 Configurer vos templates d'accusé de réception</h3>
-                    <ol class="instructions">
-                        <li>Allez dans l'onglet <strong>📝 Templates</strong></li>
-                        <li>Cliquez sur <strong>➕ Nouveau compte</strong></li>
-                        <li>Saisissez l'adresse email exacte du compte pour lequel vous souhaitez activer les AR automatiques</li>
-                        <li>Dans la zone de texte "Template HTML", personnalisez le message d'accusé de réception</li>
-                    </ol>
-                    
+
                     <div class="info-box">
-                        <p><strong>💡 Exemple de template HTML :</strong></p>
-                        
-                        <!-- Rendu visuel -->
-                        <div class="email-preview-wrapper">
-                            <p class="email-preview-label"><strong>Aperçu du rendu :</strong></p>
-                            
-                            <table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;">
-                              <tr>
-                                <td>
-                                  <div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;">
-                                    <div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-                                      <svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;">
-                                        <circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/>
-                                        <text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold">!</text>
-                                      </svg>
-                                      INFORMATION IMPORTANTE
-                                    </div>
-                                    <div style="color: #721c24; line-height: 1.4;">
-                                      <strong>Pour un suivi prioritaire et confidentiel, utilisez votre espace sécurisé sur notre site.</strong><br>
-                                      Les courriels seront dorénavant traités ultérieurement.<br><br>
-                                      <a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;">
-                                        📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
-                                      </a>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                        </div>
-                        
-                        <!-- Code source pliable -->
-                        <details class="source-details">
-                            <summary class="source-summary">📝 Afficher le code HTML source</summary>
-                            <pre class="source-pre"><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Accusé de réception&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;table style="font-family: Arial, sans-serif; font-size: 14px; border-collapse: collapse; margin: 0; padding: 0;"&gt;
-    &lt;tr&gt;
-      &lt;td&gt;
-        &lt;!-- Panneau d'attention avec SVG rouge pour visibilité --&gt;
-        &lt;div style="border: 2px solid #d63031; background-color: #fdf2f2; padding: 12px; border-radius: 6px; margin-bottom: 15px; max-width: 500px;"&gt;
-          &lt;div style="color: #a71e1e; font-weight: bold; font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"&gt;
-            &lt;!--[if !mso]&gt;&lt;!--&gt;
-            &lt;svg width="20" height="20" viewBox="0 0 28 28" style="vertical-align: middle;"&gt;
-              &lt;circle cx="14" cy="14" r="12" fill="#d63031" stroke="#a71e1e" stroke-width="2"/&gt;
-              &lt;text x="14" y="20" text-anchor="middle" fill="white" font-family="Arial" font-size="16" font-weight="bold"&gt;!&lt;/text&gt;
-            &lt;/svg&gt;
-            &lt;!--&lt;![endif]--&gt;
-            &lt;!--[if mso]&gt;
-            &lt;span style="color: #d63031; font-size: 18px; font-weight: bold; margin-right: 5px;"&gt;⚠&lt;/span&gt;
-            &lt;![endif]--&gt;
-            INFORMATION IMPORTANTE
-          &lt;/div&gt;
-          &lt;div style="color: #721c24; line-height: 1.4;"&gt;
-            &lt;strong&gt;Pour un suivi prioritaire et confidentiel, utilisez votre espace usager sécurisé.&lt;/strong&gt;&lt;br&gt;
-            Les courriels seront dorénavant traités ultérieurement.&lt;br&gt;&lt;br&gt;
-            &lt;a href="https://www.exemple.fr/aide/portail-securise" style="color: #d63031; text-decoration: none; font-weight: bold;"&gt;
-              📋 Cliquez sur ce lien pour découvrir comment créer votre portail de messagerie sécurisée
-            &lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-                        </details>
+                        📸 <em>Capture d'écran — onglet Send Later avec indicateur vert</em>
                     </div>
-                    
-                    <ol class="instructions" start="5">
-                        <li>Cliquez sur <strong>👁️ Aperçu</strong> pour visualiser le rendu de votre template</li>
-                    </ol>                  
 
-                    <!-- Sous-étape 3.3 : Paramètres généraux -->
-                    <h3>3.3 Configurer les paramètres généraux</h3>
+                    <!-- 3.2 -->
+                    <h3>3.2 Configurer votre modèle de message</h3>
                     <ol class="instructions">
-                        <li>Allez dans l'onglet <strong>⚙️ Général</strong></li>
-                        <li>Renseignez votre <strong>domaine interne</strong> (ex: societe.fr) pour exclure les emails internes des AR automatiques</li>
-                        <li>Choisissez le <strong>délai d'envoi</strong> des AR (recommandé : 2 heures)</li>
-                        <li>Activez le <strong>mode test</strong> et saisissez votre adresse email personnelle pour tester sans risque</li>
-                        <li>Configurez vos règles d'exclusion si nécessaire (domaines, adresses, patterns à exclure)</li>
+                        <li>Allez dans l'onglet <strong>Modèles</strong></li>
+                        <li>Sélectionnez l'adresse à configurer dans la liste déroulante</li>
+                        <li>Rédigez votre message d'accusé de réception dans la zone de texte, 
+                            ou cliquez sur <strong>Charger défaut</strong> pour démarrer avec un modèle prêt à l'emploi</li>
+                        <li>Cliquez sur <strong>Aperçu</strong> pour visualiser le rendu</li>
+                        <li>Cliquez sur <strong>Sauvegarder</strong></li>
                     </ol>
 
-                    <!-- Encadré outils de configuration -->
-                    <div class="info-box section-tools">
-                        <h4>Besoin d'aide pour configurer vos règles ?</h4>
-                        <p>Utilisez nos outils interactifs pour vous accompagner dans la configuration :</p>
-                        <ul>
-                            <li><strong>🧙‍♂️ <a href="wizard/wizard.html">Assistant de configuration</a></strong> - Créez votre configuration en 4 étapes simples</li>
-                            <li><strong>🔬 <a href="wizard/simulateur.php">Simulateur de règles</a></strong> - Testez vos règles avant de les déployer</li>
-                        </ul>
-                        <p>Ces outils sont particulièrement utiles pour comprendre le système d'inclusions/exclusions.</p>
+                    <div class="info-box">
+                        📸 <em>Capture d'écran — onglet Modèles avec éditeur et aperçu</em>
                     </div>
 
-                    <!-- Sous-étape 3.4 : Enregistrer -->
+                    <!-- 3.3 -->
+                    <h3>3.3 Paramétrer l'onglet Général</h3>
+                    <p>
+                        L'onglet <strong>Général</strong> regroupe les règles de filtrage, 
+                        le délai d'envoi, le mode test et les autres réglages. 
+                        Consultez la <a href="documentation.html">documentation</a> 
+                        pour le détail de chaque paramètre.
+                    </p>
+                    <p style="margin-top: 0.5rem;">
+                        Pour préparer vos règles de filtrage, vous pouvez utiliser 
+                        l'<a href="wizard/wizard.html"><strong>Assistant</strong></a> 
+                        ou le <a href="wizard/simulateur.html"><strong>Simulateur</strong></a> 
+                        disponibles sur ce site.
+                    </p>
+
+                    <!-- 3.4 -->
                     <h3>3.4 Enregistrer et tester</h3>
                     <ol class="instructions">
-                        <li>Cliquez sur le bouton <strong>💾 Enregistrer</strong> en bas de la page de configuration</li>
-                        <li>Vérifiez que tous les onglets ont une bordure verte (configuration complète)</li>
-                        <li>Envoyez-vous un email de test pour vérifier que tout fonctionne</li>
+                        <li>Cliquez sur <strong>Enregistrer la configuration</strong> en bas de l'onglet Général</li>
+                        <li>Vérifiez que les onglets Send Later et Modèles ont une bordure verte</li>
+                        <li>Activez le <strong>mode test</strong> dans l'onglet Général et saisissez votre adresse personnelle</li>
+                        <li>Envoyez-vous un courriel de test et vérifiez que vous recevez bien l'accusé de réception</li>
                     </ol>
-                    
-                    <!-- Placeholder capture d'écran -->
+
                     <div class="info-box">
-                        <p><strong>📸 Capture d'écran à venir :</strong> Interface de configuration Go2Econtact avec onglets</p>
+                        📸 <em>Capture d'écran — fenêtre de configuration avec onglets à bordure verte</em>
                     </div>
                 </div>
             </div>
-            
-            <!-- Section finale -->
-            <div class="success-box">
-                <h3>Félicitations !</h3>
-                <p>Votre configuration est terminée. Go2Econtact va maintenant automatiser l'envoi d'accusés de réception pour tous vos emails externes.</p>
-            </div>
-            
+
+            <!-- Conseil final -->
             <div class="info-box">
-                <p><strong>💡 Conseil :</strong> Gardez le mode test activé pendant quelques jours pour valider que tout fonctionne comme prévu. Une fois rassuré, désactivez-le pour passer en production.</p>
+                <strong>Conseil :</strong> laissez le mode test activé quelques jours 
+                pour vous assurer que tout fonctionne comme prévu. 
+                Une fois rassuré, décochez-le pour passer en utilisation réelle.
             </div>
-            
+
+            <!-- Suite -->
             <div class="section">
-                <h2>Que faire ensuite ?</h2>
-                <p>Maintenant que votre configuration de base est terminée, vous pouvez :</p>
+                <h2>Et ensuite ?</h2>
                 <ul>
-                    <li>Consulter la <a href="documentation.html">documentation complète</a> pour découvrir toutes les fonctionnalités avancées</li>
-                    <li>Parcourir la <a href="faq.html">FAQ</a> pour trouver des réponses aux questions courantes</li>
-                    <li>Consulter les <a href="changelog.html">notes de version</a> pour suivre l'évolution de l'extension</li>
+                    <li><a href="documentation.html">Documentation</a> — détail de chaque onglet de configuration</li>
+                    <li><a href="faq.html">FAQ</a> — réponses aux questions courantes</li>
+                    <li><a href="popup.html">Interface popup</a> — planification et contrôle rapide</li>
                 </ul>
             </div>
+
         </div>
-        
-        <!-- Footer Navigation Unifié -->
+
+        <!-- Footer Navigation -->
         <div class="footer-nav">
             <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
