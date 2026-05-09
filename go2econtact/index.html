@@ -10,147 +10,111 @@
     <div class="header">
         <a href="../index.html">← Retour à FIP Toolkit</a>
     </div>
-    
+
     <div class="container">
-        <!-- Hero Section -->
+        <!-- Hero -->
         <div class="hero">
             <h1>Go2Econtact</h1>
-            <p class="subtitle">Automatisation des accusés de réception différés pour Thunderbird</p>
-            <span class="status-badge">Phase 1 - Tests internes</span>
-            
+            <p class="subtitle">Accusés de réception automatiques et différés pour Thunderbird</p>
+
             <div class="hero-description">
-                <p>Go2Econtact automatise l'envoi d'accusés de réception différés pour vos emails externes. Conçue pour les environnements professionnels avec boîtes IMAP partagées, cette extension Thunderbird gère intelligemment vos AR sans intervention manuelle.</p>
+                <p>
+                    Go2Econtact surveille vos courriels entrants et envoie automatiquement 
+                    un accusé de réception personnalisé à vos correspondants externes, 
+                    après le délai que vous choisissez.
+                </p>
             </div>
         </div>
-        
-        <!-- Content -->
+
         <div class="content">
-            <!-- Section Premiers pas -->
+
+            <!-- Prérequis -->
             <div class="section">
-                <h2>Premiers pas</h2>
-                
-                <div class="cards-grid">
-                    <div class="card">
-                        <h3>Prérequis</h3>
-                        <p>Avant d'installer Go2Econtact, assurez-vous de disposer de :</p>
-                        <p><strong>• Thunderbird 128.0+</strong></p>
-                        <p><strong>• Extension Send Later 9.0+</strong><br>(installée et configurée)</p>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Tutoriel</h3>
-                        <p>Guide pas à pas pour configurer Go2Econtact en 3 étapes simples :</p>
-                        <p>1. Installer Send Later<br>2. Récupérer l'UUID<br>3. Configurer Go2Econtact</p>
-                        <a href="tutoriel.html" class="button">Voir le tutoriel</a>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>    Documentation</h3>
-                        <p>Documentation complète de toutes les fonctionnalités :</p>
-                        <p>Templates, filtrage, statistiques, analyse, logs, mises à jour...</p>
-                        <a href="documentation.html" class="button">Consulter la doc</a>
-                    </div>
+                <h2>Prérequis</h2>
+                <div class="requirement-box">
+                    <ul style="margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
+                        <li><strong>Thunderbird 115</strong> ou version supérieure</li>
+                        <li><strong>Extension Send Later 9.0+</strong> — installée et configurée dans Thunderbird</li>
+                    </ul>
                 </div>
             </div>
- 
-            <!-- Section Outils de configuration -->
-            <div class="section section-tools">
-                <h2>Astuce : Outils de configuration</h2>
-                <p>Configurez Go2Econtact sans formation technique grâce à ces outils interactifs</p>
-                
+
+            <!-- Premiers pas -->
+            <div class="section">
+                <h2>Premiers pas</h2>
                 <div class="cards-grid">
                     <div class="card">
-                        <h3>Assistant de configuration</h3>
-                        <p>Créez votre configuration en 4 étapes simples grâce à un guide interactif. Idéal pour débuter sans formation technique.</p>
-                        <a href="wizard/wizard.html" class="button">Accéder</a>
+                        <h3>Tutoriel</h3>
+                        <p>Mise en service en 3 étapes : installer Send Later, récupérer son code d'identification, configurer Go2Econtact.</p>
+                        <a href="tutoriel.html" class="button">Voir le tutoriel</a>
                     </div>
-                    
+
                     <div class="card">
-                        <h3>Simulateur de règles</h3>
-                        <p>Testez vos règles d'accusés de réception avant de les déployer. Vérifiez instantanément qui recevra ou non un AR.</p>
-                        <a href="wizard/simulateur.html" class="button">Accéder</a>
-                        <!-- <a href="wizard/simulateur.html" class="button">Accéder</a> -->
+                        <h3>Documentation</h3>
+                        <p>Description de chaque onglet de configuration : modèles, filtrage, planification, statistiques…</p>
+                        <a href="documentation.html" class="button">Consulter</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Section Fonctionnalités -->
-            <div class="section">
-                <h2>Fonctionnalités principales</h2>
-                
-                <div class="features-grid">
-                    <div class="feature">
-                        <h3>Filtrage intelligent</h3>
-                        <p>Envoi automatique uniquement aux emails externes, avec système d'inclusions et exclusions personnalisables.</p>
+            <!-- Outils -->
+            <div class="section section-tools">
+                <h2>Outils de configuration</h2>
+                <p>Deux outils interactifs pour préparer et tester votre configuration sans toucher à Thunderbird.</p>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Assistant</h3>
+                        <p>Créez votre configuration de filtrage en quelques étapes guidées, puis exportez-la pour l'importer directement dans Go2Econtact.</p>
+                        <a href="wizard/wizard.html" class="button">Accéder</a>
                     </div>
-                    
-                    <div class="feature">
-                        <h3>Templates multi-comptes</h3>
-                        <p>Gérez des templates d'AR différents pour chaque compte de messagerie surveillé.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h3>Envoi différé</h3>
-                        <p>Les AR sont envoyés après un délai configurable (1 à 24 heures) via l'extension Send Later.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h3>Mode test</h3>
-                        <p>Testez votre configuration en toute sécurité avant la mise en production.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h3>Statistiques</h3>
-                        <p>Suivez le nombre d'AR envoyés et optimisez vos règles de filtrage.</p>
-                    </div>
-                    
-                    <div class="feature">
-                        <h3>Anti-doublons</h3>
-                        <p>Système intelligent pour éviter l'envoi de plusieurs AR au même expéditeur.</p>
+
+                    <div class="card">
+                        <h3>Simulateur</h3>
+                        <p>Testez une adresse ou un sujet de courriel pour vérifier instantanément si un accusé de réception sera envoyé ou non.</p>
+                        <a href="wizard/simulateur.html" class="button">Accéder</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Section Distribution -->
-            <div class="section">
-                <h2>Distribution</h2>
-                
-                <div class="warning-box">
-                    <p><strong>Distribution contrôlée (Phase 1)</strong></p>
-                    <p>Go2Econtact est actuellement en <strong>phase de test interne</strong>.</p>
-                    <p>La distribution est limitée aux utilisateurs autorisés.</p>
-                    <p><strong>Phase 2 :</strong> Un système de téléchargement sécurisé sera disponible sur fip-toolkit.fr avec vérification de l'adresse mail.</p>
-                </div>
-            </div>
-            
-            <!-- Section Aide -->
+
+            <!-- Aide -->
             <div class="section">
                 <h2>Besoin d'aide ?</h2>
-                
                 <div class="cards-grid">
                     <div class="card">
                         <h3>FAQ</h3>
-                        <p>Consultez les réponses aux 24 questions les plus fréquentes sur l'installation, la configuration et l'utilisation de Go2Econtact.</p>
+                        <p>Réponses aux questions les plus fréquentes sur l'installation, la configuration et l'utilisation.</p>
                         <a href="faq.html" class="button">Voir la FAQ</a>
                     </div>
-                    
+
                     <div class="card">
-                        <h3>Support technique</h3>
-                        <p>Email support disponible en Phase 2 :</p>
-                        <p><strong>go2econtact@fip-toolkit.fr</strong></p>
+                        <h3>Contact</h3>
+                        <p>Une question, un problème ?</p>
+                        <p><strong><a href="mailto:go2econtact@fip-toolkit.fr">go2econtact@fip-toolkit.fr</a></strong></p>
                     </div>
                 </div>
             </div>
-            
-            <!-- Section Historique -->
+
+            <!-- Distribution -->
             <div class="section">
-                <h2>Historique des versions</h2>
-                <p>Consultez le changelog pour suivre l'évolution de Go2Econtact et découvrir les nouvelles fonctionnalités.</p>
-                <a href="changelog.html" class="button">Voir le changelog</a>
+                <h2>Obtenir l'extension</h2>
+                <div class="note-box">
+                    <p>
+                        Go2Econtact est diffusé de façon restreinte. 
+                        Pour recevoir le fichier d'installation, faites une demande en ligne — 
+                        elle sera traitée manuellement.
+                    </p>
+                    <p style="margin-top: 0.75rem;">
+                        <a href="https://fip-toolkit.fr/go2econtact/download/request.php" class="button" target="_blank">
+                            Faire une demande de téléchargement
+                        </a>
+                    </p>
+                </div>
             </div>
-            </div>
-            
-        <!-- Footer Navigation Unifié -->
+
+        </div>
+
+        <!-- Footer Navigation -->
         <div class="footer-nav">
             <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
