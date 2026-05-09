@@ -792,6 +792,7 @@ tr:last-child td {
     margin-top: 0;
     margin-bottom: var(--spacing-md);
     font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .nav-links {
