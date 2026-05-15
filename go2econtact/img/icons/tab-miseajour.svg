@@ -1,0 +1,5 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/.
+   - Source : options.js / BTN_SVG — Go2Econtact -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5C3.5 2.5 7 1.5 10 3L12 4M14 11C12.5 13.5 9 14.5 6 13L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 1L12 4L9 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 15L4 12L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
