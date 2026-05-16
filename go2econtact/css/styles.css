@@ -40,6 +40,7 @@
     /* Bordures */
     --color-border: #e0e0e0;
     --color-border-dark: #dee2e6;
+    --color-border-tertiary: #e8e8e8;
 
     /* Fond code */
     --color-bg-code: #f4f4f4;
@@ -143,6 +144,7 @@
         /* Bordures */
         --color-border: #444;
         --color-border-dark: #505050;
+        --color-border-tertiary: #3a3a3a;
 
         /* Fond code */
         --color-bg-code: #3a3a3a;
@@ -848,6 +850,256 @@ tr:last-child td {
 .nav-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(74, 111, 165, 0.4);
+}
+
+/* ============================================
+   DOCUMENTATION — Navigation AJAX (doc-nav)
+   ============================================ */
+.doc-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.doc-nav-card {
+    background: var(--color-bg-light);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.9rem 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+    user-select: none;
+}
+
+.doc-nav-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.doc-nav-card.active {
+    border-color: var(--color-primary);
+    background: var(--color-bg-white);
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.15);
+}
+
+.doc-nav-card .card-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.doc-nav-card .card-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: block;
+}
+
+/* Zone de détail AJAX */
+.doc-detail {
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--color-border);
+    padding-top: 1.5rem;
+    min-height: 200px;
+}
+
+.doc-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.doc-error {
+    padding: 1rem;
+    background: var(--color-danger-light);
+    border-left: 4px solid var(--color-danger);
+    border-radius: var(--radius-md);
+    color: var(--color-danger-dark);
+}
+
+/* ============================================
+   DOCUMENTATION — Structure et listes
+   ============================================ */
+.section-header {
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-xs);
+}
+
+.subsection {
+    margin-bottom: var(--spacing-lg);
+}
+
+.subsection:last-child {
+    margin-bottom: 0;
+}
+
+.subsection h3 {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.custom-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.custom-list li {
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--color-border-tertiary);
+}
+
+.custom-list li:last-child {
+    border-bottom: none;
+}
+
+.custom-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+}
+
+.numbered-list {
+    list-style: none;
+    counter-reset: numbered-item;
+    padding-left: 0;
+    margin-bottom: var(--spacing-sm);
+}
+
+.numbered-list li {
+    counter-increment: numbered-item;
+    padding: 0.3rem 0 0.3rem 2.25rem;
+    position: relative;
+    border-bottom: 1px solid var(--color-border-tertiary);
+}
+
+.numbered-list li:last-child {
+    border-bottom: none;
+}
+
+.numbered-list li::before {
+    content: counter(numbered-item);
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+    background: var(--color-primary);
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* ============================================
+   CAPTURES D'ÉCRAN — Vignette + Lightbox
+   ============================================ */
+
+/* Vignette */
+.screenshot {
+    display: block;
+    width: 280px;
+    margin: 1.5rem auto;
+    cursor: pointer;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.screenshot:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.screenshot img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.screenshot figcaption {
+    background: var(--color-bg-light);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+}
+
+/* Lightbox — overlay */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.lightbox-overlay.is-open {
+    display: flex;
+}
+
+.lightbox-overlay.is-visible {
+    opacity: 1;
+}
+
+/* Lightbox — contenu */
+.lightbox-inner {
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lightbox-inner img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(90vh - 3rem);
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-caption {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    text-align: center;
+}
+
+.lightbox-hint {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .screenshot {
+        width: 100%;
+    }
 }
 
 /* ============================================
