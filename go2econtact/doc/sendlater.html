@@ -1,6 +1,6 @@
 <!-- doc/sendlater.html — chargé en AJAX dans documentation.html -->
 
-<h2>🔗 Onglet Send Later</h2>
+<h2>🔗 Onglet Envoyer Plus Tard</h2>
 
 <div class="subsection">
     <p>
@@ -18,31 +18,71 @@
 
 <div class="subsection">
     <h3>Où trouver ce code ?</h3>
-    <ol class="numbered-list">
-        <li>Dans Thunderbird, cliquez sur le bouton <strong>Send Later</strong> dans la barre d'outils</li>
-        <li>Ouvrez <strong>Send Later — Préférences</strong></li>
-        <li>Allez dans l'onglet <strong>Avancé</strong></li>
-        <li>Repérez la ligne <code>instanceUUID</code> dans la liste des paramètres</li>
-        <li>Copiez <strong>toute la valeur</strong>, accolades comprises — exemple : <code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></li>
-    </ol>
 
-    <div class="info-box" style="margin-top: 1rem;">
-        📸 <em>Capture d'écran — onglet Avancé de Send Later, ligne instanceUUID surlignée</em>
-    </div>
+    <ol class="numbered-list">
+        <li>
+            Dans Thunderbird, ouvrez le menu <strong>Modules complémentaires et thèmes</strong>
+        </li>
+        <li>
+            Repérez l'extension <strong>Envoyer Plus Tard</strong> et cliquez sur son icône
+            <img src="img/icons/developer.svg"
+                 alt="Icône des options"
+                 width="16" height="16"
+                 style="vertical-align: middle; margin: 0 2px;">
+            pour accéder à ses options
+            <figure class="screenshot">
+                <img src="img/documentation_SL_01.webp"
+                     alt="Extension Envoyer Plus Tard dans le gestionnaire de modules"
+                     loading="lazy">
+                <figcaption>Accès aux préférences d'Envoyer Plus Tard — cliquez sur l'icône des paramètres</figcaption>
+            </figure>
+        </li>
+        <li>
+            Vérifiez que l'onglet <strong>Options</strong> est bien sélectionné, puis faites défiler
+            la liste jusqu'à la section <strong>Avancé</strong>
+            <figure class="screenshot">
+                <img src="img/documentation_SL_02.webp"
+                     alt="Section Avancé avec l'éditeur de configuration avancé replié"
+                     loading="lazy">
+                <figcaption>Section Avancé — cliquez sur Éditeur de configuration avancé pour le déplier</figcaption>
+            </figure>
+        </li>
+        <li>
+            Cliquez sur <strong>Éditeur de configuration avancé</strong> pour déplier la liste
+            des paramètres, puis faites défiler jusqu'à la ligne <strong>instanceUUID</strong>
+            <figure class="screenshot">
+                <img src="img/documentation_SL_03.webp"
+                     alt="Éditeur de configuration avancé déplié avec l'identifiant visible"
+                     loading="lazy">
+                <figcaption>Éditeur de configuration avancé déplié — l'identifiant est visible</figcaption>
+            </figure>
+        </li>
+        <li>
+            Sélectionnez l'identifiant complet <strong>accolades comprises</strong> à la souris,
+            puis copiez-le (Ctrl+C)
+            <figure class="screenshot">
+                <img src="img/documentation_SL_UUID.webp"
+                     alt="Sélection de l'identifiant avec les accolades"
+                     loading="lazy">
+                <figcaption>Sélection de l'identifiant, accolades comprises</figcaption>
+            </figure>
+        </li>
+    </ol>
 </div>
 
 <div class="subsection">
     <h3>Saisir le code dans Go2Econtact</h3>
     <ol class="numbered-list">
-        <li>Dans l'onglet <strong>Send Later</strong>, collez le code dans le champ prévu</li>
-        <li>Un indicateur passe au vert ✓ si le code est reconnu comme valide</li>
+        <li>Dans l'onglet <strong>Envoyer Plus Tard</strong> de Go2Econtact, collez le code dans le champ prévu</li>
+        <li>Un indicateur passe au vert ✓ si le code est reconnu comme valide — il est enregistré automatiquement</li>
         <li>S'il reste rouge ✗, vérifiez que vous avez bien copié l'intégralité du code, accolades incluses</li>
-        <li>Cliquez sur <strong>Enregistrer</strong></li>
     </ol>
-
-    <div class="info-box" style="margin-top: 1rem;">
-        📸 <em>Capture d'écran — onglet Send Later avec indicateur vert</em>
-    </div>
+    <figure class="screenshot">
+        <img src="img/documentation_SL_vert.webp"
+             alt="Onglet Envoyer Plus Tard de Go2Econtact avec indicateur vert"
+             loading="lazy">
+        <figcaption>Onglet Envoyer Plus Tard de Go2Econtact — identifiant reconnu, indicateur vert</figcaption>
+    </figure>
 </div>
 
 <div class="warning-box">
