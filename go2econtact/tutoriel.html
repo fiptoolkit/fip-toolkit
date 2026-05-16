@@ -25,7 +25,7 @@
                 <ul>
                     <li>Thunderbird 115 ou version supérieure</li>
                     <li>Extension Go2Econtact installée dans Thunderbird</li>
-                    <li>Extension Send Later (version 9.0+) installée dans Thunderbird</li>
+                    <li>Extension Envoyer Plus Tard (version 9.0+) installée dans Thunderbird</li>
                 </ul>
             </div>
 
@@ -33,30 +33,42 @@
             <div class="step">
                 <div class="step-header">
                     <div class="step-number">1</div>
-                    <div class="step-title">Installer Send Later</div>
+                    <div class="step-title">Installer Envoyer Plus Tard</div>
                 </div>
 
                 <div class="step-content">
                     <p class="step-description">
-                        Go2Econtact s'appuie sur l'extension <strong>Send Later</strong> pour 
-                        expédier les accusés de réception au moment voulu. 
+                        Go2Econtact s'appuie sur l'extension <strong>Envoyer Plus Tard</strong> pour
+                        expédier les accusés de réception au moment voulu.
                         Si elle n'est pas encore installée :
                     </p>
 
                     <ol class="instructions">
                         <li>Dans Thunderbird, ouvrez <strong>Modules complémentaires et thèmes</strong> (Ctrl+Maj+A)</li>
-                        <li>Recherchez <strong>Send Later</strong></li>
-                        <li>Installez l'extension de <strong>Jonathan Kamens</strong></li>
+                        <li>
+                            Recherchez <strong>Envoyer Plus Tard</strong>
+                            <figure class="screenshot">
+                                <img src="img/tutoriel_install01.webp"
+                                     alt="Recherche Envoyer Plus Tard dans les modules Thunderbird"
+                                     loading="lazy">
+                                <figcaption>Saisir "Envoyer Plus Tard" dans le champ de recherche</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            Cliquez sur <strong>+ Ajouter à Thunderbird</strong>
+                            <figure class="screenshot">
+                                <img src="img/tutoriel_install02.webp"
+                                     alt="Résultat de recherche — extension Envoyer Plus Tard"
+                                     loading="lazy">
+                                <figcaption>Résultat de recherche — cliquez sur "+ Ajouter à Thunderbird"</figcaption>
+                            </figure>
+                        </li>
                         <li>Redémarrez Thunderbird si demandé</li>
                     </ol>
 
-                    <div class="info-box">
-                        📸 <em>Capture d'écran — résultat de recherche "Send Later" dans les modules Thunderbird</em>
-                    </div>
-
                     <div class="warning-box">
-                        <strong>À retenir :</strong> si vous désinstallez puis réinstallez Send Later, 
-                        un nouveau code d'identification sera généré. 
+                        <strong>À retenir :</strong> si vous désinstallez puis réinstallez Envoyer Plus Tard,
+                        un nouveau code d'identification sera généré.
                         Vous devrez alors revenir à l'étape 2 pour le mettre à jour dans Go2Econtact.
                     </div>
                 </div>
@@ -74,27 +86,66 @@
                         Pour que Go2Econtact et Envoyer Plus Tard puissent communiquer,
                         Go2Econtact a besoin d'un <strong>code d'identification</strong>
                         propre à votre installation d'Envoyer Plus Tard.
-                        Ce code est généré automatiquement — il est unique à votre poste.
+                        Ce code est généré automatiquement lors de l'installation —
+                        il est donc unique à votre poste de travail.
                     </p>
 
                     <ol class="instructions">
-                        <li>Dans Thunderbird, ouvrez le menu <strong>Modules complémentaires et thèmes</strong></li>
-                        <li>Repérez l'extension <strong>Envoyer Plus Tard</strong> et cliquez sur son icône pour accéder à ses options</li>
-                        <li>Vérifiez que l'onglet <strong>Options</strong> est bien sélectionné, puis faites défiler jusqu'à la section <strong>Avancé</strong></li>
-                        <li>Cliquez sur <strong>Éditeur de configuration avancé</strong> pour déplier la liste, puis faites défiler jusqu'à la ligne <strong>instanceUUID</strong></li>
-                        <li>Sélectionnez l'identifiant complet <strong>accolades comprises</strong> à la souris, puis copiez-le (Ctrl+C)</li>
+                        <li>
+                            Dans Thunderbird, ouvrez le menu <strong>Modules complémentaires et thèmes</strong>
+                        </li>
+                        <li>
+                            Repérez l'extension <strong>Envoyer Plus Tard</strong> et cliquez sur son icône
+                            <img src="img/icons/developer.svg"
+                                 alt="Icône des options"
+                                 width="16" height="16"
+                                 style="vertical-align: middle; margin: 0 2px;">
+                            pour accéder à ses options
+                            <figure class="screenshot">
+                                <img src="img/documentation_SL_01.webp"
+                                     alt="Extension Envoyer Plus Tard dans le gestionnaire de modules"
+                                     loading="lazy">
+                                <figcaption>Accès aux préférences d'Envoyer Plus Tard — cliquez sur l'icône des paramètres</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            Vérifiez que l'onglet <strong>Options</strong> est bien sélectionné, puis faites défiler
+                            la liste jusqu'à la section <strong>Avancé</strong>
+                            <figure class="screenshot">
+                                <img src="img/documentation_SL_02.webp"
+                                     alt="Section Avancé avec l'éditeur de configuration avancé replié"
+                                     loading="lazy">
+                                <figcaption>Section Avancé — cliquez sur Éditeur de configuration avancé pour le déplier</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            Cliquez sur <strong>Éditeur de configuration avancé</strong> pour déplier la liste
+                            des paramètres, puis faites défiler jusqu'à la ligne <strong>instanceUUID</strong>
+                            <figure class="screenshot">
+                                <img src="img/documentation_SL_03.webp"
+                                     alt="Éditeur de configuration avancé déplié avec l'identifiant visible"
+                                     loading="lazy">
+                                <figcaption>Éditeur de configuration avancé déplié — l'identifiant est visible</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            Sélectionnez l'identifiant complet <strong>accolades comprises</strong> à la souris,
+                            puis copiez-le (Ctrl+C)
+                            <figure class="screenshot">
+                                <img src="img/documentation_SL_UUID.webp"
+                                     alt="Sélection de l'identifiant avec les accolades"
+                                     loading="lazy">
+                                <figcaption>Sélection de l'identifiant, accolades comprises</figcaption>
+                            </figure>
+                        </li>
                     </ol>
-
-                    <div class="info-box">
-                        📸 <em>Capture d'écran — onglet Advanced de Send Later, ligne instanceUUID surlignée</em>
-                    </div>
 
                     <p><strong>Exemple de code :</strong></p>
                     <pre><code>{81339426-02d0-44e4-8af2-ca0ec9618954}</code></pre>
 
                     <div class="warning-box">
-                        <strong>Attention :</strong> ne confondez pas ce code d'identification 
-                        avec l'identifiant de l'extension Send Later elle-même — ce sont deux choses différentes.
+                        <strong>Attention :</strong> ne confondez pas ce code d'identification
+                        avec l'identifiant de l'extension Envoyer Plus Tard elle-même — ce sont deux choses différentes.
                     </div>
                 </div>
             </div>
@@ -115,57 +166,98 @@
                     <!-- 3.1 -->
                     <h3>3.1 Saisir le code d'identification Envoyer Plus Tard</h3>
                     <ol class="instructions">
-                        <li>Allez dans l'onglet <strong>Envoyer Plus Tard</strong></li>
-                        <li>Collez le code copié à l'étape 2 dans le champ prévu</li>
-                        <li>L'indicateur doit passer au vert ✓ — s'il reste rouge ✗, vérifiez que les accolades sont bien incluses</li>
+                        <li>Allez dans l'onglet <strong>Envoyer Plus Tard</strong> de Go2Econtact, collez le code dans le champ prévu</li>
+                        <li>Un indicateur passe au vert ✓ si le code est reconnu comme valide — il est enregistré automatiquement</li>
+                        <li>S'il reste rouge ✗, vérifiez que vous avez bien copié l'intégralité du code, accolades incluses</li>
                     </ol>
-
-                    <div class="info-box">
-                        📸 <em>Capture d'écran — onglet Send Later avec indicateur vert</em>
-                    </div>
+                    <figure class="screenshot">
+                        <img src="img/documentation_SL_vert.webp"
+                             alt="Onglet Envoyer Plus Tard de Go2Econtact avec indicateur vert"
+                             loading="lazy">
+                        <figcaption>Onglet Envoyer Plus Tard de Go2Econtact — identifiant reconnu, indicateur vert</figcaption>
+                    </figure>
 
                     <!-- 3.2 -->
                     <h3>3.2 Configurer votre modèle de message</h3>
                     <ol class="instructions">
                         <li>Allez dans l'onglet <strong>Modèles</strong></li>
-                        <li>Sélectionnez l'adresse à configurer dans la liste déroulante</li>
-                        <li>Rédigez votre message d'accusé de réception dans la zone de texte, 
+                        <li>
+                            Sélectionnez l'adresse à configurer dans la liste déroulante —
+                            un indicateur visuel précise si un modèle est déjà configuré pour ce compte
+                            <figure class="screenshot">
+                                <img src="img/modeles_liste_des_comptes.webp"
+                                     alt="Liste déroulante des comptes avec indicateurs de statut"
+                                     loading="lazy">
+                                <figcaption>Liste des comptes — ✅ modèle configuré, 📧 aucun modèle</figcaption>
+                            </figure>
+                        </li>
+                        <li>Rédigez votre message d'accusé de réception dans la zone de texte,
                             ou cliquez sur <strong>Charger défaut</strong> pour démarrer avec un modèle prêt à l'emploi</li>
                         <li>Cliquez sur <strong>Aperçu</strong> pour visualiser le rendu</li>
-                        <li>Cliquez sur <strong>Sauvegarder</strong></li>
+                        <li>
+                            Cliquez sur <strong>Sauvegarder</strong>
+                            <figure class="screenshot">
+                                <img src="img/modeles_editeur.webp"
+                                     alt="Éditeur HTML avec aperçu du modèle en temps réel"
+                                     loading="lazy">
+                                <figcaption>Éditeur HTML avec aperçu en temps réel — boutons Aperçu et Sauvegarder mis en évidence</figcaption>
+                            </figure>
+                        </li>
                     </ol>
 
-                    <div class="info-box">
-                        📸 <em>Capture d'écran — onglet Modèles avec éditeur et aperçu</em>
-                    </div>
-
                     <!-- 3.3 -->
-                    <h3>3.3 Paramétrer l'onglet Général</h3>
+                    <h3>3.3 Paramétrer l'onglet Configuration</h3>
                     <p>
-                        L'onglet <strong>Général</strong> regroupe les règles de filtrage, 
-                        le délai d'envoi, le mode test et les autres réglages. 
-                        Consultez la <a href="documentation.html">documentation</a> 
+                        L'onglet <strong>Configuration</strong> regroupe les règles de filtrage,
+                        le délai d'envoi (1 heure par défaut), le mode test et les autres réglages.
+                        Consultez la <a href="documentation.html">documentation</a>
                         pour le détail de chaque paramètre.
                     </p>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_config.webp"
+                             alt="Onglet Configuration de Go2Econtact"
+                             loading="lazy">
+                        <figcaption>Onglet Configuration — paramètres généraux, filtrage, surveillance et mode test</figcaption>
+                    </figure>
                     <p style="margin-top: 0.5rem;">
-                        Pour préparer vos règles de filtrage, vous pouvez utiliser 
-                        l'<a href="wizard/wizard.html"><strong>Assistant</strong></a> 
-                        ou le <a href="wizard/simulateur.html"><strong>Simulateur</strong></a> 
+                        Pour préparer vos règles de filtrage, vous pouvez utiliser
+                        l'<a href="wizard/wizard.html"><strong>Assistant</strong></a>
+                        ou le <a href="wizard/simulateur.html"><strong>Simulateur</strong></a>
                         disponibles sur ce site.
                     </p>
 
                     <!-- 3.4 -->
                     <h3>3.4 Enregistrer et tester</h3>
                     <ol class="instructions">
-                        <li>Cliquez sur <strong>Enregistrer la configuration</strong> en bas de l'onglet Général</li>
-                        <li>Vérifiez que les onglets Send Later et Modèles ont une bordure verte</li>
-                        <li>Activez le <strong>mode test</strong> dans l'onglet Général et saisissez votre adresse personnelle</li>
+                        <li>
+                            Cliquez sur <strong>Enregistrer la configuration</strong> en bas de l'onglet Configuration
+                        </li>
+                        <li>
+                            Vérifiez que les onglets Envoyer Plus Tard, Modèles et Configuration ont une bordure verte
+                            <figure class="screenshot">
+                                <img src="img/tutoriel_save.webp"
+                                     alt="Onglets Envoyer Plus Tard, Modèles et Configuration avec bordure verte"
+                                     loading="lazy">
+                                <figcaption>Les trois onglets à bordure verte — configuration valide</figcaption>
+                            </figure>
+                        </li>
+                        <li>
+                            Activez le <strong>mode test</strong> dans l'onglet Configuration et saisissez votre adresse personnelle
+                            <figure class="screenshot">
+                                <img src="img/tutoriel_mode_test01.webp"
+                                     alt="Bannière MODE TEST ACTIVÉ"
+                                     loading="lazy">
+                                <figcaption>Bannière rouge — mode test activé, seule l'adresse configurée reçoit les AR</figcaption>
+                            </figure>
+                            <figure class="screenshot">
+                                <img src="img/tutoriel_mode_test02.webp"
+                                     alt="Champ adresse email de test"
+                                     loading="lazy">
+                                <figcaption>Saisir l'adresse email qui recevra les AR en mode test</figcaption>
+                            </figure>
+                        </li>
                         <li>Envoyez-vous un courriel de test et vérifiez que vous recevez bien l'accusé de réception</li>
                     </ol>
-
-                    <div class="info-box">
-                        📸 <em>Capture d'écran — fenêtre de configuration avec onglets à bordure verte</em>
-                    </div>
                 </div>
             </div>
 
