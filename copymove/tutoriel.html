@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoriel de configuration - CopyMove</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <div class="container">
+
+        <div class="hero">
+            <h1>Tutoriel de configuration</h1>
+            <p class="subtitle">Mise en service en 8 étapes</p>
+        </div>
+
+        <div class="content">
+
+            <span class="duration-badge">⏱️ Durée estimée : 5-10 minutes</span>
+
+            <!-- Prérequis -->
+            <div class="prerequisites">
+                <h3>Prérequis</h3>
+                <ul>
+                    <li>Thunderbird 115 ou version supérieure</li>
+                    <li>Extension CopyMove installée dans Thunderbird</li>
+                </ul>
+            </div>
+
+            <!-- ÉTAPE 1 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Ouvrir les paramètres</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird pour ouvrir le popup</li>
+                        <li>Cliquez sur le bouton <strong>Paramètres</strong></li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape1.webp"
+                             alt="Popup CopyMove avec repères numérotés : ① icône dans la barre, ② bouton Paramètres"
+                             loading="lazy">
+                        <figcaption>① Cliquez sur l'icône CopyMove — ② puis sur Paramètres</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 2 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Créer une règle</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Vérifiez que l'onglet <strong>Règles</strong> est actif</li>
+                        <li>Cliquez sur le bouton <strong>+</strong> pour ouvrir le panneau de création d'une nouvelle règle</li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape2.webp"
+                             alt="Onglet Règles avec repères : ① onglet Règles actif, ② bouton d'ajout d'une règle"
+                             loading="lazy">
+                        <figcaption>① Onglet Règles — ② Cliquez sur + pour créer une règle</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 3 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Nommer la règle et choisir l'action</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Donnez un nom descriptif à votre règle (ex : <em>Archiver les factures</em>)</li>
+                        <li>Laissez la case <strong>Règle activée</strong> cochée pour qu'elle s'exécute automatiquement dès l'enregistrement</li>
+                        <li>Sous <strong>Type d'action</strong>, choisissez comment les courriels seront traités</li>
+                        <li><strong>Déplacer</strong> — les courriels sont retirés du dossier source</li>
+                        <li><strong>Copier</strong> — les courriels restent dans le dossier source</li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape3.webp"
+                             alt="Section Identification et Action avec repères : ① champ nom, ② case Règle activée, ③ libellé Type d'action, ④ option Déplacer, ⑤ option Copier"
+                             loading="lazy">
+                        <figcaption>① Nom de la règle — ② Règle activée — ③ Type d'action — ④ Déplacer — ⑤ Copier</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 4 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Définir les dossiers sources</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Sélectionnez le <strong>compte de messagerie</strong> source</li>
+                        <li>Choisissez le <strong>dossier</strong> à traiter dans l'arborescence</li>
+                        <li>Ajoutez jusqu'à <strong>5 dossiers sources</strong> avec le bouton <strong>+</strong> si nécessaire (tous doivent appartenir au même compte)</li>
+                        <li>
+                            Si vous avez choisi <strong>Déplacer</strong> à l'étape précédente, vous pouvez cocher
+                            <strong>Supprimer les dossiers sources s'ils sont vides après déplacement</strong>
+                        </li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape4.webp"
+                             alt="Section Dossiers sources avec repères : ① compte, ② arborescence dossier, ③ bouton ajouter une source, ④ case suppression dossiers vides"
+                             loading="lazy">
+                        <figcaption>① Compte — ② Dossier source — ③ Ajouter une source (max 5) — ④ Supprimer si vide après déplacement</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 5 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Définir le dossier destination</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Sélectionnez le <strong>compte de messagerie</strong> destination — il peut être différent du compte source</li>
+                        <li>Cliquez sur le bouton <strong>Parcourir</strong> pour ouvrir l'arborescence</li>
+                        <li>Choisissez le <strong>dossier destination</strong> dans l'arborescence</li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape5.webp"
+                             alt="Section Dossier destination avec repères : ① compte, ② bouton Parcourir, ③ choix du dossier destination dans l'arborescence"
+                             loading="lazy">
+                        <figcaption>① Compte destination — ② Parcourir — ③ Choisir le dossier destination</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 6 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Configurer le déclenchement</div>
+                </div>
+                <div class="step-content">
+                    <p class="step-description">
+                        Dans la section <strong>Déclenchement</strong>, choisissez quand la règle s'exécute :
+                    </p>
+                    <ul class="instructions">
+                        <li><strong>Heures fixes</strong> — la règle s'exécute aux heures que vous définissez (10 au maximum). Exemple : <span class="callout-number">4</span> 08:00 et <span class="callout-number">5</span> 15:00.</li>
+                        <li><strong>Intervalle régulier</strong> — la règle s'exécute toutes les X heures ou minutes (minimum 10 minutes). Exemple : toutes les 2 heures.</li>
+                        <li>
+                            <strong>Au démarrage de l'extension</strong> — la règle s'exécute une fois après un délai
+                            optionnel, décompté depuis le démarrage de Thunderbird. Exemple : 15 minutes après le
+                            lancement de Thunderbird. Si l'extension se charge plus tard que Thunderbird lui-même,
+                            le délai démarre au chargement réel de l'extension, pas au lancement de Thunderbird.
+                        </li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">
+                        Une fois votre choix fait, cliquez sur <span class="callout-number">6</span> <strong>Enregistrer</strong> en bas du panneau.
+                    </p>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape6.webp"
+                             alt="Section Déclenchement avec repères : ① Heures fixes, ② Intervalle régulier, ③ Au démarrage de l'extension, ④ première heure, ⑤ deuxième heure, ⑥ bouton Enregistrer"
+                             loading="lazy">
+                        <figcaption>① Heures fixes — ② Intervalle régulier — ③ Au démarrage de l'extension — ④⑤ Heures d'exécution (08:00 et 15:00) — ⑥ Enregistrer</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 7 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Retrouver sa règle dans le tableau de bord</div>
+                </div>
+                <div class="step-content">
+                    <ol class="instructions">
+                        <li>Retrouvez l'onglet <strong>Règles</strong></li>
+                        <li>La règle nouvellement créée apparaît dans le tableau</li>
+                        <li>La poignée <strong>⋮</strong> à gauche de la ligne permet de réorganiser l'ordre d'exécution par glisser-déposer</li>
+                        <li>
+                            La colonne <strong>Actions</strong> regroupe : ▶ <strong>Lancer</strong> la règle manuellement,
+                            ✏️ <strong>Éditer</strong> ses réglages, 🗑️ <strong>Supprimer</strong> la règle
+                        </li>
+                    </ol>
+                    <p style="margin-top: 0.75rem;">
+                        Le statut (<strong>✓ Actif</strong>) se clique directement pour activer ou désactiver la règle.
+                    </p>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape7.webp"
+                             alt="Tableau des règles avec repères : ① onglet Règles, ② la règle créée dans le tableau, ③ poignée de réorganisation, ④ colonne Actions"
+                             loading="lazy">
+                        <figcaption>① Onglet Règles — ② La règle apparaît dans le tableau — ③ Poignée de réorganisation — ④ Actions (Lancer/Éditer/Supprimer)</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 8 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">8</div>
+                    <div class="step-title">Lancer une règle sans ouvrir les paramètres</div>
+                </div>
+                <div class="step-content">
+                    <p class="step-description">
+                        Le popup CopyMove offre un raccourci pour exécuter une règle immédiatement,
+                        sans ouvrir la fenêtre Paramètres.
+                    </p>
+                    <ol class="instructions">
+                        <li>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird</li>
+                        <li>Parcourez la fenêtre jusqu'à la section <strong>Exécution manuelle</strong></li>
+                        <li>Sélectionnez la règle à exécuter dans la liste</li>
+                        <li>Le résultat apparaît quelques instants plus tard dans la section Historique récent</li>
+                    </ol>
+                    <figure class="screenshot">
+                        <img src="img/tutoriel_etape8.webp"
+                             alt="Popup CopyMove avec repères : ① icône dans la barre, ② section Exécution manuelle, ③ règle sélectionnée dans la liste, ④ résultat dans l'historique récent"
+                             loading="lazy">
+                        <figcaption>① Icône CopyMove — ② Exécution manuelle — ③ Sélectionnez votre règle — ④ Résultat dans l'historique récent</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- Conseil final -->
+            <div class="info-box">
+                <strong>Conseil :</strong> vérifiez dans votre dossier destination que les courriels
+                ont bien été copiés ou déplacés. Si le résultat n'est pas celui attendu,
+                consultez l'onglet <a href="documentation.html">Logs</a> pour identifier la cause.
+            </div>
+
+            <!-- Suite -->
+            <div class="section">
+                <h2>Et ensuite ?</h2>
+                <ul>
+                    <li><a href="documentation.html">Documentation</a> — détail de chaque onglet de configuration</li>
+                    <li><a href="faq.html">FAQ</a> — réponses aux questions courantes</li>
+                    <li><a href="popup.html">Le popup</a> — contrôle rapide et exécution manuelle</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div id="site-footer"></div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/lightbox.js"></script>
+</body>
+</html>

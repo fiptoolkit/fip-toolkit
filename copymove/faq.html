@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - CopyMove</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <div class="container">
+
+        <div class="hero">
+            <h1>Questions fréquentes</h1>
+            <p class="subtitle">CopyMove — réponses aux questions courantes</p>
+        </div>
+
+        <div class="content">
+
+            <div class="intro">
+                <p>Vous ne trouvez pas votre réponse ici ? Consultez la <a href="documentation.html">documentation</a> ou le <a href="tutoriel.html">tutoriel</a>.</p>
+            </div>
+
+            <!-- CATÉGORIE 1 : DÉMARRAGE -->
+            <div class="category">
+                <div class="category-header">
+                    <h2 class="category-title">Démarrage</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment installer CopyMove dans Thunderbird ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>CopyMove est distribué sous forme de fichier <code>.xpi</code>.
+                        Une fois le fichier obtenu :</p>
+                        <ul>
+                            <li>Dans Thunderbird, ouvrez <strong>Modules complémentaires et thèmes</strong> (Ctrl+Maj+A)</li>
+                            <li>Cliquez sur l'icône engrenage ⚙️ puis sur <strong>Installer un module depuis un fichier</strong></li>
+                            <li>Sélectionnez le fichier <code>.xpi</code> téléchargé</li>
+                            <li>Confirmez l'installation et redémarrez Thunderbird si demandé</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment accéder à la configuration ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird
+                        pour ouvrir le popup, puis sur le bouton <strong>Paramètres</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quels sont les prérequis pour utiliser CopyMove ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Thunderbird 115 ou version supérieure. Aucune autre extension n'est requise.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        La source et la destination peuvent-elles être sur des comptes différents ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui. Le dossier source et le dossier destination peuvent appartenir
+                        à des comptes de messagerie différents. En revanche, si vous définissez
+                        plusieurs dossiers sources pour une même règle, ils doivent tous appartenir
+                        au même compte.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CATÉGORIE 2 : UTILISATION -->
+            <div class="category">
+                <div class="category-header">
+                    <h2 class="category-title">Utilisation</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment lancer une règle immédiatement sans attendre le déclenchement automatique ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ouvrez le popup CopyMove depuis la barre d'outils de Thunderbird.
+                        Dans la section <strong>Exécution manuelle</strong>, sélectionnez
+                        la règle souhaitée dans la liste déroulante, puis cliquez sur
+                        <strong>Exécuter cette règle</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Puis-je suspendre temporairement CopyMove sans modifier mes règles ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui. Le bouton bascule en haut du popup permet de suspendre
+                        l'extension pour la session en cours. Décochez-le pour arrêter
+                        temporairement le traitement des règles.</p>
+                        <div class="warning-box" style="margin-top: 0.75rem;">
+                            <strong>Temporaire uniquement :</strong> au prochain démarrage
+                            de Thunderbird, l'extension se réactivera automatiquement.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        À quoi sert la planification hebdomadaire ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>La planification définit les plages horaires pendant lesquelles
+                        CopyMove est autorisé à s'exécuter. Une règle dont le déclenchement
+                        tombe en dehors de la plage autorisée ne s'exécute pas.</p>
+                        <p style="margin-top: 0.5rem;">Elle se configure dans l'onglet
+                        <strong>Planification</strong> des paramètres. Vous pouvez aussi
+                        ajuster ponctuellement le comportement de la journée en cours
+                        depuis le popup, sans toucher au calendrier hebdomadaire.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        À quoi servent les profils d'exécution ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Les profils contrôlent la vitesse à laquelle CopyMove communique
+                        avec votre serveur de messagerie. Sur un serveur rapide, un profil
+                        <strong>Rapide</strong> accélère les traitements. Sur un serveur lent
+                        ou instable, un profil <strong>Sécurisé</strong> ou
+                        <strong>Très sécurisé</strong> évite les erreurs en laissant
+                        plus de temps au serveur entre chaque opération.</p>
+                        <p style="margin-top: 0.5rem;">Si vous observez des erreurs ou des courriels
+                        manquants dans les statistiques, essayez un profil plus prudent.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Puis-je définir plusieurs règles et contrôler leur ordre d'exécution ?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui. L'onglet <strong>Règles</strong> affiche toutes vos règles
+                        dans un tableau. L'ordre des lignes détermine l'ordre d'exécution.
+                        Faites glisser la poignée à gauche de chaque ligne pour réorganiser
+                        l'ordre selon vos besoins.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CATÉGORIE 3 : PROBLÈMES COURANTS -->
+            <div class="category">
+                <div class="category-header">
+                    <h2 class="category-title">Problèmes courants</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Une règle ne s'exécute pas à l'heure prévue
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez dans cet ordre :</p>
+                        <ul>
+                            <li>La règle est bien <strong>activée</strong> dans le tableau (colonne Statut)</li>
+                            <li>Le bouton bascule du popup est bien en position active</li>
+                            <li>La planification hebdomadaire autorise l'exécution à cette heure
+                            — ou désactivez-la temporairement pour tester</li>
+                            <li>Thunderbird était bien ouvert à l'heure prévue</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Des courriels apparaissent comme "manquants" dans les statistiques
+                    </div>
+                    <div class="faq-answer">
+                        <p>Des courriels manquants signifient que CopyMove a lancé
+                        l'opération mais n'a pas pu confirmer que tous les courriels
+                        sont bien arrivés en destination. Cela arrive généralement
+                        quand le serveur est lent à synchroniser.</p>
+                        <p style="margin-top: 0.5rem;">Essayez d'assigner un profil plus prudent
+                        à la règle concernée : <strong>Prudent</strong> ou <strong>Sécurisé</strong>
+                        dans l'onglet Paramètres.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Des erreurs apparaissent dans le journal d'activité
+                    </div>
+                    <div class="faq-answer">
+                        <p>Passez temporairement le niveau d'enregistrement en mode
+                        <strong>Tout</strong> dans l'onglet Paramètres, puis relancez
+                        la règle manuellement depuis le popup. Le journal d'activité
+                        contiendra alors le détail complet de ce qui s'est passé.</p>
+                        <p style="margin-top: 0.5rem;">Si les erreurs persistent après
+                        avoir essayé un profil plus sécurisé, contactez le support
+                        en joignant le contenu exporté du journal d'activité.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        L'extension ne s'affiche pas dans la barre d'outils de Thunderbird
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez dans cet ordre :</p>
+                        <ul>
+                            <li>Thunderbird est en version 115 ou supérieure</li>
+                            <li>CopyMove est bien activée dans <strong>Modules complémentaires</strong></li>
+                            <li>Redémarrez complètement Thunderbird</li>
+                            <li>Si l'icône n'est toujours pas visible, faites un clic droit
+                            sur la barre d'outils et vérifiez qu'elle n'est pas masquée</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Contact -->
+            <div class="support-box">
+                <h3>Besoin d'aide supplémentaire ?</h3>
+                <p>Contactez le support : <strong><a href="mailto:copymove@fip-toolkit.fr">copymove@fip-toolkit.fr</a></strong></p>
+            </div>
+
+        </div>
+
+        <div id="site-footer"></div>
+    </div>
+
+    <script src="js/faq.js"></script>
+    <script src="js/common.js"></script>
+</body>
+</html>

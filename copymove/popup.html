@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Popup - CopyMove</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <div class="container">
+
+        <div class="hero">
+            <h1>Le popup</h1>
+            <p class="subtitle">Contrôle rapide et exécution manuelle de CopyMove</p>
+        </div>
+
+        <div class="content">
+
+            <div class="section">
+                <p>
+                    Le popup est la porte d'entrée de CopyMove dans Thunderbird.
+                    Cliquez sur l'icône de l'extension dans la barre d'outils pour l'ouvrir.
+                    Il donne accès aux paramètres et affiche l'état de l'extension en un coup d'œil.
+                </p>
+                <figure class="screenshot">
+                    <img src="img/popup_apercu.webp"
+                         alt="Le popup CopyMove ouvert depuis la barre Thunderbird"
+                         loading="lazy">
+                    <figcaption>Le popup CopyMove ouvert depuis la barre Thunderbird — accès aux paramètres</figcaption>
+                </figure>
+            </div>
+
+            <!-- Toggle -->
+            <div class="section">
+                <h2>Activer / désactiver l'extension</h2>
+                <p>
+                    Le bouton bascule en haut du popup permet de suspendre CopyMove
+                    pour la session en cours. Décochez-le pour arrêter temporairement
+                    le traitement des règles.
+                </p>
+                <div class="warning-box" style="margin-top: 0.75rem;">
+                    <strong>Temporaire uniquement :</strong> au prochain démarrage de Thunderbird,
+                    l'extension se réactivera automatiquement. Ce réglage ne modifie pas votre configuration.
+                </div>
+            </div>
+
+            <!-- Aujourd'hui -->
+            <div class="section">
+                <h2>Planification — Aujourd'hui</h2>
+                <p>
+                    La section <strong>Aujourd'hui</strong> affiche le jour en cours
+                    et le mode de fonctionnement prévu selon votre planification hebdomadaire :
+                </p>
+                <ul>
+                    <li><strong>✓ ON toute la journée</strong> — l'extension fonctionne en continu</li>
+                    <li><strong>✗ OFF toute la journée</strong> — l'extension est désactivée</li>
+                    <li><strong>⏰ Plage horaire</strong> — l'extension ne fonctionne qu'entre les heures configurées</li>
+                </ul>
+                <p style="margin-top: 0.75rem;">
+                    Le bouton <strong>Ajuster pour aujourd'hui</strong> permet de modifier
+                    ponctuellement ce comportement sans toucher à la planification hebdomadaire.
+                    L'ajustement ne vaut que pour la journée en cours.
+                </p>
+                <figure class="screenshot">
+                    <img src="img/popup_ajustement_01.webp"
+                         alt="Bouton Ajuster pour aujourd'hui, avant clic"
+                         loading="lazy">
+                    <figcaption>Cliquez sur Ajuster pour aujourd'hui pour modifier le comportement du jour</figcaption>
+                </figure>
+                <figure class="screenshot">
+                    <img src="img/popup_ajustement_02.webp"
+                         alt="Panneau d'ajustement ponctuel avec les 3 modes et la plage horaire"
+                         loading="lazy">
+                    <figcaption>Choisissez ON / OFF / Plage horaire, ajustez si besoin les heures, puis Validez</figcaption>
+                </figure>
+            </div>
+
+            <!-- Exécution manuelle -->
+            <div class="section">
+                <h2>Exécution manuelle</h2>
+                <p>
+                    La section <strong>Exécution manuelle</strong> permet de déclencher
+                    une règle immédiatement, sans attendre son prochain déclenchement automatique.
+                </p>
+                <p style="margin-top: 0.5rem;">
+                    Sélectionnez la règle souhaitée dans la liste déroulante,
+                    puis cliquez sur <strong>Exécuter cette règle</strong>.
+                </p>
+                <div class="info-box" style="margin-top: 0.75rem;">
+                    Si la règle sélectionnée est désactivée, CopyMove vous en informe
+                    et vous demande confirmation avant de l'exécuter.
+                </div>
+                <figure class="screenshot">
+                    <img src="img/popup_execution.webp"
+                         alt="Section exécution manuelle avec sélecteur de règle"
+                         loading="lazy">
+                    <figcaption>Sélectionnez une règle et cliquez sur Exécuter</figcaption>
+                </figure>
+            </div>
+
+            <!-- Historique récent -->
+            <div class="section">
+                <h2>Historique récent</h2>
+                <p>
+                    La section <strong>Historique récent</strong> affiche les cinq dernières
+                    exécutions de règles : nom de la règle, nombre de courriels traités et résultat.
+                </p>
+                <p style="margin-top: 0.5rem;">
+                    Pour consulter l'historique complet, accédez à l'onglet
+                    <strong>Statistiques</strong> depuis les paramètres.
+                </p>
+                <figure class="screenshot">
+                    <img src="img/popup_historique.webp"
+                         alt="Historique des cinq dernières exécutions"
+                         loading="lazy">
+                    <figcaption>Les cinq dernières exécutions — nom de la règle, courriels traités, résultat</figcaption>
+                </figure>
+            </div>
+
+        </div>
+
+        <div id="site-footer"></div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/lightbox.js"></script>
+</body>
+</html>
