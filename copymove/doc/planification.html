@@ -1,0 +1,107 @@
+<!-- doc/planification.html — chargé en AJAX dans documentation.html -->
+
+<h2><img src="img/icons/tab-planification.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">Onglet Planification</h2>
+
+<div class="subsection">
+    <p>
+        La planification définit les plages horaires pendant lesquelles CopyMove
+        est autorisé à s'exécuter. Elle s'applique à toutes vos règles : une règle
+        dont le déclenchement tombe en dehors de la plage autorisée ne s'exécutera pas.
+    </p>
+</div>
+
+<!-- CALENDRIER HEBDOMADAIRE -->
+<div class="subsection">
+    <h3>Configurer le calendrier hebdomadaire</h3>
+    <ol class="instructions">
+        <li>
+            La case <strong>Planification activée</strong> active ou désactive l'ensemble
+            du planificateur — décochée, CopyMove peut s'exécuter à tout moment,
+            sans restriction horaire.
+        </li>
+        <li>
+            Chaque jour de la semaine propose 3 boutons de mode :
+            <strong>✓ ON toute la journée</strong>, <strong>✗ OFF toute la journée</strong>,
+            <strong>⏰ Plage horaire</strong> personnalisée.
+        </li>
+        <li>
+            Quand vous sélectionnez <strong>⏰</strong>, saisissez une heure de début
+            et une heure de fin. En dehors de cette plage, les règles sont suspendues.
+        </li>
+        <li>Cliquez sur <strong>Enregistrer la planification</strong> pour valider vos réglages</li>
+    </ol>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Si vous débutez avec CopyMove, laissez le planificateur désactivé
+        le temps de tester vos règles. Vous pourrez l'activer une fois
+        que tout fonctionne comme prévu.
+    </div>
+    <figure class="screenshot">
+        <img src="img/doc_planification_calendrier.webp"
+             alt="Calendrier hebdomadaire avec repères : ① case Planification activée, ② boutons de mode du jour, ③ champs heure début et fin, ④ bouton Enregistrer"
+             loading="lazy">
+        <figcaption>① Planification activée — ② Modes du jour (✓ / ✗ / ⏰) — ③ Plage horaire — ④ Enregistrer</figcaption>
+    </figure>
+</div>
+
+<!-- LES 3 MODES EN DÉTAIL -->
+<div class="subsection">
+    <h3>Les trois modes en détail</h3>
+    <ol class="instructions">
+        <li><strong>✓ ON toute la journée</strong> — CopyMove peut s'exécuter sans restriction pour ce jour</li>
+        <li><strong>✗ OFF toute la journée</strong> — CopyMove ne s'exécute pas du tout ce jour-là, quelles que soient les règles configurées</li>
+        <li><strong>⏰ Plage horaire</strong> — CopyMove ne s'exécute que pendant la plage définie ; en dehors, les règles sont suspendues</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_planification_modes.webp"
+             alt="Zoom sur une ligne de jour montrant les 3 modes : ① bouton ✓ actif, ② bouton ✗, ③ bouton ⏰ avec champs heure"
+             loading="lazy">
+        <figcaption>① ON toute la journée — ② OFF toute la journée — ③ Plage horaire personnalisée avec heure début → heure fin</figcaption>
+    </figure>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Les champs d'heure ne sont accessibles que lorsque le mode ⏰ est sélectionné.
+        Pour les autres modes, ils sont automatiquement grisés.
+    </div>
+</div>
+
+<!-- EXEMPLE -->
+<div class="subsection">
+    <h3>Exemple — bureau classique</h3>
+    <div class="requirement-box">
+        <ul style="margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
+            <li>Lundi à jeudi : ⏰ Plage horaire 08:00 → 18:00</li>
+            <li>Vendredi : ⏰ Plage horaire 08:00 → 16:00</li>
+            <li>Samedi et dimanche : ✗ OFF toute la journée</li>
+        </ul>
+    </div>
+    <p style="margin-top: 0.75rem;">
+        Avec cette configuration, CopyMove traite vos règles uniquement
+        pendant les heures de bureau. En dehors de ces plages,
+        aucun déplacement ou copie n'est effectué.
+    </p>
+</div>
+
+<!-- AJUSTEMENT AUJOURD'HUI -->
+<div class="subsection">
+    <h3>Ajuster la planification pour aujourd'hui</h3>
+    <p>
+        Si vous avez besoin de modifier ponctuellement le comportement
+        pour la journée en cours — sans toucher au calendrier hebdomadaire —
+        utilisez la section <strong>Aujourd'hui</strong> dans le popup CopyMove.
+        L'ajustement expire automatiquement à minuit.
+    </p>
+    <figure class="screenshot">
+        <img src="img/popup_ajustement_01.webp"
+             alt="Bouton Ajuster pour aujourd'hui, avant clic"
+             loading="lazy">
+        <figcaption>Cliquez sur Ajuster pour aujourd'hui pour modifier le comportement du jour</figcaption>
+    </figure>
+    <figure class="screenshot">
+        <img src="img/popup_ajustement_02.webp"
+             alt="Panneau d'ajustement ponctuel avec les 3 modes et la plage horaire"
+             loading="lazy">
+        <figcaption>Choisissez ON / OFF / Plage horaire, ajustez si besoin les heures, puis Validez</figcaption>
+    </figure>
+    <p style="margin-top: 0.5rem;">
+        <a href="popup.html">En savoir plus sur le popup →</a>
+    </p>
+</div>

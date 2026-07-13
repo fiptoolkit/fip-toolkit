@@ -1,0 +1,316 @@
+    <!-- doc/parametres.html — chargé en AJAX dans documentation.html -->
+
+<h2><img src="img/icons/tab-parametres.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">Onglet Paramètres</h2>
+
+<div class="subsection">
+    <p>
+        Cet onglet contrôle la façon dont CopyMove communique avec votre serveur
+        de messagerie. Dans la grande majorité des cas, les réglages par défaut
+        fonctionnent parfaitement. Ne les modifiez que si vous observez des anomalies :
+        courriels manqués, doublons, ou messages d'erreur dans le journal d'activité.
+    </p>
+</div>
+
+<!-- POURQUOI DES PROFILS -->
+<div class="subsection">
+    <h3>Pourquoi des pauses et des profils ?</h3>
+    <p>
+        Imaginez un déménageur qui transporte des cartons d'une pièce à une autre.
+        Il dépose un carton, puis attend que le destinataire confirme qu'il l'a bien
+        reçu avant d'apporter le suivant. Si le destinataire est débordé ce jour-là,
+        le déménageur attend un peu plus longtemps entre chaque carton.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        CopyMove fonctionne exactement de la même façon avec votre serveur de messagerie.
+        Après avoir déplacé ou copié un lot de courriels, il attend que le serveur
+        confirme que tout est bien en place avant de continuer. Cette confirmation
+        prend plus ou moins de temps selon la charge du serveur au moment de l'opération.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Les <strong>profils</strong> permettent d'ajuster ces temps d'attente
+        selon le comportement réel de votre serveur : un profil rapide réduit
+        les pauses, un profil sécurisé les allonge pour laisser plus de temps
+        au serveur.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_vue.webp"
+             alt="Vue d'ensemble de l'onglet Paramètres avec repères : ① section Profil par défaut, ② section Profils pré-conçus, ③ section Profils personnalisés, ④ Journal d'activité, ⑤ Timeout global"
+             loading="lazy">
+        <figcaption>① Profil par défaut — ② Profils pré-conçus — ③ Profils personnalisés — ④ Journal d'activité — ⑤ Timeout global</figcaption>
+    </figure>
+</div>
+
+<!-- PROFIL PAR DÉFAUT -->
+<div class="subsection">
+    <h3>Le profil par défaut</h3>
+    <p>
+        Le profil par défaut contient les valeurs de base utilisées par toutes
+        les règles qui n'ont pas de profil spécifique assigné. Il est organisé
+        en trois étapes qui correspondent aux phases du traitement.
+    </p>
+
+    <h4 style="margin-top: 1.25rem;">Étape 1 — Compter les courriels</h4>
+    <p>
+        CopyMove commence par compter les courriels présents dans le dossier source.
+        Cette étape est automatique et ne nécessite aucun réglage.
+    </p>
+
+    <h4 style="margin-top: 1.25rem;">Étape 2 — Copier ou déplacer les courriels</h4>
+    <p>
+        C'est l'étape principale. CopyMove envoie les courriels par lots au serveur,
+        avec des pauses entre chaque lot pour lui laisser le temps de traiter.
+    </p>
+    <p style="margin-top: 0.5rem;"><strong>Envoi par lots :</strong></p>
+    <ul class="custom-list">
+        <li>
+            <strong>Nombre de courriels envoyés simultanément</strong> — taille de chaque lot.
+            Réduisez si le serveur rejette les envois groupés.
+            Défaut : <strong>10</strong> (plage : 1 à 20).
+        </li>
+        <li>
+            <strong>Pause entre chaque lot</strong> — temps d'attente entre deux lots
+            pour ne pas surcharger le serveur.
+            Défaut : <strong>500 ms</strong> (plage : 0 à 5 000 ms).
+        </li>
+        <li>
+            <strong>Délai maximal pour le traitement d'un lot</strong> — au-delà de ce délai,
+            CopyMove considère que le serveur n'a pas répondu et réessaie automatiquement.
+            Défaut : <strong>120 secondes</strong> (plage : 30 à 300 s).
+        </li>
+        <li>
+            <strong>Délai maximal d'attente en cas d'incident réseau</strong> — si les courriels
+            tardent à apparaître en destination après un incident, CopyMove patiente
+            jusqu'à cette durée avant de considérer l'opération comme échouée.
+            Défaut : <strong>30 secondes</strong> (plage : 1 à 60 s).
+        </li>
+    </ul>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_lots.webp"
+             alt="Étape 2 — Envoi par lots : nombre de courriels simultanés, pause entre lots, délai de traitement, délai réseau"
+             loading="lazy">
+        <figcaption>Réglages de l'envoi par lots</figcaption>
+    </figure>
+
+    <p style="margin-top: 1rem;"><strong>Nouvelles tentatives en cas d'échec :</strong></p>
+    <p>
+        Si un lot échoue, CopyMove réessaie automatiquement en deux phases —
+        d'abord des tentatives rapprochées, puis des tentatives de plus en plus espacées
+        si le serveur a besoin de plus de temps pour récupérer.
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Pause avant la 1ère tentative</strong> — temps d'attente avant
+            d'envoyer la première commande de copie/déplacement.
+            Défaut : <strong>2 secondes</strong> (plage : 0 à 30 s).
+        </li>
+        <li>
+            <strong>Nombre de tentatives rapprochées</strong> — nombre de réessais rapides
+            avant de passer aux tentatives espacées.
+            Défaut : <strong>8</strong> (plage : 1 à 20).
+        </li>
+        <li>
+            <strong>Délai entre tentatives rapprochées</strong> — temps d'attente fixe
+            entre deux tentatives rapprochées.
+            Défaut : <strong>10 secondes</strong> (plage : 5 à 60 s).
+        </li>
+        <li>
+            <strong>Nombre de tentatives espacées</strong> — si les tentatives rapprochées
+            échouent, nombre de réessais supplémentaires avec un délai croissant.
+            Défaut : <strong>6</strong> (plage : 1 à 15).
+        </li>
+        <li>
+            <strong>Délai initial des tentatives espacées</strong> — délai de la première
+            tentative espacée.
+            Défaut : <strong>20 secondes</strong> (plage : 10 à 120 s).
+        </li>
+        <li>
+            <strong>Allongement progressif entre tentatives</strong> — augmentation du délai
+            à chaque tentative espacée suivante (ex : 20 s, 30 s, 40 s, 50 s…).
+            Défaut : <strong>10 secondes</strong> (plage : 5 à 60 s).
+        </li>
+    </ul>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_retry.webp"
+             alt="Nouvelles tentatives en cas d'échec : pause avant 1ère tentative, tentatives rapprochées, tentatives espacées"
+             loading="lazy">
+        <figcaption>Réglages des nouvelles tentatives en cas d'échec</figcaption>
+    </figure>
+
+    <h4 style="margin-top: 1.25rem;">Étape 3 — Vérifier le résultat</h4>
+    <p>
+        Après chaque opération, CopyMove vérifie que tous les courriels ont bien
+        été copiés ou déplacés. C'est une étape de contrôle qui garantit l'intégrité
+        du traitement.
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Validation post-opération</strong> — activée par défaut.
+            Si vous la désactivez, CopyMove est plus rapide mais ne vérifie pas
+            que le résultat est correct — risque de manques ou doublons non détectés.
+            Recommandé de laisser activée.
+        </li>
+        <li>
+            <strong>Pourcentage de réussite minimal</strong> — si au moins ce pourcentage
+            de courriels est retrouvé, la vérification est considérée comme réussie.
+            Défaut : <strong>95 %</strong> (plage : 50 à 100 %).
+        </li>
+    </ul>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_validation.webp"
+             alt="Étape 3 — Vérifier le résultat : validation post-opération, seuil de réussite, passes de vérification"
+             loading="lazy">
+        <figcaption>Validation post-opération, seuil de réussite et passes de vérification</figcaption>
+    </figure>
+</div>
+
+<!-- PROFILS PRÉ-CONÇUS -->
+<div class="subsection">
+    <h3>Les profils pré-conçus</h3>
+    <p>
+        Pour éviter de modifier manuellement chaque paramètre, CopyMove propose
+        quatre profils pré-conçus. Chacun applique un coefficient multiplicateur
+        sur les délais et pauses du profil par défaut.
+    </p>
+    <ul class="custom-list">
+        <li>
+            <strong>Rapide</strong> — réduit toutes les pauses de moitié.
+            À utiliser si votre serveur est très réactif et que les traitements
+            sont trop lents à votre goût.
+        </li>
+        <li>
+            <strong>Prudent</strong> — double les pauses.
+            Pour un serveur modérément chargé qui génère occasionnellement des erreurs.
+        </li>
+        <li>
+            <strong>Sécurisé</strong> — triple les pauses.
+            Pour un serveur lent ou instable.
+        </li>
+        <li>
+            <strong>Très sécurisé</strong> — quadruple les pauses.
+            Pour un serveur très chargé où la fiabilité prime sur la vitesse.
+        </li>
+    </ul>
+    <p style="margin-top: 0.75rem;">
+        Cliquez sur une carte pour la définir comme <strong>défaut global</strong>
+        — il n'y a pas de bouton dédié, la carte elle-même est cliquable. Une coche
+        apparaît sur la carte active ; cliquez à nouveau dessus pour revenir au
+        profil par défaut.
+    </p>
+    <p style="margin-top: 0.75rem;">
+        Seuls les <strong>délais et pauses</strong> sont multipliés par ce coefficient —
+        y compris le <strong>Timeout global</strong> (voir plus bas). Les <strong>nombres
+        de tentatives</strong> (rapprochées, espacées), le <strong>seuil de réussite</strong>
+        et le <strong>nombre de courriels envoyés simultanément</strong> restent identiques
+        au profil par défaut, quel que soit le profil pré-conçu choisi.
+    </p>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        <strong>Comment choisir ?</strong> Commencez par les Paramètres globaux.
+        Si vous observez des erreurs ou des doublons dans le journal d'activité, passez au profil
+        <strong>Prudent</strong>, puis <strong>Sécurisé</strong> si les problèmes persistent.
+    </div>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_preconcus.webp"
+             alt="Section profils pré-conçus avec repères : ① les 4 profils disponibles, ② coche du profil actuellement actif"
+             loading="lazy">
+        <figcaption>① Les quatre profils pré-conçus — ② Coche du profil actif (cliquable pour revenir au profil par défaut)</figcaption>
+    </figure>
+</div>
+
+<!-- PROFILS PERSONNALISÉS -->
+<div class="subsection">
+    <h3>Les profils personnalisés</h3>
+    <p>
+        Si aucun profil pré-conçu ne convient, vous pouvez créer jusqu'à
+        <strong>5 profils personnalisés</strong>. Chaque profil est un jeu complet
+        de paramètres indépendant — il ne dépend pas du profil par défaut.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Cliquer sur <strong>+</strong> (ou sur ✏️ pour modifier un profil existant) ouvre
+        un panneau latéral reprenant exactement les mêmes réglages que le profil par
+        défaut — voir la section <strong>Le profil par défaut</strong> plus haut pour le
+        détail de chaque champ (envoi par lots, nouvelles tentatives, vérification du
+        résultat). Contrairement aux profils pré-conçus, ces valeurs sont saisies
+        librement, sans coefficient ni lien avec le profil par défaut : chaque profil
+        personnalisé est totalement indépendant.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Un profil personnalisé peut être assigné à une règle spécifique depuis
+        la section <strong>Profil d'exécution</strong> dans le panneau latéral de création
+        de règle. Cela permet, par exemple, d'utiliser un profil rapide pour
+        une règle sur un serveur local, et un profil sécurisé pour une règle
+        sur un serveur distant.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_parametres_personnalises.webp"
+             alt="Section profils personnalisés avec repères : ① bouton Créer un profil, ② liste des profils existants, ③ boutons Modifier et Supprimer"
+             loading="lazy">
+        <figcaption>① Créer un profil personnalisé — ② Profils existants — ③ Modifier ou supprimer un profil</figcaption>
+    </figure>
+</div>
+
+<!-- NIVEAU DE LOGS -->
+<div class="subsection">
+    <h3>Journal d'activité</h3>
+    <p>
+        Ce réglage détermine quels événements sont enregistrés dans l'onglet <strong>Logs</strong>.
+        Quatre niveaux sont disponibles :
+    </p>
+    <ul class="custom-list">
+        <li><strong>Tout</strong> — enregistre toutes les opérations, y compris les informations de routine. Utile pour diagnostiquer un problème.</li>
+        <li><strong>Avertissements et erreurs</strong> — enregistre uniquement les situations anormales. Réglage recommandé en utilisation normale.</li>
+        <li><strong>Erreurs uniquement</strong> — n'enregistre que les erreurs bloquantes.</li>
+        <li><strong>Aucun enregistrement</strong> — désactive complètement l'enregistrement.</li>
+    </ul>
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        Le niveau <strong>Tout</strong> génère beaucoup d'entrées et peut ralentir
+        légèrement l'extension. Ne l'activez que le temps du diagnostic,
+        puis repassez à <strong>Avertissements et erreurs</strong>.
+    </div>
+</div>
+
+<!-- TIMEOUT GLOBAL -->
+<div class="subsection">
+    <h3>Timeout global</h3>
+    <p>
+        Le timeout global fixe la durée maximale allouée au traitement complet
+        d'une règle. Si ce délai est dépassé — par exemple à cause d'un serveur
+        très lent ou d'un volume de courriels inhabituel — CopyMove interrompt
+        le traitement pour éviter de bloquer Thunderbird indéfiniment.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Défaut : <strong>30 minutes</strong> (plage : 10 à 120 minutes).
+        Augmentez cette valeur uniquement si vous traitez régulièrement
+        de très grands volumes de courriels.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Si un profil pré-conçu est défini comme <strong>défaut global</strong> (voir la
+        section <strong>Les profils pré-conçus</strong> plus haut), ce timeout est lui aussi
+        multiplié par son coefficient — mais la valeur affichée ici reste toujours la valeur
+        de base, jamais recalculée à l'écran.
+    </p>
+</div>
+
+<!-- EXPORT / IMPORT / RÉINITIALISATION -->
+<div class="subsection">
+    <h3>Exporter, importer, réinitialiser</h3>
+    <ul class="custom-list">
+        <li>
+            <strong>Exporter les paramètres</strong> — sauvegarde l'ensemble
+            de votre configuration dans un fichier. Utile avant une réinstallation
+            ou pour dupliquer la configuration sur un autre poste.
+        </li>
+        <li>
+            <strong>Importer les paramètres</strong> — restaure une configuration
+            exportée précédemment.
+        </li>
+        <li>
+            <strong>Réinitialiser l'extension</strong> — remet CopyMove dans son état
+            d'origine : toutes les règles, profils et paramètres sont supprimés.
+            Cette action est irréversible.
+        </li>
+    </ul>
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        <strong>Avant de réinitialiser</strong>, pensez à exporter vos paramètres
+        si vous souhaitez pouvoir les restaurer.
+    </div>
+</div>

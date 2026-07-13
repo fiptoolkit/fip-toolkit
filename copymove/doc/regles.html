@@ -1,0 +1,278 @@
+<!-- doc/regles.html — chargé en AJAX dans documentation.html -->
+
+<h2><img src="img/icons/tab-regles.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">Onglet Règles</h2>
+
+<div class="subsection">
+    <p>
+        C'est l'onglet central de CopyMove. Il regroupe toutes vos règles de copie
+        et de déplacement, et permet de les créer, les modifier et les réorganiser.
+    </p>
+</div>
+
+<!-- VUE D'ENSEMBLE -->
+<div class="subsection">
+    <h3>Le tableau des règles</h3>
+    <ol class="instructions">
+        <li>
+            La poignée <strong>⋮</strong> à gauche de chaque ligne permet de réorganiser
+            l'ordre d'exécution par glisser-déposer — l'ordre des lignes détermine l'ordre
+            d'exécution.
+        </li>
+        <li>
+            Les colonnes d'information résument chaque règle en un coup d'œil :
+            <ul class="custom-list">
+                <li><strong>Nom</strong> — nom descriptif de la règle.</li>
+                <li><strong>Action</strong> — Copier ou Déplacer.</li>
+                <li>
+                    <strong>Source(s)</strong> — dossier(s) source configurés. Survolez la
+                    cellule pour afficher le détail complet en infobulle si le texte est tronqué.
+                </li>
+                <li>
+                    <strong>Destination</strong> — dossier de destination. Survolez la cellule
+                    pour afficher le détail complet en infobulle si le texte est tronqué.
+                </li>
+                <li>
+                    <strong>Temporalité</strong> — résumé du déclenchement configuré (ex :
+                    « 2 horaires »). Survolez la cellule pour afficher le détail complet en
+                    infobulle.
+                </li>
+            </ul>
+        </li>
+        <li>
+            Le <strong>Statut</strong> (✓ Actif / ✗ Inactif) est directement cliquable : un
+            clic active ou désactive la règle sans ouvrir le panneau d'édition. Une règle
+            désactivée n'est pas exécutée automatiquement, mais reste lançable manuellement
+            depuis le popup CopyMove.
+        </li>
+        <li>
+            La colonne <strong>Actions</strong> regroupe : ▶ <strong>Lancer</strong> la règle
+            manuellement, ✏️ <strong>Éditer</strong> ses réglages (rouvre le panneau de création
+            pré-rempli avec les paramètres actuels), 🗑️ <strong>Supprimer</strong> la règle
+            (une confirmation est demandée avant suppression définitive)
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_regles_tableau.webp"
+             alt="Tableau des règles avec repères : ① poignée glisser-déposer, ② colonnes d'information, ③ statut, ④ boutons d'action"
+             loading="lazy">
+        <figcaption>① Poignée de réorganisation — ② Colonnes d'information — ③ Statut Activée/Désactivée — ④ Boutons d'action</figcaption>
+    </figure>
+</div>
+
+<!-- CRÉER UNE RÈGLE — IDENTIFICATION ET ACTION -->
+<div class="subsection">
+    <h3>Créer une règle — Identification et action</h3>
+    <p>
+        Cliquez sur <strong>Ajouter une règle</strong> pour ouvrir le panneau de création
+        sur la droite de l'écran.
+    </p>
+    <ol class="instructions">
+        <li>
+            <strong>Nom de la règle</strong> — donnez un nom descriptif qui vous permettra
+            de l'identifier facilement dans le tableau (ex : <em>Archiver les factures</em>).
+        </li>
+        <li>
+            <strong>Règle activée</strong> — décochez cette case si vous souhaitez créer
+            la règle sans l'activer immédiatement.
+        </li>
+        <li>Sous <strong>Type d'action</strong>, choisissez comment les courriels seront traités :</li>
+        <li>
+            <strong>Déplacer</strong> — les courriels sont déplacés vers le dossier destination
+            et retirés du dossier source.
+        </li>
+        <li>
+            <strong>Copier</strong> — les courriels sont copiés vers le dossier destination
+            et conservés dans le dossier source.
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_regles_drawer_1.webp"
+             alt="Panneau de création — sections Identification et Action avec repères : ① champ nom, ② case Règle activée, ③ libellé Type d'action, ④ option Déplacer, ⑤ option Copier"
+             loading="lazy">
+        <figcaption>① Nom de la règle — ② Règle activée — ③ Type d'action — ④ Déplacer — ⑤ Copier</figcaption>
+    </figure>
+</div>
+
+<!-- CRÉER UNE RÈGLE — DOSSIERS SOURCES -->
+<div class="subsection">
+    <h3>Créer une règle — Dossiers sources</h3>
+    <ol class="instructions">
+        <li>Sélectionnez le <strong>compte de messagerie</strong> dans la liste déroulante</li>
+        <li>Choisissez le <strong>dossier</strong> à traiter dans l'arborescence</li>
+        <li>
+            Ajoutez jusqu'à <strong>5 dossiers sources</strong> pour une même règle via le
+            bouton <strong>Ajouter une source</strong> — tous les dossiers sources doivent
+            appartenir au même compte
+        </li>
+        <li>
+            Si vous avez choisi <strong>Déplacer</strong>, vous pouvez cocher
+            <strong>Supprimer les dossiers sources s'ils sont vides après déplacement</strong>
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_regles_drawer_2.webp"
+             alt="Panneau de création — section Dossiers sources avec repères : ① compte, ② dossier dans l'arborescence, ③ bouton Ajouter une source, ④ case suppression dossiers vides"
+             loading="lazy">
+        <figcaption>① Compte — ② Dossier — ③ Ajouter une source (max 5) — ④ Supprimer si vide après déplacement</figcaption>
+    </figure>
+</div>
+
+<!-- CRÉER UNE RÈGLE — DOSSIER DESTINATION -->
+<div class="subsection">
+    <h3>Créer une règle — Dossier destination</h3>
+    <ol class="instructions">
+        <li>Sélectionnez le <strong>compte de messagerie</strong> destination — il peut être différent du compte source</li>
+        <li>Cliquez sur le bouton <strong>Parcourir</strong> pour ouvrir l'arborescence</li>
+        <li>Choisissez le <strong>dossier destination</strong> dans l'arborescence</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_regles_drawer_3.webp"
+             alt="Panneau de création — section Dossier destination avec repères : ① compte, ② bouton Parcourir, ③ choix du dossier destination dans l'arborescence"
+             loading="lazy">
+        <figcaption>① Compte destination — ② Parcourir — ③ Choisir le dossier destination</figcaption>
+    </figure>
+</div>
+
+<!-- CRÉER UNE RÈGLE — DÉCLENCHEMENT -->
+<div class="subsection">
+    <h3>Créer une règle — Déclenchement</h3>
+    <p>
+        La section <strong>Déclenchement</strong> définit quand la règle s'exécute
+        automatiquement. Trois modes sont disponibles :
+    </p>
+    <ul class="instructions">
+        <li>
+            <strong>Heures fixes</strong> — la règle s'exécute exactement aux heures
+            que vous indiquez (10 au maximum). Exemple : <span class="callout-number">4</span> 08:00
+            et <span class="callout-number">5</span> 15:00.
+        </li>
+        <li>
+            <strong>Intervalle régulier</strong> — la règle s'exécute toutes les X heures
+            et/ou minutes (minimum 10 minutes). Exemple : toutes les 2 heures, ou toutes les 30 minutes.
+        </li>
+        <li>
+            <strong>Au démarrage de l'extension</strong> — la règle s'exécute une fois après
+            un délai optionnel, décompté depuis le démarrage de Thunderbird. Si l'extension se
+            charge plus tard que Thunderbird lui-même, le délai démarre au chargement réel de
+            l'extension, pas au lancement de Thunderbird.
+        </li>
+    </ul>
+    <p style="margin-top: 0.75rem;">
+        Une fois votre choix fait, cliquez sur <span class="callout-number">6</span> <strong>Enregistrer</strong> en bas du panneau.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_regles_drawer_4.webp"
+             alt="Section Déclenchement avec repères : ① Heures fixes, ② Intervalle régulier, ③ Au démarrage de l'extension, ④ première heure, ⑤ deuxième heure, ⑥ bouton Enregistrer"
+             loading="lazy">
+        <figcaption>① Heures fixes — ② Intervalle régulier — ③ Au démarrage de l'extension — ④⑤ Heures d'exécution (08:00 et 15:00) — ⑥ Enregistrer</figcaption>
+    </figure>
+</div>
+
+<!-- CRÉER UNE RÈGLE — PROFIL D'EXÉCUTION -->
+<div class="subsection">
+    <h3>Créer une règle — Profil d'exécution</h3>
+    <p>
+        La section <strong>Profil d'exécution</strong> permet d'assigner un profil
+        spécifique à cette règle. Un profil définit la vitesse à laquelle CopyMove
+        communique avec votre serveur de messagerie.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Par défaut, la règle utilise les <strong>Paramètres globaux</strong> définis
+        dans l'onglet Paramètres. Si votre serveur réagit différemment selon les opérations,
+        vous pouvez assigner un profil dédié à cette règle uniquement.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_regles_drawer_5.webp"
+             alt="Section Profil d'exécution avec repère : ① liste déroulante des profils disponibles"
+             loading="lazy">
+        <figcaption>① Sélectionnez un profil ou laissez les Paramètres globaux (défaut)</figcaption>
+    </figure>
+    <p style="margin-top: 0.75rem;">
+        Le menu déroulant liste tous les profils disponibles : le profil par défaut
+        (<strong>Paramètres globaux</strong>), les profils pré-conçus (<strong>Rapide</strong>,
+        <strong>Prudent</strong>, <strong>Sécurisé</strong>, <strong>Très sécurisé</strong>),
+        et vos éventuels profils personnalisés.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_regles_profils_liste.webp"
+             alt="Liste déroulante des profils ouverte : profils pré-conçus et profils personnalisés"
+             loading="lazy">
+        <figcaption>Profils pré-conçus et profils personnalisés disponibles dans le menu déroulant</figcaption>
+    </figure>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Les profils se créent et se configurent dans l'onglet <strong>Paramètres</strong>.
+        Consultez cette section pour en savoir plus sur les profils pré-conçus
+        et les profils personnalisés.
+    </div>
+</div>
+
+<!-- LANCER UNE RÈGLE MANUELLEMENT -->
+<div class="subsection">
+    <h3>Lancer une règle manuellement — ajustement avant exécution</h3>
+    <p>
+        Cliquer sur ▶ <strong>Lancer</strong> dans le tableau ouvre systématiquement une
+        fenêtre d'ajustement avant de démarrer le traitement.
+    </p>
+    <ol class="instructions">
+        <li>
+            Si la règle est <strong>désactivée</strong>, une confirmation est demandée avant
+            de continuer — un avertissement supplémentaire apparaît si la règle partage des
+            dossiers sources avec une règle active, pour éviter tout conflit de traitement.
+        </li>
+        <li>
+            La fenêtre affiche les réglages du profil d'exécution actuel de la règle,
+            organisés en accordéons dépliables — vous pouvez les modifier librement avant
+            de lancer.
+        </li>
+        <li>
+            <strong>Mettre à jour le profil</strong> enregistre définitivement vos
+            modifications dans le profil utilisé par la règle, sans lancer l'exécution.
+        </li>
+        <li>
+            <strong>Exécuter</strong> lance immédiatement le traitement avec les valeurs
+            actuellement affichées — si vous n'avez pas cliqué sur "Mettre à jour le profil"
+            au préalable, ces valeurs ne servent que pour ce lancement et ne sont pas
+            conservées.
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_regles_execution_ajustement.webp"
+             alt="Fenêtre d'ajustement avant exécution avec repères : ① accordéon dépliable, ② note explicative, ③ bouton Mettre à jour le profil, ④ bouton Exécuter"
+             loading="lazy">
+        <figcaption>① Accordéons de réglages — ② Explication contextuelle — ③ Mettre à jour le profil (permanent) — ④ Exécuter (ce lancement, ou permanent si le profil vient d'être mis à jour)</figcaption>
+    </figure>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Une fois l'exécution lancée, la barre de progression correspondante est décrite
+        dans la section <strong>Pendant l'exécution</strong> ci-dessous.
+    </div>
+</div>
+
+<!-- PENDANT L'EXÉCUTION -->
+<div class="subsection">
+    <h3>Pendant l'exécution</h3>
+    <p>
+        Lorsqu'une règle est en cours d'exécution, une barre de progression apparaît
+        en haut de l'onglet. Elle indique :
+    </p>
+    <ol class="instructions">
+        <li>Le nom de la règle en cours de traitement, avec le profil d'exécution utilisé</li>
+        <li>L'étape en cours (décompte des courriels, copie/déplacement, vérification)</li>
+        <li>Le nombre de courriels traités et le pourcentage d'avancement</li>
+        <li>Le temps écoulé depuis le début de l'exécution</li>
+    </ol>
+    <p style="margin-top: 0.5rem;">
+        Le bouton <span class="callout-number">5</span> <strong>STOP</strong> permet
+        d'interrompre l'exécution à tout moment. Les courriels déjà traités ne sont pas annulés.
+    </p>
+    <figure class="screenshot">
+        <img src="img/doc_regles_progression.webp"
+             alt="Barre de progression avec repères : ① règle et profil, ② étape en cours, ③ avancement, ④ temps écoulé, ⑤ bouton STOP"
+             loading="lazy">
+        <figcaption>① Règle et profil — ② Étape en cours — ③ Avancement — ④ Temps écoulé — ⑤ STOP</figcaption>
+    </figure>
+</div>
+
+<div class="info-box">
+    Pour lancer une règle sans ouvrir les paramètres, utilisez la section
+    <strong>Exécution manuelle</strong> directement depuis le popup CopyMove.
+</div>

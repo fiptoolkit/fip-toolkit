@@ -1,0 +1,99 @@
+<!-- doc/logs.html — chargé en AJAX dans documentation.html -->
+
+<h2><img src="img/icons/tab-logs.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">Onglet Logs</h2>
+
+<div class="subsection">
+    <p>
+        Le journal d'activité enregistre en temps réel tout ce que fait CopyMove :
+        démarrages, exécutions de règles, résultats, avertissements et erreurs.
+        C'est l'outil de référence pour comprendre ce qui s'est passé
+        et diagnostiquer un problème.
+    </p>
+</div>
+
+<!-- BARRE D'ACTIONS -->
+<div class="subsection">
+    <h3>Actions disponibles</h3>
+    <ol class="instructions">
+        <li><strong>Rafraîchir</strong> — recharge le journal pour afficher les dernières entrées</li>
+        <li><strong>Effacer</strong> — supprime toutes les entrées du journal. Cette action est irréversible</li>
+        <li><strong>Exporter</strong> — enregistre le journal dans un fichier texte. Utile pour conserver une trace ou la transmettre au support</li>
+        <li><strong>Copier</strong> — copie le contenu du journal dans le presse-papier</li>
+        <li><strong>Rafraîchissement automatique</strong> — activé par défaut. Décochez cette case si vous souhaitez figer l'affichage pendant une consultation</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_logs_barre.webp"
+             alt="Barre d'actions du journal avec repères : ① Rafraîchir, ② Effacer, ③ Exporter, ④ Copier, ⑤ Rafraîchissement automatique"
+             loading="lazy">
+        <figcaption>① Rafraîchir — ② Effacer — ③ Exporter — ④ Copier — ⑤ Rafraîchissement automatique</figcaption>
+    </figure>
+</div>
+
+<!-- FILTRES -->
+<div class="subsection">
+    <h3>Filtrer le journal</h3>
+    <p>
+        Trois éléments permettent de cibler rapidement les entrées qui vous intéressent :
+    </p>
+    <ol class="instructions">
+        <li>
+            <strong>Niveau</strong> — affichez toutes les entrées, ou restreignez à un niveau précis :
+            <ul>
+                <li><strong>Info</strong> — opérations normales (démarrage, exécution réussie…)</li>
+                <li><strong>Warn</strong> — situations anormales non bloquantes (avertissements)</li>
+                <li><strong>Error</strong> — erreurs qui ont empêché une opération de se terminer</li>
+            </ul>
+        </li>
+        <li><strong>Recherche</strong> — saisissez un mot-clé pour n'afficher que les entrées qui le contiennent. Pratique pour retrouver les entrées liées à une règle précise</li>
+        <li>Le <strong>compteur</strong> indique le nombre d'entrées affichées par rapport au total enregistré</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_logs_niveau.webp"
+             alt="Filtres du journal avec repères : ① sélecteur Niveau, ② champ Recherche, ③ compteur d'entrées"
+             loading="lazy">
+        <figcaption>① Niveau — ② Recherche par mot-clé — ③ Compteur entrées affichées / total</figcaption>
+    </figure>
+</div>
+
+<!-- TABLEAU -->
+<div class="subsection">
+    <h3>Lire le journal</h3>
+    <p>
+        Chaque ligne du tableau représente un événement avec trois informations :
+    </p>
+    <ol class="instructions">
+        <li><strong>Horodatage</strong> — date et heure exactes de l'événement.</li>
+        <li>
+            <strong>Niveau</strong> — gravité de l'événement, indiquée par
+            une couleur : bleu pour Info, orange pour Warn, rouge pour Error.
+        </li>
+        <li><strong>Message</strong> — description de l'événement.</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_logs_tableau.webp"
+             alt="Tableau du journal avec repères : ① colonne horodatage, ② colonne niveau avec codes couleur, ③ colonne message"
+             loading="lazy">
+        <figcaption>① Horodatage — ② Niveau (bleu Info / orange Warn / rouge Error) — ③ Message</figcaption>
+    </figure>
+</div>
+
+<!-- NIVEAU DE CAPTURE -->
+<div class="subsection">
+    <h3>Quelles entrées sont enregistrées ?</h3>
+    <p>
+        Le niveau de capture du journal se configure dans l'onglet
+        <strong>Paramètres</strong>, section <strong>Journal d'activité</strong>.
+        Par défaut, seuls les avertissements et les erreurs sont enregistrés.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Si vous cherchez à comprendre pourquoi une règle ne se comporte pas
+        comme prévu, passez temporairement en mode <strong>Tout</strong>
+        dans les Paramètres : toutes les opérations seront alors consignées
+        en détail.
+    </p>
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        N'oubliez pas de revenir au mode <strong>Avertissements et erreurs</strong>
+        une fois le diagnostic terminé — le mode <strong>Tout</strong> génère
+        beaucoup d'entrées et peut légèrement ralentir l'extension.
+    </div>
+</div>

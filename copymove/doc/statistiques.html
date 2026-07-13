@@ -1,0 +1,108 @@
+<!-- doc/statistiques.html — chargé en AJAX dans documentation.html -->
+
+<h2><img src="img/icons/tab-statistiques.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 6px;">Onglet Statistiques</h2>
+
+<div class="subsection">
+    <p>
+        Cet onglet vous donne une vue d'ensemble de l'activité de CopyMove :
+        combien de fois vos règles se sont exécutées, combien de courriels
+        ont été traités, et le détail de chaque opération.
+    </p>
+</div>
+
+<!-- DERNIER TRAITEMENT ET CUMULS -->
+<div class="subsection">
+    <h3>Dernier traitement et cumuls totaux</h3>
+    <p>
+        En haut de l'onglet, trois indicateurs résument l'activité globale depuis
+        l'installation de CopyMove :
+    </p>
+    <ol class="instructions">
+        <li>
+            <strong>Dernier traitement</strong> — date et heure de la dernière
+            exécution d'une règle, toutes règles confondues.
+        </li>
+        <li>
+            <strong>Total exécutions</strong> — nombre total de fois où une règle
+            s'est exécutée depuis l'installation.
+        </li>
+        <li>
+            <strong>Total messages traités</strong> — nombre total de courriels
+            copiés ou déplacés depuis l'installation.
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_statistiques_cumuls.webp"
+             alt="Indicateurs globaux avec repères : ① Dernier traitement, ② Total exécutions, ③ Total messages traités"
+             loading="lazy">
+        <figcaption>① Dernier traitement — ② Total exécutions — ③ Total messages traités</figcaption>
+    </figure>
+</div>
+
+<!-- FILTRES -->
+<div class="subsection">
+    <h3>Filtrer l'historique</h3>
+    <p>
+        Avant de consulter l'historique, vous pouvez affiner l'affichage :
+    </p>
+    <ol class="instructions">
+        <li>
+            <strong>Période</strong> — indiquez une date de début et une date de fin
+            pour n'afficher que les exécutions de cette plage.
+        </li>
+        <li>
+            <strong>Règles</strong> — sélectionnez une ou plusieurs règles dans la liste.
+            Maintenez la touche <strong>Ctrl</strong> (Windows/Linux) ou
+            <strong>Cmd</strong> (Mac) pour en sélectionner plusieurs.
+            Laissez <strong>Toutes les règles</strong> sélectionné pour ne pas filtrer.
+        </li>
+        <li>Cliquez sur <strong>Filtrer</strong> pour appliquer vos critères</li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_statistiques_filtres.webp"
+             alt="Filtres historique avec repères : ① sélecteur de période, ② liste des règles, ③ bouton Filtrer"
+             loading="lazy">
+        <figcaption>① Période — ② Règles — ③ Filtrer</figcaption>
+    </figure>
+</div>
+
+<!-- HISTORIQUE ET RÉINITIALISATION -->
+<div class="subsection">
+    <h3>Historique des exécutions</h3>
+    <ol class="instructions">
+        <li>
+            Le tableau affiche l'historique complet des exécutions des règles avec les
+            informations suivantes :
+            <ul class="custom-list">
+                <li><strong>Date/Heure</strong> — moment exact de l'exécution.</li>
+                <li><strong>Règle</strong> — nom de la règle exécutée.</li>
+                <li><strong>Action</strong> — copie ou déplacement.</li>
+                <li><strong>Profil</strong> — profil d'exécution utilisé.</li>
+                <li><strong>Courriels</strong> — nombre de courriels traités lors de cette exécution.</li>
+                <li><strong>Manquants</strong> — courriels attendus en destination mais non retrouvés
+                    lors de la vérification. Un chiffre non nul mérite d'être surveillé.</li>
+                <li><strong>Échecs</strong> — lots qui n'ont pas pu être traités malgré les tentatives.</li>
+                <li><strong>Statut</strong> — résultat global de l'exécution (succès, avertissement, échec).</li>
+            </ul>
+        </li>
+        <li>
+            Le bouton <strong>Réinitialiser toutes les statistiques</strong> efface l'intégralité
+            de l'historique — les cumuls totaux sont remis à zéro
+        </li>
+    </ol>
+    <figure class="screenshot">
+        <img src="img/doc_statistiques_tableau.webp"
+             alt="Tableau d'historique et bouton de réinitialisation avec repères : ① tableau des exécutions, ② bouton Réinitialiser toutes les statistiques"
+             loading="lazy">
+        <figcaption>① Tableau des exécutions — ② Réinitialiser toutes les statistiques</figcaption>
+    </figure>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Un statut en erreur ou des courriels manquants répétés sont le signe
+        que le profil d'exécution de la règle concernée mériterait d'être
+        ajusté vers un profil plus prudent.
+    </div>
+    <div class="warning-box" style="margin-top: 0.75rem;">
+        <strong>Réinitialisation irréversible :</strong> les données effacées
+        ne peuvent pas être récupérées.
+    </div>
+</div>
