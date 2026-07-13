@@ -16,7 +16,6 @@ function loadDetail(page) {
         })
         .then(html => {
             detailZone.innerHTML = html;
-            detailZone.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         })
         .catch(() => {
             detailZone.innerHTML = '<div class="doc-error">Impossible de charger cette section. Vérifiez votre connexion.</div>';
