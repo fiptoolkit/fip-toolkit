@@ -22,6 +22,11 @@
  * Wizard guidé pour aider les utilisateurs non-techniques à configurer
  * les règles d'inclusion/exclusion de l'extension Go2Econtact.
  * Navigation pas-à-pas avec validation et export JSON.
+ *
+ * @requires validation-utils.js Doit être chargé avant ce fichier (fonctions
+ *           de validation : isValidEmailFormat, isValidDomainWithWildcards,
+ *           isValidPatternFormat, escapeHtml, showFieldError, clearFieldError,
+ *           showTextareaErrors, clearTextareaErrors, cleanAndValidateTextarea)
  */
 
 // ============================================
@@ -137,7 +142,7 @@ function attachValidationListeners() {
         const textarea = document.getElementById(id);
         if (textarea) {
             textarea.addEventListener('blur', () => {
-                cleanAndValidateWizardTextarea(textarea, type);
+                cleanAndValidateTextarea(textarea, type);
             });
         }
     });
@@ -313,7 +318,7 @@ function validateTextareaGroup(textareas) {
     textareas.forEach(({ id, type }) => {
         const textarea = document.getElementById(id);
         if (!textarea) return;
-        const { invalid } = cleanAndValidateWizardTextarea(textarea, type);
+        const { invalid } = cleanAndValidateTextarea(textarea, type);
         if (invalid.length > 0) allValid = false;
     });
     return allValid;
@@ -335,128 +340,6 @@ function validateDomain(inputElement) {
     
     clearFieldError(inputElement);
     return true;
-}
-
-/**
- * Validation domaine avec support complet wildcards
- */
-function isValidDomainWithWildcards(domain) {
-    // Cas spéciaux wildcards d'abord
-    if (domain === '*') return true;                    // TOUS les domaines
-    if (domain === '*.*') return true;                  // Domaines avec point
-    if (/^\*\.[a-zA-Z]{2,}$/.test(domain)) return true; // *.fr, *.com, etc.
-    
-    // Domaines normaux : exiger au moins un point
-    const domainRegex = /^(\*\.)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-    return domainRegex.test(domain);
-}
-
-function showFieldError(field, message) {
-    field.classList.add('is-invalid');
-    
-    // Supprimer ancien message d'erreur s'il existe
-    const existingError = field.parentElement.querySelector('.form-error');
-    if (existingError) {
-        existingError.remove();
-    }
-    
-    // Ajouter nouveau message
-    const errorSpan = document.createElement('span');
-    errorSpan.className = 'form-error';
-    errorSpan.textContent = message;
-    field.parentElement.appendChild(errorSpan);
-}
-
-function clearFieldError(field) {
-    field.classList.remove('is-invalid');
-    const errorSpan = field.parentElement.querySelector('.form-error');
-    if (errorSpan) {
-        errorSpan.remove();
-    }
-}
-
-/**
- * Validation email simple
- */
-function isValidEmailFormat(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-}
-
-/**
- * Validation pattern avec guidance vers bon champ
- */
-function isValidPatternFormat(pattern) {
-    const patternRegex = /^[^\s@*]+@(\*|\*\.[a-zA-Z0-9.-]+|[a-zA-Z0-9.-]+)$/;
-    return patternRegex.test(pattern.trim());
-}
-
-/**
- * Nettoyage textarea wizard avec feedback
- */
-function cleanAndValidateWizardTextarea(textarea, type) {
-    // Auto-conversion majuscules pour les préfixes sujets (reproduit options.js)
-    if (type === 'subject') {
-        textarea.value = textarea.value.replace(/^\[(commence|contient|finit)\]/gim, m => m.toUpperCase());
-    }
-    const lines = textarea.value.split('\n');
-    const validLines = [];
-    const invalidLines = [];
-
-    lines.forEach(line => {
-        const cleaned = line.trim();
-        if (!cleaned) return;
-
-        let isValid = false;
-
-        if (type === 'email') {
-            isValid = isValidEmailFormat(cleaned);
-        } else if (type === 'domain') {
-            isValid = isValidDomainWithWildcards(cleaned);
-        } else if (type === 'pattern') {
-            isValid = isValidPatternFormat(cleaned);
-        } else if (type === 'subject') {
-            isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
-        }
-
-        if (isValid) {
-            validLines.push(cleaned);
-        } else {
-            invalidLines.push(cleaned);
-        }
-    });
-
-    // Ne pas modifier textarea.value — les lignes invalides restent visibles
-    if (invalidLines.length > 0) {
-        showTextareaErrors(textarea, invalidLines);
-    } else {
-        clearTextareaErrors(textarea);
-    }
-
-    return { valid: validLines, invalid: invalidLines };
-}
-
-/**
- * Feedback wizard avec classes existantes
- */
-function showTextareaErrors(textarea, invalidLines) {
-    textarea.classList.add('is-invalid');
-
-    // Supprimer message existant si présent
-    clearTextareaErrors(textarea);
-
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'form-error textarea-error-list';
-    errorDiv.innerHTML = `⚠️ ${invalidLines.length} ligne${invalidLines.length > 1 ? 's' : ''} invalide${invalidLines.length > 1 ? 's' : ''} : `
-        + invalidLines.map(l => `<code>${escapeHtml(l)}</code>`).join(', ');
-
-    textarea.parentNode.appendChild(errorDiv);
-}
-
-function clearTextareaErrors(textarea) {
-    textarea.classList.remove('is-invalid');
-    const existing = textarea.parentNode.querySelector('.textarea-error-list');
-    if (existing) existing.remove();
 }
 
 // ============================================
@@ -835,14 +718,4 @@ function copyConfigToClipboard() {
         console.error('Erreur copie presse-papier:', err);
         alert('Impossible de copier dans le presse-papier');
     });
-}
-
-// ============================================
-// UTILITAIRES
-// ============================================
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
 }

@@ -22,17 +22,22 @@
             <a href="${base}../index.html">← Retour à FIP Toolkit</a>
         </div>`;
 
+    // Liste des pages du footer — donnée séparée du gabarit de rendu ci-dessous
+    const FOOTER_LINKS = [
+        { href: 'index.html', label: 'Accueil' },
+        { href: 'popup.html', label: 'Popup' },
+        { href: 'tutoriel.html', label: 'Tutoriel' },
+        { href: 'documentation.html', label: 'Documentation' },
+        { href: 'faq.html', label: 'FAQ' },
+        { href: 'changelog.html', label: 'Nouveautés' },
+        { href: 'legal.html', label: 'Informations légales' }
+    ];
+
     const FOOTER_HTML = `
         <div class="footer-nav">
             <h3>Ressources complémentaires</h3>
             <div class="nav-links-grid">
-                <a href="${base}index.html" class="nav-button">Accueil</a>
-                <a href="${base}popup.html" class="nav-button">Popup</a>
-                <a href="${base}tutoriel.html" class="nav-button">Tutoriel</a>
-                <a href="${base}documentation.html" class="nav-button">Documentation</a>
-                <a href="${base}faq.html" class="nav-button">FAQ</a>
-                <a href="${base}changelog.html" class="nav-button">Nouveautés</a>
-                <a href="${base}legal.html" class="nav-button">Informations légales</a>
+                ${FOOTER_LINKS.map(link => `<a href="${base}${link.href}" class="nav-button">${link.label}</a>`).join('\n                ')}
             </div>
         </div>`;
 

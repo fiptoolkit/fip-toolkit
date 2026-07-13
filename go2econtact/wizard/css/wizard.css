@@ -118,29 +118,25 @@
 }
 
 /* ============================================
-   RESET & BASE
+   BASE
    ============================================ */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .wizard-content {
     padding: 2.5rem;
 }
 
 /* ============================================
    TYPOGRAPHIE
+   Scopée à .wizard-content : évite toute collision
+   avec les règles globales h1/h2/h3 de styles.css
    ============================================ */
-h1 {
+.wizard-content h1 {
     color: var(--color-primary);
     font-size: 2rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
-h2 {
+.wizard-content h2 {
     color: var(--color-primary);
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -148,7 +144,7 @@ h2 {
     font-weight: 600;
 }
 
-h3 {
+.wizard-content h3 {
     color: var(--color-primary);
     font-size: 1.2rem;
     margin-bottom: 0.75rem;
@@ -156,7 +152,7 @@ h3 {
     font-weight: 600;
 }
 
-h4 {
+.wizard-content h4 {
     color: var(--color-text-light);
     font-size: 1rem;
     margin-bottom: 0.5rem;
@@ -258,7 +254,7 @@ textarea.form-control {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-code {
+.wizard-content code {
     background: var(--color-bg-code-inline);
     padding: 2px 6px;
     border-radius: 3px;
@@ -827,11 +823,11 @@ em {
         padding: 1.5rem;
     }
 
-    h1 {
+    .wizard-content h1 {
         font-size: 1.5rem;
     }
 
-    h2 {
+    .wizard-content h2 {
         font-size: 1.3rem;
     }
 
@@ -883,7 +879,7 @@ em {
         padding: 1rem;
     }
 
-    h1 {
+    .wizard-content h1 {
         font-size: 1.3rem;
     }
 

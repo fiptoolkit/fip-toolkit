@@ -3,8 +3,10 @@
  *
  * Actuellement : lightbox pour les captures d'écran (.screenshot)
  *
+ * Fichier dupliqué par produit (pas de mécanisme de partage entre les
+ * dossiers publics indépendants go2econtact/, copymove/).
+ *
  * Usage : charger ce fichier dans les pages qui contiennent des captures.
- * Ne pas inclure dans _common.php — uniquement sur les pages concernées.
  *
  * @author Hervé ROUVROY
  * @license MPL-2.0

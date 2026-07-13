@@ -9,8 +9,12 @@
  * - Historique conservé en sessionStorage
  * 
  * @author Hervé ROUVROY
- * @version 3.0
+ * @version 3.1
  * @license MPL-2.0
+ * @requires validation-utils.js Doit être chargé avant ce fichier (fonctions
+ *           de validation : isValidEmailFormat, isValidDomainWithWildcards,
+ *           isValidPatternFormat, escapeHtml, showFieldError, clearFieldError,
+ *           showTextareaErrors, clearTextareaErrors, cleanAndValidateTextarea)
  */
 
 // ============================================
@@ -158,7 +162,7 @@ function attachEventListeners() {
         const textarea = document.getElementById(id);
         if (textarea) {
             textarea.addEventListener('blur', () => {
-                cleanAndValidateSimulatorTextarea(textarea, type);
+                cleanAndValidateTextarea(textarea, type);
             });
         }
     }
@@ -173,114 +177,13 @@ function attachEventListeners() {
     if (internalDomain) {
         internalDomain.addEventListener('blur', () => {
             const value = internalDomain.value.trim();
-            if (value && !isValidDomain(value)) {
+            if (value && !isValidDomainWithWildcards(value)) {
                 showFieldError(internalDomain, 'Format de domaine invalide');
             } else {
                 clearFieldError(internalDomain);
             }
         });
     }
-}
-
-// ============================================
-// VALIDATION
-// ============================================
-
-/**
- * Validation email simple
- */
-function isValidEmailFormat(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-}
-
-/**
- * Validation domaine avec support wildcards
- */
-function isValidDomain(domain) {
-    // Cas spéciaux wildcards d'abord
-    if (domain === '*') return true;
-    if (domain === '*.*') return true;
-    if (/^\*\.[a-zA-Z]{2,}$/.test(domain)) return true;
-    
-    // Domaines normaux : exiger au moins un point
-    const domainRegex = /^(\*\.)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-    return domainRegex.test(domain);
-}
-
-/**
- * Validation pattern avec wildcard domaine seulement
- */
-function isValidPatternFormat(pattern) {
-    const patternRegex = /^[^\s@*]+@(\*|\*\.[a-zA-Z0-9.-]+|[a-zA-Z0-9.-]+)$/;
-    return patternRegex.test(pattern.trim());
-}
-
-/**
- * Nettoyage textarea simulateur
- */
-function cleanAndValidateSimulatorTextarea(textarea, type) {
-    // Auto-conversion majuscules pour les préfixes sujets (reproduit options.js)
-    if (type === 'subject') {
-        textarea.value = textarea.value.replace(/^\[(commence|contient|finit)\]/gim, m => m.toUpperCase());
-    }
-    const lines = textarea.value.split('\n');
-    const validLines = [];
-    const invalidLines = [];
-
-    lines.forEach(line => {
-        const cleaned = line.trim();
-        if (!cleaned) return;
-
-        let isValid = false;
-
-        if (type === 'email') {
-            isValid = isValidEmailFormat(cleaned);
-        } else if (type === 'domain') {
-            isValid = isValidDomain(cleaned);
-        } else if (type === 'pattern') {
-            isValid = isValidPatternFormat(cleaned);
-        } else if (type === 'subject') {
-            isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
-        }
-
-        if (isValid) {
-            validLines.push(cleaned);
-        } else {
-            invalidLines.push(cleaned);
-        }
-    });
-
-    // Ne pas modifier textarea.value — les lignes invalides restent visibles
-    if (invalidLines.length > 0) {
-        showTextareaErrors(textarea, invalidLines);
-    } else {
-        clearTextareaErrors(textarea);
-    }
-
-    return { valid: validLines, invalid: invalidLines };
-}
-
-/**
- * Feedback simulateur (réutilise classes CSS wizard existantes)
- */
-function showTextareaErrors(textarea, invalidLines) {
-    textarea.classList.add('is-invalid');
-
-    clearTextareaErrors(textarea);
-
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'form-error textarea-error-list';
-    errorDiv.innerHTML = `⚠️ ${invalidLines.length} ligne${invalidLines.length > 1 ? 's' : ''} invalide${invalidLines.length > 1 ? 's' : ''} : `
-        + invalidLines.map(l => `<code>${escapeHtml(l)}</code>`).join(', ');
-
-    textarea.parentNode.appendChild(errorDiv);
-}
-
-function clearTextareaErrors(textarea) {
-    textarea.classList.remove('is-invalid');
-    const existing = textarea.parentNode.querySelector('.textarea-error-list');
-    if (existing) existing.remove();
 }
 
 function validateEmailInput() {
@@ -472,21 +375,21 @@ function validateImportedConfig(raw) {
 
     // Valider internalDomain
     const internalDomain = s.internalDomain ? s.internalDomain.trim() : '';
-    if (internalDomain && !isValidDomain(internalDomain)) {
+    if (internalDomain && !isValidDomainWithWildcards(internalDomain)) {
         discarded.push({ label: 'Domaine interne', value: internalDomain, reason: 'format invalide' });
     }
 
     const config = {
-        internalDomain: (internalDomain && isValidDomain(internalDomain)) ? internalDomain : '',
+        internalDomain: (internalDomain && isValidDomainWithWildcards(internalDomain)) ? internalDomain : '',
         exclusion: {
-            domains:   filterArray(s.exclusion?.domains,   isValidDomain,        'Domaines exclus'),
-            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,   'Adresses exclues'),
-            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat, 'Patterns exclus'),
+            domains:   filterArray(s.exclusion?.domains,   isValidDomainWithWildcards, 'Domaines exclus'),
+            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,         'Adresses exclues'),
+            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat,       'Patterns exclus'),
             subjects:  filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'Sujets exclus')
         },
         inclusion: {
-            addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat, 'Adresses incluses'),
-            domains:   filterArray(s.inclusion?.domains,   isValidDomain,      'Domaines inclus')
+            addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat,         'Adresses incluses'),
+            domains:   filterArray(s.inclusion?.domains,   isValidDomainWithWildcards, 'Domaines inclus')
         }
     };
 
@@ -718,30 +621,6 @@ function hideError() {
     errorZone.style.display = 'none';
 }
 
-function showFieldError(field, message) {
-    field.classList.add('is-invalid');
-    
-    // Supprimer ancien message d'erreur s'il existe
-    const existingError = field.parentElement.querySelector('.form-error');
-    if (existingError) {
-        existingError.remove();
-    }
-    
-    // Ajouter nouveau message
-    const errorSpan = document.createElement('span');
-    errorSpan.className = 'form-error';
-    errorSpan.textContent = message;
-    field.parentElement.appendChild(errorSpan);
-}
-
-function clearFieldError(field) {
-    field.classList.remove('is-invalid');
-    const errorSpan = field.parentElement.querySelector('.form-error');
-    if (errorSpan) {
-        errorSpan.remove();
-    }
-}
-
 // ============================================
 // ÉTAT UI
 // ============================================
@@ -753,12 +632,6 @@ function setLoading(isLoading) {
 // ============================================
 // UTILITAIRES
 // ============================================
-
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
 
 function formatTime(isoString) {
     const date = new Date(isoString);
