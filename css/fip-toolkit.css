@@ -3,35 +3,18 @@
    Feuille de styles pour la page d'accueil FIP Toolkit
    ============================================ */
 
-/* ============================================
-   PALETTE ACTIVE : ROUGE GRENAT
-   ============================================ */
 :root {
-    --color-bg: #fff7ed;              /* Fond beige foncé */
-    --color-primary: #b91c1c;         /* Rouge principal */
-    --color-primary-dark: #991b1b;    /* Rouge foncé */
-    --color-primary-light: #dc2626;   /* Rouge clair */
-    --color-accent: #fbbf24;          /* Jaune pour status */
-    --color-text: #333;
-    --color-text-light: #666;
-    --border-width: 25px;             /* Bordure container */
-}
+    --paper: #f3ede1;
+    --card: #fffdf8;
+    --ink: #2b2620;
+    --muted: #7d7364;
+    --line: #d9cfb9;
 
-/* ============================================
-   PALETTE ALTERNATIVE : CYAN TECH (commentée)
-   Pour activer, décommenter et commenter la palette rouge
-   ============================================
-:root {
-    --color-bg: linear-gradient(135deg, #0e7490 0%, #06b6d4 100%);
-    --color-primary: #0891b2;
-    --color-primary-dark: #0e7490;
-    --color-primary-light: #06b6d4;
-    --color-accent: #f97316;
-    --color-text: #333;
-    --color-text-light: #666;
-    --border-width: 30px;
+    /* Disponible (Go2Econtact, CopyMove) */
+    --color-available: #e91e8c;
+    /* En développement (Margaret) */
+    --color-dev: #e8630a;
 }
-============================================ */
 
 /* ============================================
    RESET & BASE
@@ -43,44 +26,39 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--color-text);
-    background: var(--color-bg);
+    background:
+        radial-gradient(circle at 1px 1px, rgba(43, 38, 32, 0.06) 1px, transparent 0) 0 0/22px 22px,
+        var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 3rem 1.5rem;
 }
 
 /* ============================================
-   CONTAINER PRINCIPAL
+   EN-TÊTE
    ============================================ */
-.container {
-    background: white;
-    padding: 3rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
+.wrap {
+    max-width: 700px;
     width: 100%;
     text-align: center;
-    border: var(--border-width) solid var(--color-primary);
 }
 
-/* ============================================
-   TYPOGRAPHIE
-   ============================================ */
 h1 {
-    color: var(--color-primary);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.6rem;
 }
 
 .subtitle {
-    color: var(--color-text-light);
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 3.5rem;
 }
 
 /* ============================================
@@ -88,41 +66,155 @@ h1 {
    ============================================ */
 .tools {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 2.25rem 1.75rem;
 }
 
 /* ============================================
-   CARDS OUTILS
+   CARTES OUTILS
+   Silhouette "fiche" avec coin plié, légère rotation au repos
+   (posées comme de vraies fiches, pas alignées au cordeau)
    ============================================ */
 .tool-card {
-    padding: 1.5rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    transition: all 0.3s;
-    cursor: pointer;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2rem 1.25rem 1.5rem;
     text-decoration: none;
     color: inherit;
     display: block;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(43, 38, 32, 0.1);
+    transition: transform 0.25s cubic-bezier(.2, .8, .3, 1), box-shadow 0.25s ease, border-color 0.2s ease;
 }
 
-.tool-card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(185, 28, 28, 0.3);
+.tools .tool-card:nth-child(1) { transform: rotate(-1.4deg); }
+.tools .tool-card:nth-child(2) { transform: rotate(1deg); }
+.tools .tool-card:nth-child(3) { transform: rotate(-0.6deg); }
+
+a.tool-card:hover,
+.tools a.tool-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 0 16px 28px -10px rgba(43, 38, 32, 0.22);
+    border-color: var(--color-available);
 }
 
+.tool-card.status-dev:hover {
+    border-color: var(--color-dev);
+}
+
+/* Coin plié — ombre + pli visible */
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, transparent 50%, rgba(43, 38, 32, 0.12) 50%, rgba(43, 38, 32, 0.12) 52%, transparent 52%);
+}
+
+.tool-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent var(--paper) transparent transparent;
+    filter: drop-shadow(-1px 1px 1px rgba(43, 38, 32, 0.15));
+}
+
+/* ============================================
+   ICÔNE
+   ============================================ */
+.tool-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: rgba(233, 30, 140, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-available);
+}
+
+.status-dev .tool-icon {
+    background: rgba(232, 99, 10, 0.1);
+    color: var(--color-dev);
+}
+
+.tool-icon svg,
+.tool-icon .icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    background-color: currentColor;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.icon-mail {
+    -webkit-mask-image: url('../img/icons/enveloppe.svg');
+    mask-image: url('../img/icons/enveloppe.svg');
+}
+
+.icon-copy {
+    -webkit-mask-image: url('../img/icons/copie.svg');
+    mask-image: url('../img/icons/copie.svg');
+}
+
+.icon-grid {
+    -webkit-mask-image: url('../img/icons/grille.svg');
+    mask-image: url('../img/icons/grille.svg');
+}
+
+/* ============================================
+   TITRE — soulignement façon marqueur
+   ============================================ */
 .tool-card h3 {
-    color: var(--color-primary);
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    position: relative;
+    display: inline-block;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+    z-index: 1;
+}
+
+.tool-card h3::before {
+    content: '';
+    position: absolute;
+    left: -0.15em;
+    right: -0.15em;
+    bottom: -0.12em;
+    height: 0.18em;
+    background: var(--color-available);
+    opacity: 0.6;
+    border-radius: 2px 6px 3px 6px / 4px 2px 5px 3px;
+    transform: rotate(-0.6deg);
+    filter: blur(1.5px);
+    z-index: -1;
+}
+
+.status-dev h3::before {
+    background: var(--color-dev);
+    transform: rotate(0.5deg);
 }
 
 .tool-card p {
-    color: var(--color-text-light);
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 1.1rem;
 }
 
 /* ============================================
@@ -130,21 +222,28 @@ h1 {
    ============================================ */
 .status {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    background: var(--color-accent);
-    color: #000;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+    color: var(--color-available);
+    background: rgba(233, 30, 140, 0.1);
+}
+
+.status-dev .status {
+    color: var(--color-dev);
+    background: rgba(232, 99, 10, 0.12);
 }
 
 /* ============================================
    FOOTER
    ============================================ */
 .footer-text {
-    margin-top: 2rem;
-    color: #999;
-    font-size: 0.9rem;
+    margin-top: 2.75rem;
+    color: var(--muted);
+    font-size: 0.85rem;
 }
 
 /* ============================================
@@ -152,34 +251,20 @@ h1 {
    ============================================ */
 @media (max-width: 768px) {
     body {
-        padding: 1rem;
+        padding: 1.5rem;
     }
-    
-    .container {
-        padding: 2rem;
-        border-width: 20px;
-    }
-    
+
     h1 {
-        font-size: 2rem;
+        font-size: 2.1rem;
     }
-    
-    .subtitle {
-        font-size: 1rem;
-    }
-    
+
     .tools {
         grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 1.5rem;
-        border-width: 15px;
-    }
-    
-    h1 {
-        font-size: 1.75rem;
+@media (prefers-reduced-motion: reduce) {
+    .tool-card {
+        transition: none;
     }
 }
