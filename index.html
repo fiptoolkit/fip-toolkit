@@ -4,29 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIP Toolkit - Outils professionnels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/fip-toolkit.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🛠️ FIP Toolkit</h1>
-        <p class="subtitle">Suite d'outils professionnels pour Thunderbird et plus</p>
-        
+    <div class="wrap">
+        <h1>FIP Toolkit</h1>
+        <p class="subtitle">Outils professionnels pour Thunderbird et LibreOffice.</p>
+
         <div class="tools">
             <a href="go2econtact/index.html" class="tool-card">
-                <h3>⏰ Go2Econtact 📧</h3>
+                <div class="tool-icon">
+                    <span class="icon icon-mail"></span>
+                </div>
+                <h3>Go2Econtact</h3>
                 <p>Accusés de réception automatiques pour Thunderbird</p>
-                <span class="status">En test</span>
+                <span class="status">Disponible</span>
             </a>
-            
-            <div class="tool-card">
-                <h3>📊 Margaret</h3>
+
+            <a href="copymove/index.html" class="tool-card">
+                <div class="tool-icon">
+                    <span class="icon icon-copy"></span>
+                </div>
+                <h3>CopyMove</h3>
+                <p>Copie et déplacement automatiques de messages pour Thunderbird</p>
+                <span class="status">Disponible</span>
+            </a>
+
+            <div class="tool-card status-dev">
+                <div class="tool-icon">
+                    <span class="icon icon-grid"></span>
+                </div>
+                <h3>Margaret</h3>
                 <p>Manipulation avancée de fichiers CALC avec LibreOffice</p>
                 <span class="status">En développement</span>
             </div>
         </div>
-        
+
         <p class="footer-text">
-            Documentation complète bientôt disponible
+            Documentation disponible pour chaque outil
         </p>
     </div>
 </body>
