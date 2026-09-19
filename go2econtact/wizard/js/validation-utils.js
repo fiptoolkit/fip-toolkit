@@ -37,20 +37,37 @@ function isValidEmailFormat(email) {
 }
 
 /**
- * Validation domaine avec support complet wildcards
+ * Validation domaine avec support complet des caractères joker (*)
+ * Reproduction de isValidDomain() de options.js
  *
  * @param {string} domain
  * @returns {boolean}
  */
 function isValidDomainWithWildcards(domain) {
-    // Cas spéciaux wildcards d'abord
-    if (domain === '*') return true;                    // TOUS les domaines
-    if (domain === '*.*') return true;                  // Domaines avec point
-    if (/^\*\.[a-zA-Z]{2,}$/.test(domain)) return true; // *.fr, *.com, etc.
+    // '*' seul : absolument tous les domaines
+    if (domain === '*') return true;
 
-    // Domaines normaux : exiger au moins un point
-    const domainRegex = /^(\*\.)?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-    return domainRegex.test(domain);
+    // Chaque label séparé par un point doit être soit '*' (joker pour ce
+    // niveau DNS entier), soit un label DNS valide — jamais un mélange des
+    // deux à l'intérieur d'un même label (ex: "*societe*" rejeté)
+    const labels = domain.split('.');
+    if (labels.length < 2) return false; // au moins 2 niveaux, sauf le '*' seul ci-dessus
+    const labelRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
+    return labels.every(label => label === '*' || labelRegex.test(label));
+}
+
+/**
+ * Validation d'un suffixe TLD/pays pour le blocage total (exclusion.blockedTlds)
+ * Suffixe littéral exact uniquement — pas de caractère joker, pas de notation @.
+ * Ex valides : "fr", "gouv.fr", "co.uk". Ex invalides : "*", "*.fr", "gouv.*"
+ * Reproduction de isValidTld() de options.js
+ *
+ * @param {string} tld
+ * @returns {boolean}
+ */
+function isValidTld(tld) {
+    const tldRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    return tldRegex.test(tld);
 }
 
 /**
@@ -147,7 +164,7 @@ function clearTextareaErrors(textarea) {
  * dans le textarea — seul un message d'erreur est affiché sous le champ.
  *
  * @param {HTMLTextAreaElement} textarea
- * @param {'email'|'domain'|'pattern'|'subject'} type
+ * @param {'email'|'domain'|'pattern'|'subject'|'tld'} type
  * @returns {{valid: string[], invalid: string[]}}
  */
 function cleanAndValidateTextarea(textarea, type) {
@@ -173,6 +190,8 @@ function cleanAndValidateTextarea(textarea, type) {
             isValid = isValidPatternFormat(cleaned);
         } else if (type === 'subject') {
             isValid = /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(cleaned);
+        } else if (type === 'tld') {
+            isValid = isValidTld(cleaned);
         }
 
         if (isValid) {

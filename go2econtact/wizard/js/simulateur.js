@@ -155,7 +155,9 @@ function attachEventListeners() {
         'exclusionPatterns': 'pattern',
         'inclusionAddresses': 'email',
         'inclusionDomains': 'domain',
-        'exclusionSubjects': 'subject'
+        'exclusionSubjects': 'subject',
+        'internalDomain': 'domain',
+        'exclusionBlockedTlds': 'tld'
     };
     
     for (const [id, type] of Object.entries(textareas)) {
@@ -167,22 +169,10 @@ function attachEventListeners() {
         }
     }
     
-    // Validation domaine interne
-    const internalDomain = document.getElementById('internalDomain');
     // Import JSON wizard
     const importJsonFile = document.getElementById('importJsonFile');
     if (importJsonFile) {
         importJsonFile.addEventListener('change', handleJsonImport);
-    }
-    if (internalDomain) {
-        internalDomain.addEventListener('blur', () => {
-            const value = internalDomain.value.trim();
-            if (value && !isValidDomainWithWildcards(value)) {
-                showFieldError(internalDomain, 'Format de domaine invalide');
-            } else {
-                clearFieldError(internalDomain);
-            }
-        });
     }
 }
 
@@ -209,11 +199,19 @@ function validateEmailInput() {
 // ============================================
 
 function getConfigFromForm() {
-    // Domaine interne
-    const internalDomain = document.getElementById('internalDomain').value.trim();
+    // Domaine(s) interne(s)
+    const internalDomains = document.getElementById('internalDomain').value
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line !== '');
     
     // Exclusions
     const exclusionDomains = document.getElementById('exclusionDomains').value
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line !== '');
+    
+    const exclusionBlockedTlds = document.getElementById('exclusionBlockedTlds').value
         .split('\n')
         .map(line => line.trim())
         .filter(line => line !== '');
@@ -247,10 +245,11 @@ function getConfigFromForm() {
     const subject = document.getElementById('testSubject').value.trim();
 
     return {
-        internalDomain: internalDomain,
+        internalDomains: internalDomains,
         subject: subject,
         exclusion: {
             domains: exclusionDomains,
+            blockedTlds: exclusionBlockedTlds,
             addresses: exclusionAddresses,
             patterns: exclusionPatterns,
             subjects: exclusionSubjects
@@ -329,14 +328,11 @@ function validateImportedConfig(raw) {
 
     const s = raw.settings;
 
-    // internalDomain : string ou absent
-    if (s.internalDomain !== undefined && typeof s.internalDomain !== 'string') {
-        return { valid: false, error: '"internalDomain" doit être une chaîne de caractères.' };
-    }
-
     // Vérifier types des tableaux avant de filtrer leur contenu
     const arrayChecks = [
+        { path: 'internalDomains' },
         { path: 'exclusion.domains' },
+        { path: 'exclusion.blockedTlds' },
         { path: 'exclusion.addresses' },
         { path: 'exclusion.patterns' },
         { path: 'exclusion.subjects' },
@@ -344,8 +340,9 @@ function validateImportedConfig(raw) {
         { path: 'inclusion.domains' }
     ];
     for (const { path } of arrayChecks) {
-        const [section, field] = path.split('.');
-        if (s[section] && s[section][field] !== undefined && !Array.isArray(s[section][field])) {
+        const parts = path.split('.');
+        const value = parts.length === 1 ? s[parts[0]] : s[parts[0]] && s[parts[0]][parts[1]];
+        if (value !== undefined && !Array.isArray(value)) {
             return { valid: false, error: `"${path}" doit être un tableau.` };
         }
     }
@@ -373,19 +370,14 @@ function validateImportedConfig(raw) {
     const normalizeSubject = (v) => v.replace(/^\[(commence|contient|finit)\]/i, m => m.toUpperCase());
     const isValidSubject = (v) => /^\[(COMMENCE|CONTIENT|FINIT)\].+$/.test(normalizeSubject(v));
 
-    // Valider internalDomain
-    const internalDomain = s.internalDomain ? s.internalDomain.trim() : '';
-    if (internalDomain && !isValidDomainWithWildcards(internalDomain)) {
-        discarded.push({ label: 'Domaine interne', value: internalDomain, reason: 'format invalide' });
-    }
-
     const config = {
-        internalDomain: (internalDomain && isValidDomainWithWildcards(internalDomain)) ? internalDomain : '',
+        internalDomains: filterArray(s.internalDomains, isValidDomainWithWildcards, 'Domaine interne'),
         exclusion: {
-            domains:   filterArray(s.exclusion?.domains,   isValidDomainWithWildcards, 'Domaines exclus'),
-            addresses: filterArray(s.exclusion?.addresses, isValidEmailFormat,         'Adresses exclues'),
-            patterns:  filterArray(s.exclusion?.patterns,  isValidPatternFormat,       'Patterns exclus'),
-            subjects:  filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'Sujets exclus')
+            domains:     filterArray(s.exclusion?.domains,     isValidDomainWithWildcards, 'Domaines exclus'),
+            blockedTlds: filterArray(s.exclusion?.blockedTlds, isValidTld,                 'Domaines/pays bloqués'),
+            addresses:   filterArray(s.exclusion?.addresses,   isValidEmailFormat,         'Adresses exclues'),
+            patterns:    filterArray(s.exclusion?.patterns,    isValidPatternFormat,       'Patterns exclus'),
+            subjects:    filterArray(s.exclusion?.subjects?.map(v => typeof v === 'string' ? normalizeSubject(v) : v),  isValidSubject, 'Sujets exclus')
         },
         inclusion: {
             addresses: filterArray(s.inclusion?.addresses, isValidEmailFormat,         'Adresses incluses'),
@@ -400,8 +392,9 @@ function validateImportedConfig(raw) {
  * Pré-remplir le formulaire du simulateur depuis une config normalisée
  */
 function populateFormFromConfig(config) {
-    document.getElementById('internalDomain').value    = config.internalDomain;
+    document.getElementById('internalDomain').value    = config.internalDomains.join('\n');
     document.getElementById('exclusionDomains').value  = config.exclusion.domains.join('\n');
+    document.getElementById('exclusionBlockedTlds').value = config.exclusion.blockedTlds.join('\n');
     document.getElementById('exclusionAddresses').value = config.exclusion.addresses.join('\n');
     document.getElementById('exclusionPatterns').value  = config.exclusion.patterns.join('\n');
     document.getElementById('exclusionSubjects').value  = config.exclusion.subjects.join('\n');
@@ -493,6 +486,26 @@ async function handleTest() {
     }
 }
 
+/**
+ * Habille certains libellés techniques du moteur pour l'affichage à
+ * l'utilisateur final. Le moteur (filterEngine.js) reste fidèle à
+ * background.js et continue de produire "TLD bloqué: xxx" en interne —
+ * seul l'affichage est humanisé, pas la donnée elle-même.
+ * Cf. arbitrage du 19/09/2026 : "TLD" reste technique dans le code,
+ * humanisé uniquement à l'écran pour un public non-technique.
+ *
+ * @param {string|null} rule
+ * @returns {string|null}
+ */
+function humanizeRuleLabel(rule) {
+    if (!rule) return rule;
+    const TLD_PREFIX = 'TLD bloqué:';
+    if (rule.startsWith(TLD_PREFIX)) {
+        return 'Pays/domaine bloqué :' + rule.substring(TLD_PREFIX.length);
+    }
+    return rule;
+}
+
 // ============================================
 // AFFICHAGE RÉSULTAT
 // ============================================
@@ -519,7 +532,7 @@ function displayResult(email, data) {
     explanationDiv.innerHTML = `
         <h3>💬 Explication détaillée</h3>
         <p>${data.explanation}</p>
-        ${data.rule_applied ? `<p>Règle appliquée : <span class="result-rule">${escapeHtml(data.rule_applied)}</span></p>` : ''}
+        ${data.rule_applied ? `<p>Règle appliquée : <span class="result-rule">${escapeHtml(humanizeRuleLabel(data.rule_applied))}</span></p>` : ''}
     `;
     
     // Afficher la zone résultat

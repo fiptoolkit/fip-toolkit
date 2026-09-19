@@ -36,7 +36,7 @@ class ExplanationGenerator {
                 return this._explainExclusion(email, rule, config);
                 
             case 'Email interne (non dans INCLUSION)':
-                return this._explainInternal(email, config.internalDomain);
+                return this._explainInternal(email, rule);
                 
             case 'Email externe non exclu':
                 return this._explainExternalAllowed(email, config);
@@ -65,9 +65,11 @@ class ExplanationGenerator {
         // Déterminer le type d'exclusion
         if (rule && rule.includes('Domaine exclu')) {
             return this._explainExclusionDomain(email, rule);
+        } else if (rule && rule.includes('TLD bloqué')) {
+            return this._explainExclusionTld(email, rule);
         } else if (rule && rule.includes('Adresse exclue')) {
             return this._explainExclusionAddress(email, rule);
-        } else if (rule && rule.includes('Pattern exclu')) {
+        } else if (rule && rule.includes('Filtre exclu')) {
             return this._explainExclusionPattern(email, rule);
         }
         if (rule && rule.includes('Sujet exclu')) {
@@ -91,9 +93,22 @@ class ExplanationGenerator {
         
         return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car son domaine (<code>" + this._escapeHtml(domain) + "</code>) est dans votre liste d'<strong>EXCLUSIONS</strong>. " +
                "Vous avez configuré ce domaine pour bloquer systématiquement tous les AR vers ses adresses. " +
-               "Les exclusions de domaine s'appliquent à toutes les adresses email de ce domaine (et ses sous-domaines si vous utilisez le wildcard <code>*.</code>). " +
+               "Les exclusions de domaine s'appliquent à toutes les adresses email de ce domaine (et ses sous-domaines si vous utilisez le caractère joker <code>*.</code>). " +
                "Si vous souhaitez quand même envoyer un AR à cette adresse spécifique, vous devez l'ajouter dans la liste <strong>INCLUSION</strong> qui a la priorité absolue sur les exclusions.";
     }
+
+    /**
+     * Explication : Exclusion par pays/domaine entièrement bloqué (TLD)
+     * @private
+     */
+    _explainExclusionTld(email, rule) {
+        const match = rule.match(/TLD bloqué: (.+)/);
+        const tld = match ? match[1] : 'ce suffixe';
+
+        return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car son domaine se termine par <code>" + this._escapeHtml(tld) + "</code>, qui figure dans votre liste de <strong>pays/domaines entièrement bloqués</strong>. " +
+               "Contrairement à une exclusion de domaine classique, ce blocage couvre le suffixe exact ainsi que tous ses sous-domaines — y compris le domaine racine lui-même. " +
+               "Si vous souhaitez quand même envoyer un AR à cette adresse spécifique, vous devez l'ajouter dans la liste <strong>INCLUSION</strong> qui a la priorité absolue.";
+    }    
     
     /**
      * Explication : Exclusion par adresse spécifique
@@ -113,7 +128,7 @@ class ExplanationGenerator {
      */
     _explainExclusionPattern(email, rule) {
         // Extraire le pattern du rule
-        const match = rule.match(/Pattern exclu: (.+)/);
+        const match = rule.match(/Filtre exclu : (.+)/);
         const pattern = match ? match[1] : '';
         
         const patternExplanation = this._explainPattern(pattern);
@@ -157,8 +172,9 @@ class ExplanationGenerator {
      * Explication : Email interne (domaine interne)
      * @private
      */
-    _explainInternal(email, internalDomain) {
-        const domainDisplay = internalDomain;
+    _explainInternal(email, rule) {
+        const match = rule && rule.match(/Domaine interne: (.+)/);
+        const domainDisplay = match ? match[1] : 'un de vos domaines internes';
         
         return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car elle appartient à votre <strong>domaine interne</strong> (<code>" + this._escapeHtml(domainDisplay) + "</code>). " +
                "Par défaut, les emails internes (collègues de votre organisation) ne reçoivent pas d'AR automatique pour éviter les envois inutiles en interne. " +
@@ -172,12 +188,12 @@ class ExplanationGenerator {
      * @private
      */
     _explainExternalAllowed(email, config) {
-        const hasInternalDomain = config.internalDomain && config.internalDomain.trim() !== '';
+        const hasInternalDomains = config.internalDomains && config.internalDomains.length > 0;
         
         let explanation = "Cette adresse <strong>RECEVRA un accusé de réception</strong> car elle est <strong>EXTERNE</strong> ";
         
-        if (hasInternalDomain) {
-            explanation += "(n'appartient pas à votre domaine interne <code>" + this._escapeHtml(config.internalDomain) + "</code>) ";
+        if (hasInternalDomains) {
+            explanation += "(n'appartient à aucun de vos domaines internes configurés) ";
         }
         
         explanation += "et n'est dans <strong>AUCUNE</strong> liste d'exclusion. ";
@@ -206,6 +222,9 @@ class ExplanationGenerator {
         } else {
             switch (decision.reason) {
                 case 'Exclusion':
+                    if (decision.rule && decision.rule.startsWith('TLD bloqué:')) {
+                        return "AR bloqué (pays/domaine bloqué)";
+                    }
                     return "AR bloqué (exclusion)";
                 case 'Email interne (non dans INCLUSION)':
                     return "AR bloqué (domaine interne)";

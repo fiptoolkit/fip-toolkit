@@ -75,16 +75,16 @@
 
                 <div class="form-group">
                     <label for="internalDomain">
-                        Domaine de votre organisation
-                        <span class="optional">(optionnel)</span>
+                        Domaine(s) de votre organisation
+                        <span class="optional">(optionnel, un par ligne)</span>
                     </label>
-                    <input 
-                        type="text" 
+                    <textarea 
                         id="internalDomain" 
                         name="internalDomain"
-                        placeholder="exemple : societe.fr ou *.societe.fr"
+                        rows="3"
                         class="form-control"
-                    >
+                        placeholder="Exemple :&#10;societe.fr&#10;*.filiale-societe.fr"
+                    ></textarea>
                     <small class="form-hint">
                         💡 Utilisez <code>*.domaine.fr</code> pour inclure tous les sous-domaines
                         (ex: <code>paris.societe.fr</code>, <code>lyon.societe.fr</code>)
@@ -138,6 +138,34 @@
                         ></textarea>
                         <small class="form-hint">
                             💡 Vous pouvez utiliser <code>*.</code> pour exclure tous les sous-domaines
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Exclusion TLD/pays entièrement bloqués -->
+                <div class="form-section">
+                    <h3>Pays ou domaines entièrement bloqués</h3>
+                    <p class="section-description">
+                        Bloquez la totalité d'un pays ou d'un domaine — y compris son domaine
+                        racine et tous ses sous-domaines (contrairement à une exclusion de
+                        domaine avec <code>*.</code>, qui n'exclut pas la racine).
+                    </p>
+
+                    <div class="form-group">
+                        <label for="exclusionBlockedTlds">
+                            Domaines ou pays entièrement bloqués
+                            <span class="optional">(un par ligne)</span>
+                        </label>
+                        <textarea 
+                            id="exclusionBlockedTlds" 
+                            name="exclusionBlockedTlds"
+                            rows="4"
+                            class="form-control"
+                            placeholder="Exemple :&#10;fr&#10;gouv.fr&#10;ru"
+                        ></textarea>
+                        <small class="form-hint">
+                            💡 Suffixe exact uniquement (pas de caractère joker <code>*</code>) —
+                            ex : <code>gouv.fr</code> bloque aussi tous ses sous-domaines
                         </small>
                     </div>
                 </div>

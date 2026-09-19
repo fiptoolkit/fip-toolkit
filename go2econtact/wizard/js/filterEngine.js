@@ -17,13 +17,6 @@
  */
 
 class FilterEngine {
-    constructor() {
-        /**
-         * Règle appliquée (pour traçabilité)
-         * @type {string|null}
-         */
-        this.lastAppliedRule = null;
-    }
     
     /**
      * Point d'entrée principal - Détermine si un email doit recevoir un AR
@@ -36,37 +29,34 @@ class FilterEngine {
     shouldSendAR(email, config) {
         // Normaliser l'email
         email = email.toLowerCase().trim();
-        
-        // Réinitialiser la règle appliquée
-        this.lastAppliedRule = null;
-        
+
         // 1. PRIORITÉ ABSOLUE : Vérifier INCLUSION
-        if (this._isInInclusionList(email, config.inclusion)) {
+        const inclusionRule = this._isInInclusionList(email, config.inclusion);
+        if (inclusionRule) {
             return {
                 allowed: true,
                 reason: 'Inclusion forcée (exception)',
-                rule: this.lastAppliedRule
+                rule: inclusionRule
             };
         }
 
         // 2. Vérifier si email INTERNE (avant exclusion — conforme background.js)
-        const isExternal = this._isExternalEmail(email, config.internalDomain);
-
-        if (!isExternal) {
-            this.lastAppliedRule = 'Domaine interne: ' + config.internalDomain;
+        const internalRule = this._isInInternalDomainsList(email, config.internalDomains);
+        if (internalRule) {
             return {
                 allowed: false,
                 reason: 'Email interne (non dans INCLUSION)',
-                rule: this.lastAppliedRule
+                rule: internalRule
             };
         }
 
         // 3. Vérifier EXCLUSION (seulement pour emails externes)
-        if (this._isInExclusionList(email, config.exclusion, config.subject || null)) {
+        const exclusionRule = this._isInExclusionList(email, config.exclusion, config.subject || null);
+        if (exclusionRule) {
             return {
                 allowed: false,
                 reason: 'Exclusion',
-                rule: this.lastAppliedRule
+                rule: exclusionRule
             };
         }
 
@@ -89,33 +79,62 @@ class FilterEngine {
      */
     _isInInclusionList(email, inclusion) {
         if (!inclusion) {
-            return false;
+            return null;
         }
-        
+
         // Vérifier adresses exactes
-        if (inclusion.addresses && Array.isArray(inclusion.addresses)) {
-            for (const address of inclusion.addresses) {
-                if (address.toLowerCase() === email) {
-                    this.lastAppliedRule = `Adresse incluse: ${address}`;
-                    return true;
-                }
-            }
-        }
-        
+        const addressRule = this._findMatchingAddressRule(email, inclusion.addresses, 'Adresse incluse');
+        if (addressRule) return addressRule;
+
         // Vérifier domaines (avec wildcards)
-        if (inclusion.domains && Array.isArray(inclusion.domains)) {
-            const domain = this._extractDomain(email);
-            if (domain) {
-                for (const domainPattern of inclusion.domains) {
-                    if (this._matchesWildcard(domain, this._normalizeDomainPattern(domainPattern))) {
-                        this.lastAppliedRule = `Domaine inclus: ${domainPattern}`;
-                        return true;
-                    }
-                }
+        const domain = this._extractDomain(email);
+        const domainRule = this._findMatchingDomainRule(domain, inclusion.domains, 'Domaine inclus');
+        if (domainRule) return domainRule;
+
+        return null;
+    }
+
+    /**
+     * Cherche une correspondance de domaine (avec wildcard) dans une liste de
+     * patterns. Factorisé pour éviter la duplication entre _isInInclusionList,
+     * _isInExclusionList et _isInInternalDomainsList.
+     * Reproduction de findMatchingDomainRule() de background.js
+     *
+     * @param {string|null} domain Domaine à tester (ex: "mail.societe.fr")
+     * @param {string[]} patternList Liste de patterns domaine (notation *)
+     * @param {string} ruleLabel Préfixe du libellé retourné (ex: "Domaine exclu")
+     * @returns {string|null} "${ruleLabel}: ${pattern}" si correspondance, sinon null
+     * @private
+     */
+    _findMatchingDomainRule(domain, patternList, ruleLabel) {
+        if (!domain || !patternList || !Array.isArray(patternList)) return null;
+        for (const pattern of patternList) {
+            if (this._matchesWildcard(domain, pattern)) {
+                return `${ruleLabel}: ${pattern}`;
             }
         }
-        
-        return false;
+        return null;
+    }
+
+    /**
+     * Cherche une correspondance d'adresse exacte dans une liste. Factorisé
+     * pour la même raison que _findMatchingDomainRule.
+     * Reproduction de findMatchingAddressRule() de background.js
+     *
+     * @param {string} emailLower Adresse à tester (déjà en minuscules)
+     * @param {string[]} addressList Liste d'adresses exactes
+     * @param {string} ruleLabel Préfixe du libellé retourné (ex: "Adresse exclue")
+     * @returns {string|null} "${ruleLabel}: ${address}" si correspondance, sinon null
+     * @private
+     */
+    _findMatchingAddressRule(emailLower, addressList, ruleLabel) {
+        if (!addressList || !Array.isArray(addressList)) return null;
+        for (const address of addressList) {
+            if (emailLower === address.toLowerCase()) {
+                return `${ruleLabel}: ${address}`;
+            }
+        }
+        return null;
     }
     
     /**
@@ -129,7 +148,7 @@ class FilterEngine {
      */
     _isInExclusionList(email, exclusion, subject = null) {
         if (!exclusion) {
-            return false;
+            return null;
         }
 
         // Vérifier sujets (PRIORITÉ #1 — reproduit background.js)
@@ -137,87 +156,66 @@ class FilterEngine {
             const subjectLower = subject.toLowerCase();
             for (const subjectPattern of exclusion.subjects) {
                 if (this._matchesSubjectPattern(subjectLower, subjectPattern)) {
-                    this.lastAppliedRule = `Sujet exclu: ${subjectPattern}`;
-                    return true;
+                    return `Sujet exclu: ${subjectPattern}`;
                 }
             }
         }
 
         const domain = this._extractDomain(email);
-        
+
         // Vérifier domaines (avec wildcards)
-        if (exclusion.domains && Array.isArray(exclusion.domains)) {
-            if (domain) {
-                for (const domainPattern of exclusion.domains) {
-                    if (this._matchesWildcard(domain, this._normalizeDomainPattern(domainPattern))) {
-                        this.lastAppliedRule = `Domaine exclu: ${domainPattern}`;
-                        return true;
-                    }
+        const domainRule = this._findMatchingDomainRule(domain, exclusion.domains, 'Domaine exclu');
+        if (domainRule) return domainRule;
+
+        // Vérifier TLD/pays entièrement bloqués (suffixe littéral, sans caractère
+        // joker) — "gouv.fr" bloque gouv.fr ET tous ses sous-domaines, y compris
+        // le domaine racine lui-même — contrairement à *.gouv.fr (cf. _matchesWildcard)
+        if (exclusion.blockedTlds && Array.isArray(exclusion.blockedTlds) && domain) {
+            const domainLower = domain.toLowerCase();
+            for (const tld of exclusion.blockedTlds) {
+                const tldLower = tld.toLowerCase();
+                if (domainLower === tldLower || domainLower.endsWith('.' + tldLower)) {
+                    return `TLD bloqué: ${tld}`;
                 }
             }
         }
-        
+
         // Vérifier adresses exactes
-        if (exclusion.addresses && Array.isArray(exclusion.addresses)) {
-            for (const address of exclusion.addresses) {
-                if (address.toLowerCase() === email) {
-                    this.lastAppliedRule = `Adresse exclue: ${address}`;
-                    return true;
-                }
-            }
-        }
-        
+        const addressRule = this._findMatchingAddressRule(email, exclusion.addresses, 'Adresse exclue');
+        if (addressRule) return addressRule;
+
         // Vérifier patterns (wildcards sur email complet)
         if (exclusion.patterns && Array.isArray(exclusion.patterns)) {
             for (const pattern of exclusion.patterns) {
                 if (this._matchesWildcard(email, pattern)) {
-                    this.lastAppliedRule = `Pattern exclu: ${pattern}`;
-                    return true;
+                    return `Filtre exclu : ${pattern}`;
                 }
             }
         }
-        
-        return false;
+
+        return null;
     }
     
     /**
-     * Vérifier si email est EXTERNE (pas dans domaine interne)
-     * Reproduction de isExternalEmail() de background.js
-     * 
-     * @param {string} email Email normalisé
-     * @param {string} internalDomain Domaine interne (peut être vide ou avec wildcard)
-     * @returns {boolean}
+     * Vérifie si l'expéditeur appartient à l'un des domaines internes configurés
+     * Reproduction de isInInternalDomainsList() de background.js
+     *
+     * @param {string} email Email normalisé (lowercase)
+     * @param {string[]} internalDomains Domaines internes (notation *)
+     * @returns {string|null} Règle appliquée si correspondance (email interne), null sinon (externe)
      * @private
      */
-    _isExternalEmail(email, internalDomain) {
-        // Pas de domaine interne configuré = tous les emails sont externes
-        if (!internalDomain || internalDomain.trim() === '') {
-            return true;
+    _isInInternalDomainsList(email, internalDomains) {
+        if (!internalDomains || !Array.isArray(internalDomains) || internalDomains.length === 0) {
+            return null; // Pas de domaine interne configuré = tous les emails sont externes
         }
-        
+
         const domain = this._extractDomain(email);
         if (!domain) {
-            return false; // Email invalide
+            return 'Adresse invalide (domaine non extrait)';
         }
-        
-        internalDomain = internalDomain.toLowerCase();
-        
-        // Vérifier correspondance exacte
-        if (domain === internalDomain) {
-            return false; // Email interne
-        }
-        
-        // Vérifier si domaine interne commence par wildcard (*.societe.fr)
-        if (internalDomain.startsWith('*.')) {
-            const baseDomain = internalDomain.substring(2); // Enlever "*."
-            
-            // Vérifier si le domaine se termine par le baseDomain
-            if (this._endsWith(domain, baseDomain)) {
-                return false; // Email interne (sous-domaine)
-            }
-        }
-        
-        return true; // Email externe
+
+        return this._findMatchingDomainRule(domain, internalDomains, 'Domaine interne');
     }
     
     /**
@@ -235,21 +233,70 @@ class FilterEngine {
      * @private
      */
     _matchesWildcard(text, pattern) {
-        // Normaliser
-        text = text.toLowerCase();
-        pattern = pattern.toLowerCase();
-        
-        // Échapper les caractères spéciaux regex sauf *
-        // Remplacer les caractères regex par leur version échappée
-        pattern = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
-        
-        // Remplacer * par .*
-        pattern = pattern.replace(/\*/g, '.*');
-        
-        // Créer la regex complète
-        const regex = new RegExp('^' + pattern + '$');
-        
-        return regex.test(text);
+        const textLower = text.toLowerCase();
+        const patternLower = pattern.toLowerCase();
+
+        // CAS 1 : *.domain.com → UNIQUEMENT sous-domaines (notation DNS)
+        if (patternLower.startsWith('*.')) {
+            const domain = patternLower.substring(2); // Enlever *.
+
+            // Wildcard supplémentaire dans le reste du pattern (*.* , *.societe.* …)
+            // — un endsWith() littéral ne peut pas gérer un '*' au milieu du
+            // pattern, déléguer à la regex bornée par label
+            if (domain.includes('*')) {
+                return this._buildWildcardRegex(patternLower).test(textLower);
+            }
+
+            if (!textLower.endsWith('.' + domain) || textLower === domain) return false;
+
+            // Protection TLD seul : *.fr ne doit pas matcher societe.fr
+            // Si domain est un TLD sans point (ex: 'fr', 'com'), exiger que le
+            // préfixe avant .domain contienne lui-même un point (= vrai sous-domaine)
+            if (!domain.includes('.')) {
+                const prefix = textLower.slice(0, textLower.length - domain.length - 1);
+                if (!prefix.includes('.')) return false;
+            }
+
+            return true;
+        }
+
+        // CAS 2 : Domaine avec wildcard ailleurs qu'en tête (societe.*, societe.*.paris.fr)
+        //         ou pattern d'adresse classique (noreply@*, test.*@domain.fr, etc.)
+        return this._buildWildcardRegex(patternLower).test(textLower);
+    }
+
+    /**
+     * Construit la regex pour un pattern contenant un caractère joker '*' qui
+     * n'est pas un simple préfixe *.domain (déjà traité par CAS 1 de
+     * _matchesWildcard). Reproduction de buildWildcardRegex() de background.js.
+     *
+     * Notation domaine (societe.*, *.societe.*, mail.*.societe.fr) : le '*'
+     * ne remplace jamais une partie d'un label DNS, seulement un label entier
+     * — et le dernier label est borné ([^.]+) pour éviter qu'un joker final
+     * ne s'étende sur plusieurs niveaux de domaine (ex: societe.multi.evil).
+     * Notation adresse (noreply@*, test.*@domain.fr) : le '@' change la
+     * sémantique, le joker s'étend alors librement (.*).
+     *
+     * @param {string} patternLower Pattern déjà en minuscules
+     * @returns {RegExp}
+     * @private
+     */
+    _buildWildcardRegex(patternLower) {
+        if (patternLower.includes('@')) {
+            const regexPattern = patternLower.replace(/\./g, '\\.').replace(/\*/g, '.*');
+            return new RegExp('^' + regexPattern + '$', 'i');
+        }
+
+        const labels = patternLower.split('.');
+        const lastIndex = labels.length - 1;
+        const regexParts = labels.map((label, idx) => {
+            if (label === '*') {
+                if (labels.length === 1) return '.*'; // '*' seul = absolument tout
+                return idx === lastIndex ? '[^.]+' : '.*';
+            }
+            return label;
+        });
+        return new RegExp('^' + regexParts.join('\\.') + '$', 'i');
     }
     
     /**
@@ -280,25 +327,6 @@ class FilterEngine {
     }
 
     /**
-     * Normalise un pattern de domaine — reproduit normalizeDomainPattern() de background.js
-     * @societe.fr  → *.societe.fr
-     * @*           → *
-     * *.societe.fr → *.societe.fr (inchangé)
-     *
-     * @param {string} domainPattern
-     * @returns {string}
-     * @private
-     */
-    _normalizeDomainPattern(domainPattern) {
-        if (!domainPattern) return domainPattern;
-        if (domainPattern.startsWith('@')) {
-            if (domainPattern === '@*') return '*';
-            return '*' + domainPattern.substring(1);
-        }
-        return domainPattern;
-    }
-
-    /**
      * Extraire le domaine d'une adresse email
      * 
      * @param {string} email
@@ -313,22 +341,6 @@ class FilterEngine {
         }
         
         return null;
-    }
-    
-    /**
-     * Vérifier si une chaîne se termine par une autre
-     * 
-     * @param {string} haystack
-     * @param {string} needle
-     * @returns {boolean}
-     * @private
-     */
-    _endsWith(haystack, needle) {
-        if (needle.length === 0) {
-            return true;
-        }
-        
-        return haystack.slice(-needle.length) === needle;
     }
 }
 

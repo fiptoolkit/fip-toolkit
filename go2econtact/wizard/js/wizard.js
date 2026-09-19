@@ -37,9 +37,10 @@ const wizardState = {
     currentStep: 1,
     totalSteps: 4,
     config: {
-        internalDomain: '',
+        internalDomains: [],
         exclusion: {
             domains: [],
+            blockedTlds: [],
             addresses: [],
             patterns: [],
             subjects: []
@@ -119,18 +120,11 @@ function attachEventListeners() {
 }
 
 function attachValidationListeners() {
-    const internalDomain = document.getElementById('internalDomain');
-    
-    // Validation domaine interne
-    if (internalDomain) {
-        internalDomain.addEventListener('blur', () => {
-            validateDomain(internalDomain);
-        });
-    }
-   
     // Validation textarea wizard
     const wizardTextareas = [
+        { id: 'internalDomain', type: 'domain' },
         { id: 'exclusionDomains', type: 'domain' },
+        { id: 'exclusionBlockedTlds', type: 'tld' },
         { id: 'exclusionAddresses', type: 'email' },
         { id: 'exclusionPatterns', type: 'pattern' },
         { id: 'exclusionSubjects', type: 'subject' },
@@ -283,21 +277,13 @@ function validateCurrentStep() {
 }
 
 function validateStep1() {
-    const internalDomain = document.getElementById('internalDomain');
-    const value = internalDomain.value.trim();
-    
-    // Optionnel : pas d'erreur si vide
-    if (!value) {
-        return true;
-    }
-    
-    // Validation format
-    return validateDomain(internalDomain);
+    return validateTextareaGroup([{ id: 'internalDomain', type: 'domain' }]);
 }
 
 function validateStep2() {
     const textareas = [
         { id: 'exclusionDomains',    type: 'domain'  },
+        { id: 'exclusionBlockedTlds', type: 'tld'    },
         { id: 'exclusionAddresses',  type: 'email'   },
         { id: 'exclusionPatterns',   type: 'pattern' },
         { id: 'exclusionSubjects',   type: 'subject' }
@@ -324,23 +310,6 @@ function validateTextareaGroup(textareas) {
     return allValid;
 }
 
-function validateDomain(inputElement) {
-    const value = inputElement.value.trim();
-    
-    if (!value) {
-        clearFieldError(inputElement);
-        return true;
-    }
-    
-    // Validation domaine avec wildcards
-    if (!isValidDomainWithWildcards(value)) {
-        showFieldError(inputElement, 'Format de domaine invalide (ex: societe.fr ou *.societe.fr)');
-        return false;
-    }
-    
-    clearFieldError(inputElement);
-    return true;
-}
 
 // ============================================
 // SAUVEGARDE DES DONNÉES
@@ -366,13 +335,13 @@ function saveCurrentStepData() {
 }
 
 function saveStep1Data() {
-    const internalDomain = document.getElementById('internalDomain').value.trim();
-    wizardState.config.internalDomain = internalDomain;
+    wizardState.config.internalDomains = textareaToArray(document.getElementById('internalDomain').value);
 }
 
 function saveStep2Data() {
     wizardState.config.exclusion = {
         domains: textareaToArray(document.getElementById('exclusionDomains').value),
+        blockedTlds: textareaToArray(document.getElementById('exclusionBlockedTlds').value),
         addresses: textareaToArray(document.getElementById('exclusionAddresses').value),
         patterns: textareaToArray(document.getElementById('exclusionPatterns').value),
         subjects: textareaToArray(document.getElementById('exclusionSubjects').value)
@@ -417,10 +386,11 @@ function populateFormFromConfig() {
     const config = wizardState.config;
     
     // Étape 1
-    document.getElementById('internalDomain').value = config.internalDomain || '';
+    document.getElementById('internalDomain').value = arrayToTextarea(config.internalDomains || []);
     
     // Étape 2
     document.getElementById('exclusionDomains').value = arrayToTextarea(config.exclusion.domains);
+    document.getElementById('exclusionBlockedTlds').value = arrayToTextarea(config.exclusion.blockedTlds || []);
     document.getElementById('exclusionAddresses').value = arrayToTextarea(config.exclusion.addresses);
     document.getElementById('exclusionPatterns').value = arrayToTextarea(config.exclusion.patterns);
     document.getElementById('exclusionSubjects').value = arrayToTextarea(config.exclusion.subjects || []);
@@ -487,12 +457,16 @@ function generateSummary() {
         </div>
     `;
     
-    // Domaine interne
+    // Domaine(s) interne(s)
+    const hasInternalDomains = config.internalDomains && config.internalDomains.length > 0;
     html += `
         <div class="summary-section">
-            <h3>Domaine interne</h3>
-            ${config.internalDomain 
-                ? `<p>Les emails de <code>${escapeHtml(config.internalDomain)}</code> ne recevront pas d'AR par défaut.</p>`
+            <h3>Domaine(s) interne(s)</h3>
+            ${hasInternalDomains
+                ? `<p>Les emails des domaines suivants ne recevront pas d'AR par défaut :</p>
+                   <ul class="summary-list">
+                       ${config.internalDomains.map(d => `<li><code>${escapeHtml(d)}</code></li>`).join('')}
+                   </ul>`
                 : `<p class="summary-empty">Aucun domaine interne configuré</p>`
             }
         </div>
@@ -501,6 +475,7 @@ function generateSummary() {
     // Exclusions
     const hasExclusions = 
         config.exclusion.domains.length > 0 ||
+        (config.exclusion.blockedTlds && config.exclusion.blockedTlds.length > 0) ||
         config.exclusion.addresses.length > 0 ||
         config.exclusion.patterns.length > 0 ||
         (config.exclusion.subjects && config.exclusion.subjects.length > 0);
@@ -516,6 +491,15 @@ function generateSummary() {
                 <h4>Domaines exclus :</h4>
                 <ul class="summary-list">
                     ${config.exclusion.domains.map(d => `<li>${escapeHtml(d)}</li>`).join('')}
+                </ul>
+            `;
+        }
+        
+        if (config.exclusion.blockedTlds && config.exclusion.blockedTlds.length > 0) {
+            html += `
+                <h4>Domaines ou pays entièrement bloqués :</h4>
+                <ul class="summary-list">
+                    ${config.exclusion.blockedTlds.map(t => `<li>${escapeHtml(t)}</li>`).join('')}
                 </ul>
             `;
         }
@@ -634,10 +618,10 @@ function copyConfigToClipboard() {
     // Générer le texte au format exploitable pour Thunderbird
     let text = '';
     
-    // Domaine interne
-    text += '=== DOMAINE INTERNE ===\n';
-    if (config.internalDomain) {
-        text += config.internalDomain + '\n';
+    // Domaine(s) interne(s)
+    text += '=== DOMAINE(S) INTERNE(S) ===\n';
+    if (config.internalDomains && config.internalDomains.length > 0) {
+        text += config.internalDomains.join('\n') + '\n';
     } else {
         text += '(aucun)\n';
     }
@@ -647,6 +631,15 @@ function copyConfigToClipboard() {
     text += '=== EXCLUSIONS - DOMAINES ===\n';
     if (config.exclusion.domains.length > 0) {
         text += config.exclusion.domains.join('\n') + '\n';
+    } else {
+        text += '(aucun)\n';
+    }
+    text += '\n';
+    
+    // Exclusions - Pays/domaines entièrement bloqués
+    text += '=== EXCLUSIONS - PAYS/DOMAINES BLOQUÉS ===\n';
+    if (config.exclusion.blockedTlds && config.exclusion.blockedTlds.length > 0) {
+        text += config.exclusion.blockedTlds.join('\n') + '\n';
     } else {
         text += '(aucun)\n';
     }
