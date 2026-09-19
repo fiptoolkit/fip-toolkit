@@ -25,8 +25,9 @@
  *
  * @requires validation-utils.js Doit être chargé avant ce fichier (fonctions
  *           de validation : isValidEmailFormat, isValidDomainWithWildcards,
- *           isValidPatternFormat, escapeHtml, showFieldError, clearFieldError,
- *           showTextareaErrors, clearTextareaErrors, cleanAndValidateTextarea)
+ *           isValidTld, isValidPatternFormat, escapeHtml, showFieldError,
+ *           clearFieldError, showTextareaErrors, clearTextareaErrors,
+ *           cleanAndValidateTextarea)
  */
 
 // ============================================
@@ -309,7 +310,6 @@ function validateTextareaGroup(textareas) {
     });
     return allValid;
 }
-
 
 // ============================================
 // SAUVEGARDE DES DONNÉES

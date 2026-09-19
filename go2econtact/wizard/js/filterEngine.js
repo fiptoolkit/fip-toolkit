@@ -23,7 +23,7 @@ class FilterEngine {
      * Reproduction de shouldProcessEmail() + applyFilters() de background.js
      * 
      * @param {string} email Adresse email à tester
-     * @param {Object} config Configuration (internalDomain, exclusion, inclusion)
+     * @param {Object} config Configuration (internalDomains, exclusion, inclusion)
      * @returns {Object} {allowed: boolean, reason: string, rule: string|null}
      */
     shouldSendAR(email, config) {
@@ -74,7 +74,7 @@ class FilterEngine {
      * 
      * @param {string} email Email normalisé (lowercase)
      * @param {Object} inclusion {addresses: [], domains: []}
-     * @returns {boolean}
+     * @returns {string|null} Règle appliquée si correspondance, null sinon
      * @private
      */
     _isInInclusionList(email, inclusion) {
@@ -142,8 +142,8 @@ class FilterEngine {
      * Reproduction de isInExclusionList() de background.js
      * 
      * @param {string} email Email normalisé (lowercase)
-     * @param {Object} exclusion {domains: [], addresses: [], patterns: []}
-     * @returns {boolean}
+     * @param {Object} exclusion {domains: [], blockedTlds: [], addresses: [], patterns: [], subjects: []}
+     * @returns {string|null} Règle appliquée si correspondance, null sinon
      * @private
      */
     _isInExclusionList(email, exclusion, subject = null) {

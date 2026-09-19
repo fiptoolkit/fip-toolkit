@@ -13,8 +13,9 @@
  * @license MPL-2.0
  * @requires validation-utils.js Doit être chargé avant ce fichier (fonctions
  *           de validation : isValidEmailFormat, isValidDomainWithWildcards,
- *           isValidPatternFormat, escapeHtml, showFieldError, clearFieldError,
- *           showTextareaErrors, clearTextareaErrors, cleanAndValidateTextarea)
+ *           isValidTld, isValidPatternFormat, escapeHtml, showFieldError,
+ *           clearFieldError, showTextareaErrors, clearTextareaErrors,
+ *           cleanAndValidateTextarea)
  */
 
 // ============================================
@@ -486,6 +487,10 @@ async function handleTest() {
     }
 }
 
+// ============================================
+// AFFICHAGE RÉSULTAT
+// ============================================
+
 /**
  * Habille certains libellés techniques du moteur pour l'affichage à
  * l'utilisateur final. Le moteur (filterEngine.js) reste fidèle à
@@ -505,10 +510,6 @@ function humanizeRuleLabel(rule) {
     }
     return rule;
 }
-
-// ============================================
-// AFFICHAGE RÉSULTAT
-// ============================================
 
 function displayResult(email, data) {
     const resultZone = document.getElementById('result-zone');

@@ -108,7 +108,7 @@ class ExplanationGenerator {
         return "Cette adresse <strong>NE RECEVRA PAS</strong> d'accusé de réception car son domaine se termine par <code>" + this._escapeHtml(tld) + "</code>, qui figure dans votre liste de <strong>pays/domaines entièrement bloqués</strong>. " +
                "Contrairement à une exclusion de domaine classique, ce blocage couvre le suffixe exact ainsi que tous ses sous-domaines — y compris le domaine racine lui-même. " +
                "Si vous souhaitez quand même envoyer un AR à cette adresse spécifique, vous devez l'ajouter dans la liste <strong>INCLUSION</strong> qui a la priorité absolue.";
-    }    
+    }
     
     /**
      * Explication : Exclusion par adresse spécifique
