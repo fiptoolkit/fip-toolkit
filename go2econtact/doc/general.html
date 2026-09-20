@@ -15,9 +15,10 @@
     <h3>Paramètres généraux</h3>
     <ul class="custom-list">
         <li>
-            <strong>Domaine interne</strong> — Saisissez le domaine de votre organisation 
-            (ex : <code>societe.fr</code>). Les courriels provenant de ce domaine ne recevront 
-            jamais d'accusé de réception, sauf exception définie dans les Inclusions.
+            <strong>Domaines internes</strong> — Saisissez un ou plusieurs domaines de votre 
+            organisation, un par ligne (ex : <code>societe.fr</code>, <code>*.filiale.fr</code>). 
+            Les courriels provenant de ces domaines ne recevront jamais d'accusé de réception, 
+            sauf exception définie dans les Inclusions.
         </li>
         <li>
             <strong>Délai d'envoi</strong> — Temps d'attente avant l'envoi de l'accusé de réception. 
@@ -32,7 +33,7 @@
     <h3>Filtrage — Exclusions</h3>
     <p>
         Les exclusions définissent qui ne recevra <strong>jamais</strong> d'accusé de réception.
-        Quatre types de règles sont disponibles, à saisir une par ligne :
+        Cinq types de règles sont disponibles, à saisir une par ligne :
     </p>
     <ul class="custom-list">
         <li>
@@ -43,8 +44,13 @@
             <code>[FINIT]automatique</code> — l'objet se termine par "automatique" ou "Automatique"
         </li>
         <li>
-            <strong>Domaines</strong> — tous les courriels d'un domaine entier. 
-            Exemple : <code>@spam.com</code> exclut tout le monde chez spam.com.
+            <strong>Domaines</strong> — tous les courriels d'un domaine entier.
+            Notation : <code>societe.fr</code> = domaine exact, <code>*.societe.fr</code> =
+            sous-domaines uniquement, <code>*.fr</code> = tous les sous-domaines .fr,
+            <code>*</code> = absolument tous.
+            Exemple : <code>*.spam.com</code> exclut les sous-domaines de spam.com
+            (ex. <code>mail.spam.com</code>) — pas <code>spam.com</code> lui-même,
+            qu'il faut ajouter séparément si vous voulez aussi le bloquer.
         </li>
         <li>
             <strong>Adresses</strong> — une adresse courriel exacte à exclure.
@@ -57,6 +63,14 @@
             <code>noreply@fournisseur.fr</code>, etc. 
             Le bouton <strong>Ajouter les filtres par défaut</strong> 
             insère les plus courants d'un seul clic.
+        </li>
+        <li>
+            <strong>Domaines ou pays entièrement bloqués</strong> — bloque complètement
+            un domaine ou un pays, y compris l'adresse principale elle-même
+            (pas seulement ses sous-domaines).
+            Exemple : <code>gouv.fr</code> bloque aussi bien <code>gouv.fr</code> que
+            <code>mail.gouv.fr</code>.
+            N'utilisez pas d'étoile (<code>*</code>) ici — un suffixe exact uniquement.
         </li>
     </ul>
 
