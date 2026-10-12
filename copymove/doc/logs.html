@@ -44,9 +44,9 @@
             <strong>Niveau</strong> — affichez toutes les entrées, ou restreignez à un niveau précis
             (votre choix est mémorisé) :
             <ul>
-                <li><strong>Info</strong> — opérations normales (démarrage, exécution réussie…)</li>
-                <li><strong>Warn</strong> — situations anormales non bloquantes (avertissements)</li>
-                <li><strong>Error</strong> — erreurs qui ont empêché une opération de se terminer</li>
+                <li><strong>Information</strong> — opérations normales (démarrage, exécution réussie…)</li>
+                <li><strong>Avertissement</strong> — situations anormales non bloquantes</li>
+                <li><strong>Erreur</strong> — erreurs qui ont empêché une opération de se terminer</li>
             </ul>
         </li>
         <li><strong>Recherche</strong> — saisissez un mot-clé pour n'afficher que les entrées dont le message le contient. Pratique pour retrouver les entrées liées à une règle précise</li>
@@ -71,8 +71,9 @@
     <ol class="instructions">
         <li><strong>Horodatage</strong> — date et heure exactes de l'événement.</li>
         <li>
-            <strong>Niveau</strong> — gravité de l'événement, indiquée par
-            une couleur : bleu pour Info, orange pour Warn, rouge pour Error.
+            <strong>Niveau</strong> — gravité de l'événement, indiquée par une couleur
+            et un code : bleu (INFO) pour une information, orange (WARN) pour un avertissement,
+            rouge (ERROR) pour une erreur.
         </li>
         <li><strong>Message</strong> — description de l'événement.</li>
     </ol>
@@ -80,7 +81,7 @@
         <img src="img/doc_logs_tableau.webp"
              alt="Tableau du journal avec repères : ① colonne horodatage, ② colonne niveau avec codes couleur, ③ colonne message"
              loading="lazy">
-        <figcaption>① Horodatage — ② Niveau (bleu Info / orange Warn / rouge Error) — ③ Message</figcaption>
+        <figcaption>① Horodatage — ② Niveau (bleu INFO / orange WARN / rouge ERROR) — ③ Message</figcaption>
     </figure>
 </div>
 

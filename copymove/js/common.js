@@ -18,7 +18,7 @@
     // Liste des pages du footer — donnée séparée du gabarit de rendu ci-dessous
     const FOOTER_LINKS = [
         { href: 'index.html', label: 'Accueil' },
-        { href: 'popup.html', label: 'Popup' },
+        { href: 'popup.html', label: 'Fenêtre de l\'extension' },
         { href: 'tutoriel.html', label: 'Tutoriel' },
         { href: 'documentation.html', label: 'Documentation' },
         { href: 'faq.html', label: 'FAQ' },
