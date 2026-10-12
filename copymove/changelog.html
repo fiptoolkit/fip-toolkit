@@ -58,18 +58,45 @@
                     <li>
                         <strong>Planification hebdomadaire</strong> — définissez
                         pour chaque jour de la semaine si CopyMove peut s'exécuter,
-                        et pendant quelles heures.
+                        et pendant quelles heures. Désactivée par défaut : l'extension
+                        reste alors inactive jusqu'à son activation.
                     </li>
                     <li>
                         <strong>Ajustement ponctuel</strong> — modifiez le comportement
-                        de la journée en cours depuis le popup, sans toucher
+                        de la journée en cours depuis la fenêtre de l'extension, sans toucher
                         au calendrier hebdomadaire.
                     </li>
                     <li>
                         <strong>Exécution manuelle</strong> — lancez n'importe quelle
-                        règle immédiatement depuis le popup, sans attendre
+                        règle immédiatement depuis la fenêtre de l'extension, sans attendre
                         le déclenchement automatique.
                     </li>
+                    <li>
+                        <strong>Progression en direct et arrêt</strong> — suivi de chaque
+                        exécution étape par étape (fenêtre de l'extension et onglet Règles), avec un bouton
+                        STOP pour l'interrompre à tout moment.
+                    </li>
+                    <li>
+                        <strong>Vérification après opération</strong> — contrôle de la
+                        destination en plusieurs passes, avec seuil de réussite et nombre de
+                        passes réglables, et nouvelles tentatives automatiques en cas
+                        d'échec.
+                    </li>
+                    <li>
+                        <strong>Vérification différée</strong> — lorsque des courriels restent
+                        absents, un nouveau contrôle en lecture seule est programmé
+                        (15 minutes par défaut) et le statut de l'exécution est mis à jour.
+                    </li>
+                    <li>
+                        <strong>Tolérance des dossiers source supprimés</strong> — un dossier
+                        source supprimé par CopyMove lui-même n'est pas signalé comme absent
+                        pendant un délai réglable (2 jours par défaut).
+                    </li>
+                    <li>
+                        <strong>Détection des conflits de sources</strong> — le tableau des règles
+                        signale les règles qui partagent un dossier source avec une autre
+                        règle active, et demande confirmation à l'activation.
+                    </li>                    
                     <li>
                         <strong>Profils d'exécution</strong> — quatre profils pré-conçus
                         (Rapide, Prudent, Sécurisé, Très sécurisé) et jusqu'à
@@ -82,15 +109,17 @@
                         dans le tableau.
                     </li>
                     <li>
-                        <strong>Statistiques d'activité</strong> — historique complet
-                        des exécutions, filtrable par période et par règle.
+                        <strong>Statistiques d'activité</strong> — historique des 100 dernières
+                        exécutions, filtrable par période et par règle, avec un statut détaillé
+                        (OK, Source absente, Partiel, Non vérifié, Provisoire, Non exécutée,
+                        Échec, Interrompu) et le détail des courriels absents.
                     </li>
                     <li>
-                        <strong>Journal d'activité</strong> — enregistrement configurable
-                        des événements, avec export et recherche par mot-clé.
+                        <strong>Journal d'activité</strong> — niveau du journal configurable,
+                        affichage en temps réel, exportation, copie et recherche par mot-clé.
                     </li>
                     <li>
-                        <strong>Export et import de la configuration</strong> —
+                        <strong>Exportation et importation de la configuration</strong> —
                         sauvegardez et restaurez l'ensemble de vos réglages
                         en un fichier.
                     </li>

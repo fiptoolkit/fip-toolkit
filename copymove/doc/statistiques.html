@@ -71,19 +71,40 @@
     <h3>Historique des exécutions</h3>
     <ol class="instructions">
         <li>
-            Le tableau affiche l'historique complet des exécutions des règles avec les
-            informations suivantes :
+            Le tableau affiche les 100 dernières exécutions des règles (les plus anciennes
+            sont supprimées au fur et à mesure) avec les informations suivantes :
             <ul class="custom-list">
                 <li><strong>Date/Heure</strong> — moment exact de l'exécution.</li>
                 <li><strong>Règle</strong> — nom de la règle exécutée.</li>
                 <li><strong>Action</strong> — copie ou déplacement.</li>
                 <li><strong>Profil</strong> — profil d'exécution utilisé.</li>
                 <li><strong>Courriels</strong> — nombre de courriels traités lors de cette exécution.</li>
-                <li><strong>Manquants</strong> — courriels attendus en destination mais non retrouvés
-                    lors de la vérification. Un chiffre non nul mérite d'être surveillé.</li>
+                <li><strong>Absents</strong> — courriels attendus en destination mais non retrouvés
+                    lors de la vérification. Un chiffre non nul mérite d'être surveillé. Survolez
+                    la cellule pour voir le sujet et l'expéditeur des courriels concernés (20 au
+                    maximum). Affiche « — » si la règle n'a pas été exécutée ou a été interrompue.
+                    Ce chiffre peut être corrigé après coup par la
+                    <a href="parametres.html">vérification différée</a>.</li>
                 <li><strong>Échecs</strong> — lots qui n'ont pas pu être traités malgré les tentatives.</li>
-                <li><strong>Statut</strong> — résultat global de l'exécution (succès, avertissement, échec).</li>
+                <li>
+                    <strong>Statut</strong> — résultat global de l'exécution. Survolez-le pour
+                    en lire le détail :
+                    <ul class="custom-list">
+                        <li><strong>OK</strong> — tout a été traité et retrouvé en destination.</li>
+                        <li><strong>Source absente</strong> — le dossier source est introuvable (au-delà de la tolérance prévue pour les dossiers supprimés par CopyMove) : rien n'a pu être copié ni déplacé.</li>
+                        <li><strong>Partiel</strong> — traitement abouti, avec une réserve : des courriels absents de la destination, ou un dossier source qui n'a pas pu être supprimé.</li>
+                        <li><strong>Non vérifié</strong> — la présence des courriels en destination n'a pas pu être confirmée.</li>
+                        <li><strong>Provisoire</strong> (⏳) — des courriels étaient absents à la fin de la vérification ; un contrôle différé est programmé et ce statut sera remplacé par le verdict définitif.</li>
+                        <li><strong>Non exécutée</strong> — la règle n'a pas pu s'exécuter (dossier destination introuvable, aucune source).</li>
+                        <li><strong>Échec</strong> — des courriels n'ont pas été traités ou sont restés en source, ou un incident bloquant est survenu.</li>
+                        <li><strong>Interrompu</strong> — vous avez arrêté l'exécution avec le bouton STOP.</li>
+                    </ul>
+                </li>
             </ul>
+        </li>
+        <li>
+            Le bouton <strong>Actualiser</strong> (icône ↻) recharge le tableau et les cumuls,
+            utile pour suivre l'évolution d'un statut <strong>Provisoire</strong>
         </li>
         <li>
             Le bouton <strong>Réinitialiser toutes les statistiques</strong> efface l'intégralité
@@ -97,7 +118,7 @@
         <figcaption>① Tableau des exécutions — ② Réinitialiser toutes les statistiques</figcaption>
     </figure>
     <div class="info-box" style="margin-top: 0.75rem;">
-        Un statut en erreur ou des courriels manquants répétés sont le signe
+        Un statut en erreur ou des courriels absents répétés sont le signe
         que le profil d'exécution de la règle concernée mériterait d'être
         ajusté vers un profil plus prudent.
     </div>

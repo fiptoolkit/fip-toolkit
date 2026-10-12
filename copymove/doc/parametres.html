@@ -34,9 +34,9 @@
     </p>
     <figure class="screenshot">
         <img src="img/doc_parametres_vue.webp"
-             alt="Vue d'ensemble de l'onglet Paramètres avec repères : ① section Profil par défaut, ② section Profils pré-conçus, ③ section Profils personnalisés, ④ Journal d'activité, ⑤ Timeout global"
+             alt="Vue d'ensemble de l'onglet Paramètres avec repères : ① section Profil par défaut, ② section Profils pré-conçus, ③ section Profils personnalisés, ④ Dossiers source absents, ⑤ Vérification différée, ⑥ Niveau du journal, ⑦ Durée maximale globale"
              loading="lazy">
-        <figcaption>① Profil par défaut — ② Profils pré-conçus — ③ Profils personnalisés — ④ Journal d'activité — ⑤ Timeout global</figcaption>
+        <figcaption>① Profil par défaut — ② Profils pré-conçus — ③ Profils personnalisés — ④ Dossiers source absents — ⑤ Vérification différée — ⑥ Niveau du journal — ⑦ Durée maximale globale</figcaption>
     </figure>
 </div>
 
@@ -81,7 +81,7 @@
             <strong>Délai maximal d'attente en cas d'incident réseau</strong> — si les courriels
             tardent à apparaître en destination après un incident, CopyMove patiente
             jusqu'à cette durée avant de considérer l'opération comme échouée.
-            Défaut : <strong>30 secondes</strong> (plage : 1 à 60 s).
+            Défaut : <strong>15 secondes</strong> (plage : 1 à 60 s).
         </li>
     </ul>
     <figure class="screenshot">
@@ -109,7 +109,7 @@
             Défaut : <strong>8</strong> (plage : 1 à 20).
         </li>
         <li>
-            <strong>Délai entre tentatives rapprochées</strong> — temps d'attente fixe
+            <strong>Pause entre tentatives rapprochées</strong> — temps d'attente fixe
             entre deux tentatives rapprochées.
             Défaut : <strong>10 secondes</strong> (plage : 5 à 60 s).
         </li>
@@ -119,7 +119,7 @@
             Défaut : <strong>6</strong> (plage : 1 à 15).
         </li>
         <li>
-            <strong>Délai initial des tentatives espacées</strong> — délai de la première
+            <strong>Pause avant les tentatives espacées</strong> — délai de la première
             tentative espacée.
             Défaut : <strong>20 secondes</strong> (plage : 10 à 120 s).
         </li>
@@ -146,15 +146,32 @@
         <li>
             <strong>Validation post-opération</strong> — activée par défaut.
             Si vous la désactivez, CopyMove est plus rapide mais ne vérifie pas
-            que le résultat est correct — risque de manques ou doublons non détectés.
-            Recommandé de laisser activée.
+            que le résultat est correct — risque de courriels absents ou de doublons non détectés.
+            Recommandé de laisser activée. Les trois réglages ci-dessous ne sont
+            affichés que lorsque la validation est activée.
         </li>
         <li>
             <strong>Pourcentage de réussite minimal</strong> — si au moins ce pourcentage
             de courriels est retrouvé, la vérification est considérée comme réussie.
             Défaut : <strong>95 %</strong> (plage : 50 à 100 %).
         </li>
+        <li>
+            <strong>Nombre de passes de vérification maximum</strong> — CopyMove contrôle
+            la destination en plusieurs passes, et s'arrête dès que tous les courriels
+            sont retrouvés. Au-delà de ce nombre de passes, les courriels encore absents
+            sont signalés.
+            Défaut : <strong>5</strong> (plage : 1 à 10).
+        </li>
+        <li>
+            <strong>Pause entre deux passes de vérification</strong> — temps laissé au serveur
+            pour synchroniser entre deux passes.
+            Défaut : <strong>2 000 ms</strong> (plage : 500 à 10 000 ms).
+        </li>
     </ul>
+    <p style="margin-top: 0.5rem;">
+        Si des courriels restent absents à l'issue des passes, CopyMove ne conclut pas
+        tout de suite : voir la section <strong>Vérification différée</strong> plus bas.
+    </p>
     <figure class="screenshot">
         <img src="img/doc_parametres_validation.webp"
              alt="Étape 3 — Vérifier le résultat : validation post-opération, seuil de réussite, passes de vérification"
@@ -198,10 +215,13 @@
     </p>
     <p style="margin-top: 0.75rem;">
         Seuls les <strong>délais et pauses</strong> sont multipliés par ce coefficient —
-        y compris le <strong>Timeout global</strong> (voir plus bas). Les <strong>nombres
-        de tentatives</strong> (rapprochées, espacées), le <strong>seuil de réussite</strong>
+        y compris la <strong>Durée maximale globale</strong> (voir plus bas). Les <strong>nombres
+        de tentatives</strong> (rapprochées, espacées), le <strong>nombre de passes de
+        vérification</strong>, le <strong>seuil de réussite</strong>
         et le <strong>nombre de courriels envoyés simultanément</strong> restent identiques
-        au profil par défaut, quel que soit le profil pré-conçu choisi.
+        au profil par défaut, quel que soit le profil pré-conçu choisi. Les réglages
+        <strong>Dossiers source absents</strong> et <strong>Vérification différée</strong>
+        sont des réglages globaux, jamais modifiés par un profil.
     </p>
     <div class="info-box" style="margin-top: 0.75rem;">
         <strong>Comment choisir ?</strong> Commencez par les Paramètres globaux.
@@ -229,7 +249,7 @@
         un panneau latéral reprenant exactement les mêmes réglages que le profil par
         défaut — voir la section <strong>Le profil par défaut</strong> plus haut pour le
         détail de chaque champ (envoi par lots, nouvelles tentatives, vérification du
-        résultat). Contrairement aux profils pré-conçus, ces valeurs sont saisies
+        résultat, durée maximale d'exécution). Contrairement aux profils pré-conçus, ces valeurs sont saisies
         librement, sans coefficient ni lien avec le profil par défaut : chaque profil
         personnalisé est totalement indépendant.
     </p>
@@ -248,18 +268,73 @@
     </figure>
 </div>
 
-<!-- NIVEAU DE LOGS -->
+<!-- DOSSIERS SOURCE ABSENTS -->
 <div class="subsection">
-    <h3>Journal d'activité</h3>
+    <h3>Dossiers source absents</h3>
     <p>
-        Ce réglage détermine quels événements sont enregistrés dans l'onglet <strong>Logs</strong>.
+        Sur une règle de déplacement, l'option <strong>Supprimer les dossiers sources
+        s'ils sont vides après déplacement</strong> fait supprimer le dossier source par
+        CopyMove lui-même une fois vidé. À l'exécution suivante, ce dossier est donc
+        introuvable : ce n'est pas une anomalie.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Ce réglage fixe le nombre de jours pendant lesquels cette absence est considérée
+        comme normale : l'exécution reste en succès et un simple avertissement est inscrit
+        dans le journal. Passé ce délai, le dossier est considéré comme réellement absent et
+        l'exécution est signalée <strong>Source absente</strong> dans les statistiques.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Défaut : <strong>2 jours</strong> (plage : 0 à 7 jours). Avec <strong>0</strong>,
+        toute absence est signalée immédiatement.
+    </p>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Cette tolérance ne concerne que les dossiers supprimés par CopyMove. Un dossier
+        supprimé ou renommé autrement (depuis Thunderbird, par exemple) est toujours signalé.
+    </div>
+</div>
+
+<!-- VÉRIFICATION DIFFÉRÉE -->
+<div class="subsection">
+    <h3>Vérification différée</h3>
+    <p>
+        Un serveur lent peut mettre du temps à afficher les courriels arrivés en destination.
+        Si, à la fin des passes de vérification, des courriels restent absents, CopyMove ne
+        conclut pas immédiatement : l'exécution est marquée <strong>Provisoire</strong> (⏳)
+        dans les statistiques et un nouveau contrôle est programmé.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        Ce réglage fixe le délai avant ce contrôle.
+        Défaut : <strong>15 minutes</strong> (plage : 10 à 60 minutes).
+    </p>
+    <p style="margin-top: 0.5rem;">Le contrôle différé se limite à regarder : il ne recopie
+        ni ne déplace rien. Son verdict met à jour la ligne de l'historique :</p>
+    <ul class="custom-list">
+        <li><strong>OK</strong> — tous les courriels sont désormais retrouvés en destination.</li>
+        <li><strong>Partiel</strong> — certains courriels sont toujours absents.</li>
+        <li>
+            <strong>Non vérifié</strong> — le contrôle n'a pas pu aboutir (dossier destination
+            introuvable, ou incident technique persistant après 3 tentatives espacées de 5 minutes).
+        </li>
+    </ul>
+    <div class="info-box" style="margin-top: 0.75rem;">
+        Si Thunderbird est fermé avant l'échéance, les contrôles en attente sont reprogrammés
+        au prochain démarrage, au plus tôt 5 minutes plus tard.
+        Voir aussi <a href="statistiques.html">l'onglet Statistiques</a>.
+    </div>
+</div>
+
+<!-- NIVEAU DU JOURNAL -->
+<div class="subsection">
+    <h3>Niveau du journal</h3>
+    <p>
+        Ce réglage détermine quels événements sont enregistrés dans l'onglet <strong>Journal</strong>.
         Quatre niveaux sont disponibles :
     </p>
     <ul class="custom-list">
         <li><strong>Tout</strong> — enregistre toutes les opérations, y compris les informations de routine. Utile pour diagnostiquer un problème.</li>
         <li><strong>Avertissements et erreurs</strong> — enregistre uniquement les situations anormales. Réglage recommandé en utilisation normale.</li>
         <li><strong>Erreurs uniquement</strong> — n'enregistre que les erreurs bloquantes.</li>
-        <li><strong>Aucun enregistrement</strong> — désactive complètement l'enregistrement.</li>
+        <li><strong>Aucune entrée</strong> — désactive complètement l'enregistrement.</li>
     </ul>
     <div class="warning-box" style="margin-top: 0.75rem;">
         Le niveau <strong>Tout</strong> génère beaucoup d'entrées et peut ralentir
@@ -268,11 +343,11 @@
     </div>
 </div>
 
-<!-- TIMEOUT GLOBAL -->
+<!-- DURÉE MAXIMALE GLOBALE -->
 <div class="subsection">
-    <h3>Timeout global</h3>
+    <h3>Durée maximale globale</h3>
     <p>
-        Le timeout global fixe la durée maximale allouée au traitement complet
+        La durée maximale globale fixe le temps alloué au traitement complet
         d'une règle. Si ce délai est dépassé — par exemple à cause d'un serveur
         très lent ou d'un volume de courriels inhabituel — CopyMove interrompt
         le traitement pour éviter de bloquer Thunderbird indéfiniment.
@@ -284,16 +359,20 @@
     </p>
     <p style="margin-top: 0.5rem;">
         Si un profil pré-conçu est défini comme <strong>défaut global</strong> (voir la
-        section <strong>Les profils pré-conçus</strong> plus haut), ce timeout est lui aussi
-        multiplié par son coefficient — mais la valeur affichée ici reste toujours la valeur
+        section <strong>Les profils pré-conçus</strong> plus haut), cette durée est elle aussi
+        multipliée par son coefficient — mais la valeur affichée ici reste toujours la valeur
         de base, jamais recalculée à l'écran.
     </p>
 </div>
 
 <!-- EXPORT / IMPORT / RÉINITIALISATION -->
 <div class="subsection">
-    <h3>Exporter, importer, réinitialiser</h3>
+    <h3>Enregistrer, exporter, importer, réinitialiser</h3>
     <ul class="custom-list">
+        <li>
+            <strong>Enregistrer les paramètres</strong> — applique les valeurs saisies
+            dans l'onglet. Une valeur hors plage est refusée avec un message.
+        </li>
         <li>
             <strong>Exporter les paramètres</strong> — sauvegarde l'ensemble
             de votre configuration dans un fichier. Utile avant une réinstallation
@@ -301,7 +380,10 @@
         </li>
         <li>
             <strong>Importer les paramètres</strong> — restaure une configuration
-            exportée précédemment.
+            exportée précédemment. Elle <strong>remplace</strong> l'ensemble de la
+            configuration actuelle, après confirmation. Les valeurs hors plage sont
+            corrigées, et les règles écartées lors du contrôle sont listées pour que
+            vous décidiez de les importer ou non.
         </li>
         <li>
             <strong>Réinitialiser l'extension</strong> — remet CopyMove dans son état

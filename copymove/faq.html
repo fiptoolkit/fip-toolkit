@@ -50,7 +50,7 @@
                     </div>
                     <div class="faq-answer">
                         <p>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird
-                        pour ouvrir le popup, puis sur le bouton <strong>Paramètres</strong>.</p>
+                        pour ouvrir la fenêtre de l'extension, puis sur le bouton <strong>Paramètres</strong>.</p>
                     </div>
                 </div>
 
@@ -88,10 +88,11 @@
                         Comment lancer une règle immédiatement sans attendre le déclenchement automatique ?
                     </div>
                     <div class="faq-answer">
-                        <p>Ouvrez le popup CopyMove depuis la barre d'outils de Thunderbird.
+                        <p>Ouvrez la fenêtre de CopyMove depuis la barre d'outils de Thunderbird.
                         Dans la section <strong>Exécution manuelle</strong>, sélectionnez
                         la règle souhaitée dans la liste déroulante, puis cliquez sur
-                        <strong>Exécuter cette règle</strong>.</p>
+                        <strong>Exécuter cette règle</strong>. L'exécution manuelle fonctionne
+                        même lorsque l'extension est inactive.</p>
                     </div>
                 </div>
 
@@ -100,12 +101,13 @@
                         Puis-je suspendre temporairement CopyMove sans modifier mes règles ?
                     </div>
                     <div class="faq-answer">
-                        <p>Oui. Le bouton bascule en haut du popup permet de suspendre
+                        <p>Oui. Le bouton bascule en haut de la fenêtre de l'extension permet de suspendre
                         l'extension pour la session en cours. Décochez-le pour arrêter
-                        temporairement le traitement des règles.</p>
+                        temporairement le traitement des règles. Il permet aussi de forcer
+                        l'activation, indépendamment de la planification.</p>
                         <div class="warning-box" style="margin-top: 0.75rem;">
                             <strong>Temporaire uniquement :</strong> au prochain démarrage
-                            de Thunderbird, l'extension se réactivera automatiquement.
+                            de Thunderbird, l'état de l'extension reprend celui de la planification.
                         </div>
                     </div>
                 </div>
@@ -117,11 +119,13 @@
                     <div class="faq-answer">
                         <p>La planification définit les plages horaires pendant lesquelles
                         CopyMove est autorisé à s'exécuter. Une règle dont le déclenchement
-                        tombe en dehors de la plage autorisée ne s'exécute pas.</p>
+                        tombe en dehors de la plage autorisée ne s'exécute pas. Elle est
+                        désactivée par défaut : tant qu'elle ne l'est pas, l'extension
+                        reste inactive et n'exécute aucune règle automatiquement.</p>
                         <p style="margin-top: 0.5rem;">Elle se configure dans l'onglet
                         <strong>Planification</strong> des paramètres. Vous pouvez aussi
                         ajuster ponctuellement le comportement de la journée en cours
-                        depuis le popup, sans toucher au calendrier hebdomadaire.</p>
+                        depuis la fenêtre de l'extension, sans toucher au calendrier hebdomadaire.</p>
                     </div>
                 </div>
 
@@ -137,7 +141,7 @@
                         <strong>Très sécurisé</strong> évite les erreurs en laissant
                         plus de temps au serveur entre chaque opération.</p>
                         <p style="margin-top: 0.5rem;">Si vous observez des erreurs ou des courriels
-                        manquants dans les statistiques, essayez un profil plus prudent.</p>
+                        absents dans les statistiques, essayez un profil plus prudent.</p>
                     </div>
                 </div>
 
@@ -169,9 +173,10 @@
                         <p>Vérifiez dans cet ordre :</p>
                         <ul>
                             <li>La règle est bien <strong>activée</strong> dans le tableau (colonne Statut)</li>
-                            <li>Le bouton bascule du popup est bien en position active</li>
-                            <li>La planification hebdomadaire autorise l'exécution à cette heure
-                            — ou désactivez-la temporairement pour tester</li>
+                            <li>Le bouton bascule de la fenêtre de l'extension est bien en position active</li>
+                            <li>La planification est <strong>activée</strong> et autorise l'exécution
+                            à cette heure : planification désactivée = extension inactive. La fenêtre de l'extension
+                            indique l'état courant et sa raison</li>
                             <li>Thunderbird était bien ouvert à l'heure prévue</li>
                         </ul>
                     </div>
@@ -179,13 +184,19 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
-                        Des courriels apparaissent comme "manquants" dans les statistiques
+                        Des courriels apparaissent comme "absents" dans les statistiques
                     </div>
                     <div class="faq-answer">
-                        <p>Des courriels manquants signifient que CopyMove a lancé
+                        <p>Des courriels absents signifient que CopyMove a lancé
                         l'opération mais n'a pas pu confirmer que tous les courriels
                         sont bien arrivés en destination. Cela arrive généralement
                         quand le serveur est lent à synchroniser.</p>
+                        <p style="margin-top: 0.5rem;">Dans ce cas, l'exécution est d'abord
+                        marquée <strong>Provisoire</strong> (⏳) : CopyMove recontrôle la destination
+                        après quelques minutes (15 par défaut) et met à jour le statut
+                        (<strong>OK</strong>, <strong>Partiel</strong> ou <strong>Non vérifié</strong>).
+                        Survolez la colonne <strong>Absents</strong> pour voir quels courriels
+                        sont concernés.</p>
                         <p style="margin-top: 0.5rem;">Essayez d'assigner un profil plus prudent
                         à la règle concernée : <strong>Prudent</strong> ou <strong>Sécurisé</strong>
                         dans l'onglet Paramètres.</p>
@@ -194,12 +205,27 @@
 
                 <div class="faq-item">
                     <div class="faq-question">
+                        Une règle affiche le statut "Source absente"
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le dossier source de la règle est introuvable : il a été supprimé,
+                        renommé ou déplacé. Rien n'est copié
+                        ni déplacé tant que le dossier n'existe pas. Éditez la règle pour
+                        lui assigner un dossier existant.</p>
+                        <p style="margin-top: 0.5rem;">Si la règle supprime elle-même les dossiers
+                        sources une fois vides, leur absence est tolérée quelques jours (2 par défaut,
+                        réglable dans l'onglet Paramètres, section <strong>Dossiers source absents</strong>).</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
                         Des erreurs apparaissent dans le journal d'activité
                     </div>
                     <div class="faq-answer">
-                        <p>Passez temporairement le niveau d'enregistrement en mode
+                        <p>Passez temporairement le <strong>Niveau du journal</strong> en mode
                         <strong>Tout</strong> dans l'onglet Paramètres, puis relancez
-                        la règle manuellement depuis le popup. Le journal d'activité
+                        la règle manuellement depuis la fenêtre de l'extension. Le journal d'activité
                         contiendra alors le détail complet de ce qui s'est passé.</p>
                         <p style="margin-top: 0.5rem;">Si les erreurs persistent après
                         avoir essayé un profil plus sécurisé, contactez le support
