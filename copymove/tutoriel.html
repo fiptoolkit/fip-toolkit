@@ -37,12 +37,12 @@
                 </div>
                 <div class="step-content">
                     <ol class="instructions">
-                        <li>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird pour ouvrir le popup</li>
+                        <li>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird pour ouvrir la fenêtre de l'extension</li>
                         <li>Cliquez sur le bouton <strong>Paramètres</strong></li>
                     </ol>
                     <figure class="screenshot">
                         <img src="img/tutoriel_etape1.webp"
-                             alt="Popup CopyMove avec repères numérotés : ① icône dans la barre, ② bouton Paramètres"
+                             alt="Fenêtre de CopyMove avec repères numérotés : ① icône dans la barre, ② bouton Paramètres"
                              loading="lazy">
                         <figcaption>① Cliquez sur l'icône CopyMove — ② puis sur Paramètres</figcaption>
                     </figure>
@@ -77,17 +77,18 @@
                 </div>
                 <div class="step-content">
                     <ol class="instructions">
+                        <li>Saisissez l'<strong>ID de la règle</strong> : un identifiant court, sans espace (lettres, chiffres, tiret ou tiret bas), ex : <em>archives-factures</em></li>
                         <li>Donnez un nom descriptif à votre règle (ex : <em>Archiver les factures</em>)</li>
-                        <li>Laissez la case <strong>Règle activée</strong> cochée pour qu'elle s'exécute automatiquement dès l'enregistrement</li>
+                        <li>Laissez la case <strong>Règle activée</strong> cochée pour que la règle soit prise en compte par l'exécution automatique (voir l'encadré de l'étape 6)</li>
                         <li>Sous <strong>Type d'action</strong>, choisissez comment les courriels seront traités</li>
                         <li><strong>Déplacer</strong> — les courriels sont retirés du dossier source</li>
                         <li><strong>Copier</strong> — les courriels restent dans le dossier source</li>
                     </ol>
                     <figure class="screenshot">
                         <img src="img/tutoriel_etape3.webp"
-                             alt="Section Identification et Action avec repères : ① champ nom, ② case Règle activée, ③ libellé Type d'action, ④ option Déplacer, ⑤ option Copier"
+                             alt="Section Identification et Action avec repères : ① champ ID de la règle, ② champ nom, ③ case Règle activée, ④ libellé Type d'action, ⑤ option Déplacer, ⑥ option Copier"
                              loading="lazy">
-                        <figcaption>① Nom de la règle — ② Règle activée — ③ Type d'action — ④ Déplacer — ⑤ Copier</figcaption>
+                        <figcaption>① ID de la règle — ② Nom de la règle — ③ Règle activée — ④ Type d'action — ⑤ Déplacer — ⑥ Copier</figcaption>
                     </figure>
                 </div>
             </div>
@@ -167,6 +168,14 @@
                              loading="lazy">
                         <figcaption>① Heures fixes — ② Intervalle régulier — ③ Au démarrage de l'extension — ④⑤ Heures d'exécution (08:00 et 15:00) — ⑥ Enregistrer</figcaption>
                     </figure>
+                    <div class="info-box" style="margin-top: 0.75rem;">
+                        <strong>Pour que la règle s'exécute toute seule :</strong> ouvrez l'onglet
+                        <strong>Planification</strong>, cochez <strong>Planification activée</strong>,
+                        choisissez vos jours et horaires, puis cliquez sur
+                        <strong>Enregistrer la planification</strong>. Tant que la planification est
+                        désactivée (réglage par défaut), l'extension reste inactive : seule
+                        l'exécution manuelle (étape 8) fonctionne.
+                    </div>
                 </div>
             </div>
 
@@ -206,18 +215,18 @@
                 </div>
                 <div class="step-content">
                     <p class="step-description">
-                        Le popup CopyMove offre un raccourci pour exécuter une règle immédiatement,
-                        sans ouvrir la fenêtre Paramètres.
+                        La fenêtre de l'extension offre un raccourci pour exécuter une règle immédiatement,
+                        sans ouvrir les Paramètres. Il fonctionne même si l'extension est inactive.
                     </p>
                     <ol class="instructions">
                         <li>Cliquez sur l'icône CopyMove dans la barre d'outils de Thunderbird</li>
                         <li>Parcourez la fenêtre jusqu'à la section <strong>Exécution manuelle</strong></li>
-                        <li>Sélectionnez la règle à exécuter dans la liste</li>
+                        <li>Sélectionnez la règle à exécuter dans la liste, puis cliquez sur <strong>Exécuter cette règle</strong></li>
                         <li>Le résultat apparaît quelques instants plus tard dans la section Historique récent</li>
                     </ol>
                     <figure class="screenshot">
                         <img src="img/tutoriel_etape8.webp"
-                             alt="Popup CopyMove avec repères : ① icône dans la barre, ② section Exécution manuelle, ③ règle sélectionnée dans la liste, ④ résultat dans l'historique récent"
+                             alt="Fenêtre de CopyMove avec repères : ① icône dans la barre, ② section Exécution manuelle, ③ règle sélectionnée dans la liste, ④ résultat dans l'historique récent"
                              loading="lazy">
                         <figcaption>① Icône CopyMove — ② Exécution manuelle — ③ Sélectionnez votre règle — ④ Résultat dans l'historique récent</figcaption>
                     </figure>
@@ -228,7 +237,7 @@
             <div class="info-box">
                 <strong>Conseil :</strong> vérifiez dans votre dossier destination que les courriels
                 ont bien été copiés ou déplacés. Si le résultat n'est pas celui attendu,
-                consultez l'onglet <a href="documentation.html">Logs</a> pour identifier la cause.
+                consultez l'onglet <a href="documentation.html">Journal</a> pour identifier la cause.
             </div>
 
             <!-- Suite -->
@@ -237,7 +246,7 @@
                 <ul>
                     <li><a href="documentation.html">Documentation</a> — détail de chaque onglet de configuration</li>
                     <li><a href="faq.html">FAQ</a> — réponses aux questions courantes</li>
-                    <li><a href="popup.html">Le popup</a> — contrôle rapide et exécution manuelle</li>
+                    <li><a href="popup.html">La fenêtre de l'extension</a> — contrôle rapide et exécution manuelle</li>
                 </ul>
             </div>
 
