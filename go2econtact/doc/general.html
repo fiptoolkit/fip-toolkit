@@ -21,9 +21,9 @@
             sauf exception définie dans les Inclusions.
         </li>
         <li>
-            <strong>Délai d'envoi</strong> — Temps d'attente avant l'envoi de l'accusé de réception. 
-            Valeur par défaut : <strong>2 heures</strong> (recommandé). 
-            Plage disponible : 1 à 24 heures.
+            <strong>Délai d'envoi de l'AR</strong> — Temps d'attente avant l'envoi de l'accusé de réception. 
+            Valeur par défaut : <strong>1 heure</strong> (recommandé). 
+            Choix proposés : de 1 à 24 heures. En mode test, ce délai se règle en minutes.
         </li>
     </ul>
 </div>
@@ -56,12 +56,12 @@
             <strong>Adresses</strong> — une adresse courriel exacte à exclure.
         </li>
         <li>
-            <strong>Filtres automatiques</strong> — avec le caractère joker <code>*</code>. 
+            <strong>Patterns exclus (filtres automatiques)</strong> — avec le caractère joker <code>*</code>.
             Exemple : <code>noreply@*</code> exclut d'un seul coup tous les expéditeurs 
             "noreply", quel que soit leur domaine — 
             <code>noreply@banque.fr</code>, <code>noreply@client.com</code>, 
             <code>noreply@fournisseur.fr</code>, etc. 
-            Le bouton <strong>Ajouter les filtres par défaut</strong> 
+            Le bouton <strong>Ajouter les patterns par défaut</strong> 
             insère les plus courants d'un seul clic.
         </li>
         <li>
@@ -99,20 +99,25 @@
 
 <!-- SURVEILLANCE -->
 <div class="subsection">
-    <h3>Surveillance des courriels</h3>
+    <h3>Surveillance des emails</h3>
     <ul class="custom-list">
         <li>
             <strong>Comptes surveillés</strong> — un résumé affiche le nombre de comptes 
-            configurés et actifs. Le bouton <strong>Gérer les comptes et modèles</strong> 
+            configurés, ceux qui sont actifs (un modèle est défini) et ceux qui ne sont pas surveillés. 
+            Chaque compte apparaît sous forme de fiche, <em>Actif</em> ou <em>Inactif</em>. 
+            Un compte sans modèle reste inactif : aucun AR n'y est créé. 
+            Le bouton <strong>Gérer les comptes et modèles</strong> 
             renvoie directement vers l'onglet Modèles.
         </li>
         <li>
-            <strong>Dossiers personnalisés</strong> — si vos courriels externes arrivent dans 
-            un dossier autre que la Boîte de réception, indiquez son nom ici (un par ligne).
-            Exemple : <code>courriel externe</code>, <code>courriel interne</code>
+            <strong>Dossiers supplémentaires surveillés</strong> — la Boîte de réception est 
+            toujours surveillée. Si vos courriels externes arrivent aussi dans un autre dossier 
+            (par exemple un dossier alimenté par une règle de tri), ouvrez la fiche du compte 
+            et cliquez sur <strong>+ Ajouter un dossier</strong>. Les dossiers système 
+            (Envoyés, Brouillons, Corbeille…) ne peuvent pas être ajoutés ; 20 dossiers au maximum par compte.
         </li>
         <li>
-            <strong>Supprimer les AR du dossier Envoyés</strong> — activée par défaut, 
+            <strong>Supprimer les AR du dossier Envoyés après envoi</strong> — activée par défaut,
             cette option supprime automatiquement l'accusé de réception de votre dossier 
             Envoyés après son expédition, pour ne pas l'encombrer.
         </li>
@@ -126,6 +131,11 @@
         Quand cette case est cochée, Go2Econtact n'envoie des accusés de réception qu'à 
         <strong>une seule adresse</strong> — celle que vous indiquez. 
         Tous les autres courriels sont ignorés.
+    </p>
+    <p style="margin-top: 0.5rem;">
+        En mode test, le délai d'envoi se règle en minutes (de 2 à 10, 2 par défaut) 
+        pour que vous n'attendiez pas des heures. Un seul AR est créé toutes les 5 minutes 
+        pour une même adresse.
     </p>
     <p style="margin-top: 0.5rem;">
         C'est la façon la plus sûre de vérifier que tout fonctionne avant de passer 
@@ -149,16 +159,20 @@
     </p>
     <ul class="custom-list">
         <li>
-            <strong>Fenêtre anti-doublons</strong> — durée pendant laquelle 
-            Go2Econtact se souvient d'avoir déjà envoyé un AR à un expéditeur. 
-            Défaut : <strong>4 heures</strong> (plage : 1 à 48h). 
-            Cela évite d'envoyer plusieurs AR à la même personne si elle vous écrit 
-            plusieurs fois dans la journée.
+            <strong>Fenêtre de vérification des doublons</strong> — utile surtout si 
+            Go2Econtact tourne sur plusieurs ordinateurs avec la même boîte : avant de créer 
+            un AR, l'extension vérifie qu'un autre poste n'en a pas déjà programmé un pour le 
+            même expéditeur et le même sujet. Défaut : <strong>4 heures</strong> (plage : 1 à 48 h). 
+            Par ailleurs, un expéditeur ne reçoit jamais plus d'un AR par jour de la part d'un même poste.
         </li>
         <li>
-            <strong>Intervalle de surveillance</strong> — fréquence à laquelle 
-            Go2Econtact vérifie l'arrivée de nouveaux messages. 
-            Défaut : <strong>5 minutes</strong> (plage : 1 à 60 min).
+            <strong>Délai de vérification différée</strong> — parfois, le serveur de messagerie 
+            est lent et l'AR qui vient d'être préparé n'est pas encore visible dans les Brouillons. 
+            Go2Econtact refait alors une vérification plus tard, avant l'envoi, pour s'assurer 
+            que tout est en ordre (le même délai sert à un second essai de nettoyage du dossier Envoyés). 
+            Laissez le champ <strong>vide</strong> : le délai est alors calculé automatiquement (recommandé). 
+            Sinon, indiquez une valeur de 15 à 60 minutes ; un texte sous le champ précise 
+            la valeur réellement retenue. Sans effet en mode test.
         </li>
         <li>
             <strong>Nombre de tentatives</strong> — si un message tarde à apparaître 
@@ -171,13 +185,23 @@
             Défaut : <strong>2 secondes</strong> chacun.
         </li>
         <li>
-            <strong>Enregistrement complet des traces</strong> — active un journal 
+            <strong>Délai de synchronisation IMAP</strong> — pause laissée au serveur 
+            pour se synchroniser avant la recherche. Défaut : <strong>5 secondes</strong> ; 
+            augmentez si votre serveur est lent.
+        </li>
+        <li>
+            <strong>Activer l'enregistrement de tous les logs</strong> — active un journal 
             détaillé de toutes les opérations. Utile pour diagnostiquer un problème, 
             à désactiver ensuite.
         </li>
         <li>
-            <strong>Nom pour les exports</strong> — nom qui apparaîtra dans les fichiers 
-            exportés depuis l'onglet Statistiques. Laissez vide pour la détection automatique.
+            <strong>Nom utilisateur pour les fichiers CSV</strong> — nom qui apparaîtra dans les fichiers 
+            exportés (statistiques, analyse, configuration). Laissé vide : « Utilisateur-Inconnu ».
+        </li>
+        <li>
+            <strong>Exporter automatiquement après chaque enregistrement</strong> — 
+            à chaque clic sur <strong>Enregistrer la configuration</strong>, une copie 
+            du fichier de configuration est téléchargée.
         </li>
     </ul>
 </div>
@@ -191,12 +215,14 @@
     </p>
     <ul class="custom-list">
         <li>
-            <strong>Exporter la configuration</strong> — crée un fichier de sauvegarde complet 
+            <strong>Exporter configuration</strong> — crée un fichier de sauvegarde complet
             (filtrage, surveillance, paramètres avancés) que vous pouvez conserver ou transmettre.
         </li>
         <li>
-            <strong>Importer une configuration</strong> — restaure une configuration exportée 
-            précédemment. Une fenêtre de confirmation s'affiche avant l'import.
+            <strong>Importer configuration</strong> — restaure une configuration exportée 
+            précédemment. Une fenêtre de confirmation s'affiche avant l'import ; 
+            si le fichier contient l'identifiant Envoyer Plus Tard, elle vous demande de confirmer 
+            son remplacement.
         </li>
     </ul>
     <div class="warning-box" style="margin-top: 0.75rem;">

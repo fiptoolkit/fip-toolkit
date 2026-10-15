@@ -71,10 +71,11 @@
                     </div>
                     <div class="faq-answer">
                         <p>Cliquez sur l'icône Go2Econtact dans Thunderbird : le popup affiche un bouton bascule en haut. 
-                        Décochez-le pour suspendre l'envoi des accusés de réception.</p>
+                        Cochez-le pour activer l'extension, décochez-le pour suspendre l'envoi des accusés de réception.</p>
                         <div class="warning-box" style="margin-top: 0.75rem;">
                             <strong>À savoir :</strong> cette désactivation est temporaire — elle ne concerne que la session en cours. 
-                            Au prochain démarrage de Thunderbird, l'extension se réactive automatiquement.
+                            Au prochain démarrage de Thunderbird, son état est recalculé d'après la planification hebdomadaire 
+                            (par défaut, planification désactivée : l'extension démarre inactive).
                         </div>
                     </div>
                 </div>
@@ -84,8 +85,8 @@
                         Les courriels internes de mon organisation reçoivent-ils un accusé de réception ?
                     </div>
                     <div class="faq-answer">
-                        <p>Non, si vous avez renseigné votre domaine interne dans l'onglet <strong>Général</strong> 
-                        (champ "Domaine interne"). Tous les courriels provenant de ce domaine sont automatiquement exclus.</p>
+                        <p>Non, si vous avez renseigné votre domaine interne dans l'onglet <strong>Configuration</strong> 
+                        (champ "Domaines internes"). Tous les courriels provenant de ce domaine sont automatiquement exclus.</p>
                         <p style="margin-top: 0.5rem;">Si une adresse interne doit tout de même recevoir un AR, 
                         ajoutez-la dans les <strong>Inclusions</strong> — elles ont la priorité absolue.</p>
                     </div>
@@ -96,9 +97,9 @@
                         Comment éviter d'envoyer des AR aux newsletters et courriels automatiques ?
                     </div>
                     <div class="faq-answer">
-                        <p>Utilisez les <strong>Exclusions</strong> dans l'onglet Général :</p>
+                        <p>Utilisez les <strong>Exclusions</strong> dans l'onglet Configuration :</p>
                         <ul>
-                            <li><strong>Par filtre automatique</strong> — <code>noreply@*</code> exclut tous les expéditeurs "noreply" quel que soit leur domaine. Le bouton <strong>Ajouter les filtres par défaut</strong> insère les plus courants d'un clic.</li>
+                            <li><strong>Par pattern (filtre automatique)</strong> — <code>noreply@*</code> exclut tous les expéditeurs "noreply" quel que soit leur domaine. Le bouton <strong>Ajouter les patterns par défaut</strong> insère les plus courants d'un clic.</li>
                             <li><strong>Par sujet</strong> — <code>[CONTIENT]newsletter</code> exclut tous les courriels dont l'objet contient ce mot.</li>
                             <li><strong>Par domaine</strong> — excluez directement le domaine de l'expéditeur.</li>
                         </ul>
@@ -111,10 +112,11 @@
                         Un même expéditeur peut-il recevoir plusieurs accusés de réception ?
                     </div>
                     <div class="faq-answer">
-                        <p>Pas si la personne vous écrit plusieurs fois dans la même journée. Go2Econtact mémorise 
-                        les expéditeurs ayant déjà reçu un AR et n'en envoie pas un second pendant 
-                        <strong>4 heures</strong> (réglage par défaut, modifiable dans les Paramètres avancés).</p>
-                        <p style="margin-top: 0.5rem;">Au-delà de cette fenêtre, un nouvel AR sera envoyé normalement.</p>
+                        <p>Non, pas le même jour : Go2Econtact mémorise les expéditeurs ayant déjà reçu un AR 
+                        et n'en crée qu'un seul par jour pour chacun, même s'il vous écrit plusieurs fois.</p>
+                        <p style="margin-top: 0.5rem;">Si Go2Econtact est installé sur plusieurs ordinateurs avec la même boîte, 
+                        chaque poste vérifie aussi qu'un autre n'a pas déjà programmé le même AR 
+                        (fenêtre de <strong>4 heures</strong> par défaut, modifiable dans les Paramètres avancés).</p>
                     </div>
                 </div>
 
@@ -124,6 +126,22 @@
             <div class="category">
                 <div class="category-header">
                     <h2 class="category-title">Problèmes courants</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Aucun accusé de réception n'est créé, alors que tout est configuré
+                    </div>
+                    <div class="faq-answer">
+                        <p>Vérifiez dans cet ordre :</p>
+                        <ul>
+                            <li>Le popup indique bien <strong>Extension active</strong> : par défaut, l'extension démarre inactive à chaque lancement de Thunderbird</li>
+                            <li>Le compte concerné est <em>Actif</em> (un modèle est défini) dans l'onglet Configuration</li>
+                            <li>Le code d'identification Envoyer Plus Tard est renseigné</li>
+                            <li>Le mode test n'est pas resté coché</li>
+                            <li>L'onglet <strong>Analyse</strong> indique la décision prise pour ce courriel (Exclu, Doublon évité, Ignoré…)</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="faq-item">
@@ -168,6 +186,19 @@
                             Comportement normal : l'accusé de réception doit apparaître dans le dossier
                             Brouillons du compte de messagerie, puis partir après le délai configuré (1 heure par défaut).
                         </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        J'ai reçu un courriel « Vérification requise : AR non détecté »
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le serveur de messagerie était lent : Go2Econtact n'a pas pu confirmer que l'accusé de réception 
+                        était bien dans les Brouillons.</p>
+                        <p style="margin-top: 0.5rem;">Ouvrez le dossier <strong>Brouillons</strong> dans les 10 minutes qui suivent. 
+                        Si l'AR s'y trouve, tout va bien. Sinon, créez-le à la main. Au plus une alerte de ce type est envoyée par heure. 
+                        L'onglet <strong>Analyse</strong> affiche alors la décision « Incertain » pour ce courriel.</p>
                     </div>
                 </div>
 

@@ -15,40 +15,56 @@
     <h3>Historique des événements</h3>
     <p>Chaque ligne correspond à un courriel reçu, avec les colonnes suivantes :</p>
     <ul class="custom-list">
-        <li><strong>N°</strong> — numéro de séquence de l'événement</li>
+        <li><strong>N°</strong> — numéro de la ligne dans la liste affichée (il change si vous appliquez un filtre)</li>
         <li><strong>Date/Heure</strong> — quand le message a été reçu</li>
         <li><strong>Expéditeur</strong> — adresse de l'envoyeur</li>
         <li>
             <strong>Décision</strong> — ce que Go2Econtact a fait :
             <em>AR créé</em>, <em>Exclu</em>, <em>Inclus (forcé)</em>, 
-            <em>Doublon évité</em> ou <em>Ignoré</em>
+            <em>Doublon évité</em>, <em>Ignoré</em>, <em>Incertain</em> ou <em>Erreur</em>
         </li>
         <li><strong>Règle appliquée</strong> — la règle précise qui a déclenché cette décision</li>
-        <li><strong>Sujet</strong> — l'objet de l'courriel reçu</li>
+        <li><strong>Sujet</strong> — l'objet du courriel reçu</li>
     </ul>
 
     <figure class="screenshot">
         <img src="img/analyse.webp"
              alt="Tableau d'analyse des événements Go2Econtact"
              loading="lazy">
-        <figcaption>Tableau d'analyse — décisions colorées par type (AR créé, Exclu, Doublon, Ignoré)</figcaption>
+        <figcaption>Tableau d'analyse — décisions colorées par type (AR créé, Exclu, Doublon, Ignoré, Incertain…)</figcaption>
     </figure>
+    <p>
+        Les 100 lignes les plus récentes sont affichées ; l'export CSV, lui, contient 
+        toutes les lignes correspondant à vos filtres.
+    </p>
+</div>
+
+<div class="subsection">
+    <h3>La décision « Incertain »</h3>
+    <p>
+        Parfois, le serveur de messagerie est lent et l'AR qui vient d'être préparé 
+        n'est pas encore visible dans les Brouillons. Go2Econtact note alors la ligne 
+        <em>Incertain</em> et programme une vérification plus tard. Si l'AR est retrouvé, 
+        la ligne devient <em>AR créé</em>. Sinon, elle reste <em>Incertain</em> et un courriel 
+        d'alerte est envoyé à l'adresse du compte : il vous invite à vérifier vos Brouillons. 
+        En mode test, cette seconde vérification n'a pas lieu.
+    </p>
 </div>
 
 <div class="subsection">
     <h3>Filtres</h3>
     <p>
         Le tableau peut être filtré par période, par expéditeur (recherche libre), 
-        par type de décision ou par type d'événement (message nouveau ou déplacé). 
+        par type de décision ou par type d'événement (« Nouveau »).
         Combinez les filtres pour isoler rapidement un expéditeur ou comprendre 
-        pourquoi un AR n'a pas été envoyé.
+        pourquoi un AR n'a pas été envoyé. Les filtres sont remis à zéro à chaque ouverture de l'onglet.
     </p>
 </div>
 
 <div class="subsection">
     <h3>Analyse détaillée</h3>
     <p>
-        Deux listes complètent le tableau :
+        Deux listes complètent le tableau (elles tiennent compte des filtres appliqués) :
     </p>
     <ul class="custom-list">
         <li><strong>Top 5 règles appliquées</strong> — les règles qui se déclenchent le plus souvent, utiles pour affiner vos exclusions</li>
@@ -59,7 +75,7 @@
 <div class="subsection">
     <h3>Actions</h3>
     <ul class="custom-list">
-        <li><strong>Actualiser</strong> — recharge les données depuis le dernier démarrage de Thunderbird</li>
+        <li><strong>Actualiser</strong> — recharge les données (l'affichage se met déjà à jour tout seul)</li>
         <li><strong>Exporter CSV</strong> — sauvegarde le tableau filtré dans un fichier tableur</li>
         <li><strong>Effacer données</strong> — supprime l'historique d'analyse</li>
     </ul>

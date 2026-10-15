@@ -22,10 +22,10 @@
     <p>Cinq indicateurs résument l'activité sur la période affichée :</p>
     <ul class="custom-list">
         <li><strong>Courriels traités</strong> — nombre total de messages reçus et analysés</li>
-        <li><strong>AR créés</strong> — nombre d'accusés de réception effectivement générés</li>
+        <li><strong>AR créés</strong> — nombre d'accusés de réception effectivement générés (un AR d'abord « Incertain » est compté dès que sa vérification le confirme)</li>
         <li><strong>Doublons évités</strong> — AR non envoyés car un AR avait déjà été adressé récemment au même expéditeur</li>
         <li><strong>Courriels exclus</strong> — messages ignorés car correspondant à une règle d'exclusion</li>
-        <li><strong>Erreurs</strong> — incidents rencontrés pendant le traitement</li>
+        <li><strong>Erreurs</strong> — échecs rencontrés pendant le traitement (un AR simplement « Incertain » n'en fait pas partie)</li>
     </ul>
 </div>
 
@@ -55,4 +55,12 @@
         Si Go2Econtact est installé sur plusieurs postes de travail, exportez le CSV de 
         chaque poste séparément pour obtenir une vue consolidée de l'activité globale.
     </div>
+</div>
+
+<div class="subsection">
+    <h3>Gestion des données</h3>
+    <ul class="custom-list">
+        <li><strong>Actualiser</strong> — recharge les chiffres (ils se mettent déjà à jour en temps réel)</li>
+        <li><strong>Réinitialiser statistiques</strong> — efface les compteurs, après confirmation. L'onglet Analyse n'est pas concerné.</li>
+    </ul>
 </div>

@@ -32,19 +32,36 @@
                 </figure>
             </div>
 
+            <!-- Contenu du popup -->
+            <div class="section">
+                <h2>Ce que contient le popup</h2>
+                <ul class="custom-list">
+                    <li><strong>Paramètres</strong> — ouvre la page de configuration</li>
+                    <li><strong>Bandeau d'état</strong> — indique en clair si l'extension travaille ou non, et pourquoi</li>
+                    <li><strong>Bouton bascule</strong> — active ou suspend l'extension</li>
+                    <li><strong>Aujourd'hui</strong> — le mode prévu pour la journée, avec un ajustement ponctuel</li>
+                    <li><strong>Planification hebdomadaire</strong> — le mode de chaque jour de la semaine</li>
+                    <li><strong>Liens du bas</strong> — Aide &amp; Documentation, Contact, GitHub et Diagnostic (ce dernier ouvre l'onglet Logs)</li>
+                </ul>
+            </div>
+
             <!-- Toggle -->
             <div class="section">
                 <h2>Activer / désactiver l'extension</h2>
 
                 <p>
-                    Le bouton bascule en haut du popup permet de suspendre Go2Econtact 
+                    Le bouton bascule en haut du popup active ou suspend Go2Econtact 
                     pour la session en cours. Décochez-le pour arrêter temporairement 
-                    la création d'accusés de réception.
+                    la création d'accusés de réception ; cochez-le pour la reprendre.
                 </p>
 
                 <div class="warning-box" style="margin-top: 0.75rem;">
-                    <strong>Temporaire uniquement :</strong> au prochain démarrage de Thunderbird, 
-                    l'extension se réactivera automatiquement. Ce réglage ne modifie pas votre configuration.
+                    <strong>Valable jusqu'au prochain démarrage de Thunderbird :</strong> l'état de l'extension 
+                    est alors recalculé d'après la planification hebdomadaire. Tant que celle-ci est désactivée 
+                    (c'est le cas par défaut), l'extension démarre <strong>inactive</strong> : pensez à la réactiver 
+                    à chaque lancement, ou activez la planification. Ce réglage ne modifie pas votre configuration. 
+                    Si la configuration est incomplète (code Envoyer Plus Tard absent ou aucun compte avec modèle), 
+                    l'activation est refusée et le popup en indique la raison.
                 </div>
             </div>
 
@@ -58,7 +75,7 @@
                 </p>
 
                 <ul class="custom-list">
-                    <li><strong>✓ ON toute la journée</strong> — l'extension fonctionne en continu</li>
+                    <li><strong>✓ ON toute la journée</strong> — l'extension est active toute la journée</li>
                     <li><strong>✗ OFF toute la journée</strong> — l'extension est désactivée</li>
                     <li><strong>⏰ OFF automatique à [heure]</strong> — l'extension s'arrêtera à l'heure prévue</li>
                 </ul>
@@ -66,7 +83,12 @@
                 <p style="margin-top: 0.75rem;">
                     Le bouton <strong>Ajuster pour aujourd'hui</strong> permet de modifier 
                     ponctuellement ce comportement sans toucher à la planification hebdomadaire. 
-                    L'ajustement ne vaut que pour la journée en cours.
+                    L'ajustement ne vaut que pour la journée en cours (jusqu'à minuit) et fonctionne 
+                    même si la planification hebdomadaire est désactivée. Une heure d'arrêt doit être 
+                    une heure à venir. Il prend le pas sur le bouton bascule, et inversement : 
+                    le dernier geste l'emporte. Si la planification est désactivée, le popup affiche 
+                    « Planification désactivée - Extension contrôlée manuellement ». Le bouton est grisé 
+                    quand la configuration est incomplète ou que l'extension a été désactivée à la main.
                 </p>
 
                 <figure class="screenshot">
@@ -89,14 +111,16 @@
 
                 <p style="margin-top: 0.5rem;">
                     Un bouton bascule active ou désactive l'ensemble du planificateur. 
-                    Quand il est désactivé, l'extension fonctionne en continu sans arrêt automatique.
+                    Quand il est désactivé, les réglages de chaque jour sont ignorés et l'extension reste 
+                    inactive, sauf si vous l'activez vous-même avec le bouton bascule. 
+                    Ce bouton agit tout de suite, sans clic sur « Enregistrer la planification ».
                 </p>
 
                 <h3 style="margin-top: 1.25rem;">Trois modes par jour</h3>
                 <ul class="custom-list">
-                    <li><strong>✓ ON toute la journée</strong> — fonctionnement continu ou arrêté (typiquement le week-end)</li>
+                    <li><strong>✓ ON toute la journée</strong> — l'extension est active toute la journée (typiquement le week-end)</li>
                     <li><strong>✗ OFF toute la journée</strong> — extension désactivée pour la journée</li>
-                    <li><strong>⏰ OFF automatique</strong> — le bascule passe à OFF à l'heure choisie. Vous pouvez le réactiver manuellement si besoin.</li>
+                    <li><strong>⏰ OFF automatique</strong> — le bouton bascule passe à OFF à l'heure choisie. Vous pouvez le réactiver manuellement si besoin, jusqu'au prochain démarrage de Thunderbird.</li>
                 </ul>
 
                 <div class="requirement-box" style="margin-top: 1rem;">
@@ -109,7 +133,8 @@
                 </div>
 
                 <p style="margin-top: 0.75rem;">
-                    Cliquez sur <strong>Enregistrer la planification</strong> pour valider vos réglages.
+                    Cliquez sur <strong>Enregistrer la planification</strong> pour valider les réglages de chaque jour 
+                    (le bouton bascule de la planification, lui, agit immédiatement).
                 </p>
 
                 <figure class="screenshot">
