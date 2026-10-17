@@ -21,9 +21,9 @@
             sauf exception définie dans les Inclusions.
         </li>
         <li>
-            <strong>Délai d'envoi de l'AR</strong> — Temps d'attente avant l'envoi de l'accusé de réception. 
-            Valeur par défaut : <strong>1 heure</strong> (recommandé). 
-            Choix proposés : de 1 à 24 heures. En mode test, ce délai se règle en minutes.
+            <strong>Délai d'envoi de l'accusé de réception</strong> — Temps d'attente avant l'envoi de l'accusé de réception.
+            Valeur par défaut : <strong>1 heure</strong> (recommandé).
+            Choix proposés : 1, 2, 3, 4, 6, 12 ou 24 heures. En mode test, ce délai se règle en minutes.
         </li>
     </ul>
 </div>
@@ -99,7 +99,7 @@
 
 <!-- SURVEILLANCE -->
 <div class="subsection">
-    <h3>Surveillance des emails</h3>
+    <h3>Surveillance des courriels</h3>
     <ul class="custom-list">
         <li>
             <strong>Comptes surveillés</strong> — un résumé affiche le nombre de comptes 
@@ -110,8 +110,8 @@
             renvoie directement vers l'onglet Modèles.
         </li>
         <li>
-            <strong>Dossiers supplémentaires surveillés</strong> — la Boîte de réception est 
-            toujours surveillée. Si vos courriels externes arrivent aussi dans un autre dossier 
+            <strong>Dossiers supplémentaires surveillés</strong> — le Courrier entrant est
+            toujours surveillé. Si vos courriels externes arrivent aussi dans un autre dossier
             (par exemple un dossier alimenté par une règle de tri), ouvrez la fiche du compte 
             et cliquez sur <strong>+ Ajouter un dossier</strong>. Les dossiers système 
             (Envoyés, Brouillons, Corbeille…) ne peuvent pas être ajoutés ; 20 dossiers au maximum par compte.
@@ -232,7 +232,14 @@
     </div>
 </div>
 
+<div class="warning-box">
+    <strong>Attention :</strong> le bouton <strong>Réinitialiser tout</strong>, en bas de l'onglet,
+    remet l'extension dans son état d'origine après confirmation : configuration, modèles,
+    planification, historique anti-doublons, statistiques, analyse et journal sont effacés,
+    sans retour possible. Exportez votre configuration avant si vous voulez pouvoir la restaurer.
+</div>
+
 <div class="info-box">
-    N'oubliez pas de cliquer sur <strong>Enregistrer la configuration</strong> en bas 
+    N'oubliez pas de cliquer sur <strong>Enregistrer la configuration</strong> en bas
     de l'onglet après toute modification.
 </div>
